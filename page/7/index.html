@@ -77,46 +77,6 @@
     
         <article class="post-abstract">
             <div class="post-title">
-                <h2><a class="post-title-link" href="/2017/03/28/20170331-lionshare/">lionshare</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2017-03-28</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h1 id="lionshare-api"><a href="#lionshare-api" class="headerlink" title="lionshare-api"></a>lionshare-api</h1><h2 id="API-Summary"><a href="#API-Summary" class="headerlink" title="API Summary"></a>API Summary</h2><p>API that powers <a href="https://lionshare.capital" target="_blank" rel="noopener">Lionshare</a> by providing both historical (REST) and realtime time (websocket) cryptocurrency market data. The data is sourced from <a href="https://gdax.com" target="_blank" rel="noopener">GDAX</a>, <a href="https://poloniex.com/" target="_blank" rel="noopener">Poloniex</a>, and <a href="https://coinmarketcap.com/" target="_blank" rel="noopener">Coinmarketcap</a>.</p>
-<h2 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h2><p>Let’s get a feel for what we’re working with:</p>
-<p>Summary of packages:</p>
-<ul>
-<li>babel - transforming</li>
-<li>koa – server and middleware</li>
-<li>websockets – web socket collection</li>
-<li>autobahn – web application messaging protocol</li>
-<li>redis – redis client</li>
-<li>utilities – bluebird-promises, cross-env, dotenv, http-error, iso-fetch</li>
-<li>utilities – ms, now-logs, pm2, safestart, semver</li>
-</ul>
-<p>Directory Structure</p>
-<pre><code>src
-├── api           // api server
-├── db            // redis
-├── exchange      // exchange server
-├── utils
-├── ws            // web socket server
-├── check.js
-├── index.js
-└── init.js
-</code></pre><h2 id="API-Data"><a href="#API-Data" class="headerlink" title="API Data"></a>API Data</h2><h3 id="Prices"><a href="#Prices" class="headerlink" title="Prices"></a>Prices</h3><figure class="highlight json"><figcaption><span>'GET api.lionshare.capital/api/prices?period</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>: &#123;</span><br><span class="line">    <span class="attr">"BTC"</span>: [<span class="number">924.2</span>, <span class="number">924.63</span>, <span class="number">923.82</span>, <span class="number">923.02</span>, <span class="number">924.82</span>, ...],</span><br><span class="line">    <span class="attr">"ETH"</span>: [<span class="number">10.74</span>, <span class="number">10.8</span>, <span class="number">10.79</span>, <span class="number">10.82</span>, <span class="number">10.82</span>, <span class="number">10.84</span>, <span class="number">10.78</span>, ...],</span><br><span class="line">    <span class="attr">"LTC"</span>: [<span class="number">3.88</span>, <span class="number">3.86</span>, <span class="number">3.85</span>, <span class="number">3.85</span>, <span class="number">3.86</span>, <span class="number">3.86</span>, <span class="number">3.84</span>, ...]</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Markets"><a href="#Markets" class="headerlink" title="Markets"></a>Markets</h3><figure class="highlight"><figcaption><span>'GET api.lionshare.capital/api/markets'</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>: &#123;</span><br><span class="line">    <span class="attr">"BTC"</span>: <span class="number">14718750986</span>,</span><br><span class="line">    <span class="attr">"ETH"</span>: <span class="number">943628626</span>,</span><br><span class="line">    <span class="attr">"LTC"</span>: <span class="number">188560718</span>,</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Updates"><a href="#Updates" class="headerlink" title="Updates"></a>Updates</h3><figure class="highlight"><figcaption><span>'GET api/updates?v</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  url: "https://github.com/lionsharecapital/lionshare-desktop/releases/download/v1.1.0/Lionshare-1.1.0-mac.zip",</span><br><span class="line">  name: "Lionshare 1.1.0",</span><br><span class="line">  notes: "- 💵 New currencies: IOC, SC, SJCX and DCR - ⌨ Keyboard shortcuts for prices and portfolio (Cmd+1/2) - ＄ Fixed formatting for non-US dollar currencies - 🐳 Fixed number formatting for whale users - 🛠 Various bug fixes and improvements ",</span><br><span class="line">  pub_date: "2017-02-06T01:51:06Z"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
                 <h2><a class="post-title-link" href="/2017/03/28/20170328-facebook-react-perf/">facebook on react performance</a></h2>
             </div>
             <div class="post-meta">
@@ -160,6 +120,46 @@
 <li><a href="https://goo.gl/wnrjbi" target="_blank" rel="noopener">Optimizing React Performance</a></li>
 <li><a href="https://goo.gl/NBWYm3" target="_blank" rel="noopener">Should I use shouldComponentUpdate?</a></li>
 </ul>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2017/03/28/20170331-lionshare/">lionshare</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2017-03-28</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h1 id="lionshare-api"><a href="#lionshare-api" class="headerlink" title="lionshare-api"></a>lionshare-api</h1><h2 id="API-Summary"><a href="#API-Summary" class="headerlink" title="API Summary"></a>API Summary</h2><p>API that powers <a href="https://lionshare.capital" target="_blank" rel="noopener">Lionshare</a> by providing both historical (REST) and realtime time (websocket) cryptocurrency market data. The data is sourced from <a href="https://gdax.com" target="_blank" rel="noopener">GDAX</a>, <a href="https://poloniex.com/" target="_blank" rel="noopener">Poloniex</a>, and <a href="https://coinmarketcap.com/" target="_blank" rel="noopener">Coinmarketcap</a>.</p>
+<h2 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h2><p>Let’s get a feel for what we’re working with:</p>
+<p>Summary of packages:</p>
+<ul>
+<li>babel - transforming</li>
+<li>koa – server and middleware</li>
+<li>websockets – web socket collection</li>
+<li>autobahn – web application messaging protocol</li>
+<li>redis – redis client</li>
+<li>utilities – bluebird-promises, cross-env, dotenv, http-error, iso-fetch</li>
+<li>utilities – ms, now-logs, pm2, safestart, semver</li>
+</ul>
+<p>Directory Structure</p>
+<pre><code>src
+├── api           // api server
+├── db            // redis
+├── exchange      // exchange server
+├── utils
+├── ws            // web socket server
+├── check.js
+├── index.js
+└── init.js
+</code></pre><h2 id="API-Data"><a href="#API-Data" class="headerlink" title="API Data"></a>API Data</h2><h3 id="Prices"><a href="#Prices" class="headerlink" title="Prices"></a>Prices</h3><figure class="highlight json"><figcaption><span>'GET api.lionshare.capital/api/prices?period</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>: &#123;</span><br><span class="line">    <span class="attr">"BTC"</span>: [<span class="number">924.2</span>, <span class="number">924.63</span>, <span class="number">923.82</span>, <span class="number">923.02</span>, <span class="number">924.82</span>, ...],</span><br><span class="line">    <span class="attr">"ETH"</span>: [<span class="number">10.74</span>, <span class="number">10.8</span>, <span class="number">10.79</span>, <span class="number">10.82</span>, <span class="number">10.82</span>, <span class="number">10.84</span>, <span class="number">10.78</span>, ...],</span><br><span class="line">    <span class="attr">"LTC"</span>: [<span class="number">3.88</span>, <span class="number">3.86</span>, <span class="number">3.85</span>, <span class="number">3.85</span>, <span class="number">3.86</span>, <span class="number">3.86</span>, <span class="number">3.84</span>, ...]</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Markets"><a href="#Markets" class="headerlink" title="Markets"></a>Markets</h3><figure class="highlight"><figcaption><span>'GET api.lionshare.capital/api/markets'</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>: &#123;</span><br><span class="line">    <span class="attr">"BTC"</span>: <span class="number">14718750986</span>,</span><br><span class="line">    <span class="attr">"ETH"</span>: <span class="number">943628626</span>,</span><br><span class="line">    <span class="attr">"LTC"</span>: <span class="number">188560718</span>,</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Updates"><a href="#Updates" class="headerlink" title="Updates"></a>Updates</h3><figure class="highlight"><figcaption><span>'GET api/updates?v</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  url: "https://github.com/lionsharecapital/lionshare-desktop/releases/download/v1.1.0/Lionshare-1.1.0-mac.zip",</span><br><span class="line">  name: "Lionshare 1.1.0",</span><br><span class="line">  notes: "- 💵 New currencies: IOC, SC, SJCX and DCR - ⌨ Keyboard shortcuts for prices and portfolio (Cmd+1/2) - ＄ Fixed formatting for non-US dollar currencies - 🐳 Fixed number formatting for whale users - 🛠 Various bug fixes and improvements ",</span><br><span class="line">  pub_date: "2017-02-06T01:51:06Z"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
                 
             </div>
