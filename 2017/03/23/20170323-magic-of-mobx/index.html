@@ -188,7 +188,9 @@ Rendering CartTotalView
         
         <div class="post-tag">
             
-            <a class="tag" href="/tags/react-mobx/" title="react mobx">react mobx</a>
+            <a class="tag" href="/tags/reactjs/" title="reactjs">reactjs</a>
+            
+            <a class="tag" href="/tags/mobx/" title="mobx">mobx</a>
             
         </div>
         
@@ -247,6 +249,17 @@ Rendering CartTotalView
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
+    
+    var gitment = new Gitment({
+        id: 'magic of mobx',
+        owner: 'dearfrankg',
+        repo: 'blog-comments',
+        oauth: {
+            client_id: '1e06b3865efbfdedf5d0',
+            client_secret: 'cd2f93735df5d8dfa8acda7897bcf8bae1559f9b'
+        }
+    });
+    gitment.render('comment-container');
     
 
 </script>

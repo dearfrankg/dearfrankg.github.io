@@ -184,9 +184,9 @@ curl -I foo.debugtime.com
 <div class="paginator">
     
         
-            <a class="prev" href="/2016/11/19/20161119-gitlab-setup/">
+            <a class="prev" href="/2016/11/19/20161119-docker-retrospective/">
                 <i class="iconfont icon-prev"></i>
-                <span class="nav-default">Gitlab Setup</span>
+                <span class="nav-default">Docker – Retrospective</span>
                 <span class="nav-mobile">Prev</span>
             </a>
         
@@ -234,6 +234,17 @@ curl -I foo.debugtime.com
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
+    
+    var gitment = new Gitment({
+        id: 'Docker – nginx-proxy',
+        owner: 'dearfrankg',
+        repo: 'blog-comments',
+        oauth: {
+            client_id: '1e06b3865efbfdedf5d0',
+            client_secret: 'cd2f93735df5d8dfa8acda7897bcf8bae1559f9b'
+        }
+    });
+    gitment.render('comment-container');
     
 
 </script>

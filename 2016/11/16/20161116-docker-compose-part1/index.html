@@ -184,6 +184,17 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
     
+    var gitment = new Gitment({
+        id: 'Docker – Docker Compose Part 1',
+        owner: 'dearfrankg',
+        repo: 'blog-comments',
+        oauth: {
+            client_id: '1e06b3865efbfdedf5d0',
+            client_secret: 'cd2f93735df5d8dfa8acda7897bcf8bae1559f9b'
+        }
+    });
+    gitment.render('comment-container');
+    
 
 </script>
 </html>

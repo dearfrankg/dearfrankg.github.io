@@ -142,6 +142,12 @@ curl localhost:8080/protected   --header &quot;authorization: Bearer $TOKEN&quot
 </code></pre>
         </div>
         
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/authorization/" title="authorization">authorization</a>
+            
+        </div>
+        
     </article>
 </div>
 <div class="paginator">
@@ -197,6 +203,17 @@ curl localhost:8080/protected   --header &quot;authorization: Bearer $TOKEN&quot
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
+    
+    var gitment = new Gitment({
+        id: 'Using Oauth2',
+        owner: 'dearfrankg',
+        repo: 'blog-comments',
+        oauth: {
+            client_id: '1e06b3865efbfdedf5d0',
+            client_secret: 'cd2f93735df5d8dfa8acda7897bcf8bae1559f9b'
+        }
+    });
+    gitment.render('comment-container');
     
 
 </script>

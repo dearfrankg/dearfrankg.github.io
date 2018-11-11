@@ -352,7 +352,7 @@
                     03-28
                 </span>
                 <span class="archive-post-title">
-                    <a class="archive-post-link" href="/2017/03/28/20170331-lionshare/">lionshare</a>
+                    <a class="archive-post-link" href="/2017/03/28/20170328-facebook-react-perf/">facebook on react performance</a>
                 </span>
             </div>
         
@@ -366,7 +366,7 @@
                     03-28
                 </span>
                 <span class="archive-post-title">
-                    <a class="archive-post-link" href="/2017/03/28/20170328-facebook-react-perf/">facebook on react performance</a>
+                    <a class="archive-post-link" href="/2017/03/28/20170331-lionshare/">lionshare</a>
                 </span>
             </div>
         
@@ -651,7 +651,7 @@
                     12-01
                 </span>
                 <span class="archive-post-title">
-                    <a class="archive-post-link" href="/2016/12/01/20161201-create-react-app/">ReactJS – create-react-app</a>
+                    <a class="archive-post-link" href="/2016/12/01/20161201-create-react-app/">create-react-app</a>
                 </span>
             </div>
         
@@ -679,7 +679,7 @@
                     11-19
                 </span>
                 <span class="archive-post-title">
-                    <a class="archive-post-link" href="/2016/11/19/20161119-retrospective/">Docker – Retrospective</a>
+                    <a class="archive-post-link" href="/2016/11/19/20161119-gitlab-setup/">Gitlab Setup</a>
                 </span>
             </div>
         
@@ -693,7 +693,7 @@
                     11-19
                 </span>
                 <span class="archive-post-title">
-                    <a class="archive-post-link" href="/2016/11/19/20161119-gitlab-setup/">Gitlab Setup</a>
+                    <a class="archive-post-link" href="/2016/11/19/20161119-docker-retrospective/">Docker – Retrospective</a>
                 </span>
             </div>
         
@@ -963,6 +963,17 @@
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
+    
+    var gitment = new Gitment({
+        id: '',
+        owner: 'dearfrankg',
+        repo: 'blog-comments',
+        oauth: {
+            client_id: '1e06b3865efbfdedf5d0',
+            client_secret: 'cd2f93735df5d8dfa8acda7897bcf8bae1559f9b'
+        }
+    });
+    gitment.render('comment-container');
     
 
 </script>

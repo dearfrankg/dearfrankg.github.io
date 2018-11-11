@@ -185,7 +185,9 @@ npm run start
         
         <div class="post-tag">
             
-            <a class="tag" href="/tags/react-performance/" title="react performance">react performance</a>
+            <a class="tag" href="/tags/reactjs/" title="reactjs">reactjs</a>
+            
+            <a class="tag" href="/tags/performance/" title="performance">performance</a>
             
         </div>
         
@@ -244,6 +246,17 @@ npm run start
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
+    
+    var gitment = new Gitment({
+        id: 'understanding react performance',
+        owner: 'dearfrankg',
+        repo: 'blog-comments',
+        oauth: {
+            client_id: '1e06b3865efbfdedf5d0',
+            client_secret: 'cd2f93735df5d8dfa8acda7897bcf8bae1559f9b'
+        }
+    });
+    gitment.render('comment-container');
     
 
 </script>

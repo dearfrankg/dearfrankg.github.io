@@ -243,6 +243,8 @@
             
             <a class="tag" href="/tags/reactjs/" title="reactjs">reactjs</a>
             
+            <a class="tag" href="/tags/create-react-app/" title="create-react-app">create-react-app</a>
+            
         </div>
         
     </article>
@@ -252,13 +254,13 @@
         
             <a class="prev" href="/2016/12/01/20161201-create-react-app/">
                 <i class="iconfont icon-prev"></i>
-                <span class="nav-default">ReactJS – create-react-app</span>
+                <span class="nav-default">create-react-app</span>
                 <span class="nav-mobile">Prev</span>
             </a>
         
         
-            <a class="next" href="/2016/11/19/20161119-retrospective/">
-                <span class="nav-default">Docker – Retrospective</span>
+            <a class="next" href="/2016/11/19/20161119-gitlab-setup/">
+                <span class="nav-default">Gitlab Setup</span>
                 <span class="nav-mobile">Next</span>
                 <i class="iconfont icon-next"></i>
             </a>
@@ -300,6 +302,17 @@
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
+    
+    var gitment = new Gitment({
+        id: 'ReactJS – React Refresher',
+        owner: 'dearfrankg',
+        repo: 'blog-comments',
+        oauth: {
+            client_id: '1e06b3865efbfdedf5d0',
+            client_secret: 'cd2f93735df5d8dfa8acda7897bcf8bae1559f9b'
+        }
+    });
+    gitment.render('comment-container');
     
 
 </script>

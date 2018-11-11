@@ -77,7 +77,7 @@
     
         <article class="post-abstract">
             <div class="post-title">
-                <h2><a class="post-title-link" href="/2016/11/19/20161119-gitlab-setup/">Gitlab Setup</a></h2>
+                <h2><a class="post-title-link" href="/2016/11/19/20161119-docker-retrospective/">Docker – Retrospective</a></h2>
             </div>
             <div class="post-meta">
                 <span class="post-time">2016-11-19</span>
@@ -85,48 +85,98 @@
             </div>
             <div class="post-content">
                 
-                    <h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>There are 2 flavors</p>
+                    <p>Time to evaluate my docker training</p>
+<h2 id="Training-Curriculum"><a href="#Training-Curriculum" class="headerlink" title="Training Curriculum"></a>Training Curriculum</h2><h4 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started:"></a>Getting Started:</h4><p>Use docker CLI to:</p>
 <ul>
-<li>Community Edition</li>
-<li>Enterprise Edition</li>
+<li><code>images</code>: list, run, tag and build images</li>
+<li><code>containers</code>: list-running, list-all, start, stop, restart</li>
+<li><code>docker hub</code>: create account, find, pull and push images</li>
 </ul>
-<p>Omnibus is a way to package different services and tools required to run GitLab, so that most of developers can install it without laborious configuration</p>
-<h2 id="Resources"><a href="#Resources" class="headerlink" title="Resources:"></a>Resources:</h2><ul>
-<li><a href="https://goo.gl/8KCB00" target="_blank" rel="noopener">Omnibus GitLab documentation</a></li>
-<li><a href="https://goo.gl/tuOdyy" target="_blank" rel="noopener">Community Edition Repo</a></li>
-<li><a href="https://goo.gl/siAOxa" target="_blank" rel="noopener">Getting help with Gitlab</a></li>
-<li><a href="https://docs.gitlab.com/ce/api/README.html" target="_blank" rel="noopener">Gitlab API docs</a></li>
+<h4 id="Learn-By-Example"><a href="#Learn-By-Example" class="headerlink" title="Learn By Example:"></a>Learn By Example:</h4><p>Use docker CLI to:</p>
+<p>run apps</p>
+<ul>
+<li><code>containers</code>: run ephemeral, interactive and daemonized containers</li>
+<li><code>containers</code>: show logs, start, stop, restart and remove containers</li>
 </ul>
-<h2 id="Install-and-Configure-Gitlab"><a href="#Install-and-Configure-Gitlab" class="headerlink" title="Install and Configure Gitlab"></a>Install and Configure Gitlab</h2><ul>
-<li><a href="https://goo.gl/QcA8iM" target="_blank" rel="noopener">Set up the GitLab in Docker container</a></li>
+<p>work with containers</p>
+<ul>
+<li><code>docker</code>: show client/server versions, use docker help</li>
+<li><code>containers</code>: start, stop, restart and remove containers</li>
+<li><code>containers</code>: assign name</li>
+<li><code>containers</code>: get ports, logs, processes</li>
+<li><code>containers</code>: inspect, inspect range</li>
 </ul>
-<ol>
-<li>create docker host (gitlab)</li>
-<li>switch control to docker host</li>
-<li>run gitlab image (downloads and configures in one step)</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run --detach \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --hostname gitlab.debugtime.com \</span><br><span class="line">  --restart always \</span><br><span class="line">  --publish 80:80 --publish 2289:22 \</span><br><span class="line">  --volume /opt/docker/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /opt/docker/gitlab/logs:/var/log/gitlab \</span><br><span class="line">  --volume /opt/docker/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  --env GITLAB_OMNIBUS_CONFIG=&quot;external_url &apos;http://gitlab.debugtime.com/&apos;; gitlab_rails[&apos;gitlab_shell_ssh_port&apos;] = 2289&quot; \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
-<h4 id="Setup-web-access"><a href="#Setup-web-access" class="headerlink" title="Setup web access"></a>Setup web access</h4><ol>
-<li>get the gitlab docker host IP</li>
-<li>configure an nginx reverse proxy: <code>gitlab.debugtime.com</code> –&gt; <code>&lt;gitlab_docker_host_ip&gt;:80</code></li>
-</ol>
-<h4 id="Setup-ssh-access"><a href="#Setup-ssh-access" class="headerlink" title="Setup ssh access"></a>Setup ssh access</h4><p>1) configure gitlab to route ssh traffic from <code>gitlab:2289</code> to <code>container:22</code></p>
-<p>We can map web traffic like so <code>-p 80:80</code> which routes <code>container:80</code> to <code>gitlab:80</code>.  Since <code>gitlab:22</code> is already being used to allow login into the gitlab host, we cannot use that port.  So instead we will map <code>container:22</code> to <code>gitlab:2289</code> with the docker run option <code>--publish 2289:22</code></p>
-<p>2) set Omnibus configuration so gitlab provides commands that account for port 2289.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--env GITLAB_OMNIBUS_CONFIG=&quot;external_url &apos;http://gitlab.debugtime.com/&apos;; gitlab_rails[&apos;gitlab_shell_ssh_port&apos;] = 2289&quot; \</span><br></pre></td></tr></table></figure>
-<p>3) setup ssh tunnel between <code>gitlab.debugtime.com:2289</code> and <code>gitlab:2289</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ssh gitlab -fN -L 0.0.0.0:2289:localhost:2289</span><br></pre></td></tr></table></figure>
-<h2 id="Test-Gitlab"><a href="#Test-Gitlab" class="headerlink" title="Test Gitlab"></a>Test Gitlab</h2><h4 id="Verify-Gitlab’s-web-app-functionality"><a href="#Verify-Gitlab’s-web-app-functionality" class="headerlink" title="Verify Gitlab’s web app functionality"></a>Verify Gitlab’s web app functionality</h4><ul>
-<li><code>open http://gitlab.debugtime.com</code></li>
+<p>Updating and committing an image</p>
+<p><code>Goal: clone nginx image and edit it to show new html page</code></p>
+<ul>
+<li><code>images</code>: search, list, pull, tag</li>
+<li><code>images</code>: run interactively to edit image</li>
+<li><code>images</code>: use ctrl-p, ctrl-q to leave without the exit command</li>
+<li><code>images</code>: get containerId</li>
+<li><code>images</code>: commit to exiting or new image</li>
+<li><code>images</code>: get imageId and compare imageIds</li>
 </ul>
-<h4 id="Verify-Gitlab’s-push-pull-functionality"><a href="#Verify-Gitlab’s-push-pull-functionality" class="headerlink" title="Verify Gitlab’s push/pull functionality"></a>Verify Gitlab’s push/pull functionality</h4><ol>
-<li><p>test pull functionality:<br><code>git clone ssh://git@gitlab.debugtime.com:2289/dearfrankg/myproject.git</code></p>
-</li>
-<li><p>commit change to master branch</p>
-</li>
-<li><p>test push functionality:<br><code>git push -u origin master</code></p>
-</li>
-</ol>
+<p>Building an image from a Dockerfile</p>
+<ul>
+<li><code>build image</code>: create project folder</li>
+<li><code>build image</code>: create Dockerfile by entering Dockerfile commands</li>
+<li><code>build image</code>: build image</li>
+<li><code>build image</code>: tag image</li>
+<li><code>build image</code>: show image digests</li>
+<li><code>build image</code>: push to docker hub</li>
+<li><code>build image</code>: remove local image</li>
+</ul>
+<p>network containers</p>
+<ul>
+<li><code>network containers</code>: list networks, create network, remove network</li>
+<li><code>network containers</code>: add container to network, disconnect container from network</li>
+<li><code>inspect network</code>: inspect network</li>
+<li><code>inspect container</code>: inspect container, inspect container range</li>
+</ul>
+<p>data volumes</p>
+<ul>
+<li><code>data volume</code>: add anonymous volume, locate volume</li>
+<li><code>data volume</code>: mount host directory as volume, mount shared-storage as volume</li>
+<li><code>data volume</code>: mount host file as volume</li>
+<li><code>data volume</code>: create volume, using <code>:z or :Z</code> to relabel volumes</li>
+</ul>
+<p>data volume containers</p>
+<ul>
+<li><code>data volume containers</code>: create a data volume container</li>
+<li><code>data volume containers</code>: mount the data volume container in another container</li>
+<li><code>data volume containers</code>: find and remove dangling volumes</li>
+</ul>
+<p>backup data volumes</p>
+<ul>
+<li><code>backup data volumes</code>: backup, restore or migrate data volumes</li>
+</ul>
+<p>remove anonymous volumes</p>
+<ul>
+<li><code>remove anonymous volumes</code>: locate and remove anonymous volumes</li>
+</ul>
+<p>store images on Docker Hub</p>
+<ul>
+<li><code>Docker Hub</code>: login, search, pull, push</li>
+<li><code>Docker Hub</code>: private repos, teams, automated builds, web-hooks</li>
+<li><code>Docker Hub</code>: setup automated builds</li>
+</ul>
+<h2 id="Training-Curriculum-Summary"><a href="#Training-Curriculum-Summary" class="headerlink" title="Training Curriculum Summary"></a>Training Curriculum Summary</h2><p><code>Getting Started</code>:</p>
+<ul>
+<li>a taste of images, containers and docker hub</li>
+</ul>
+<p><code>Learn By Example</code>:</p>
+<ul>
+<li>running apps</li>
+<li>working with containers</li>
+<li>building and updating images</li>
+<li>networking containers</li>
+<li>inspecting networks and containers</li>
+<li>working with volumes and volume containers</li>
+<li>working with docker hub</li>
+</ul>
+<h2 id="Summing-up-Docker"><a href="#Summing-up-Docker" class="headerlink" title="Summing up Docker"></a>Summing up Docker</h2><h4 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h4><h4 id="docker-machine"><a href="#docker-machine" class="headerlink" title="docker-machine"></a>docker-machine</h4><h4 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h4><h4 id="docker-swarms"><a href="#docker-swarms" class="headerlink" title="docker swarms"></a>docker swarms</h4><h2 id="gitlab-experience"><a href="#gitlab-experience" class="headerlink" title="gitlab experience"></a>gitlab experience</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dk run -it gitlab bash</span><br><span class="line">cd /var/opt/gitlab</span><br><span class="line">ll</span><br><span class="line"></span><br><span class="line">drwxr-xr-x 7 git          git          4096 Dec  2 10:05 ./</span><br><span class="line">drwxr-xr-x 3 root         root         4096 Nov 22 19:48 ../</span><br><span class="line">-rw-r--r-- 1 git          git           220 Aug 31  2015 .bash_logout</span><br><span class="line">-rw-r--r-- 1 git          git          3771 Aug 31  2015 .bashrc</span><br><span class="line">-rw-r--r-- 1 git          git           655 Jun 24 15:44 .profile</span><br><span class="line">drwxr-xr-x 2 mattermost   mattermost   4096 Nov 22 19:48 mattermost/</span><br><span class="line">drwxr-xr-x 2 gitlab-www   gitlab-www   4096 Nov 22 19:48 nginx/</span><br><span class="line">drwxr-xr-x 2 gitlab-psql  gitlab-psql  4096 Nov 22 19:48 postgresql/</span><br><span class="line">drwxr-xr-x 2 gitlab-redis gitlab-redis 4096 Nov 22 19:48 redis/</span><br><span class="line">drwxr-xr-x 2 registry     registry     4096 Nov 22 19:48 registry/</span><br></pre></td></tr></table></figure>
+<p>launchGitlab<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dkset gitlab</span><br><span class="line">docker run --detach \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --hostname gitlab.debugtime.com \</span><br><span class="line">  --restart always \</span><br><span class="line">  --publish 80:80 --publish 2289:22 \</span><br><span class="line">  --volume /opt/docker/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /opt/docker/gitlab/logs:/var/log/gitlab \</span><br><span class="line">  --volume /opt/docker/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  --env GITLAB_OMNIBUS_CONFIG=&quot;external_url &apos;http://gitlab.debugtime.com/&apos;; gitlab_rails[&apos;gitlab_shell_ssh_port&apos;] = 2289&quot; \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br><span class="line"></span><br><span class="line"># tunnel laptop:2289 to container:2289</span><br><span class="line">docker-machine ssh gitlab -fN -L 0.0.0.0:2289:localhost:2289</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it &lt;container_id&gt; bash</span><br><span class="line">cd /var/opt/gitlab</span><br><span class="line">ll</span><br><span class="line"></span><br><span class="line">drwxr-xr-x 13 root         root        300 Dec  2 10:16 ./</span><br><span class="line">drwxr-xr-x  3 root         root       4096 Dec  2 01:03 ../</span><br><span class="line">-rw-r--r--  1 git          git         297 Dec  2 10:16 .gitconfig</span><br><span class="line">drwx------  2 git          git          60 Dec  2 10:16 .ssh/</span><br><span class="line">drwx------  2 git          root         40 Dec  2 10:16 backups/</span><br><span class="line">drwx------  3 git          root         60 Dec  2 10:16 git-data/</span><br><span class="line">drwxr-xr-x  3 git          root         60 Dec  2 10:16 gitlab-ci/</span><br><span class="line">drwxr-xr-x  9 git          root        240 Dec  2 10:16 gitlab-rails/</span><br><span class="line">drwx------  2 git          root         60 Dec  2 10:16 gitlab-shell/</span><br><span class="line">drwxr-x---  2 git          gitlab-www   80 Dec  2 10:16 gitlab-workhorse/</span><br><span class="line">drwx------  3 root         root         80 Dec  2 10:16 logrotate/</span><br><span class="line">drwxr-x---  9 root         gitlab-www  220 Dec  2 10:17 nginx/</span><br><span class="line">drwxr-xr-x  3 gitlab-psql  root        120 Dec  2 10:16 postgresql/</span><br><span class="line">drwxr-x---  2 gitlab-redis git          80 Dec  2 10:16 redis/</span><br><span class="line">-rw-r--r--  1 root         root         40 Dec  2 10:16 trusted-certs-directory-hash</span><br></pre></td></tr></table></figure>
 
                 
             </div>
@@ -314,6 +364,17 @@ blog.debugtime.com    -&gt; nginx -&gt; nginx-proxy -&gt; hexo
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
+    
+    var gitment = new Gitment({
+        id: '',
+        owner: 'dearfrankg',
+        repo: 'blog-comments',
+        oauth: {
+            client_id: '1e06b3865efbfdedf5d0',
+            client_secret: 'cd2f93735df5d8dfa8acda7897bcf8bae1559f9b'
+        }
+    });
+    gitment.render('comment-container');
     
 
 </script>

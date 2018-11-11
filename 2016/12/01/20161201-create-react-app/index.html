@@ -76,7 +76,7 @@
         <div class="posts">
     <article class="post-whole">
         <div class="post-title">
-            <h2 class="title">ReactJS – create-react-app</h2>
+            <h2 class="title">create-react-app</h2>
             <div class="post-meta">
                 <span class="post-time">2016-12-01</span>
                 
@@ -373,6 +373,8 @@
             
             <a class="tag" href="/tags/reactjs/" title="reactjs">reactjs</a>
             
+            <a class="tag" href="/tags/create-react-app/" title="create-react-app">create-react-app</a>
+            
         </div>
         
     </article>
@@ -430,6 +432,17 @@
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
+    
+    var gitment = new Gitment({
+        id: 'create-react-app',
+        owner: 'dearfrankg',
+        repo: 'blog-comments',
+        oauth: {
+            client_id: '1e06b3865efbfdedf5d0',
+            client_secret: 'cd2f93735df5d8dfa8acda7897bcf8bae1559f9b'
+        }
+    });
+    gitment.render('comment-container');
     
 
 </script>

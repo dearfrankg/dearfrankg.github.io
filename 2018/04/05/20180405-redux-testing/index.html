@@ -119,6 +119,14 @@
 
         </div>
         
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/testing/" title="testing">testing</a>
+            
+            <a class="tag" href="/tags/redux/" title="redux">redux</a>
+            
+        </div>
+        
     </article>
 </div>
 <div class="paginator">
@@ -174,6 +182,17 @@
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
+    
+    var gitment = new Gitment({
+        id: 'redux testing',
+        owner: 'dearfrankg',
+        repo: 'blog-comments',
+        oauth: {
+            client_id: '1e06b3865efbfdedf5d0',
+            client_secret: 'cd2f93735df5d8dfa8acda7897bcf8bae1559f9b'
+        }
+    });
+    gitment.render('comment-container');
     
 
 </script>

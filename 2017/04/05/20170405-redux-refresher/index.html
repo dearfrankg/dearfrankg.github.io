@@ -140,8 +140,8 @@
             </a>
         
         
-            <a class="next" href="/2017/03/28/20170331-lionshare/">
-                <span class="nav-default">lionshare</span>
+            <a class="next" href="/2017/03/28/20170328-facebook-react-perf/">
+                <span class="nav-default">facebook on react performance</span>
                 <span class="nav-mobile">Next</span>
                 <i class="iconfont icon-next"></i>
             </a>
@@ -183,6 +183,17 @@
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
+    
+    var gitment = new Gitment({
+        id: 'redux refresher',
+        owner: 'dearfrankg',
+        repo: 'blog-comments',
+        oauth: {
+            client_id: '1e06b3865efbfdedf5d0',
+            client_secret: 'cd2f93735df5d8dfa8acda7897bcf8bae1559f9b'
+        }
+    });
+    gitment.render('comment-container');
     
 
 </script>

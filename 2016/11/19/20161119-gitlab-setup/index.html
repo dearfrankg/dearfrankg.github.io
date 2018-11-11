@@ -139,7 +139,7 @@
         
         <div class="post-tag">
             
-            <a class="tag" href="/tags/gitlab/" title="gitlab">gitlab</a>
+            <a class="tag" href="/tags/github/" title="github">github</a>
             
         </div>
         
@@ -148,15 +148,15 @@
 <div class="paginator">
     
         
-            <a class="prev" href="/2016/11/19/20161119-retrospective/">
+            <a class="prev" href="/2016/12/01/20161201-react-refresh/">
                 <i class="iconfont icon-prev"></i>
-                <span class="nav-default">Docker – Retrospective</span>
+                <span class="nav-default">ReactJS – React Refresher</span>
                 <span class="nav-mobile">Prev</span>
             </a>
         
         
-            <a class="next" href="/2016/11/18/20161118-nginx-proxy/">
-                <span class="nav-default">Docker – nginx-proxy</span>
+            <a class="next" href="/2016/11/19/20161119-docker-retrospective/">
+                <span class="nav-default">Docker – Retrospective</span>
                 <span class="nav-mobile">Next</span>
                 <i class="iconfont icon-next"></i>
             </a>
@@ -198,6 +198,17 @@
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
+    
+    var gitment = new Gitment({
+        id: 'Gitlab Setup',
+        owner: 'dearfrankg',
+        repo: 'blog-comments',
+        oauth: {
+            client_id: '1e06b3865efbfdedf5d0',
+            client_secret: 'cd2f93735df5d8dfa8acda7897bcf8bae1559f9b'
+        }
+    });
+    gitment.render('comment-container');
     
 
 </script>
