@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">todomvc deep understanding</h2>
+            <div class="post-meta">
+                <span class="post-time">2017-01-25</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Structure"><span class="toc-text">Structure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bootstrap"><span class="toc-text">Bootstrap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redux"><span class="toc-text">Redux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Components"><span class="toc-text">Components</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Header"><span class="toc-text">Header</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TextInput"><span class="toc-text">TextInput</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MainSection"><span class="toc-text">MainSection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TodoItem"><span class="toc-text">TodoItem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Footer"><span class="toc-text">Footer</span></a></li></ol></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <h2 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">├── actions</span><br><span class="line">│   └── index.js</span><br><span class="line">├── components</span><br><span class="line">│   ├── Footer.js</span><br><span class="line">│   ├── Header.js</span><br><span class="line">│   ├── MainSection.js</span><br><span class="line">│   ├── TextInput.js</span><br><span class="line">│   └── TodoItem.js</span><br><span class="line">├── constants</span><br><span class="line">│   ├── ActionTypes.js</span><br><span class="line">│   └── TodoFilters.js</span><br><span class="line">├── containers</span><br><span class="line">│   └── App.js</span><br><span class="line">├── index.js</span><br><span class="line">└── reducers</span><br><span class="line">    ├── index.js</span><br><span class="line">    └── todos.js</span><br></pre></td></tr></table></figure>
+<h2 id="Bootstrap"><a href="#Bootstrap" class="headerlink" title="Bootstrap"></a>Bootstrap</h2><p>index.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const store = createStore(reducers)</span><br><span class="line"></span><br><span class="line">render(</span><br><span class="line">  &lt;Provider store=&#123;store&#125; &gt;</span><br><span class="line">    &lt;App /&gt;</span><br><span class="line">  &lt;/Provider&gt;,</span><br><span class="line">  document.getElementById(&apos;root&apos;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>containers/App.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">const App = (&#123;todos, actions&#125;) =&gt; &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Header addTodo=&#123;actions.addTodo&#125; /&gt;</span><br><span class="line">      &lt;MainSection todos=&#123;todos&#125; actions=&#123;actions&#125; /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">App.propTypes = &#123;</span><br><span class="line">  todos: PropTypes.array.isRequired,</span><br><span class="line">  actions: PropTypes.object.isRequired</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const mapStateToProps = (state) =&gt; (&#123;</span><br><span class="line">  todos: state.todos</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">const mapDispatchToProps = (dispatch) =&gt; (&#123;</span><br><span class="line">  actions: bindActionCreators(todoActions, dispatch)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">export default connect(</span><br><span class="line">  mapStateToProps,</span><br><span class="line">  mapDispatchToProps</span><br><span class="line">)(App)</span><br></pre></td></tr></table></figure>
+<h2 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h2><p>constants</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line">export const ADD_TODO = &apos;ADD_TODO&apos;</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<p>actions</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line">export const addTodo = (text) =&gt; (&#123;type: ADD_TODO, text&#125;)</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<p>reducers/index</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line">const rootReducer = combineReducers(&#123;</span><br><span class="line">  todos</span><br><span class="line">&#125;)</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<p>reducers/todos</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line">const initialState = [&#123;...&#125;]</span><br><span class="line"></span><br><span class="line">const todos = (state = initialState, action) =&gt; &#123;</span><br><span class="line">  switch(action.type) &#123;</span><br><span class="line">    [...]</span><br><span class="line">    case DELETE_TODO:</span><br><span class="line">      return state.filter(todo =&gt; todo.id !== action.id)</span><br><span class="line">    [...]</span><br></pre></td></tr></table></figure>
+<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><h3 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h3><ul>
+<li>Header imports:<ul>
+<li>TextInput</li>
+</ul>
+</li>
+<li>Header props needed:<ul>
+<li>addTodo: add todo to list</li>
+</ul>
+</li>
+<li>Header methods:<ul>
+<li>handleSave: wraps addTodo to prevent empty todos</li>
+</ul>
+</li>
+<li>Header renders: a header containing a title and TextInput<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">  &lt;header className=&quot;header&quot;&gt;</span><br><span class="line">    &lt;h1&gt;todos&lt;/h1&gt;</span><br><span class="line">    &lt;TextInput newTodo</span><br><span class="line">      onSave=&#123;this.handleSave&#125;</span><br><span class="line">      placeholder=&quot;What needs to be done?&quot; /&gt;</span><br><span class="line">  &lt;/header&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="TextInput"><a href="#TextInput" class="headerlink" title="TextInput"></a>TextInput</h3><ul>
+<li>TextInput imports:<ul>
+<li>classnames</li>
+</ul>
+</li>
+<li>TextInput props needed:<ul>
+<li>onSave: func.isRequired</li>
+<li>text: string</li>
+<li>placeholder: string</li>
+<li>editing: bool</li>
+<li>newTodo: bool</li>
+</ul>
+</li>
+<li>TextInput local state:<ul>
+<li>text: this.props.text || ‘’</li>
+</ul>
+</li>
+<li>TextInput methods:<ul>
+<li>handleSubmit: save on enter-key, clear local state when new-todo</li>
+<li>handleChange: update local state</li>
+<li>handleBlur: save when not new-todo</li>
+</ul>
+</li>
+<li>TextInput conditional classes:<ul>
+<li>edit: this.props.editing,</li>
+<li>‘new-todo’: this.props.newTodo</li>
+</ul>
+</li>
+<li>TextInput render: an input tag<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">  &lt;input className=&#123;</span><br><span class="line">    classnames(&#123;</span><br><span class="line">      edit: this.props.editing,</span><br><span class="line">      &apos;new-todo&apos;: this.props.newTodo</span><br><span class="line">    &#125;)&#125;</span><br><span class="line">    type=&quot;text&quot;</span><br><span class="line">    placeholder=&#123;this.props.placeholder&#125;</span><br><span class="line">    autoFocus=&quot;true&quot;</span><br><span class="line">    value=&#123;this.state.text&#125;</span><br><span class="line">    onBlur=&#123;this.handleBlur&#125;</span><br><span class="line">    onChange=&#123;this.handleChange&#125;</span><br><span class="line">    onKeyDown=&#123;this.handleSubmit&#125; /&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="MainSection"><a href="#MainSection" class="headerlink" title="MainSection"></a>MainSection</h3><ul>
+<li>MainSection imports:<ul>
+<li>TodoItem</li>
+<li>Footer</li>
+<li>TodoFilters</li>
+</ul>
+</li>
+<li>MainSection props needed:<ul>
+<li>todos: array</li>
+<li>actions: object</li>
+</ul>
+</li>
+<li>MainSection local state:<ul>
+<li>filter: SHOW_ALL</li>
+</ul>
+</li>
+<li><p>MainSection methods:</p>
+<ul>
+<li>handleClearCompleted: wraps clearCompleted (not necessary)</li>
+<li>handleSetFilter: reset filter on local state</li>
+<li><p>renderToggleAll: render toggleAll checkbox in header area via css</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if (todos.length) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;input className=&quot;toggle-all&quot;</span><br><span class="line">           type=&quot;checkbox&quot;</span><br><span class="line">           checked=&#123;completedCount === todos.length&#125;</span><br><span class="line">           onChange=&#123;actions.completeAll&#125; /&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>renderFooter: prepare props and render Footer</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">if (todos.length) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;Footer</span><br><span class="line">      completedCount=&#123;completedCount&#125;</span><br><span class="line">      activeCount=&#123;activeCount&#125;</span><br><span class="line">      filter=&#123;filter&#125;</span><br><span class="line">      onClearCompleted=&#123;clearCompleted&#125;</span><br><span class="line">      onSetFilter=&#123;this.handleSetFilter&#125; /&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>MainSection conditional classes:</p>
+<ul>
+<li>none</li>
+</ul>
+</li>
+<li>MainSection render: a section containing toggle-all, todo-list, footer<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">  &lt;section className=&quot;main&quot;&gt;</span><br><span class="line">    &#123;this.renderToggleAll(completedCount)&#125;</span><br><span class="line">    &lt;ul className=&quot;todo-list&quot;&gt;</span><br><span class="line">      &#123;filteredTodos.map(todo =&gt;</span><br><span class="line">        &lt;TodoItem key=&#123;todo.id&#125; todo=&#123;todo&#125; &#123;...actions&#125; /&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">    &#123;this.renderFooter(completedCount)&#125;</span><br><span class="line">  &lt;/section&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="TodoItem"><a href="#TodoItem" class="headerlink" title="TodoItem"></a>TodoItem</h3><ul>
+<li>TodoItem imports:<ul>
+<li>classnames</li>
+<li>TextInput</li>
+</ul>
+</li>
+<li>TodoItem props needed:<ul>
+<li>todo: object</li>
+<li>completeTodo: func</li>
+<li>editTodo: func</li>
+<li>deleteTodo: func</li>
+</ul>
+</li>
+<li>TodoItem local state:<ul>
+<li>editing: false</li>
+</ul>
+</li>
+<li><p>TodoItem methods:</p>
+<ul>
+<li>handleDoubleClick: set editing to true on local state</li>
+<li>handleSave: when text editTodo else deleteTodo then set editing to false on local state</li>
+<li>getTodoElement: when editing render todo in edit-mode else non-edit-mode<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">if (this.state.editing) &#123;</span><br><span class="line">  element = (</span><br><span class="line">    &lt;TodoTextInput text=&#123;todo.text&#125;</span><br><span class="line">                   editing=&#123;this.state.editing&#125;</span><br><span class="line">                   onSave=&#123;(text) =&gt; this.handleSave(todo.id, text)&#125; /&gt;</span><br><span class="line">  )</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  element = (</span><br><span class="line">    &lt;div className=&quot;view&quot;&gt;</span><br><span class="line">      &lt;input className=&quot;toggle&quot;</span><br><span class="line">             type=&quot;checkbox&quot;</span><br><span class="line">             checked=&#123;todo.completed&#125;</span><br><span class="line">             onChange=&#123;() =&gt; completeTodo(todo.id)&#125; /&gt;</span><br><span class="line">      &lt;label onDoubleClick=&#123;this.handleDoubleClick&#125;&gt;</span><br><span class="line">        &#123;todo.text&#125;</span><br><span class="line">      &lt;/label&gt;</span><br><span class="line">      &lt;button className=&quot;destroy&quot;</span><br><span class="line">              onClick=&#123;() =&gt; deleteTodo(todo.id)&#125; /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>TodoItem conditional classes:</p>
+<ul>
+<li>completed: todo.completed,</li>
+<li>editing: this.state.editing</li>
+</ul>
+</li>
+<li>TodoItem render:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">  &lt;li className=&#123;classnames(&#123;</span><br><span class="line">    completed: todo.completed,</span><br><span class="line">    editing: this.state.editing</span><br><span class="line">  &#125;)&#125;&gt;</span><br><span class="line">    &#123;element&#125;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Footer"><a href="#Footer" class="headerlink" title="Footer"></a>Footer</h3><ul>
+<li>Footer imports:<ul>
+<li>classnames</li>
+<li>TodoFilters</li>
+</ul>
+</li>
+<li>Footer variables:<ul>
+<li>FILTER_TITLES: object with labels for filter buttons</li>
+</ul>
+</li>
+<li>Footer props needed:<ul>
+<li>completedCount: number</li>
+<li>activeCount: number</li>
+<li>filter: string</li>
+<li>onClearCompleted: func</li>
+<li>onSetFilter: func</li>
+</ul>
+</li>
+<li>Footer local state:<ul>
+<li>none</li>
+</ul>
+</li>
+<li><p>Footer methods:</p>
+<ul>
+<li><p>renderTodoCount: display filter count for 0/1/&gt;1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">  &lt;span className=&quot;todo-count&quot;&gt;</span><br><span class="line">    &lt;strong&gt;&#123;activeCount || &apos;No&apos;&#125;&lt;/strong&gt; &#123;itemWord&#125; left</span><br><span class="line">  &lt;/span&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>renderFilterLink: setup filter buttons</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">  &lt;a className=&#123;classnames(&#123; selected: filter === selectedFilter &#125;)&#125;</span><br><span class="line">     style=&#123;&#123; cursor: &apos;pointer&apos; &#125;&#125;</span><br><span class="line">     onClick=&#123;() =&gt; onSetFilter(filter)&#125;&gt;</span><br><span class="line">    &#123;title&#125;</span><br><span class="line">  &lt;/a&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>renderClearButton: render clear button when completed todos exist</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if (completedCount &gt; 0) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;button className=&quot;clear-completed&quot;</span><br><span class="line">            onClick=&#123;onClearCompleted&#125; &gt;</span><br><span class="line">      Clear completed</span><br><span class="line">    &lt;/button&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Footer conditional classes:</p>
+<ul>
+<li>selected: filter === selectedFilter –––&gt; renderFilterLink</li>
+</ul>
+</li>
+<li>Footer render:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">  &lt;footer className=&quot;footer&quot;&gt;</span><br><span class="line">    &#123;this.renderTodoCount()&#125;</span><br><span class="line">    &lt;ul className=&quot;filters&quot;&gt;</span><br><span class="line">      &#123;[ SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED ].map(filter =&gt;</span><br><span class="line">        &lt;li key=&#123;filter&#125;&gt;</span><br><span class="line">          &#123;this.renderFilterLink(filter)&#125;</span><br><span class="line">        &lt;/li&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">    &#123;this.renderClearButton()&#125;</span><br><span class="line">  &lt;/footer&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/coding/" title="coding">coding</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2017/02/09/20170209-web-animation/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">web animation</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2016/12/15/20161215-tidbits/">
+                <span class="nav-default">Coding Tidbits</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">Frank Gutierrez</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

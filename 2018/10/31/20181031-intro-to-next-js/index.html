@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">intro to next.js part1</h2>
+            <div class="post-meta">
+                <span class="post-time">2018-10-31</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-text">Intro</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Why-use-Next-js"><span class="toc-text">Why use Next.js</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-a-Next-js-project"><span class="toc-text">Create a Next.js project</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Prerequisites"><span class="toc-text">Prerequisites</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Creating-your-first-page"><span class="toc-text">Creating your first page</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Navigate-between-pages"><span class="toc-text">Navigate between pages</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using-shared-components"><span class="toc-text">Using shared components</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>Next.js is a react framework for building any kind of react app from mobile to desktop to from SPA to static pages. This article will dive into how to get started quickly.</p>
+<h3 id="Why-use-Next-js"><a href="#Why-use-Next-js" class="headerlink" title="Why use Next.js"></a>Why use Next.js</h3><p><strong>Zero Setup</strong><br>Automatic code splitting, filesystem based routing, hot code reloading and universal rendering.</p>
+<p><strong>Fully Extensible</strong><br>Complete control over Babel and Webpack. Customizable server, routing and next-plugins.</p>
+<p><strong>Ready for Production</strong><br>Optimized for a smaller build size, faster dev compilation and dozens of other improvements.</p>
+<h2 id="Create-a-Next-js-project"><a href="#Create-a-Next-js-project" class="headerlink" title="Create a Next.js project"></a>Create a Next.js project</h2><h3 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h3><ul>
+<li>install <code>node</code> using <code>nvm</code></li>
+</ul>
+<figure class="highlight plain"><figcaption><span>on the command line</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir hello-next</span><br><span class="line">cd hello-next</span><br><span class="line">npm init -y</span><br><span class="line">npm install --save react react-dom next</span><br><span class="line">mkdir pages</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><figcaption><span>edit package.json</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"dev"</span>: <span class="string">"next"</span>,</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"next build"</span>,</span><br><span class="line">    <span class="attr">"start"</span>: <span class="string">"next start"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Run the server</strong></p>
+<figure class="highlight plain"><figcaption><span>on the command line</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+<p><strong>Open the app</strong></p>
+<p>open <a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a> from your favorite browser</p>
+<blockquote>
+<p>You’ll see a page with a <code>404 error</code> indicating the page cannot be found.</p>
+</blockquote>
+<h2 id="Creating-your-first-page"><a href="#Creating-your-first-page" class="headerlink" title="Creating your first page"></a>Creating your first page</h2><figure class="highlight js"><figcaption><span>pages/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Index = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;p&gt;Hello Next.js&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Index;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>If you make a typo error messages appear on the browser page.</p>
+</blockquote>
+<h2 id="Navigate-between-pages"><a href="#Navigate-between-pages" class="headerlink" title="Navigate between pages"></a>Navigate between pages</h2><p><strong>Using a link</strong></p>
+<figure class="highlight js"><figcaption><span>pages/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">"next/link"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Index = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Link href=<span class="string">"/about"</span>&gt;</span><br><span class="line">      &lt;a&gt;About Page&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Link&gt;</span><br><span class="line">    &lt;p&gt;Hello Next.js&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Index;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Link works with browser history (back button)</li>
+<li>Don’t style a Link, style it’s children</li>
+<li>Link works with <code>a</code> and <code>button</code> tags and any tag with an <code>onClick</code> event.</li>
+</ul>
+<h2 id="Using-shared-components"><a href="#Using-shared-components" class="headerlink" title="Using shared components"></a>Using shared components</h2><p><strong>Create a Header component</strong></p>
+<figure class="highlight js"><figcaption><span>components/Header.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">"next/link"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> linkStyle = &#123;</span><br><span class="line">  marginRight: <span class="number">15</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Header = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Link href=<span class="string">"/"</span>&gt;</span><br><span class="line">      &lt;a style=&#123;linkStyle&#125;&gt;Home&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Link&gt;</span><br><span class="line">    &lt;Link href=<span class="string">"/about"</span>&gt;</span><br><span class="line">      &lt;a style=&#123;linkStyle&#125;&gt;About&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Link&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Header;</span></span><br></pre></td></tr></table></figure>
+<p><strong>Using the Header component</strong></p>
+<figure class="highlight js"><figcaption><span>pages/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Header <span class="keyword">from</span> <span class="string">"../components/Header"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Header /&gt;</span><br><span class="line">    &lt;p&gt;Hello Next.js&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><strong>Create the Layout component</strong></p>
+<figure class="highlight js"><figcaption><span>components/MyLayout.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Header <span class="keyword">from</span> <span class="string">"./Header"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> layoutStyle = &#123;</span><br><span class="line">  margin: <span class="number">20</span>,</span><br><span class="line">  padding: <span class="number">20</span>,</span><br><span class="line">  border: <span class="string">"1px solid #DDD"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Layout = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;div style=&#123;layoutStyle&#125;&gt;</span><br><span class="line">    &lt;Header /&gt;</span><br><span class="line">    &#123;props.children&#125;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Layout;</span></span><br></pre></td></tr></table></figure>
+<p><strong>Use the Layout component</strong></p>
+<figure class="highlight js"><figcaption><span>pages/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">"../components/MyLayout.js"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; (</span><br><span class="line">  &lt;Layout&gt;</span><br><span class="line">    &lt;p&gt;Hello Next.js&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>Layout&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>pages/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">"../components/MyLayout.js"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; (</span><br><span class="line">  &lt;Layout&gt;</span><br><span class="line">    &lt;p&gt;This is the about page&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>Layout&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>In this post we demonstated using the Next.js react framework. We observed the following.</p>
+<ul>
+<li>Next uses pages just like HTML</li>
+<li>Next pages consist of HTML/JS/CSS = JSX/JS/CSS-in-js</li>
+<li>Next has a Link component for navigating between pages.</li>
+<li>Next produces pages with React components.</li>
+<li>React components can be shared and nested with other React components</li>
+</ul>
+<p>We have learned enough to build a website. In the next post I will demonstrate how to build dynamic applications using Next.js.</p>
+
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2018/10/31/20181031-server-side-rendering-in-React/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">server side rendering in react</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2018/10/31/20181031-oss-vs-redhat/">
+                <span class="nav-default">oss 0 vs redhat 34 billion</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">Frank Gutierrez</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

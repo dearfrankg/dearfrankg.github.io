@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">Docker – Manage a Swarm Part 1</h2>
+            <div class="post-meta">
+                <span class="post-time">2016-11-17</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Swarm-Mode-Overview"><span class="toc-text">Swarm Mode Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Swarm-Mode-Key-Concepts"><span class="toc-text">Swarm Mode Key Concepts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Swarm"><span class="toc-text">Swarm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node"><span class="toc-text">Node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Services-and-tasks"><span class="toc-text">Services and tasks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Load-Balancing"><span class="toc-text">Load Balancing</span></a></li></ol></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <h2 id="Swarm-Mode-Overview"><a href="#Swarm-Mode-Overview" class="headerlink" title="Swarm Mode Overview"></a>Swarm Mode Overview</h2><ul>
+<li><p><code>Cluster management integrated with Docker Engine</code>: Use the Docker Engine CLI to create a swarm of Docker Engines where you can deploy application services. You don’t need additional orchestration software to create or manage a swarm.</p>
+</li>
+<li><p><code>Decentralized design</code>: Instead of handling differentiation between node roles at deployment time, the Docker Engine handles any specialization at runtime. You can deploy both kinds of nodes, managers and workers, using the Docker Engine. This means you can build an entire swarm from a single disk image.</p>
+</li>
+<li><p><code>Declarative service model</code>: Docker Engine uses a declarative approach to let you define the desired state of the various services in your application stack. For example, you might describe an application comprised of a web front end service with message queueing services and a database backend.</p>
+</li>
+<li><p><code>Scaling</code>: For each service, you can declare the number of tasks you want to run. When you scale up or down, the swarm manager automatically adapts by adding or removing tasks to maintain the desired state.</p>
+</li>
+<li><p><code>Desired state reconciliation</code>: The swarm manager node constantly monitors the cluster state and reconciles any differences between the actual state your expressed desired state. For example, if you set up a service to run 10 replicas of a container, and a worker machine hosting two of those replicas crashes, the manager will create two new replicas to replace the replicas that crashed. The swarm manager assigns the new replicas to workers that are running and available.</p>
+</li>
+<li><p><code>Multi-host networking</code>: You can specify an overlay network for your services. The swarm manager automatically assigns addresses to the containers on the overlay network when it initializes or updates the application.</p>
+</li>
+<li><p><code>Service discovery</code>: Swarm manager nodes assign each service in the swarm a unique DNS name and load balances running containers. You can query every container running in the swarm through a DNS server embedded in the swarm.</p>
+</li>
+<li><p><code>Load balancing</code>: You can expose the ports for services to an external load balancer. Internally, the swarm lets you specify how to distribute service containers between nodes.</p>
+</li>
+<li><p><code>Secure by default</code>: Each node in the swarm enforces TLS mutual authentication and encryption to secure communications between itself and all other nodes. You have the option to use self-signed root certificates or certificates from a custom root CA.</p>
+</li>
+<li><p><code>Rolling updates</code>: At rollout time you can apply service updates to nodes incrementally. The swarm manager lets you control the delay between service deployment to different sets of nodes. If anything goes wrong, you can roll-back a task to a previous version of the service.</p>
+</li>
+</ul>
+<h2 id="Swarm-Mode-Key-Concepts"><a href="#Swarm-Mode-Key-Concepts" class="headerlink" title="Swarm Mode Key Concepts"></a>Swarm Mode Key Concepts</h2><p>This topic introduces some of the concepts unique to the cluster management and orchestration features of Docker Engine 1.12.</p>
+<h3 id="Swarm"><a href="#Swarm" class="headerlink" title="Swarm"></a>Swarm</h3><p>The cluster management and orchestration features embedded in the Docker Engine are built using <code>SwarmKit</code>. Engines participating in a cluster are running in <code>swarm mode</code>. You enable swarm mode for the Engine by either initializing a swarm or joining an existing swarm.</p>
+<p>A <code>swarm</code> is a cluster of Docker Engines where you deploy services. The Docker Engine CLI includes the commands for swarm management, such as adding and removing nodes. The CLI also includes the commands you need to deploy services to the swarm and manage service orchestration.</p>
+<p>When you run Docker Engine outside of swarm mode, you execute container commands. When you run the Engine in swarm mode, you orchestrate services.</p>
+<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>A <code>node</code> is an instance of the Docker Engine participating in the swarm.</p>
+<p>To deploy your application to a swarm, you submit a service definition to a <code>manager node</code>. The manager node dispatches units of work called <code>tasks</code> to worker nodes.</p>
+<p>Manager nodes also perform the orchestration and cluster management functions required to maintain the desired state of the swarm. Manager nodes elect a single leader to conduct orchestration tasks.</p>
+<p><code>Worker nodes</code> receive and execute tasks dispatched from manager nodes. By default manager nodes are also worker nodes, but you can configure managers to be manager-only nodes. The agent notifies the manager node of the current state of its assigned tasks so the manager can maintain the desired state.</p>
+<h3 id="Services-and-tasks"><a href="#Services-and-tasks" class="headerlink" title="Services and tasks"></a>Services and tasks</h3><p>A <code>service</code> is the definition of the tasks to execute on the worker nodes. It is the central structure of the swarm system and the primary root of user interaction with the swarm.</p>
+<p>When you create a service, you specify which container image to use and which commands to execute inside running containers.</p>
+<p>In the <code>replicated services</code> model, the swarm manager distributes a specific number of replica tasks among the nodes based upon the scale you set in the desired state.</p>
+<p>For <code>global services</code>, the swarm runs one task for the service on every available node in the cluster.</p>
+<p>A <code>task</code> carries a Docker container and the commands to run inside the container. It is the atomic scheduling unit of swarm. Manager nodes assign tasks to worker nodes according to the number of replicas set in the service scale. Once a task is assigned to a node, it cannot move to another node. It can only run on the assigned node or fail.</p>
+<h3 id="Load-Balancing"><a href="#Load-Balancing" class="headerlink" title="Load Balancing"></a>Load Balancing</h3><p>The swarm manager uses <code>ingress load balancing</code> to expose the services you want to make available externally to the swarm. The swarm manager can automatically assign the service a <code>PublishedPort</code> or you can configure a PublishedPort for the service. You can specify any unused port. If you do not specify a port, the swarm manager assigns the service a port in the 30000-32767 range.</p>
+<p>External components, such as cloud load balancers, can access the service on the PublishedPort of any node in the cluster whether or not the node is currently running the task for the service. All nodes in the swarm route ingress connections to a running task instance.</p>
+<p>Swarm mode has an internal DNS component that automatically assigns each service in the swarm a DNS entry. The swarm manager uses <code>internal load balancing</code> to distribute requests among services within the cluster based upon the DNS name of the service.</p>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/docker/" title="docker">docker</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2016/11/18/20161118-docker-manage-a-swarm-part2/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">Docker – Manage a Swarm Part 2</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2016/11/16/20161116-docker-compose-part2/">
+                <span class="nav-default">Docker – Docker Compose Part 2</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">Frank Gutierrez</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

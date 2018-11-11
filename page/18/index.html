@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2016/11/05/20161105-docker-getting-started/">Docker – Getting Started</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2016-11-05</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h1 id="Docker-––-Getting-Started"><a href="#Docker-––-Getting-Started" class="headerlink" title="Docker –– Getting Started"></a>Docker –– Getting Started</h1><!-- TOC depthFrom:1 depthTo:2 withLinks:0 updateOnSave:1 orderedList:0 -->
+<ul>
+<li>Docker –– Getting Started<ul>
+<li>run hello-world from image</li>
+<li>see images and containers</li>
+<li>find and run whalesay image</li>
+<li>build your own image</li>
+<li>create a docker-hub account</li>
+<li>tag, push and pull your image</li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h2 id="run-hello-world-from-image"><a href="#run-hello-world-from-image" class="headerlink" title="run hello-world from image"></a>run hello-world from image</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world</span><br><span class="line"></span><br><span class="line">Hello from Docker!</span><br></pre></td></tr></table></figure>
+<h2 id="see-images-and-containers"><a href="#see-images-and-containers" class="headerlink" title="see images and containers"></a>see images and containers</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// see images</span><br><span class="line">docker images</span><br><span class="line"></span><br><span class="line">// see containers</span><br><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+<h2 id="find-and-run-whalesay-image"><a href="#find-and-run-whalesay-image" class="headerlink" title="find and run whalesay image"></a>find and run whalesay image</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">docker run docker/whalesay cowsay boo</span><br><span class="line">Unable to find image &apos;docker/whalesay:latest&apos; locally</span><br><span class="line">latest: Pulling from docker/whalesay</span><br><span class="line"></span><br><span class="line">e190868d63f8: Already exists</span><br><span class="line">909cd34c6fd7: Already exists</span><br><span class="line">0b9bfabab7c1: Already exists</span><br><span class="line">a3ed95caeb02: Pull complete</span><br><span class="line">00bf65475aba: Pull complete</span><br><span class="line">c57b6bcc83e3: Pull complete</span><br><span class="line">8978f6879e2f: Pull complete</span><br><span class="line">8eed3712d2cf: Pull complete</span><br><span class="line">Digest: sha256:178598e51a26abbc958b8a2e48825c90bc22e641de3d31e18aaf55f3258ba93b</span><br><span class="line">Status: Downloaded newer image for docker/whalesay:latest</span><br><span class="line"> _____</span><br><span class="line">&lt; boo &gt;</span><br><span class="line"> -----</span><br><span class="line">    \</span><br><span class="line">     \</span><br><span class="line">      \</span><br><span class="line">                    ##        .</span><br><span class="line">              ## ## ##       ==</span><br><span class="line">           ## ## ## ##      ===</span><br><span class="line">       /&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;___/ ===</span><br><span class="line">  ~~~ &#123;~~ ~~~~ ~~~ ~~~~ ~~ ~ /  ===- ~~~</span><br><span class="line">       \______ o          __/</span><br><span class="line">        \    \        __/</span><br><span class="line">          \____\______/</span><br></pre></td></tr></table></figure>
+<h2 id="build-your-own-image"><a href="#build-your-own-image" class="headerlink" title="build your own image"></a>build your own image</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">// create Dockerfile</span><br><span class="line">  FROM docker/whalesay:latest</span><br><span class="line">  RUN apt-get -y update &amp;&amp; apt-get install -y fortunes</span><br><span class="line">  CMD /usr/games/fortune -a | cowsay</span><br><span class="line"></span><br><span class="line">// build image</span><br><span class="line">docker build -t docker-whale .</span><br><span class="line">  Sending build context to Docker daemon 2.048 kB</span><br><span class="line">  [...]</span><br><span class="line">  Successfully built 21d2171cd112</span><br><span class="line"></span><br><span class="line">// see image</span><br><span class="line">docker images</span><br><span class="line">  REPOSITORY                            TAG                 IMAGE ID            CREATED              SIZE</span><br><span class="line">  docker-whale                          latest              21d2171cd112        About a minute ago   275 MB</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// run image</span><br><span class="line">docker run docker-whale</span><br><span class="line"></span><br><span class="line">   ________________________________</span><br><span class="line">  / &quot;Indecision is the basis of    \</span><br><span class="line">  | flexibility&quot;                   |</span><br><span class="line">  |                                |</span><br><span class="line">  | -- button at a Science Fiction |</span><br><span class="line">  \ convention.                    /</span><br><span class="line">   --------------------------------</span><br><span class="line">      \</span><br><span class="line">       \</span><br><span class="line">        \</span><br><span class="line">                      ##        .</span><br><span class="line">                ## ## ##       ==</span><br><span class="line">             ## ## ## ##      ===</span><br><span class="line">         /&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;___/ ===</span><br><span class="line">    ~~~ &#123;~~ ~~~~ ~~~ ~~~~ ~~ ~ /  ===- ~~~</span><br><span class="line">         \______ o          __/</span><br><span class="line">          \    \        __/</span><br><span class="line">            \____\______/</span><br></pre></td></tr></table></figure>
+<h2 id="create-a-docker-hub-account"><a href="#create-a-docker-hub-account" class="headerlink" title="create a docker-hub account"></a>create a docker-hub account</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// docker hub account</span><br><span class="line">frankg/frankg</span><br></pre></td></tr></table></figure>
+<h2 id="tag-push-and-pull-your-image"><a href="#tag-push-and-pull-your-image" class="headerlink" title="tag, push and pull your image"></a>tag, push and pull your image</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">// list image</span><br><span class="line">docker images</span><br><span class="line">  REPOSITORY</span><br><span class="line">  docker-whale</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// tag image</span><br><span class="line">tag 21d2171cd112 frankg/docker-whale:latest</span><br><span class="line">  REPOSITORY</span><br><span class="line">  frankg/docker-whale</span><br><span class="line"></span><br><span class="line">// list image</span><br><span class="line">docker images</span><br><span class="line">    REPOSITORY</span><br><span class="line">    frankg/docker-whale</span><br><span class="line"></span><br><span class="line">// push image</span><br><span class="line">docker push frankg/docker-whale</span><br><span class="line"></span><br><span class="line">// remove image</span><br><span class="line">docker rmi -f frankg/docker-whale</span><br><span class="line"></span><br><span class="line">// pull and run image</span><br><span class="line">docker run frankg/docker-whale</span><br><span class="line"></span><br><span class="line">  Unable to find image &apos;frankg/docker-whale:latest&apos;</span><br><span class="line">  [...]</span><br><span class="line">   ________________________________________</span><br><span class="line">  / In the future, you&apos;re going to get     \</span><br><span class="line">  | computers as prizes in breakfast       |</span><br><span class="line">  | cereals. You&apos;ll throw them out because |</span><br><span class="line">  | your house will be littered with them. |</span><br><span class="line">  |                                        |</span><br><span class="line">  \ -- Robert Lucky                        /</span><br><span class="line">   ----------------------------------------</span><br><span class="line">      \</span><br><span class="line">       \</span><br><span class="line">        \</span><br><span class="line">                      ##        .</span><br><span class="line">                ## ## ##       ==</span><br><span class="line">             ## ## ## ##      ===</span><br><span class="line">         /&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;___/ ===</span><br><span class="line">    ~~~ &#123;~~ ~~~~ ~~~ ~~~~ ~~ ~ /  ===- ~~~</span><br><span class="line">         \______ o          __/</span><br><span class="line">          \    \        __/</span><br><span class="line">            \____\______/</span><br></pre></td></tr></table></figure>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2016/09/07/20160910-loopback/">Building Node apps with Loopback</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2016-09-07</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="What-is-LoopBack-Framework"><a href="#What-is-LoopBack-Framework" class="headerlink" title="What is LoopBack Framework"></a>What is LoopBack Framework</h2><p>LoopBack is an open source framework from IBM that enables you to quickly compose scalable APIs.</p>
+<h3 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h3><ul>
+<li>Open Source and based on Express</li>
+<li>Security (xss, csrf, etc.)</li>
+<li>Connectivity with ORM (mongo, mysql, other-api’s etc)</li>
+<li>REST (Auto-Generate APIs from Data Models)</li>
+<li>Authentication (password and social login)</li>
+<li>Authorization (fine grained ACLs)</li>
+<li>Swagger (web interface for your API)</li>
+</ul>
+<h2 id="Loopback-Documentation-and-Example-Apps"><a href="#Loopback-Documentation-and-Example-Apps" class="headerlink" title="Loopback Documentation and Example Apps"></a>Loopback Documentation and Example Apps</h2><ul>
+<li><a href="https://goo.gl/gUGku6" target="_blank" rel="noopener">Documentation</a></li>
+<li><a href="https://goo.gl/5DtGev" target="_blank" rel="noopener">Example Apps</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">name</th>
+<th style="text-align:left">descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">loopback-getting-started</td>
+<td style="text-align:left">Review app part1</td>
+</tr>
+<tr>
+<td style="text-align:left">loopback-getting-started-intermediate</td>
+<td style="text-align:left">Review app part2</td>
+</tr>
+<tr>
+<td style="text-align:left">loopback-example-database</td>
+<td style="text-align:left">Database related features</td>
+</tr>
+<tr>
+<td style="text-align:left">loopback-example-relations</td>
+<td style="text-align:left">Model relations and filtering via REST</td>
+</tr>
+<tr>
+<td style="text-align:left">loopback-example-app-logic</td>
+<td style="text-align:left">How to add your own logic to a LoopBack app</td>
+</tr>
+<tr>
+<td style="text-align:left">loopback-example-access-control</td>
+<td style="text-align:left">Controlling access to your API endpoints</td>
+</tr>
+</tbody>
+</table>
+<h2 id="App-Building-Processes"><a href="#App-Building-Processes" class="headerlink" title="App Building Processes"></a>App Building Processes</h2><h3 id="loopback-getting-started"><a href="#loopback-getting-started" class="headerlink" title="loopback-getting-started"></a>loopback-getting-started</h3><ul>
+<li>Create a simple API</li>
+<li>Connect your API to a data source</li>
+<li>Extend your API <code>(not covered here)</code></li>
+<li>Add a static web page <code>(not covered here)</code></li>
+<li>Add a custom Express route <code>(not covered here)</code></li>
+<li>Use API Explorer</li>
+</ul>
+<p>See the complete process <a href="https://goo.gl/aDII6X" target="_blank" rel="noopener">here</a></p>
+<pre><code>// loopback-getting-started abbreviated process
+
+      // install loopback
+      npm install -g strongloop
+
+      // generate app
+      slc loopback CoffeeShops
+
+      // goto project directory
+      cd CoffeeShops
+
+      // add data source (mongoDB)
+      slc loopback:datasource
+
+      // generate model (CoffeeShop)
+      slc loopback:model
+
+      // create sample data (for CoffeeShop -- see https://goo.gl/2aB4lE)
+
+          Create boot script to populate CoffeeShop data
+
+      // start the app
+      node .
+
+      // test api explorer
+      open localhost:3000/explorer      // create, read, update, delete, etc.
+
+      // test database
+      mongodb-client                    // confirm database and data
+</code></pre><h3 id="loopback-getting-started-intermediate"><a href="#loopback-getting-started-intermediate" class="headerlink" title="loopback-getting-started-intermediate"></a>loopback-getting-started-intermediate</h3><p>Continuing from the previous app we will add:</p>
+<ul>
+<li>Relations between models.</li>
+<li>Remote hooks.</li>
+<li>Using access control lists to protect REST endpoints.</li>
+<li>User registration and authentication</li>
+<li>Using the AngularJS SDK</li>
+</ul>
+<p>See the complete process <a href="https://goo.gl/Ut4QNK" target="_blank" rel="noopener">here</a></p>
+<pre><code>// loopback-getting-started-intermediate abbreviated process
+
+      // goto project directory
+      cd CoffeeShops
+
+      // generate multiple models (for Review and Reviewer)
+      slc loopback:model
+
+      // create sample data (for Review and Reviewer -- see https://goo.gl/nVlZ6z)
+
+          Update boot script to populate Review and Reviewer data
+
+      // define multiple relations
+      slc loopback:relation
+
+          A coffee shop has many reviews; No through model and no foreign key.
+          A coffee shop has many reviewers; No through model and no foreign key.
+          A review belongs to a coffee shop; No foreign key.
+          A review belongs to a reviewer; foreign key is publisherId.
+          A reviewer has many reviews; foreign key is publisherId.
+
+      // define multiple access controls
+      slc loopback:acl
+
+          Deny everyone all endpoints.
+          Allow everyone to read reviews.
+          Allow authenticated users to write a review.
+          Allow the author of a review (its &quot;owner&quot;) to make any changes to it.
+
+      // create a remote hook (see https://goo.gl/PR0YJN)
+
+          Populate date and publisher before creating a review
+
+      // start process manager
+      slc pm
+</code></pre><h2 id="Generators"><a href="#Generators" class="headerlink" title="Generators"></a>Generators</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">Command</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">slc loopback</td>
+<td style="text-align:left">Application generator</td>
+</tr>
+<tr>
+<td style="text-align:left">slc loopback:datasource</td>
+<td style="text-align:left">Data source generator</td>
+</tr>
+<tr>
+<td style="text-align:left">slc loopback:model</td>
+<td style="text-align:left">Model generator</td>
+</tr>
+<tr>
+<td style="text-align:left">slc loopback:property</td>
+<td style="text-align:left">Property generator</td>
+</tr>
+<tr>
+<td style="text-align:left">slc loopback:acl</td>
+<td style="text-align:left">ACL generator</td>
+</tr>
+<tr>
+<td style="text-align:left">slc loopback:relation</td>
+<td style="text-align:left">Relation generator</td>
+</tr>
+<tr>
+<td style="text-align:left">slc loopback:remote-method</td>
+<td style="text-align:left">Remote method generator</td>
+</tr>
+<tr>
+<td style="text-align:left">slc loopback:middleware</td>
+<td style="text-align:left">Middleware generator</td>
+</tr>
+<tr>
+<td style="text-align:left">slc loopback:boot-script</td>
+<td style="text-align:left">Boot script generator</td>
+</tr>
+<tr>
+<td style="text-align:left">slc loopback:export-api-def</td>
+<td style="text-align:left">API definition generator</td>
+</tr>
+<tr>
+<td style="text-align:left">slc loopback:swagger</td>
+<td style="text-align:left">Swagger generator</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>The slc command has many additional sub-commands not specific to LoopBack for building, deploying, and managing Node applications. See Operating Node applications for more information and Command-line reference for the command reference.</p>
+</blockquote>
+<h2 id="NOTES"><a href="#NOTES" class="headerlink" title="NOTES"></a>NOTES</h2><h3 id="StrongLoop-Arc"><a href="#StrongLoop-Arc" class="headerlink" title="StrongLoop Arc"></a>StrongLoop Arc</h3><p>StrongLoop Arc is a graphical tool for building, deploying, and monitoring LoopBack applications.</p>
+<blockquote>
+<p>StrongLoop Arc is being deprecated and replaced watch for more info.</p>
+</blockquote>
+<h3 id="Environment-Specific-Configuration"><a href="#Environment-Specific-Configuration" class="headerlink" title="Environment Specific Configuration"></a>Environment Specific Configuration</h3><p>See <a href="https://goo.gl/9mE5Kt" target="_blank" rel="noopener">Environment Specific Configuration</a> for:</p>
+<ul>
+<li>configuration files</li>
+<li>Application-wide configuration</li>
+<li>Turning off stack traces</li>
+<li>Disabling API Explorer</li>
+<li>Customizing REST error handling</li>
+<li>Exclude stack traces from HTTP responses</li>
+<li>Data source configuration</li>
+<li>Getting values from environment variables</li>
+</ul>
+<h3 id="Versioning-your-API"><a href="#Versioning-your-API" class="headerlink" title="Versioning your API"></a>Versioning your API</h3><p>You can easily add versioning to your REST API routes, based on the application “major” version in package.json.  See <a href="https://goo.gl/LSI8GG" target="_blank" rel="noopener">here</a></p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2016/09/06/20160906-lets-encrypt/">Free HTTPS</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2016-09-06</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <p>Until recently you had to pay a stack of money to get a certificate that allowed you to use HTTPS on your server. That has changed due to the lets-encrypt project which let’s you generate certificates that are good for 6 months and can be renewed automatically.</p>
+<p>Here is what we’ll cover in this post:</p>
+<ul>
+<li>procuring a domain name</li>
+<li>install/configure nginx test site</li>
+<li>generate certificates</li>
+<li>reconfigure test site</li>
+<li>configure for the internet</li>
+</ul>
+<h2 id="Procuring-a-domain-name"><a href="#Procuring-a-domain-name" class="headerlink" title="Procuring a domain name"></a>Procuring a domain name</h2><p>I used GoDaddy if it’s your first domain name it will cost less than \$4 otherwise it will cost less than \$13.</p>
+<p>I purchased <code>debugtime.com</code></p>
+<h2 id="Install-Configure-Nginx-test-site"><a href="#Install-Configure-Nginx-test-site" class="headerlink" title="Install/Configure Nginx test site"></a>Install/Configure Nginx test site</h2><p>Install Nginx</p>
+<pre><code>brew doctor                     // check brew
+brew update                     // update brew
+brew install nginx              // install nginx
+brew services start nginx       // configure boot on startup
+</code></pre><p>Prepare Site directory/files</p>
+<pre><code>mkdir /var/www/hello
+cd /var/www/hello
+sudo echo &apos;hello&apos; &gt; index.html
+</code></pre><p>add file <code>/usr/local/etc/nginx/servers/hello.conf</code></p>
+<pre><code>server {
+  listen 80;
+  listen [::]:80;
+
+  root /var/www/hello;
+  index index.html;
+
+  server_name debugtime.com;
+
+  location / {
+    try_files $uri $uri/ =404;
+  }
+}
+</code></pre><p>test nginx:</p>
+<pre><code>brew services restart nginx     // restart nginx
+curl localhost                  // outputs hello
+</code></pre><h2 id="Generate-certificates"><a href="#Generate-certificates" class="headerlink" title="Generate certificates"></a>Generate certificates</h2><p>generate certificates</p>
+<pre><code>// clone certbot
+git clone https://github.com/certbot/certbot.git
+
+// run certbot-auto
+cd cd certbot
+sudo ./certbot-auto certonly --webroot -w /var/www/hello -d debugtime.com --debug
+
+// watch for cert directory
+/etc/letsencrypt/live/debugtime.com/
+</code></pre><h2 id="Reconfigure-test-site"><a href="#Reconfigure-test-site" class="headerlink" title="Reconfigure test site"></a>Reconfigure test site</h2><p>replace file: <code>/usr/local/etc/nginx/servers/hello.conf</code></p>
+<pre><code>server {
+  listen 443;
+  listen [::]:443;
+
+  root /var/www/hello;
+  index index.html;
+
+  server_name debugtime.com;
+
+  location / {
+    try_files $uri $uri/ =404;
+  }
+
+  ssl on;
+  ssl_session_cache shared:SSL:50m;
+  ssl_certificate         /etc/letsencrypt/live/debugtime.com/fullchain.pem;
+  ssl_certificate_key     /etc/letsencrypt/live/debugtime.com/privkey.pem;
+  ssl_client_certificate  /etc/letsencrypt/live/debugtime.com/fullchain.pem;
+  ssl_session_timeout 5m;
+}
+
+server {
+  # Redirect www to non-www
+  listen 443;
+  listen [::]:443;
+  server_name www.debugtime.com;
+  return https://debugtime.com$request_uri;
+}
+
+server {
+  # Redirect all calls to HTTP (port 80) to HTTPS
+  listen 80;
+  listen [::]:80;
+  server_name www.debugtime.com debugtime.com;
+  return https://debugtime.com$request_uri;
+}
+</code></pre><p>restart nginx</p>
+<pre><code>// restart nginx
+// sudo required because it&apos;s port 80
+sudo brew services restart nginx
+</code></pre><p>test localhost</p>
+<pre><code>curl -iL localhost
+
+HTTP/1.1 302 Moved Temporarily
+Server: nginx/1.10.1
+Date: Tue, 06 Sep 2016 19:15:04 GMT
+Content-Type: text/html
+Content-Length: 161
+Connection: keep-alive
+Location: https://debugtime.com/
+
+HTTP/1.1 200 OK
+Server: nginx/1.10.1
+Date: Tue, 06 Sep 2016 19:15:05 GMT
+Content-Type: text/html
+Content-Length: 6
+Last-Modified: Tue, 06 Sep 2016 19:09:58 GMT
+Connection: keep-alive
+ETag: &quot;57cf1486-6&quot;
+Accept-Ranges: bytes
+
+hello
+</code></pre><h2 id="Configure-for-the-internet"><a href="#Configure-for-the-internet" class="headerlink" title="Configure for the internet"></a>Configure for the internet</h2><p>configure domain</p>
+<pre><code>// point domain to your home&apos;s IP address
+75.51.152.192
+</code></pre><p>configure router</p>
+<pre><code>// configure virtual server
+// allow port 80 and 443 to go to your server
+80 &amp; 443 =&gt; 192.168.2.5
+</code></pre><p>test server</p>
+<pre><code>// test with curl
+// should change http to https
+// should drop www prefix
+curl -iL localhost
+curl -iL http://www.debugtime.com
+curl -iL http://debugtime.com
+curl -iL https://www.debugtime.com
+
+// test in browser should show lock with https
+</code></pre><p><img src="/images/free-https/browser.png" alt=""></p>
+
+                
+            </div>
+        </article>
+    
+</div>
+<div class="paginator">
+    
+        
+        <a class="prev" href="/page/17/">
+            <i class="iconfont icon-prev"></i>
+            Prev
+        </a>
+        
+        
+        <a class="next" href="/page/19/">
+            Next
+            <i class="iconfont icon-next"></i>
+        </a>
+        
+    
+</div>
+
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">Frank Gutierrez</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

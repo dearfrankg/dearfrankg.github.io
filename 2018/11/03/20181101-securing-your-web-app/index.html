@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">securing your web app</h2>
+            <div class="post-meta">
+                <span class="post-time">2018-11-03</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-text">Intro</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Attack-Vectors"><span class="toc-text">Attack Vectors</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MIM-Man-In-The-Middle"><span class="toc-text">MIM - Man In The Middle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS-Cross-Site-Scripting"><span class="toc-text">XSS - Cross Site Scripting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSRF-Cross-Site-Request-Forgery"><span class="toc-text">CSRF - Cross Site Request Forgery</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CORS-Cross-Origin-Resource-Sharing"><span class="toc-text">CORS - Cross Origin Resource Sharing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Protection-Plan"><span class="toc-text">Protection Plan</span></a></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>We’re going to explore ways that rogue agents can attack your web app, then we’ll a implement a plan that will protect against these attacks and keep your app secure.</p>
+<h2 id="Attack-Vectors"><a href="#Attack-Vectors" class="headerlink" title="Attack Vectors"></a>Attack Vectors</h2><h3 id="MIM-Man-In-The-Middle"><a href="#MIM-Man-In-The-Middle" class="headerlink" title="MIM - Man In The Middle"></a>MIM - Man In The Middle</h3><p>MIM is an attack where an attacker sits in a public coffee shop sniffing internet traffic. When they are able to sniff your JWT token they can maliciously access your app.</p>
+<p>Danger: When passing credentials such as passwords or JWT over the intenet insecurely then an attacker can maliciously access your app.</p>
+<p>Solution: Use <code>HTTPS</code> to protect app internet traffic and use <code>VPN</code> to protect all internet tracffic.</p>
+<h3 id="XSS-Cross-Site-Scripting"><a href="#XSS-Cross-Site-Scripting" class="headerlink" title="XSS - Cross Site Scripting"></a>XSS - Cross Site Scripting</h3><p>XSS is an attack technique where an atacker can run javascript in your app because they have control over a 3rd party script used in your app, allowing them to maliciously access your app</p>
+<p>Danger: An attacker with the ability to run javascript in your app could gain access to an insecurely stored JWT and use that to maliciously access your app.</p>
+<p>Solution: It’s not reasonable to control all 3rd party scripts, so the next best thing is to secure sensitive data from javascript. Store your JWT in a secure cookie with no javascript access and only https access. Do not store your JWT in web-storage, local-storage, or unprotected-cookie.</p>
+<h3 id="CSRF-Cross-Site-Request-Forgery"><a href="#CSRF-Cross-Site-Request-Forgery" class="headerlink" title="CSRF - Cross Site Request Forgery"></a>CSRF - Cross Site Request Forgery</h3><p>CSRF is an attack technique where an attacker can call your app from their domain and your incorrectly configured app gives them authorization by passing an authorization cookie to the server.</p>
+<p>Danger: When your cookie is incorrectly configured to be passed from any domain to your server on every request then a rogue agent can gain authorization to your app.</p>
+<p>Solution: configure as follows:</p>
+<ul>
+<li>use cookie option <code>httpOnly</code> to prevents javascript from reading the cookie.</li>
+<li>use cookie option <code>secure</code> which forces https use and prevents sniffing on the wire.</li>
+<li>store JWT in a secure cookie to prevent access via XSS and MIM.</li>
+<li>pass a x-csrf-token in both your cookie and html as a way to confirm app access from same domain.</li>
+</ul>
+<h3 id="CORS-Cross-Origin-Resource-Sharing"><a href="#CORS-Cross-Origin-Resource-Sharing" class="headerlink" title="CORS - Cross Origin Resource Sharing"></a>CORS - Cross Origin Resource Sharing</h3><p>CORS is a utility that allows your app to access HTTP resources from other domains. By default it can only access them from the same domain with the exceptions of images and styles. Specifically accessing AJAX, fonts, ES-Modules from other domains requires CORS.</p>
+<p>Danger: When CORS is configured incorectly can allow any domain to access your server this enables a rogue agent to attack from their domain. By configuring which domains can and cannot access we make our app much more secure.</p>
+<p>Solution: Configure CORS correctly utilizing white-lists and black-lists to secure your site.</p>
+<h2 id="Protection-Plan"><a href="#Protection-Plan" class="headerlink" title="Protection Plan"></a>Protection Plan</h2><p>TBD</p>
+
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2018/11/06/20181105-react-storybook/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">react storybook</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2018/10/31/20181031-server-side-rendering-in-React/">
+                <span class="nav-default">server side rendering in react</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">Frank Gutierrez</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

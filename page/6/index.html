@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2017/04/13/20170412-react-lifecycle/">react lifecycle</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2017-04-13</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>React enables to create components by invoking the React.createClass() method which expects a render method and triggers a lifecycle that can be hooked into via a number of so called lifecycle methods.</p>
+<p>To get a clear idea of the lifecycle we will need to differentiate between</p>
+<ul>
+<li>creation phase</li>
+<li>update phase</li>
+<li>destroy phase</li>
+</ul>
+<h2 id="Creation-Phase"><a href="#Creation-Phase" class="headerlink" title="Creation Phase"></a>Creation Phase</h2><table>
+<thead>
+<tr>
+<th>Creation Component</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getInitialState</code></td>
+<td>set initial state</td>
+</tr>
+<tr>
+<td><code>getDefaultProps</code></td>
+<td>define props</td>
+</tr>
+<tr>
+<td><code>componentWillMount</code></td>
+<td><strong>YES set state</strong> – will not re-render.  (respond to wondow-resize, focus-changes)</td>
+</tr>
+<tr>
+<td><code>render</code></td>
+<td>render</td>
+</tr>
+<tr>
+<td><code>componentDidMount</code></td>
+<td><strong>YES set state</strong> – DOM manipulation, Data fetching, inititalize UI libs, setup listeners</td>
+</tr>
+</tbody>
+</table>
+<div style="height: 50px"></div>
+
+<h2 id="Update-Phase"><a href="#Update-Phase" class="headerlink" title="Update Phase"></a>Update Phase</h2><table>
+<thead>
+<tr>
+<th>Update State</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>shouldComponentUpdate</code></td>
+<td>decide to render or not returning a boolean</td>
+</tr>
+<tr>
+<td><code>componentWillUpdate</code></td>
+<td><strong>NO state changes here</strong> prepare for update – dispatch events, start animation</td>
+</tr>
+<tr>
+<td><code>render</code></td>
+<td>render</td>
+</tr>
+<tr>
+<td><code>componentDidUpdate</code></td>
+<td>DOM manipulation and Data fetching, update chart with new data <strong>careful not to infinite loop</strong></td>
+</tr>
+</tbody>
+</table>
+<div style="height: 50px"></div>
+
+<table>
+<thead>
+<tr>
+<th>Update Props</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>componentWillReceiveProps</code></td>
+<td><strong>YES set state</strong> – only called when props change <strong>you must check if props changed</strong></td>
+</tr>
+<tr>
+<td><code>shouldComponentUpdate</code></td>
+<td>decide to render or not returning a boolean</td>
+</tr>
+<tr>
+<td><code>componentWillUpdate</code></td>
+<td><strong>NO state changes here</strong> prepare for update – dispatch events, start animation</td>
+</tr>
+<tr>
+<td><code>render</code></td>
+<td>render</td>
+</tr>
+<tr>
+<td><code>componentDidUpdate</code></td>
+<td>DOM manipulation and Data fetching, update chart with new data <strong>careful not to infinite loop</strong></td>
+</tr>
+</tbody>
+</table>
+<div style="height: 50px"></div>
+
+<h2 id="Destroy-Phase"><a href="#Destroy-Phase" class="headerlink" title="Destroy Phase"></a>Destroy Phase</h2><table>
+<thead>
+<tr>
+<th>Destroy Phase</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>componentWillUnmount</code></td>
+<td>clean up operations: f.e. removing any timers, 3rd party lib references</td>
+</tr>
+</tbody>
+</table>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://goo.gl/uy15pn" target="_blank" rel="noopener">Understanding the React Component Lifecycle</a></li>
+</ul>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><iframe src="http://embed.plnkr.co/8KLnfn8S29y1cFw59FYY/?show=preview" frameborder="0" width="100%" height="1500"></iframe>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2017/04/12/20170412-learning-lerna/">learning lerna</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2017-04-12</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <p><a href="https://goo.gl/OQnM1G" target="_blank" rel="noopener">Lerna</a>: A tool for managing JavaScript projects with multiple packages.</p>
+<h2 id="About"><a href="#About" class="headerlink" title="About"></a>About</h2><p>Developing many packages in separate repos are messy with disadvantages.  To solve this many projects <code>babel</code>, <code>react</code>, <code>angular</code>, and many more, develop all packages in a single repo called a <code>monorepo</code>.</p>
+<p><strong>Lerna is a tool that optimizes the workflow around managing monorepos.</strong></p>
+<p>It looks like this:</p>
+<pre><code>my-lerna-repo/
+  lerna.json
+  package.json
+  packages/
+    package-1/
+      package.json
+    package-2/
+      package.json
+</code></pre><h2 id="Why-use-Lerna"><a href="#Why-use-Lerna" class="headerlink" title="Why use Lerna"></a>Why use Lerna</h2><ol>
+<li>It optimizes workflow for managing <code>packages</code></li>
+<li>it’s much more organized than having separate repos for each package</li>
+<li>manage separate utility projects tracking version independently (lodash v4.x, ramda v3.x)</li>
+<li>manage a group of related components using only a single version (bootstrap-components v3.x)</li>
+</ol>
+<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><h3 id="Create-a-lerna-repo"><a href="#Create-a-lerna-repo" class="headerlink" title="Create a lerna repo"></a>Create a lerna repo</h3><blockquote>
+<p>We are using lerna v2.x</p>
+</blockquote>
+<pre><code>// INSTALL
+npm install -g lerna
+
+// CREATE LERNA REPO
+git init lerna-repo       // create a new git repo
+cd lerna-repo
+lerna init                // LERNA COMMAND: lerna init: makes 2 files
+                          // lerna.json package.json
+
+// CONFIGURE LERNA
+{                         // configure lerna by editing lerna.json
+  &quot;lerna&quot;: &quot;2.0.0-rc.1&quot;,
+  &quot;packages&quot;: [
+    &quot;packages/*&quot;
+  ],
+  &quot;version&quot;: &quot;0.0.0&quot;,
+  &quot;npmClient&quot;: &quot;yarn&quot;,
+  &quot;commands&quot;: {
+    &quot;bootstrap&quot;: {
+      &quot;hoist&quot;: &quot;**&quot;
+    }
+  }
+}
+
+// CREATE PACKAGES
+mkdir -p packages/project1
+mkdir -p packages/project2
+lerna exec npm init -- -y     // make package.json for each project
+
+// RUN COMMANDS ON SCOPE
+lerna exec cat package.json --scope project1      // review them individually
+
+// SETUP DEPENDENCIES
+yarn add react react-dom
+// copy package.json dependency from root to project
+
+// LOCAL DEPENDENCY
+// one local project may depend on another
+// just add the dependency-project-name to package.json
+// then run
+lerna bootstrap
+</code></pre><h2 id="Commands-and-Options"><a href="#Commands-and-Options" class="headerlink" title="Commands and Options"></a>Commands and Options</h2><h3 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h3><pre><code>- bootstrap  Link together local packages and npm install remaining package dependencies
+- publish    Publish updated packages to npm
+- updated    Check which packages have changed since the last release
+- import     Import a package with git history from an external repository
+- clean      Remove the node_modules directory from all packages
+- diff       Diff all packages or a single package since the last release
+- init       Initialize a lerna repo
+- run        Run npm script in each package
+- exec       Run a command in each package
+- ls         List all public packages
+</code></pre><h3 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h3><p>configure lerna</p>
+<pre><code>--npm-tag [tagname]     Publish packages with the specified npm dist-tag
+--npm-client [client]   Executable used to install dependencies (npm, yarn, pnpm, ...)
+--concurrency           How many threads to use if lerna parallelises the tasks
+                        (defaults to 4)
+--loglevel              What level of logs to report (defaults to &quot;info&quot;).
+                        On failure, all logs are written to lerna-debug.log in the
+                        current working directory.
+--git-remote [remote]   Push git changes to the specified remote instead of &apos;origin&apos;
+--canary, -c            Publish packages after every successful merge using the
+                        sha as part of the tag
+--conventional-commits  Use angular conventional-commit format to determine version
+                        bump and generate CHANGELOG
+--yes                   Skip all confirmation prompts
+</code></pre><p>init</p>
+<pre><code>--independent, -i       Version packages independently
+--exact                 Specify cross-dependency version numbers exactly rather than
+                        with a caret (^) (only affects publish and init)
+</code></pre><p>bootstrap</p>
+<pre><code>--hoist [glob]          Install external dependencies matching [glob] to the repo root.
+                        Use with no glob for all.
+--nohoist [glob]        Don&apos;t hoist external dependencies matching [glob] to the repo root
+--include-filtered-dependencies
+                        Flag to force lerna to include all dependencies and transitive
+                        dependencies when running &apos;bootstrap&apos;, even if they should not
+                        be included by the scope or ignore flags
+</code></pre><p>publish</p>
+<pre><code>--skip-git              Skip commiting, tagging, and pushing git changes
+--skip-npm              Stop before actually publishing change to npm
+--exact                 Specify cross-dependency version numbers exactly rather than
+                        with a caret (^) (only affects publish and init)
+--message, -m [msg]     Use a custom commit message when creating the publish commit
+--repo-version          Specify repo version to publish
+--force-publish         Force publish for the specified packages (comma-separated)
+                        or all packages using *
+                        (skips the git diff check for changed packages)
+</code></pre><p>only affects ‘run’, ‘exec’, ‘clean’, ‘ls’ and ‘bootstrap’ commands</p>
+<pre><code>--scope [glob]          Restricts the scope to package names matching the given glob
+--ignore [glob]         Ignores packages with names matching the given glob
+</code></pre><p>only affects ‘run’ command</p>
+<pre><code>--stream                Stream output with lines prefixed by package (only &apos;run&apos;)
+</code></pre><p>only affects run, exec, publish and bootstrap</p>
+<pre><code>--no-sort               When executing tasks, ignore the dependency ordering of packages
+</code></pre>
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2017/04/05/20170405-redux-refresher/">redux refresher</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2017-04-05</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h1 id="Redux-Review"><a href="#Redux-Review" class="headerlink" title="Redux Review"></a>Redux Review</h1><h2 id="ramda-assocPath"><a href="#ramda-assocPath" class="headerlink" title="ramda/assocPath"></a>ramda/assocPath</h2><ul>
+<li>provides a cleaner/shorter way to update nested state</li>
+</ul>
+<p>Here we make a state change 3 levels deep with one line.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; assocPath &#125; <span class="keyword">from</span> <span class="string">'ramda'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> o1 = &#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: &#123; <span class="attr">c</span>: <span class="number">1</span> &#125;, <span class="attr">bb</span>: &#123; <span class="attr">cc</span>: <span class="number">22</span> &#125; &#125; &#125;;</span><br><span class="line"><span class="keyword">const</span> o2 = assocPath([<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>])(<span class="number">42</span>)(o1);</span><br><span class="line"><span class="built_in">console</span>.log(o1 !== o2, o1.a !== o2.a); <span class="comment">// new copies of "changed" objects</span></span><br><span class="line"><span class="built_in">console</span>.log(o1.a.bb === o2.a.bb); <span class="comment">// deep unchanged properties are copied by reference</span></span><br></pre></td></tr></table></figure>
+<h2 id="redux-thunk"><a href="#redux-thunk" class="headerlink" title="redux-thunk"></a>redux-thunk</h2><p>redux-thunk solves the following problems</p>
+<ul>
+<li>async actions</li>
+<li>dispatch multiple actions within an action creator</li>
+<li>get access to redux state in an action creator</li>
+</ul>
+<p>Here we handle an async action creator, access state, and call multiple actions</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// using redux-thunk middleware</span></span><br><span class="line">fetchDataRequest = createAction(<span class="string">'fetch-data-request'</span>)</span><br><span class="line">fetchDataSuccess = createAction(<span class="string">'fetch-data-success'</span>)</span><br><span class="line">fetchDataFailure = createAction(<span class="string">'fetch-data-failure'</span>)</span><br><span class="line">fetchData = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">dispatch, getState</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> state = getState()</span><br><span class="line">    <span class="keyword">if</span> (state.isLoading) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    dispatch(fetchDataRequest())</span><br><span class="line">    <span class="keyword">return</span> fetch(<span class="string">'http://example.com/todos'</span>)</span><br><span class="line">      .then(<span class="function"><span class="params">res</span> =&gt;</span> res.json())</span><br><span class="line">      .then(<span class="function"><span class="params">json</span> =&gt;</span> dispatch(fetchTodosSuccess(json.body)))</span><br><span class="line">      .catch(<span class="function"><span class="params">ex</span> =&gt;</span> dispatch(fetchTodosFailure(ex)))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Reselect"><a href="#Reselect" class="headerlink" title="Reselect"></a>Reselect</h2><ul>
+<li>Selectors can compute derived data</li>
+<li>Selectors are memoized</li>
+<li>Selectors are composable</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createSelector &#125; <span class="keyword">from</span> <span class="string">'reselect'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> shopItemsSelector = <span class="function"><span class="params">state</span> =&gt;</span> state.shop.items</span><br><span class="line"><span class="keyword">const</span> taxPercentSelector = <span class="function"><span class="params">state</span> =&gt;</span> state.shop.taxPercent</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> subtotalSelector = createSelector(</span><br><span class="line">  shopItemsSelector,</span><br><span class="line">  items =&gt; items.reduce(<span class="function">(<span class="params">acc, item</span>) =&gt;</span> acc + item.value, <span class="number">0</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> taxSelector = createSelector(</span><br><span class="line">  subtotalSelector,</span><br><span class="line">  taxPercentSelector,</span><br><span class="line">  (subtotal, taxPercent) =&gt; subtotal * (taxPercent / <span class="number">100</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> totalSelector = createSelector(</span><br><span class="line">  subtotalSelector,</span><br><span class="line">  taxSelector,</span><br><span class="line">  (subtotal, tax) =&gt; (&#123; <span class="attr">total</span>: subtotal + tax &#125;)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> exampleState = &#123;</span><br><span class="line">  shop: &#123;</span><br><span class="line">    taxPercent: <span class="number">8</span>,</span><br><span class="line">    items: [</span><br><span class="line">      &#123; <span class="attr">name</span>: <span class="string">'apple'</span>, <span class="attr">value</span>: <span class="number">1.20</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">name</span>: <span class="string">'orange'</span>, <span class="attr">value</span>: <span class="number">0.95</span> &#125;,</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(subtotalSelector(exampleState)) <span class="comment">// 2.15</span></span><br><span class="line"><span class="built_in">console</span>.log(taxSelector(exampleState))      <span class="comment">// 0.172</span></span><br><span class="line"><span class="built_in">console</span>.log(totalSelector(exampleState))    <span class="comment">// &#123; total: 2.322 &#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="How-to-write-redux-tests"><a href="#How-to-write-redux-tests" class="headerlink" title="How to write redux tests"></a>How to write redux tests</h2><p>Look <a href="https://goo.gl/qAFHy3" target="_blank" rel="noopener">here</a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://goo.gl/G6WE3z" target="_blank" rel="noopener">redux-thunk to dispatch multiple actions from Redux action creators</a></li>
+<li><a href="https://goo.gl/PcpyAb" target="_blank" rel="noopener">redux-thunk to access Redux state in an action creator</a></li>
+<li><a href="https://goo.gl/JSbN2q" target="_blank" rel="noopener">ramda/assocPath for a Cleaner/shorter way to update nested state in Redux</a></li>
+<li><a href="https://goo.gl/cdNhzV" target="_blank" rel="noopener">reselect for computing derived data in an efficent composable way</a></li>
+<li><a href="https://goo.gl/qAFHy3" target="_blank" rel="noopener">How to write redux tests</a></li>
+</ul>
+
+                
+            </div>
+        </article>
+    
+</div>
+<div class="paginator">
+    
+        
+        <a class="prev" href="/page/5/">
+            <i class="iconfont icon-prev"></i>
+            Prev
+        </a>
+        
+        
+        <a class="next" href="/page/7/">
+            Next
+            <i class="iconfont icon-next"></i>
+        </a>
+        
+    
+</div>
+
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">Frank Gutierrez</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

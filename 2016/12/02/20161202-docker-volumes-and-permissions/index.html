@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">Docker - Volumes and Permissions</h2>
+            <div class="post-meta">
+                <span class="post-time">2016-12-02</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-for-Mac"><span class="toc-text">Docker for Mac</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-Machine"><span class="toc-text">Docker-Machine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <p>Working with volume mounts is difficult in certain situations…</p>
+<h3 id="Docker-for-Mac"><a href="#Docker-for-Mac" class="headerlink" title="Docker for Mac"></a>Docker for Mac</h3><p>Although Docker for Mac runs containers as root it will work with volume files as if it were you.</p>
+<p>Hurray nothing to do here.  But continue reading because there some good Docker tips later.</p>
+<h3 id="Docker-Machine"><a href="#Docker-Machine" class="headerlink" title="Docker-Machine"></a>Docker-Machine</h3><p>When using docker containers it’s a bad idea to run your processes as root (some applications even refuse to run as root). Furthermore running as root or any user, it’s still difficult to work wth volume mounts because files will be owned by a different user. That makes working with them or cleaning them up hard and needing to resort to sudo or similar. Which is increasingly annoying in development and CI environments.</p>
+<p><a href="https://disqus.com/home/forums/initeq/" target="_blank" rel="noopener">Denny Bertovic</a> has a great <a href="https://goo.gl/wE7tBb" target="_blank" rel="noopener">post</a> describing a way to create a base image for all your images (which he says you’re probably already doing) which will run your containers with the same UID as you.  Making working with volume mounts a breeze. I’m thinking at work you’ll probably have a shared docker user for this.</p>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p><code>At this time I do not have a working solution for docker-machine.</code></p>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/docker/" title="docker">docker</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2016/12/15/20161215-tdd/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">TDD</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2016/12/01/20161201-create-react-app/">
+                <span class="nav-default">ReactJS – create-react-app</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">Frank Gutierrez</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

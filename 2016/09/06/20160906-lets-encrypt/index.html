@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">Free HTTPS</h2>
+            <div class="post-meta">
+                <span class="post-time">2016-09-06</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Procuring-a-domain-name"><span class="toc-text">Procuring a domain name</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Install-Configure-Nginx-test-site"><span class="toc-text">Install/Configure Nginx test site</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Generate-certificates"><span class="toc-text">Generate certificates</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reconfigure-test-site"><span class="toc-text">Reconfigure test site</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Configure-for-the-internet"><span class="toc-text">Configure for the internet</span></a></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <p>Until recently you had to pay a stack of money to get a certificate that allowed you to use HTTPS on your server. That has changed due to the lets-encrypt project which let’s you generate certificates that are good for 6 months and can be renewed automatically.</p>
+<p>Here is what we’ll cover in this post:</p>
+<ul>
+<li>procuring a domain name</li>
+<li>install/configure nginx test site</li>
+<li>generate certificates</li>
+<li>reconfigure test site</li>
+<li>configure for the internet</li>
+</ul>
+<h2 id="Procuring-a-domain-name"><a href="#Procuring-a-domain-name" class="headerlink" title="Procuring a domain name"></a>Procuring a domain name</h2><p>I used GoDaddy if it’s your first domain name it will cost less than \$4 otherwise it will cost less than \$13.</p>
+<p>I purchased <code>debugtime.com</code></p>
+<h2 id="Install-Configure-Nginx-test-site"><a href="#Install-Configure-Nginx-test-site" class="headerlink" title="Install/Configure Nginx test site"></a>Install/Configure Nginx test site</h2><p>Install Nginx</p>
+<pre><code>brew doctor                     // check brew
+brew update                     // update brew
+brew install nginx              // install nginx
+brew services start nginx       // configure boot on startup
+</code></pre><p>Prepare Site directory/files</p>
+<pre><code>mkdir /var/www/hello
+cd /var/www/hello
+sudo echo &apos;hello&apos; &gt; index.html
+</code></pre><p>add file <code>/usr/local/etc/nginx/servers/hello.conf</code></p>
+<pre><code>server {
+  listen 80;
+  listen [::]:80;
+
+  root /var/www/hello;
+  index index.html;
+
+  server_name debugtime.com;
+
+  location / {
+    try_files $uri $uri/ =404;
+  }
+}
+</code></pre><p>test nginx:</p>
+<pre><code>brew services restart nginx     // restart nginx
+curl localhost                  // outputs hello
+</code></pre><h2 id="Generate-certificates"><a href="#Generate-certificates" class="headerlink" title="Generate certificates"></a>Generate certificates</h2><p>generate certificates</p>
+<pre><code>// clone certbot
+git clone https://github.com/certbot/certbot.git
+
+// run certbot-auto
+cd cd certbot
+sudo ./certbot-auto certonly --webroot -w /var/www/hello -d debugtime.com --debug
+
+// watch for cert directory
+/etc/letsencrypt/live/debugtime.com/
+</code></pre><h2 id="Reconfigure-test-site"><a href="#Reconfigure-test-site" class="headerlink" title="Reconfigure test site"></a>Reconfigure test site</h2><p>replace file: <code>/usr/local/etc/nginx/servers/hello.conf</code></p>
+<pre><code>server {
+  listen 443;
+  listen [::]:443;
+
+  root /var/www/hello;
+  index index.html;
+
+  server_name debugtime.com;
+
+  location / {
+    try_files $uri $uri/ =404;
+  }
+
+  ssl on;
+  ssl_session_cache shared:SSL:50m;
+  ssl_certificate         /etc/letsencrypt/live/debugtime.com/fullchain.pem;
+  ssl_certificate_key     /etc/letsencrypt/live/debugtime.com/privkey.pem;
+  ssl_client_certificate  /etc/letsencrypt/live/debugtime.com/fullchain.pem;
+  ssl_session_timeout 5m;
+}
+
+server {
+  # Redirect www to non-www
+  listen 443;
+  listen [::]:443;
+  server_name www.debugtime.com;
+  return https://debugtime.com$request_uri;
+}
+
+server {
+  # Redirect all calls to HTTP (port 80) to HTTPS
+  listen 80;
+  listen [::]:80;
+  server_name www.debugtime.com debugtime.com;
+  return https://debugtime.com$request_uri;
+}
+</code></pre><p>restart nginx</p>
+<pre><code>// restart nginx
+// sudo required because it&apos;s port 80
+sudo brew services restart nginx
+</code></pre><p>test localhost</p>
+<pre><code>curl -iL localhost
+
+HTTP/1.1 302 Moved Temporarily
+Server: nginx/1.10.1
+Date: Tue, 06 Sep 2016 19:15:04 GMT
+Content-Type: text/html
+Content-Length: 161
+Connection: keep-alive
+Location: https://debugtime.com/
+
+HTTP/1.1 200 OK
+Server: nginx/1.10.1
+Date: Tue, 06 Sep 2016 19:15:05 GMT
+Content-Type: text/html
+Content-Length: 6
+Last-Modified: Tue, 06 Sep 2016 19:09:58 GMT
+Connection: keep-alive
+ETag: &quot;57cf1486-6&quot;
+Accept-Ranges: bytes
+
+hello
+</code></pre><h2 id="Configure-for-the-internet"><a href="#Configure-for-the-internet" class="headerlink" title="Configure for the internet"></a>Configure for the internet</h2><p>configure domain</p>
+<pre><code>// point domain to your home&apos;s IP address
+75.51.152.192
+</code></pre><p>configure router</p>
+<pre><code>// configure virtual server
+// allow port 80 and 443 to go to your server
+80 &amp; 443 =&gt; 192.168.2.5
+</code></pre><p>test server</p>
+<pre><code>// test with curl
+// should change http to https
+// should drop www prefix
+curl -iL localhost
+curl -iL http://www.debugtime.com
+curl -iL http://debugtime.com
+curl -iL https://www.debugtime.com
+
+// test in browser should show lock with https
+</code></pre><p><img src="/images/free-https/browser.png" alt=""></p>
+
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2016/09/07/20160910-loopback/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">Building Node apps with Loopback</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2016/08/18/20160828-Using-Oauth2/">
+                <span class="nav-default">Using Oauth2</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">Frank Gutierrez</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

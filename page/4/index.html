@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2018/08/19/20180819-recent-practice/">recent practice</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2018-08-19</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <ul>
+<li><a href="http://certain-owl.surge.sh/" target="_blank" rel="noopener">flexing flexbox</a></li>
+<li><a href="https://codesandbox.io/s/rwp1zqx5jp" target="_blank" rel="noopener">css-grid</a></li>
+<li><a href="https://codesandbox.io/s/6w079rly0k" target="_blank" rel="noopener">recursion practice</a></li>
+<li><a href="https://codesandbox.io/s/1vmx5w5kx7" target="_blank" rel="noopener">fractal tree</a></li>
+<li><a href="https://codesandbox.io/s/30p22krx95" target="_blank" rel="noopener">react bowling</a></li>
+</ul>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2018/08/19/20180819-using-export-with-index-js/">using export with index.js</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2018-08-19</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <p>Consider the app sructure</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">├── config.js</span><br><span class="line">├── containers</span><br><span class="line">├── context.js</span><br><span class="line">├── images</span><br><span class="line">│   └── logo.svg</span><br><span class="line">├── index.js</span><br><span class="line">├── registerServiceWorker.js</span><br><span class="line">├── routes</span><br><span class="line">│   ├── App.css</span><br><span class="line">│   ├── App.js</span><br><span class="line">│   └── App.test.js</span><br><span class="line">├── styles</span><br><span class="line">│   └── index.css</span><br><span class="line">├── utils</span><br><span class="line">└── views</span><br><span class="line">    ├── body.css</span><br><span class="line">    ├── body.js</span><br><span class="line">    ├── flex.css</span><br><span class="line">    ├── flex.js</span><br><span class="line">    ├── header.js</span><br><span class="line">    ├── index.js</span><br><span class="line">    └── info.js</span><br></pre></td></tr></table></figure>
+<p>/src/views/index.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./header"</span>;</span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./body"</span>;</span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./info"</span>;</span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./flex"</span>;</span><br></pre></td></tr></table></figure>
+<p>/src/views/body.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"./body.css"</span>;</span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  FlexDefaults,</span><br><span class="line">  FlexWrap1,</span><br><span class="line">  FlexWrap2,</span><br><span class="line">  Justify1,</span><br><span class="line">  Justify2,</span><br><span class="line">  Justify3,</span><br><span class="line">  Justify4,</span><br><span class="line">  Justify5,</span><br><span class="line">  Align1,</span><br><span class="line">  JustifyAndAlign</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">"../views"</span>;</span><br><span class="line">...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>Utilising the <code>index.js</code> file in this way you can import many views wether they exist in one file or many. This simplifies coding. You do need to remember to populate <code>index.js</code> when adding new files.</p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2018/08/19/20180819-recursion/">recursion review</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2018-08-19</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// helper functions</span></span><br><span class="line"><span class="keyword">const</span> format = <span class="function"><span class="params">data</span> =&gt;</span> <span class="built_in">JSON</span>.stringify(data);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> title = <span class="function"><span class="params">title</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">`\n<span class="subst">$&#123;title&#125;</span>\n---------------------`</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> iterate = <span class="function">(<span class="params">fnName, fn</span>) =&gt;</span> &#123;</span><br><span class="line">  [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>].forEach(<span class="function"><span class="params">n</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;fnName&#125;</span>(<span class="subst">$&#123;n&#125;</span>) = <span class="subst">$&#123;fn(n)&#125;</span>`</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// WRITE FUNCTIONS IN A RECURSIVE WAY</span></span><br><span class="line"><span class="comment">// pow, fibonaci, factorial, map, reverse, sumSalaries</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pow = <span class="function">(<span class="params">b, n</span>) =&gt;</span> (n === <span class="number">1</span> ? b : b * pow(b, n - <span class="number">1</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fibonaci = <span class="function"><span class="params">x</span> =&gt;</span> (x &lt;= <span class="number">1</span> ? <span class="number">1</span> : fibonaci(x - <span class="number">1</span>) + fibonaci(x - <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> factorial = <span class="function"><span class="params">x</span> =&gt;</span> (x === <span class="number">1</span> ? <span class="number">1</span> : x * factorial(x - <span class="number">1</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> map = <span class="function">(<span class="params">arr, fn</span>) =&gt;</span> (arr.length === <span class="number">0</span> ? [] : fn(arr[<span class="number">0</span>]).concat(map(arr.slice(<span class="number">1</span>), fn)));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reverse = <span class="function"><span class="params">s</span> =&gt;</span> (s.length === <span class="number">1</span> ? s : s.slice(<span class="number">-1</span>) + reverse(s.slice(<span class="number">0</span>, <span class="number">-1</span>)));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> sumSalaries = <span class="function"><span class="params">department</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> isDepartment = <span class="built_in">Array</span>.isArray(department);</span><br><span class="line">  <span class="keyword">if</span> (isDepartment) &#123;</span><br><span class="line">    <span class="keyword">return</span> department.reduce(<span class="function">(<span class="params">acc, person</span>) =&gt;</span> acc + person.salary, <span class="number">0</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (dept <span class="keyword">in</span> department) &#123;</span><br><span class="line">      sum += sumSalaries(department[dept]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ==========================================================</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// pow</span></span><br><span class="line">title(<span class="string">"pow"</span>);</span><br><span class="line"><span class="keyword">const</span> powOfBase2 = <span class="function"><span class="params">n</span> =&gt;</span> pow(<span class="number">2</span>, n);</span><br><span class="line">iterate(<span class="string">"powOfBase2"</span>, powOfBase2);</span><br><span class="line"></span><br><span class="line"><span class="comment">// fibonaci</span></span><br><span class="line">title(<span class="string">"fibonaci"</span>);</span><br><span class="line">iterate(<span class="string">"fibonaci"</span>, fibonaci);</span><br><span class="line"></span><br><span class="line"><span class="comment">// factorial</span></span><br><span class="line">title(<span class="string">"factorial"</span>);</span><br><span class="line">iterate(<span class="string">"factorial"</span>, factorial);</span><br><span class="line"></span><br><span class="line"><span class="comment">// map</span></span><br><span class="line">title(<span class="string">"map"</span>);</span><br><span class="line"><span class="keyword">const</span> lettersArray = <span class="string">"abcde"</span>.split(<span class="string">""</span>);</span><br><span class="line"><span class="keyword">const</span> uppercase = <span class="function"><span class="params">x</span> =&gt;</span> x.toUpperCase();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`map(<span class="subst">$&#123;format(lettersArray)&#125;</span>, uppercase) = <span class="subst">$&#123;map(lettersArray, uppercase)&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// reverse</span></span><br><span class="line">title(<span class="string">"reverse"</span>);</span><br><span class="line"><span class="keyword">const</span> word = <span class="string">"abcde"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`reverse(<span class="subst">$&#123;format(word)&#125;</span>) = <span class="subst">$&#123;reverse(word)&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//sumSalaries</span></span><br><span class="line">title(<span class="string">"sumSalaries"</span>);</span><br><span class="line"><span class="keyword">const</span> company = &#123;</span><br><span class="line">  sales: [&#123; <span class="attr">name</span>: <span class="string">"John"</span>, <span class="attr">salary</span>: <span class="number">1000</span> &#125;, &#123; <span class="attr">name</span>: <span class="string">"Alice"</span>, <span class="attr">salary</span>: <span class="number">600</span> &#125;],</span><br><span class="line">  development: &#123;</span><br><span class="line">    sites: [&#123; <span class="attr">name</span>: <span class="string">"Peter"</span>, <span class="attr">salary</span>: <span class="number">2000</span> &#125;, &#123; <span class="attr">name</span>: <span class="string">"Alex"</span>, <span class="attr">salary</span>: <span class="number">1800</span> &#125;],</span><br><span class="line">    internals: [&#123; <span class="attr">name</span>: <span class="string">"Jack"</span>, <span class="attr">salary</span>: <span class="number">1300</span> &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`sumSalaries(company) = <span class="subst">$&#123;sumSalaries(company)&#125;</span>`</span>);</span><br></pre></td></tr></table></figure>
+
+                
+            </div>
+        </article>
+    
+</div>
+<div class="paginator">
+    
+        
+        <a class="prev" href="/page/3/">
+            <i class="iconfont icon-prev"></i>
+            Prev
+        </a>
+        
+        
+        <a class="next" href="/page/5/">
+            Next
+            <i class="iconfont icon-next"></i>
+        </a>
+        
+    
+</div>
+
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">Frank Gutierrez</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

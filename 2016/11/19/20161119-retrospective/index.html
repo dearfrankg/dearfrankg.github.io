@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">Docker – Retrospective</h2>
+            <div class="post-meta">
+                <span class="post-time">2016-11-19</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Training-Curriculum"><span class="toc-text">Training Curriculum</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Getting-Started"><span class="toc-text">Getting Started:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Learn-By-Example"><span class="toc-text">Learn By Example:</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#Training-Curriculum-Summary"><span class="toc-text">Training Curriculum Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summing-up-Docker"><span class="toc-text">Summing up Docker</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#docker"><span class="toc-text">docker</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-machine"><span class="toc-text">docker-machine</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-compose"><span class="toc-text">docker-compose</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-swarms"><span class="toc-text">docker swarms</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gitlab-experience"><span class="toc-text">gitlab experience</span></a></li>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <p>Time to evaluate my docker training</p>
+<h2 id="Training-Curriculum"><a href="#Training-Curriculum" class="headerlink" title="Training Curriculum"></a>Training Curriculum</h2><h4 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started:"></a>Getting Started:</h4><p>Use docker CLI to:</p>
+<ul>
+<li><code>images</code>: list, run, tag and build images</li>
+<li><code>containers</code>: list-running, list-all, start, stop, restart</li>
+<li><code>docker hub</code>: create account, find, pull and push images</li>
+</ul>
+<h4 id="Learn-By-Example"><a href="#Learn-By-Example" class="headerlink" title="Learn By Example:"></a>Learn By Example:</h4><p>Use docker CLI to:</p>
+<p>run apps</p>
+<ul>
+<li><code>containers</code>: run ephemeral, interactive and daemonized containers</li>
+<li><code>containers</code>: show logs, start, stop, restart and remove containers</li>
+</ul>
+<p>work with containers</p>
+<ul>
+<li><code>docker</code>: show client/server versions, use docker help</li>
+<li><code>containers</code>: start, stop, restart and remove containers</li>
+<li><code>containers</code>: assign name</li>
+<li><code>containers</code>: get ports, logs, processes</li>
+<li><code>containers</code>: inspect, inspect range</li>
+</ul>
+<p>Updating and committing an image</p>
+<p><code>Goal: clone nginx image and edit it to show new html page</code></p>
+<ul>
+<li><code>images</code>: search, list, pull, tag</li>
+<li><code>images</code>: run interactively to edit image</li>
+<li><code>images</code>: use ctrl-p, ctrl-q to leave without the exit command</li>
+<li><code>images</code>: get containerId</li>
+<li><code>images</code>: commit to exiting or new image</li>
+<li><code>images</code>: get imageId and compare imageIds</li>
+</ul>
+<p>Building an image from a Dockerfile</p>
+<ul>
+<li><code>build image</code>: create project folder</li>
+<li><code>build image</code>: create Dockerfile by entering Dockerfile commands</li>
+<li><code>build image</code>: build image</li>
+<li><code>build image</code>: tag image</li>
+<li><code>build image</code>: show image digests</li>
+<li><code>build image</code>: push to docker hub</li>
+<li><code>build image</code>: remove local image</li>
+</ul>
+<p>network containers</p>
+<ul>
+<li><code>network containers</code>: list networks, create network, remove network</li>
+<li><code>network containers</code>: add container to network, disconnect container from network</li>
+<li><code>inspect network</code>: inspect network</li>
+<li><code>inspect container</code>: inspect container, inspect container range</li>
+</ul>
+<p>data volumes</p>
+<ul>
+<li><code>data volume</code>: add anonymous volume, locate volume</li>
+<li><code>data volume</code>: mount host directory as volume, mount shared-storage as volume</li>
+<li><code>data volume</code>: mount host file as volume</li>
+<li><code>data volume</code>: create volume, using <code>:z or :Z</code> to relabel volumes</li>
+</ul>
+<p>data volume containers</p>
+<ul>
+<li><code>data volume containers</code>: create a data volume container</li>
+<li><code>data volume containers</code>: mount the data volume container in another container</li>
+<li><code>data volume containers</code>: find and remove dangling volumes</li>
+</ul>
+<p>backup data volumes</p>
+<ul>
+<li><code>backup data volumes</code>: backup, restore or migrate data volumes</li>
+</ul>
+<p>remove anonymous volumes</p>
+<ul>
+<li><code>remove anonymous volumes</code>: locate and remove anonymous volumes</li>
+</ul>
+<p>store images on Docker Hub</p>
+<ul>
+<li><code>Docker Hub</code>: login, search, pull, push</li>
+<li><code>Docker Hub</code>: private repos, teams, automated builds, web-hooks</li>
+<li><code>Docker Hub</code>: setup automated builds</li>
+</ul>
+<h2 id="Training-Curriculum-Summary"><a href="#Training-Curriculum-Summary" class="headerlink" title="Training Curriculum Summary"></a>Training Curriculum Summary</h2><p><code>Getting Started</code>:</p>
+<ul>
+<li>a taste of images, containers and docker hub</li>
+</ul>
+<p><code>Learn By Example</code>:</p>
+<ul>
+<li>running apps</li>
+<li>working with containers</li>
+<li>building and updating images</li>
+<li>networking containers</li>
+<li>inspecting networks and containers</li>
+<li>working with volumes and volume containers</li>
+<li>working with docker hub</li>
+</ul>
+<h2 id="Summing-up-Docker"><a href="#Summing-up-Docker" class="headerlink" title="Summing up Docker"></a>Summing up Docker</h2><h4 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h4><h4 id="docker-machine"><a href="#docker-machine" class="headerlink" title="docker-machine"></a>docker-machine</h4><h4 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h4><h4 id="docker-swarms"><a href="#docker-swarms" class="headerlink" title="docker swarms"></a>docker swarms</h4><h2 id="gitlab-experience"><a href="#gitlab-experience" class="headerlink" title="gitlab experience"></a>gitlab experience</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dk run -it gitlab bash</span><br><span class="line">cd /var/opt/gitlab</span><br><span class="line">ll</span><br><span class="line"></span><br><span class="line">drwxr-xr-x 7 git          git          4096 Dec  2 10:05 ./</span><br><span class="line">drwxr-xr-x 3 root         root         4096 Nov 22 19:48 ../</span><br><span class="line">-rw-r--r-- 1 git          git           220 Aug 31  2015 .bash_logout</span><br><span class="line">-rw-r--r-- 1 git          git          3771 Aug 31  2015 .bashrc</span><br><span class="line">-rw-r--r-- 1 git          git           655 Jun 24 15:44 .profile</span><br><span class="line">drwxr-xr-x 2 mattermost   mattermost   4096 Nov 22 19:48 mattermost/</span><br><span class="line">drwxr-xr-x 2 gitlab-www   gitlab-www   4096 Nov 22 19:48 nginx/</span><br><span class="line">drwxr-xr-x 2 gitlab-psql  gitlab-psql  4096 Nov 22 19:48 postgresql/</span><br><span class="line">drwxr-xr-x 2 gitlab-redis gitlab-redis 4096 Nov 22 19:48 redis/</span><br><span class="line">drwxr-xr-x 2 registry     registry     4096 Nov 22 19:48 registry/</span><br></pre></td></tr></table></figure>
+<p>launchGitlab<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dkset gitlab</span><br><span class="line">docker run --detach \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --hostname gitlab.debugtime.com \</span><br><span class="line">  --restart always \</span><br><span class="line">  --publish 80:80 --publish 2289:22 \</span><br><span class="line">  --volume /opt/docker/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /opt/docker/gitlab/logs:/var/log/gitlab \</span><br><span class="line">  --volume /opt/docker/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  --env GITLAB_OMNIBUS_CONFIG=&quot;external_url &apos;http://gitlab.debugtime.com/&apos;; gitlab_rails[&apos;gitlab_shell_ssh_port&apos;] = 2289&quot; \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br><span class="line"></span><br><span class="line"># tunnel laptop:2289 to container:2289</span><br><span class="line">docker-machine ssh gitlab -fN -L 0.0.0.0:2289:localhost:2289</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it &lt;container_id&gt; bash</span><br><span class="line">cd /var/opt/gitlab</span><br><span class="line">ll</span><br><span class="line"></span><br><span class="line">drwxr-xr-x 13 root         root        300 Dec  2 10:16 ./</span><br><span class="line">drwxr-xr-x  3 root         root       4096 Dec  2 01:03 ../</span><br><span class="line">-rw-r--r--  1 git          git         297 Dec  2 10:16 .gitconfig</span><br><span class="line">drwx------  2 git          git          60 Dec  2 10:16 .ssh/</span><br><span class="line">drwx------  2 git          root         40 Dec  2 10:16 backups/</span><br><span class="line">drwx------  3 git          root         60 Dec  2 10:16 git-data/</span><br><span class="line">drwxr-xr-x  3 git          root         60 Dec  2 10:16 gitlab-ci/</span><br><span class="line">drwxr-xr-x  9 git          root        240 Dec  2 10:16 gitlab-rails/</span><br><span class="line">drwx------  2 git          root         60 Dec  2 10:16 gitlab-shell/</span><br><span class="line">drwxr-x---  2 git          gitlab-www   80 Dec  2 10:16 gitlab-workhorse/</span><br><span class="line">drwx------  3 root         root         80 Dec  2 10:16 logrotate/</span><br><span class="line">drwxr-x---  9 root         gitlab-www  220 Dec  2 10:17 nginx/</span><br><span class="line">drwxr-xr-x  3 gitlab-psql  root        120 Dec  2 10:16 postgresql/</span><br><span class="line">drwxr-x---  2 gitlab-redis git          80 Dec  2 10:16 redis/</span><br><span class="line">-rw-r--r--  1 root         root         40 Dec  2 10:16 trusted-certs-directory-hash</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/docker/" title="docker">docker</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2016/12/01/20161201-react-refresh/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">ReactJS – React Refresher</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2016/11/19/20161119-gitlab-setup/">
+                <span class="nav-default">Gitlab Setup</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">Frank Gutierrez</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

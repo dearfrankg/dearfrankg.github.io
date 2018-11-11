@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">redux training</h2>
+            <div class="post-meta">
+                <span class="post-time">2018-04-05</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#01-hello-world"><span class="toc-text">01 hello world</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#02-add-some-sass"><span class="toc-text">02 add some sass</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#03-add-professional-file-structure"><span class="toc-text">03 add professional file structure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#04-todomvc-redux"><span class="toc-text">04 todomvc-redux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#redux"><span class="toc-text">redux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jest"><span class="toc-text">jest</span></a></li></ol></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <h2 id="01-hello-world"><a href="#01-hello-world" class="headerlink" title="01 hello world"></a>01 hello world</h2><p>demo creating a simple react app with a single .js file.</p>
+<ul>
+<li><code>react run index.js</code></li>
+</ul>
+<h2 id="02-add-some-sass"><a href="#02-add-some-sass" class="headerlink" title="02 add some sass"></a>02 add some sass</h2><p>demo sass in your simple app.</p>
+<ul>
+<li><code>react run index.js --plugins sass</code></li>
+</ul>
+<h2 id="03-add-professional-file-structure"><a href="#03-add-professional-file-structure" class="headerlink" title="03 add professional file structure"></a>03 add professional file structure</h2><p>demo app with professional file structure.</p>
+<ul>
+<li><code>npm start</code></li>
+</ul>
+<h2 id="04-todomvc-redux"><a href="#04-todomvc-redux" class="headerlink" title="04 todomvc-redux"></a>04 todomvc-redux</h2><p>demo the ubiquitous todomvc app built with redux</p>
+<h3 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h3><ul>
+<li>redux actions</li>
+</ul>
+<p>Actions are payloads of information that send data to your store. The only source of information for the store. You send them to the store using <code>store.dispatch()</code>.</p>
+<ul>
+<li>redux reducers</li>
+</ul>
+<p>Reducers specifies how the application state changes in response to an action.</p>
+<ul>
+<li>redux middleware</li>
+</ul>
+<p>Middleware provides a hook that allows access to the action before and after it reaches the reducer.</p>
+<ul>
+<li>redux store</li>
+</ul>
+<p>The store is an object that:</p>
+<ul>
+<li>holds app state</li>
+<li>allows access to state via <code>getState()</code></li>
+<li>allows updating state via <code>dispatch(action)</code></li>
+<li>allows registering/unregistering listeners <code>(un)subscribe(listener)</code></li>
+</ul>
+<h3 id="jest"><a href="#jest" class="headerlink" title="jest"></a>jest</h3><p>zero config testing platform</p>
+<p>features:</p>
+<ul>
+<li>snapshots</li>
+<li>awesome cli interface</li>
+<li>powerful mocking library</li>
+<li>code coverage</li>
+<li>parallelizes and sandboxes tests</li>
+</ul>
+<ul>
+<li>test actions</li>
+<li>test reducers</li>
+<li>test middleware</li>
+<li>test store</li>
+</ul>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/react-redux/" title="react redux">react redux</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2018/04/05/20180405-redux-testing/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">redux testing</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2017/05/12/20170511-npm-refresher/">
+                <span class="nav-default">npm refresher</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">Frank Gutierrez</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

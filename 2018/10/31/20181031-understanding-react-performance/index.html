@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">understanding react performance</h2>
+            <div class="post-meta">
+                <span class="post-time">2018-10-31</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Intro"><span class="toc-text">Intro</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Identify-wasted-renders"><span class="toc-text">Identify wasted renders</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extract-frequently-updated-regions-into-isolated-components"><span class="toc-text">Extract frequently updated regions into isolated components</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Use-pure-components-when-appropriate"><span class="toc-text">Use pure components when appropriate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Avoid-passing-new-objects-as-props"><span class="toc-text">Avoid passing new objects as props</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Use-the-production-build"><span class="toc-text">Use the production build</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Employ-code-splitting"><span class="toc-text">Employ code splitting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li></ol></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><p>We’re going to dive into some typical react performance problems and how to solve them. We will be using and example Profile app which displays a profile card consisting of an image and four fields rendered from state, and one button that changes the state of the description field.</p>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="https://goo.gl/aPJM5t" target="_blank" rel="noopener">a checklist for eliminating common React performance issues</a></li>
+</ul>
+<h2 id="Identify-wasted-renders"><a href="#Identify-wasted-renders" class="headerlink" title="Identify wasted renders"></a>Identify wasted renders</h2><p>In order to identify wateful renders we can utilize these two tools:</p>
+<ul>
+<li>react-dev-tools – highlights when a component renders by flashing a green outline on the component.</li>
+<li>console.log – from your components render method you can console.log to see when it’s rendering.</li>
+</ul>
+<p>Utilizing the react-dev-tools on our app show that when the description field is updated the whole profile component renders as identified by the green flashing border.</p>
+<p>Below are some ways to optimize the situation.</p>
+<h2 id="Extract-frequently-updated-regions-into-isolated-components"><a href="#Extract-frequently-updated-regions-into-isolated-components" class="headerlink" title="Extract frequently updated regions into isolated components"></a>Extract frequently updated regions into isolated components</h2><p>The Profile app is connected to 4 redux fields. So when the <code>description</code> field changes it causes the card to re-render. Remember whenever the <code>props</code> or <code>state</code> changes that causes a re-render. Let’s localize the elements being updated to a specific react component. We will create a <code>Profession</code> componenent connected to only the description</p>
+<pre><code>const Profession = ({ description }) =&gt; {
+  return (
+    &lt;p&gt;
+     &lt;span className=&quot;faint&quot;&gt;I am&lt;/span&gt; a {description}
+    &lt;/p&gt;
+  );
+}
+</code></pre><p>Now only the <code>profession</code> component will update when the <code>description</code> changes.</p>
+<h2 id="Use-pure-components-when-appropriate"><a href="#Use-pure-components-when-appropriate" class="headerlink" title="Use pure components when appropriate"></a>Use pure components when appropriate</h2><p>The Profession component consists of four words ‘I’, “am”, “a”, “description”. For example purposes if we create a new component for each of those four items maybe we can isolate the description field.</p>
+<p>Pure components only render when their props change. By making our new components Pure we can avoid re-rendering when not necessary. An easy way to implement a <code>pure component</code> is to use <code>React.PureComponents</code> with class components (functional components can be pure also using react connect). Here is our new description component. We don’t show it but each of the child components is a pure component to avoid re-renders.</p>
+<pre><code>const Description = ({ description }) =&gt; {
+  return (
+    &lt;p&gt;
+      &lt;I /&gt;an isolate
+      &lt;Am /&gt;
+      &lt;A /&gt;
+      &lt;Profession profession={description} /&gt;
+    &lt;/p&gt;
+  );
+};
+</code></pre><h2 id="Avoid-passing-new-objects-as-props"><a href="#Avoid-passing-new-objects-as-props" class="headerlink" title="Avoid passing new objects as props"></a>Avoid passing new objects as props</h2><p><strong>Watch out for new objects</strong></p>
+<p>When you create an object variable in a render method, it creates a new object for every render. In the example below we create the <code>i</code> variable and assign it a new object. This causes the Calendar component to re-render repeatedly.</p>
+<pre><code>class Description extends Component {
+  render() {
+    const i = { value: &quot;i&quot; };
+    return (
+      &lt;p&gt;
+        &lt;Title /&gt;
+        &lt;Calender i={i} /&gt;
+        &lt;Footer  /&gt;
+      &lt;/p&gt;
+    );
+  }
+}
+</code></pre><p>The solution is to use a class variable outside the render method. This prevents a new object from being created on each render. This way the Calendar component only renders once.</p>
+<pre><code>class Description extends Component {
+  i = { day: 22 }
+
+  render() {
+    return (
+      &lt;p&gt;
+        &lt;Title /&gt;
+        &lt;Calender i={i} /&gt;
+        &lt;Footer  /&gt;
+      &lt;/p&gt;
+    );
+  }
+}
+</code></pre><p><strong>Watch out for explicit event handlers</strong></p>
+<p>Here we have an event handler that creates a new function on every render.</p>
+<pre><code>...
+render() {
+  &lt;div onClick={() =&gt; {//do something here}}
+}
+...
+</code></pre><p>The solution is to use a class method to avoid creating a new function on every render.</p>
+<pre><code>...
+handleClick:() ={...}
+
+render() {
+  &lt;div onClick={this.handleClick}
+}
+...
+</code></pre><h2 id="Use-the-production-build"><a href="#Use-the-production-build" class="headerlink" title="Use the production build"></a>Use the production build</h2><p>For create-react-app</p>
+<pre><code>npm run build
+npm run start
+</code></pre><p>This will yield bundle optimized files for production.</p>
+<h2 id="Employ-code-splitting"><a href="#Employ-code-splitting" class="headerlink" title="Employ code splitting"></a>Employ code splitting</h2><p>You can implement this in a couple of ways:</p>
+<ul>
+<li><p>split by page – only code necessary for the page.</p>
+</li>
+<li><p>split by component – only code necessary for the component.</p>
+</li>
+</ul>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Now you’ve got a decent checklist for tracking and fixing common performance issues in react apps. Go build some fast apps!</p>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/react-performance/" title="react performance">react performance</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2018/10/31/20181031-oss-vs-redhat/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">oss 0 vs redhat 34 billion</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2018/08/22/20180822-css-selectors-you-must-know/">
+                <span class="nav-default">css selectors you must know</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">Frank Gutierrez</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>
