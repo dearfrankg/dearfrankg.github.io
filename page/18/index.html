@@ -77,6 +77,142 @@
     
         <article class="post-abstract">
             <div class="post-title">
+                <h2><a class="post-title-link" href="/2016/11/15/20161115-docker-learn-by-example/">Docker – Learn By Example</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2016-11-15</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h1 id="Docker-––-Learn-By-Example"><a href="#Docker-––-Learn-By-Example" class="headerlink" title="Docker –– Learn By Example"></a>Docker –– Learn By Example</h1><p><a href="https://goo.gl/F5ZTQS" target="_blank" rel="noopener">source material</a></p>
+<!-- TOC depthFrom:1 depthTo:3 withLinks:0 updateOnSave:1 orderedList:0 -->
+<ul>
+<li>Docker –– Learn By Example<ul>
+<li>run apps in a container (interactive, daemonized)</li>
+<li>working with containers</li>
+<li>Create your own images<ul>
+<li>Updating and committing an image</li>
+<li>Building an image from a Dockerfile</li>
+</ul>
+</li>
+<li>network containers</li>
+<li>manage data in containers</li>
+<li>store images on Docker Hub</li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h2 id="run-apps-in-a-container-interactive-daemonized"><a href="#run-apps-in-a-container-interactive-daemonized" class="headerlink" title="run apps in a container (interactive, daemonized)"></a>run apps in a container (interactive, daemonized)</h2><ul>
+<li>run “hello frankg”</li>
+<li>run interactive shell</li>
+<li>run daemonized app</li>
+<li>show logs</li>
+<li>stop container</li>
+<li>remove container</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// run &quot;hello frankg&quot; in a container</span><br><span class="line">docker run ubuntu /bin/echo &quot;hello frankg&quot;</span><br><span class="line">  hello frankg</span><br><span class="line"></span><br><span class="line">// run an interactive container</span><br><span class="line">docker -it ubuntu bash</span><br><span class="line">  docker run -it ubuntu bash</span><br><span class="line">  root@304485fae978:/# exit</span><br><span class="line"></span><br><span class="line">// run daemonized &quot;hello frankg&quot;</span><br><span class="line">docker run -d ubuntu /bin/sh -c  &quot;while true; do echo hello frankg; sleep 2; done&quot;</span><br><span class="line"></span><br><span class="line">// show container logs</span><br><span class="line">docker logs -f 939fc7a0ebf7070</span><br><span class="line">hello frankg</span><br><span class="line">hello frankg</span><br><span class="line">[...]</span><br><span class="line"></span><br><span class="line">// stop container</span><br><span class="line">docker stop 939fc7a0ebf7070</span><br><span class="line"></span><br><span class="line">// remove container</span><br><span class="line">docker rm 939fc7a0ebf7070</span><br></pre></td></tr></table></figure>
+<h2 id="working-with-containers"><a href="#working-with-containers" class="headerlink" title="working with containers"></a>working with containers</h2><ul>
+<li>show docker client/server versions</li>
+<li>use docker help</li>
+<li>run nginx with name web</li>
+<li>get ports</li>
+<li>get logs</li>
+<li>get processes</li>
+<li>inspect container</li>
+<li>inspect range in container</li>
+<li>stop container</li>
+<li>restart container</li>
+<li>remove container</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">// use docker client</span><br><span class="line">docker version</span><br><span class="line">  Client:</span><br><span class="line">   Version:      1.12.1</span><br><span class="line">   [...]</span><br><span class="line">  Server:</span><br><span class="line">   Version:      1.12.1</span><br><span class="line">   [...]</span><br><span class="line"></span><br><span class="line">// use docker help</span><br><span class="line">docker --help</span><br><span class="line">[...]</span><br><span class="line"></span><br><span class="line">// run a web app</span><br><span class="line">docker run -d -P --name web nginx</span><br><span class="line"></span><br><span class="line">// get container ports</span><br><span class="line">docker port web</span><br><span class="line">  443/tcp -&gt; 0.0.0.0:32776</span><br><span class="line">  80/tcp -&gt; 0.0.0.0:32777</span><br><span class="line"></span><br><span class="line">// tail logs</span><br><span class="line">docker logs -f web</span><br><span class="line"></span><br><span class="line">// get container processes</span><br><span class="line">docker top web</span><br><span class="line">  [...]</span><br><span class="line"></span><br><span class="line">// inspect container</span><br><span class="line">docker inspect web</span><br><span class="line">  [...json...]</span><br><span class="line"></span><br><span class="line">// inspect range</span><br><span class="line">docker inspect -f &apos;&#123;&#123;range .NetworkSettings.Networks&#125;&#125;&#123;&#123;.IPAddress&#125;&#125;&#123;&#123;end&#125;&#125;&apos; web</span><br><span class="line">  172.17.0.3</span><br><span class="line"></span><br><span class="line">// stop container</span><br><span class="line">docker stop web</span><br><span class="line"></span><br><span class="line">// restart container</span><br><span class="line">docker restart web</span><br><span class="line"></span><br><span class="line">// remove container</span><br><span class="line">docker rm web</span><br></pre></td></tr></table></figure>
+<h2 id="Create-your-own-images"><a href="#Create-your-own-images" class="headerlink" title="Create your own images"></a>Create your own images</h2><h3 id="Updating-and-committing-an-image"><a href="#Updating-and-committing-an-image" class="headerlink" title="Updating and committing an image"></a>Updating and committing an image</h3><p>Goal: clone nginx image and edit it to show new html page</p>
+<ul>
+<li>list images on host</li>
+<li>find image</li>
+<li>get new nginx image</li>
+<li>tag nginx image to clone it</li>
+<li>run bash interactively</li>
+<li>edit html page and exit</li>
+<li>collect container id</li>
+<li>collect nginx cmd</li>
+<li>commit to new image</li>
+<li>note new image id</li>
+<li>test new image to see change</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">// list images on host</span><br><span class="line">docker images</span><br><span class="line">  [...]</span><br><span class="line"></span><br><span class="line">// find image</span><br><span class="line">docker search nginx</span><br><span class="line"></span><br><span class="line">// get a new image</span><br><span class="line">docker pull nginx</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// tag image to clone it and preserve the original</span><br><span class="line"></span><br><span class="line">    docker tag nginx frankg/nginx:v2</span><br><span class="line"></span><br><span class="line">// open terminal to container:</span><br><span class="line"></span><br><span class="line">    docker run -it frankg/nginx:v2 bash</span><br><span class="line"></span><br><span class="line">// edit index.html file and exit</span><br><span class="line"></span><br><span class="line">    sed -i -e &apos;s/using nginx\./using nginx!!!/&apos; /usr/share/nginx/html/index.html</span><br><span class="line">    exit</span><br><span class="line"></span><br><span class="line">// note the container id</span><br><span class="line"></span><br><span class="line">    docker ps -a</span><br><span class="line">      CONTAINER_ID  ...</span><br><span class="line">      c56ba35f9441  ...</span><br><span class="line"></span><br><span class="line">// note the command used for nginx</span><br><span class="line"></span><br><span class="line">      docker inspect nginx</span><br><span class="line">        [...]</span><br><span class="line">        &quot;Cmd&quot;: [</span><br><span class="line">            &quot;nginx&quot;,</span><br><span class="line">            &quot;-g&quot;,</span><br><span class="line">            &quot;daemon off;&quot;</span><br><span class="line">        ],</span><br><span class="line">        [...]</span><br><span class="line"></span><br><span class="line">// commit to new image</span><br><span class="line"></span><br><span class="line">    docker commit \</span><br><span class="line">    --change=&apos;CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]&apos; \</span><br><span class="line">    -m &quot;change splash page&quot; \</span><br><span class="line">    -a &quot;Frank Gutierrez&quot; \</span><br><span class="line">    c56ba35f9441 frankg/nginx:v2</span><br><span class="line"></span><br><span class="line">// note new image has a different IMAGE_ID</span><br><span class="line"></span><br><span class="line">    docker images</span><br><span class="line">      REPO              IMAGE_ID</span><br><span class="line">      frankg/nginx:v2   9c29fe606e58</span><br><span class="line">      nginx:latest      05a60462f8ba</span><br><span class="line"></span><br><span class="line">// test new image</span><br><span class="line"></span><br><span class="line">    docker run -d --name web -p 5000:80 frankg/nginx:v2</span><br><span class="line">    curl localhost:5000</span><br><span class="line">      &lt;p&gt;&lt;em&gt;Thank you for using nginx!!!&lt;/em&gt;&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Building-an-image-from-a-Dockerfile"><a href="#Building-an-image-from-a-Dockerfile" class="headerlink" title="Building an image from a Dockerfile"></a>Building an image from a Dockerfile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">// goto project directory</span><br><span class="line"></span><br><span class="line">    mkdir sinatra</span><br><span class="line">    cd sinatra</span><br><span class="line"></span><br><span class="line">// create Dockerfile</span><br><span class="line"></span><br><span class="line">    # This is a comment</span><br><span class="line">    FROM ubuntu:14.04</span><br><span class="line">    MAINTAINER Kate Smith &lt;ksmith@example.com&gt;</span><br><span class="line">    RUN apt-get update &amp;&amp; apt-get install -y ruby ruby-dev</span><br><span class="line">    RUN gem install sinatra</span><br><span class="line"></span><br><span class="line">// build image</span><br><span class="line"></span><br><span class="line">    docker build -t frankg/sinatra:v2 .</span><br><span class="line"></span><br><span class="line">// create tags</span><br><span class="line"></span><br><span class="line">    docker tag 80ace061969c frankg/sinatra:devel</span><br><span class="line">    docker tag 80ace061969c frankg/sinatra:latest</span><br><span class="line"></span><br><span class="line">// show digests</span><br><span class="line"></span><br><span class="line">    docker images --digests</span><br><span class="line">        DIGEST</span><br><span class="line">        &lt;none&gt;   // you see &lt;none&gt; because of a docker bug - to be fixed</span><br><span class="line">        sha256:dac37bad0c870a81605abf3f652ebd713fd4c4e33448362ae61f34369ac81412</span><br><span class="line"></span><br><span class="line">// push to docker hub</span><br><span class="line"></span><br><span class="line">    docker push frankg/sinatra</span><br><span class="line"></span><br><span class="line">// remove image</span><br><span class="line"></span><br><span class="line">    docker rmi -f frankg/sinatra</span><br></pre></td></tr></table></figure>
+<h2 id="network-containers"><a href="#network-containers" class="headerlink" title="network containers"></a>network containers</h2><ul>
+<li>list networks</li>
+<li>launch container on default network</li>
+<li>inspect default bridge network</li>
+<li>inspect container’s networks section</li>
+<li>inspect container’s IPAddress section</li>
+<li>stop and remove container</li>
+<li>create your own bridge network</li>
+<li>add container to your network</li>
+<li>inspect container’s networks section</li>
+<li>inspect container’s IPAddress section</li>
+<li>disconnect container from your network</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">// list networks</span><br><span class="line"></span><br><span class="line">    docker network ls</span><br><span class="line"></span><br><span class="line">      NETWORK ID          NAME                DRIVER              SCOPE</span><br><span class="line">      6dc32a4596cb        bridge              bridge              local</span><br><span class="line">      cf9fd2482051        host                host                local</span><br><span class="line">      847fc736b59b        none                null                local</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// launch a container on the default network</span><br><span class="line"></span><br><span class="line">    docker run -d --name web nginx</span><br><span class="line"></span><br><span class="line">// inspect default bridge network</span><br><span class="line"></span><br><span class="line">    docker network inspect bridge</span><br><span class="line"></span><br><span class="line">      [...]</span><br><span class="line">      &quot;Containers&quot;: &#123;</span><br><span class="line">        [...]</span><br><span class="line">        &quot;e979b69c6ac4c177628582c84a796507cd716f3fd2eed825d06051fb43bc3865&quot;: &#123;</span><br><span class="line">            &quot;Name&quot;: &quot;web&quot;,</span><br><span class="line">      [...]</span><br><span class="line"></span><br><span class="line">// inspect networks section</span><br><span class="line"></span><br><span class="line">    docker inspect --format=&apos;&#123;&#123;json .NetworkSettings.Networks&#125;&#125;&apos; web</span><br><span class="line"></span><br><span class="line">      [...]</span><br><span class="line">      &quot;Containers&quot;: &#123;</span><br><span class="line">        [...]</span><br><span class="line">        &quot;e979b69c6ac4c177628582c84a796507cd716f3fd2eed825d06051fb43bc3865&quot;: &#123;</span><br><span class="line">            &quot;Name&quot;: &quot;web&quot;,</span><br><span class="line">      [...]</span><br><span class="line"></span><br><span class="line">// inspect IPAddress section</span><br><span class="line"></span><br><span class="line">    docker inspect --format=&apos;&#123;&#123;range .NetworkSettings.Networks&#125;&#125;&#123;&#123;.IPAddress&#125;&#125;&#123;&#123;end&#125;&#125;&apos; web</span><br><span class="line"></span><br><span class="line">      172.17.0.3</span><br><span class="line"></span><br><span class="line">// stop and remove container</span><br><span class="line"></span><br><span class="line">    docker stop web ; docker rm web</span><br><span class="line"></span><br><span class="line">// create your own bridge network</span><br><span class="line"></span><br><span class="line">    docker network create -d bridge my-bridge-network</span><br><span class="line"></span><br><span class="line">// add containers to your network</span><br><span class="line"></span><br><span class="line">    docker run -d -p 5000:80 --network=my-bridge-network --name=web nginx</span><br><span class="line"></span><br><span class="line">// inspect networks section</span><br><span class="line"></span><br><span class="line">    docker inspect --format=&apos;&#123;&#123;json .NetworkSettings.Networks&#125;&#125;&apos;  web</span><br><span class="line"></span><br><span class="line">      &#123;&quot;my-bridge-network&quot;:...</span><br><span class="line"></span><br><span class="line">// inspect IPAddress section</span><br><span class="line"></span><br><span class="line">    docker inspect --format=&apos;&#123;&#123;range .NetworkSettings.Networks&#125;&#125;&#123;&#123;.IPAddress&#125;&#125;&#123;&#123;end&#125;&#125;&apos; web</span><br><span class="line"></span><br><span class="line">      172.18.0.2</span><br><span class="line"></span><br><span class="line">// disconnect container from network</span><br><span class="line"></span><br><span class="line">    docker network disconnect my-bridge-network web</span><br></pre></td></tr></table></figure>
+<h2 id="manage-data-in-containers"><a href="#manage-data-in-containers" class="headerlink" title="manage data in containers"></a>manage data in containers</h2><p>Learn how you can manage data inside and between your Docker containers.</p>
+<p>You’re going to look at the two primary ways you can manage data with Docker Engine.</p>
+<ul>
+<li>Data volumes</li>
+<li>Data volume containers</li>
+</ul>
+<h3 id="Data-volumes"><a href="#Data-volumes" class="headerlink" title="Data volumes"></a>Data volumes</h3><p>A data volume is a specially-designated directory within one or more containers that bypasses the Union File System.</p>
+<blockquote>
+<p>Note: The host directory is, by its nature, host-dependent. For this reason, you can’t mount a host directory from Dockerfile because built images should be portable. A host directory wouldn’t be available on all potential hosts.</p>
+</blockquote>
+<ul>
+<li>add a data volume</li>
+<li>locate a volume</li>
+<li>mount a host directory as a data volume</li>
+<li>mount a shared-storage volume as a data volume</li>
+<li>create a volume</li>
+<li>volume labels</li>
+<li>mount a host file as a data volume</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">// add a data volume</span><br><span class="line"></span><br><span class="line">  docker run -d --name web -v /webapp nginx</span><br><span class="line"></span><br><span class="line">// locate a volume</span><br><span class="line"></span><br><span class="line">  docker inspect web</span><br><span class="line"></span><br><span class="line">    [...]</span><br><span class="line">    &quot;Mounts&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;Name&quot;: &quot;fac362...80535&quot;,</span><br><span class="line">            &quot;Source&quot;: &quot;/var/lib/docker/volumes/fac362...80535/_data&quot;,</span><br><span class="line">            &quot;Destination&quot;: &quot;/webapp&quot;,</span><br><span class="line">            &quot;Driver&quot;: &quot;local&quot;,</span><br><span class="line">            &quot;Mode&quot;: &quot;&quot;,</span><br><span class="line">            &quot;RW&quot;: true,</span><br><span class="line">            &quot;Propagation&quot;: &quot;&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">    [...]</span><br><span class="line"></span><br><span class="line">// mount a host directory as a data volume</span><br><span class="line"></span><br><span class="line">  docker run -d --name web -v /src/webapp:/webapp nginx</span><br><span class="line"></span><br><span class="line">// mount a shared-storage volume as a data volume</span><br><span class="line"></span><br><span class="line">  docker run -d --name web --volume-driver=nfs -v my-volume:/webapp nginx</span><br><span class="line"></span><br><span class="line">// create a volume</span><br><span class="line"></span><br><span class="line">  docker volume create -d nfs -o size=20GB my-volume</span><br><span class="line"></span><br><span class="line">// volume labels</span><br><span class="line"></span><br><span class="line">  To change a label in the container context, you can add either of two</span><br><span class="line">  suffixes :z or :Z to the volume mount. These suffixes tell Docker to relabel</span><br><span class="line">  file objects on the shared volumes. The z option tells Docker that two</span><br><span class="line">  containers share the volume content. As a result, Docker labels the content</span><br><span class="line">  with a shared content label. Shared volume labels allow all containers to</span><br><span class="line">  read/write content. The Z option tells Docker to label the content with a</span><br><span class="line">  private unshared label. Only the current container can use a private volume.</span><br><span class="line"></span><br><span class="line">// mount a host file as a data volume</span><br><span class="line"></span><br><span class="line">  docker run --rm -it -v ~/.bash_history:/root/.bash_history ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+<h3 id="Data-volume-containers"><a href="#Data-volume-containers" class="headerlink" title="Data volume containers"></a>Data volume containers</h3><p>If you have some persistent data that you want to share between containers, or want to use from non-persistent containers, it’s best to create a named Data Volume Container, and then to mount the data from it.</p>
+<ul>
+<li>create a data volume container</li>
+<li>mount the data volume in another container</li>
+<li>mount the data volume in another container again</li>
+<li>find and remove dangling volumes</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// create a data volume container</span><br><span class="line"></span><br><span class="line">  docker create -v /dbdata --name dbstore training/postgres /bin/true</span><br><span class="line"></span><br><span class="line">    # shares /dbdata from the container named dbstore</span><br><span class="line"></span><br><span class="line">// mount the data volume in another container</span><br><span class="line"></span><br><span class="line">  docker run -d --volumes-from dbstore --name db1 training/postgres</span><br><span class="line"></span><br><span class="line">// mount the data volume in another container again</span><br><span class="line"></span><br><span class="line">  docker run -d --volumes-from dbstore --name db2 training/postgres</span><br><span class="line"></span><br><span class="line">// find and remove dangling volumes</span><br><span class="line"></span><br><span class="line">  docker volume ls -f dangling=true</span><br><span class="line"></span><br><span class="line">  docker volume rm &lt;volume name&gt;</span><br><span class="line"></span><br><span class="line">  Note: Docker will not warn you when removing a container without providing</span><br><span class="line">  the -v option to delete its volumes. If you remove containers without</span><br><span class="line">  using the -v option, you may end up with “dangling” volumes; volumes that</span><br><span class="line">  are no longer referenced by a container.</span><br></pre></td></tr></table></figure>
+<h3 id="Backup-restore-or-migrate-data-volumes"><a href="#Backup-restore-or-migrate-data-volumes" class="headerlink" title="Backup, restore, or migrate data volumes"></a>Backup, restore, or migrate data volumes</h3><ul>
+<li>backup data volume</li>
+<li>restore or migrate</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// backup data volume</span><br><span class="line"></span><br><span class="line">  docker run --rm \</span><br><span class="line">    --volumes-from dbstore -v $(pwd):/backup \</span><br><span class="line">    ubuntu tar cvf /backup/backup.tar /dbdata</span><br><span class="line"></span><br><span class="line">// restore or migrate</span><br><span class="line"></span><br><span class="line">  # step1: create new container</span><br><span class="line"></span><br><span class="line">    docker run -v /dbdata --name dbstore2 ubuntu /bin/bash</span><br><span class="line"></span><br><span class="line">  # step2: restore data</span><br><span class="line"></span><br><span class="line">    docker run --rm \</span><br><span class="line">    --volumes-from dbstore2 -v $(pwd):/backup \</span><br><span class="line">    ubuntu bash -c &quot;cd /dbdata &amp;&amp; tar xvf /backup/backup.tar --strip 1&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="Removing-anonymous-volumes"><a href="#Removing-anonymous-volumes" class="headerlink" title="Removing anonymous volumes"></a>Removing anonymous volumes</h3><ul>
+<li>remove anonymous volumes</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// remove anonymous volume</span><br><span class="line"></span><br><span class="line">  docker run --rm -v /foo -v awesome:/bar busybox top</span><br><span class="line"></span><br><span class="line">    When the container is deleted, the --rm option instructs the Docker</span><br><span class="line">    Engine daemon to clean up anonymous volumes, and remove the container.</span><br><span class="line"></span><br><span class="line">    This command creates an anonymous /foo volume. When the container is</span><br><span class="line">    removed, the Docker Engine removes the /foo volume but not the awesome</span><br><span class="line">    volume.</span><br></pre></td></tr></table></figure>
+<h3 id="Important-tips-on-using-shared-volumes"><a href="#Important-tips-on-using-shared-volumes" class="headerlink" title="Important tips on using shared volumes"></a>Important tips on using shared volumes</h3><p>Multiple containers can also share one or more data volumes. However, multiple containers writing to a single shared volume can cause data corruption. Make sure your applications are designed to write to shared data stores.</p>
+<p>Data volumes are directly accessible from the Docker host. This means you can read and write to them with normal Linux tools. In most cases you should not do this as it can cause data corruption if your containers and applications are unaware of your direct access.</p>
+<h2 id="store-images-on-Docker-Hub"><a href="#store-images-on-Docker-Hub" class="headerlink" title="store images on Docker Hub"></a>store images on Docker Hub</h2><p>Docker itself provides access to Docker Hub services via the docker search, pull, login, and push commands.</p>
+<p>Anyone can pull public images from the Docker Hub registry, but if you would like to share your own images, then you must register first.</p>
+<ul>
+<li>login to docker hub</li>
+<li>search for images</li>
+<li>pull image</li>
+<li>pushing a repository to Docker Hub</li>
+<li>features of Docker Hub</li>
+<li>setup automated build</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">// register at docker hub</span><br><span class="line"></span><br><span class="line">  https://hub.docker.com/</span><br><span class="line"></span><br><span class="line">// login to docker hub</span><br><span class="line"></span><br><span class="line">  docker login</span><br><span class="line"></span><br><span class="line">    # credentials stored at: $HOME/.docker/config.json</span><br><span class="line"></span><br><span class="line">// search for images</span><br><span class="line"></span><br><span class="line">  docker search centos</span><br><span class="line"></span><br><span class="line">    NAME                            DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED</span><br><span class="line">    centos                          The official build of CentOS.                   2829      [OK]</span><br><span class="line">    [...]</span><br><span class="line"></span><br><span class="line">// pull image</span><br><span class="line"></span><br><span class="line">  docker pull centos</span><br><span class="line"></span><br><span class="line">  docker pull centos:centos5</span><br><span class="line"></span><br><span class="line">// pushing a repository to Docker Hub</span><br><span class="line"></span><br><span class="line">  docker push yourname/newimage</span><br><span class="line"></span><br><span class="line">// features of Docker Hub</span><br><span class="line"></span><br><span class="line">  - Private repositories: private repositories</span><br><span class="line">  - Organizations and teams: Docker Hub lets you create organizations</span><br><span class="line">  - Automated Builds: automate the building and updating of images from GitHub or Bitbucket.  Trigger builds via a URL on Docker Hub.</span><br><span class="line">  - Webhooks: trigger an event when an image or updated image is pushed to the repository</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// setup automated build</span><br><span class="line"></span><br><span class="line">1. Create a Docker Hub account and login.</span><br><span class="line">2. Link your GitHub or Bitbucket account on the “Linked Accounts &amp; Services” page.</span><br><span class="line">3. Select “Create Automated Build” from the “Create” dropdown menu</span><br><span class="line">4. Pick a GitHub or Bitbucket project that has a Dockerfile that you want to build.</span><br><span class="line">5. Pick the branch you want to build (the default is the master branch).</span><br><span class="line">6. Give the Automated Build a name.</span><br><span class="line">7. Assign an optional Docker tag to the Build.</span><br><span class="line">8. Specify where the Dockerfile is located. The default is /.</span><br></pre></td></tr></table></figure>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
                 <h2><a class="post-title-link" href="/2016/11/05/20161105-docker-getting-started/">Docker – Getting Started</a></h2>
             </div>
             <div class="post-meta">
@@ -322,149 +458,6 @@
 <li>Getting values from environment variables</li>
 </ul>
 <h3 id="Versioning-your-API"><a href="#Versioning-your-API" class="headerlink" title="Versioning your API"></a>Versioning your API</h3><p>You can easily add versioning to your REST API routes, based on the application “major” version in package.json.  See <a href="https://goo.gl/LSI8GG" target="_blank" rel="noopener">here</a></p>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2016/09/06/20160906-lets-encrypt/">Free HTTPS</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2016-09-06</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <p>Until recently you had to pay a stack of money to get a certificate that allowed you to use HTTPS on your server. That has changed due to the lets-encrypt project which let’s you generate certificates that are good for 6 months and can be renewed automatically.</p>
-<p>Here is what we’ll cover in this post:</p>
-<ul>
-<li>procuring a domain name</li>
-<li>install/configure nginx test site</li>
-<li>generate certificates</li>
-<li>reconfigure test site</li>
-<li>configure for the internet</li>
-</ul>
-<h2 id="Procuring-a-domain-name"><a href="#Procuring-a-domain-name" class="headerlink" title="Procuring a domain name"></a>Procuring a domain name</h2><p>I used GoDaddy if it’s your first domain name it will cost less than \$4 otherwise it will cost less than \$13.</p>
-<p>I purchased <code>debugtime.com</code></p>
-<h2 id="Install-Configure-Nginx-test-site"><a href="#Install-Configure-Nginx-test-site" class="headerlink" title="Install/Configure Nginx test site"></a>Install/Configure Nginx test site</h2><p>Install Nginx</p>
-<pre><code>brew doctor                     // check brew
-brew update                     // update brew
-brew install nginx              // install nginx
-brew services start nginx       // configure boot on startup
-</code></pre><p>Prepare Site directory/files</p>
-<pre><code>mkdir /var/www/hello
-cd /var/www/hello
-sudo echo &apos;hello&apos; &gt; index.html
-</code></pre><p>add file <code>/usr/local/etc/nginx/servers/hello.conf</code></p>
-<pre><code>server {
-  listen 80;
-  listen [::]:80;
-
-  root /var/www/hello;
-  index index.html;
-
-  server_name debugtime.com;
-
-  location / {
-    try_files $uri $uri/ =404;
-  }
-}
-</code></pre><p>test nginx:</p>
-<pre><code>brew services restart nginx     // restart nginx
-curl localhost                  // outputs hello
-</code></pre><h2 id="Generate-certificates"><a href="#Generate-certificates" class="headerlink" title="Generate certificates"></a>Generate certificates</h2><p>generate certificates</p>
-<pre><code>// clone certbot
-git clone https://github.com/certbot/certbot.git
-
-// run certbot-auto
-cd cd certbot
-sudo ./certbot-auto certonly --webroot -w /var/www/hello -d debugtime.com --debug
-
-// watch for cert directory
-/etc/letsencrypt/live/debugtime.com/
-</code></pre><h2 id="Reconfigure-test-site"><a href="#Reconfigure-test-site" class="headerlink" title="Reconfigure test site"></a>Reconfigure test site</h2><p>replace file: <code>/usr/local/etc/nginx/servers/hello.conf</code></p>
-<pre><code>server {
-  listen 443;
-  listen [::]:443;
-
-  root /var/www/hello;
-  index index.html;
-
-  server_name debugtime.com;
-
-  location / {
-    try_files $uri $uri/ =404;
-  }
-
-  ssl on;
-  ssl_session_cache shared:SSL:50m;
-  ssl_certificate         /etc/letsencrypt/live/debugtime.com/fullchain.pem;
-  ssl_certificate_key     /etc/letsencrypt/live/debugtime.com/privkey.pem;
-  ssl_client_certificate  /etc/letsencrypt/live/debugtime.com/fullchain.pem;
-  ssl_session_timeout 5m;
-}
-
-server {
-  # Redirect www to non-www
-  listen 443;
-  listen [::]:443;
-  server_name www.debugtime.com;
-  return https://debugtime.com$request_uri;
-}
-
-server {
-  # Redirect all calls to HTTP (port 80) to HTTPS
-  listen 80;
-  listen [::]:80;
-  server_name www.debugtime.com debugtime.com;
-  return https://debugtime.com$request_uri;
-}
-</code></pre><p>restart nginx</p>
-<pre><code>// restart nginx
-// sudo required because it&apos;s port 80
-sudo brew services restart nginx
-</code></pre><p>test localhost</p>
-<pre><code>curl -iL localhost
-
-HTTP/1.1 302 Moved Temporarily
-Server: nginx/1.10.1
-Date: Tue, 06 Sep 2016 19:15:04 GMT
-Content-Type: text/html
-Content-Length: 161
-Connection: keep-alive
-Location: https://debugtime.com/
-
-HTTP/1.1 200 OK
-Server: nginx/1.10.1
-Date: Tue, 06 Sep 2016 19:15:05 GMT
-Content-Type: text/html
-Content-Length: 6
-Last-Modified: Tue, 06 Sep 2016 19:09:58 GMT
-Connection: keep-alive
-ETag: &quot;57cf1486-6&quot;
-Accept-Ranges: bytes
-
-hello
-</code></pre><h2 id="Configure-for-the-internet"><a href="#Configure-for-the-internet" class="headerlink" title="Configure for the internet"></a>Configure for the internet</h2><p>configure domain</p>
-<pre><code>// point domain to your home&apos;s IP address
-75.51.152.192
-</code></pre><p>configure router</p>
-<pre><code>// configure virtual server
-// allow port 80 and 443 to go to your server
-80 &amp; 443 =&gt; 192.168.2.5
-</code></pre><p>test server</p>
-<pre><code>// test with curl
-// should change http to https
-// should drop www prefix
-curl -iL localhost
-curl -iL http://www.debugtime.com
-curl -iL http://debugtime.com
-curl -iL https://www.debugtime.com
-
-// test in browser should show lock with https
-</code></pre><p><img src="/images/free-https/browser.png" alt=""></p>
 
                 
             </div>

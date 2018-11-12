@@ -77,6 +77,63 @@
     
         <article class="post-abstract">
             <div class="post-title">
+                <h2><a class="post-title-link" href="/2016/11/19/20161119-gitlab-setup/">Gitlab Setup</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2016-11-19</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>There are 2 flavors</p>
+<ul>
+<li>Community Edition</li>
+<li>Enterprise Edition</li>
+</ul>
+<p>Omnibus is a way to package different services and tools required to run GitLab, so that most of developers can install it without laborious configuration</p>
+<h2 id="Resources"><a href="#Resources" class="headerlink" title="Resources:"></a>Resources:</h2><ul>
+<li><a href="https://goo.gl/8KCB00" target="_blank" rel="noopener">Omnibus GitLab documentation</a></li>
+<li><a href="https://goo.gl/tuOdyy" target="_blank" rel="noopener">Community Edition Repo</a></li>
+<li><a href="https://goo.gl/siAOxa" target="_blank" rel="noopener">Getting help with Gitlab</a></li>
+<li><a href="https://docs.gitlab.com/ce/api/README.html" target="_blank" rel="noopener">Gitlab API docs</a></li>
+</ul>
+<h2 id="Install-and-Configure-Gitlab"><a href="#Install-and-Configure-Gitlab" class="headerlink" title="Install and Configure Gitlab"></a>Install and Configure Gitlab</h2><ul>
+<li><a href="https://goo.gl/QcA8iM" target="_blank" rel="noopener">Set up the GitLab in Docker container</a></li>
+</ul>
+<ol>
+<li>create docker host (gitlab)</li>
+<li>switch control to docker host</li>
+<li>run gitlab image (downloads and configures in one step)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run --detach \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --hostname gitlab.debugtime.com \</span><br><span class="line">  --restart always \</span><br><span class="line">  --publish 80:80 --publish 2289:22 \</span><br><span class="line">  --volume /opt/docker/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /opt/docker/gitlab/logs:/var/log/gitlab \</span><br><span class="line">  --volume /opt/docker/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  --env GITLAB_OMNIBUS_CONFIG=&quot;external_url &apos;http://gitlab.debugtime.com/&apos;; gitlab_rails[&apos;gitlab_shell_ssh_port&apos;] = 2289&quot; \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
+<h4 id="Setup-web-access"><a href="#Setup-web-access" class="headerlink" title="Setup web access"></a>Setup web access</h4><ol>
+<li>get the gitlab docker host IP</li>
+<li>configure an nginx reverse proxy: <code>gitlab.debugtime.com</code> –&gt; <code>&lt;gitlab_docker_host_ip&gt;:80</code></li>
+</ol>
+<h4 id="Setup-ssh-access"><a href="#Setup-ssh-access" class="headerlink" title="Setup ssh access"></a>Setup ssh access</h4><p>1) configure gitlab to route ssh traffic from <code>gitlab:2289</code> to <code>container:22</code></p>
+<p>We can map web traffic like so <code>-p 80:80</code> which routes <code>container:80</code> to <code>gitlab:80</code>.  Since <code>gitlab:22</code> is already being used to allow login into the gitlab host, we cannot use that port.  So instead we will map <code>container:22</code> to <code>gitlab:2289</code> with the docker run option <code>--publish 2289:22</code></p>
+<p>2) set Omnibus configuration so gitlab provides commands that account for port 2289.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--env GITLAB_OMNIBUS_CONFIG=&quot;external_url &apos;http://gitlab.debugtime.com/&apos;; gitlab_rails[&apos;gitlab_shell_ssh_port&apos;] = 2289&quot; \</span><br></pre></td></tr></table></figure>
+<p>3) setup ssh tunnel between <code>gitlab.debugtime.com:2289</code> and <code>gitlab:2289</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ssh gitlab -fN -L 0.0.0.0:2289:localhost:2289</span><br></pre></td></tr></table></figure>
+<h2 id="Test-Gitlab"><a href="#Test-Gitlab" class="headerlink" title="Test Gitlab"></a>Test Gitlab</h2><h4 id="Verify-Gitlab’s-web-app-functionality"><a href="#Verify-Gitlab’s-web-app-functionality" class="headerlink" title="Verify Gitlab’s web app functionality"></a>Verify Gitlab’s web app functionality</h4><ul>
+<li><code>open http://gitlab.debugtime.com</code></li>
+</ul>
+<h4 id="Verify-Gitlab’s-push-pull-functionality"><a href="#Verify-Gitlab’s-push-pull-functionality" class="headerlink" title="Verify Gitlab’s push/pull functionality"></a>Verify Gitlab’s push/pull functionality</h4><ol>
+<li><p>test pull functionality:<br><code>git clone ssh://git@gitlab.debugtime.com:2289/dearfrankg/myproject.git</code></p>
+</li>
+<li><p>commit change to master branch</p>
+</li>
+<li><p>test push functionality:<br><code>git push -u origin master</code></p>
+</li>
+</ol>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
                 <h2><a class="post-title-link" href="/2016/11/19/20161119-docker-retrospective/">Docker – Retrospective</a></h2>
             </div>
             <div class="post-meta">
@@ -270,43 +327,6 @@ curl -I foo.debugtime.com
 
     HTTP/1.1 200 OK
     [...]
-</code></pre>
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2016/11/18/20161118-my-docker-farm/">Docker – My Docker Infrastructure</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2016-11-18</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <p>I’m going to tell you how I get my Docker Infrastructure up and running.</p>
-<h2 id="Firing-up-the-monster"><a href="#Firing-up-the-monster" class="headerlink" title="Firing up the monster"></a>Firing up the monster</h2><h4 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h4><ul>
-<li>docker tools (docker, docker-machine, docker-machine-driver-xhyve)</li>
-<li>bash scripts</li>
-<li>rancher</li>
-<li>nginx</li>
-<li>nginx-proxy</li>
-</ul>
-<h4 id="The-firewall"><a href="#The-firewall" class="headerlink" title="The firewall"></a>The firewall</h4><p>Docker does not configure the firewall to accept incoming conections.  As a result we have to use nginx as a reverse-proxy to get past the firewall.</p>
-<p>That means when we call <code>mydomain.com</code> my DNS server and router are configured to go to my laptop.  When they reach my laptop on port 80</p>
-<p>This is the route that you will take to get to my services.</p>
-<ol>
-<li>DNS and router -&gt; laptop</li>
-<li>laptop firewall -&gt; port 80 to nginx</li>
-<li>nginx -&gt; nginx-proxy</li>
-<li>nginx-proxy auto-configures itself by scanning containers to see which domain they are configured for.</li>
-<li>service containers set an env var to identify the domain they handle</li>
-</ol>
-<p>My services are mapped to the following domains:</p>
-<pre><code>debugtime.com         -&gt; nginx -&gt; nginx-proxy -&gt; reactioncommerce
-rancher.debugtime.com -&gt; nginx -&gt; nginx-proxy -&gt; rancher
-blog.debugtime.com    -&gt; nginx -&gt; nginx-proxy -&gt; hexo
 </code></pre>
                 
             </div>

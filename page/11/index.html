@@ -77,6 +77,41 @@
     
         <article class="post-abstract">
             <div class="post-title">
+                <h2><a class="post-title-link" href="/2017/03/04/20170304-electron/">electron apps with react</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2017-03-04</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="Electron-Framework"><a href="#Electron-Framework" class="headerlink" title="Electron Framework"></a>Electron Framework</h2><p>The electron framework has been gaining steam for a few years and has been used to create the following apps:</p>
+<ul>
+<li>atom</li>
+<li>slack</li>
+<li>MS Dev Studio</li>
+<li>webtorrent</li>
+</ul>
+<p>There are no app creation frameworks that I support as of MAR-2017.  That means just node, babel and electron.</p>
+<p>I would start with a reference app like:</p>
+<ul>
+<li><a href="https://goo.gl/nVXvLA" target="_blank" rel="noopener">lionshare desktop</a></li>
+</ul>
+<h3 id="libraries"><a href="#libraries" class="headerlink" title="libraries"></a>libraries</h3><p>here are some commonly used libs:</p>
+<ul>
+<li>electron</li>
+<li>node-auto-launch</li>
+<li>electron-is-dev</li>
+<li>electron-machine-id</li>
+<li>universal-analytics</li>
+</ul>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
                 <h2><a class="post-title-link" href="/2017/02/22/20170222-react-tdd-done-right/">react TDD done right</a></h2>
             </div>
             <div class="post-meta">
@@ -317,53 +352,6 @@
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
 <li><a href="https://goo.gl/B5mXvu" target="_blank" rel="noopener">The Right Way to Test React Components</a></li>
 </ul>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2017/02/09/20170210-mongodb/">locking down mongodb</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2017-02-09</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <blockquote>
-<p>Update May 3 2017</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// start db in auth mode</span><br><span class="line">mcs</span><br><span class="line"></span><br><span class="line">// login (recommended)</span><br><span class="line">export MONGO_PASS=abc123</span><br><span class="line">mc connect -u username -p $MONGO_PASS MyServer/myapp</span><br><span class="line"></span><br><span class="line">// other ways to login</span><br><span class="line">// mc connect mongodb://user:pass@localhost:27017/myapp</span><br><span class="line">// mc connect -u user -p pass MyServer/myapp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// exit CLI</span><br><span class="line">&gt; exit</span><br><span class="line"></span><br><span class="line">// shutdown db</span><br><span class="line">mcq -y</span><br></pre></td></tr></table></figure>
-<p>I gots hacked!!!<br>So… I have to learn to secure the old db.</p>
-<h2 id="Securing-the-DB"><a href="#Securing-the-DB" class="headerlink" title="Securing the DB"></a>Securing the DB</h2><p>Keep in mind I use <code>mongoctl</code> for <code>mongodb</code> management</p>
-<h3 id="Get-security-fixes"><a href="#Get-security-fixes" class="headerlink" title="Get security fixes"></a>Get security fixes</h3><p>upgrade to the latest version for the latest security fixes</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ mc list-versions</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">VERSION              EDITION              LOCATION</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">3.0.12               community            /Users/frankg/mongodb/mongodb-osx-x86_64-community-3.0.12</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ mc install-mongodb 3.4.2</span><br><span class="line">[...]</span><br><span class="line"></span><br><span class="line">$ mc list-versions</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">VERSION              EDITION              LOCATION</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">3.0.12               community            /Users/frankg/mongodb/mongodb-osx-x86_64-community-3.0.12</span><br><span class="line">3.4.2                community            /Users/frankg/mongodb/mongodb-osx-x86_64-community-3.4.2</span><br></pre></td></tr></table></figure>
-<h3 id="Create-and-Manage-users"><a href="#Create-and-Manage-users" class="headerlink" title="Create and Manage users"></a>Create and Manage users</h3><h4 id="The-admin-user"><a href="#The-admin-user" class="headerlink" title="The admin user"></a>The admin user</h4><p>An admin user can do almost anything.  The key word there is almost.</p>
-<blockquote>
-<p>admin users cannot login to all databases.<br>you should create the users that need to login to each database<br>I think the reason they did this is to prevent admin passwords from being used on the internet</p>
-</blockquote>
-<p>admin users can login to the admin database or login without specifying a database.</p>
-<p>create an admin user</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mcc</span><br><span class="line"></span><br><span class="line">MongoDB server version: 3.4.2</span><br><span class="line">&gt; use admin</span><br><span class="line"></span><br><span class="line">&gt; db.createUser(</span><br><span class="line">  &#123;</span><br><span class="line">    user: &quot;frankg&quot;,</span><br><span class="line">    pwd: &quot;xyz123&quot;,</span><br><span class="line">    roles: [ &apos;root&apos; ]</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>view a user’s roles</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">mcc</span><br><span class="line"></span><br><span class="line">MongoDB server version: 3.4.2</span><br><span class="line">&gt; use admin</span><br><span class="line"></span><br><span class="line">&gt; db.getUser(&quot;frankg&quot;)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;_id&quot; : &quot;admin.frankg&quot;,</span><br><span class="line">  &quot;user&quot; : &quot;frankg&quot;,</span><br><span class="line">  &quot;db&quot; : &quot;admin&quot;,</span><br><span class="line">  &quot;roles&quot; : [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;role&quot; : &quot;root&quot;,</span><br><span class="line">      &quot;db&quot; : &quot;admin&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="The-non-admin-user"><a href="#The-non-admin-user" class="headerlink" title="The non admin user"></a>The non admin user</h4><p>You will need to create users for each database if you want to login to that database.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mcc</span><br><span class="line"></span><br><span class="line">MongoDB server version: 3.4.2</span><br><span class="line">&gt; use myAppDb</span><br><span class="line"></span><br><span class="line">&gt; db.createUser(</span><br><span class="line">  &#123;</span><br><span class="line">   user: &quot;appUser&quot;,</span><br><span class="line">   pwd: &quot;appPass&quot;,</span><br><span class="line">   roles: [ &quot;readWrite&quot;]</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="change-a-user’s-pasword"><a href="#change-a-user’s-pasword" class="headerlink" title="change a user’s pasword"></a>change a user’s pasword</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mcc</span><br><span class="line"></span><br><span class="line">MongoDB server version: 3.4.2</span><br><span class="line">&gt; use admin</span><br><span class="line"></span><br><span class="line">&gt; db.changeUserPassword(&quot;frankg&quot;, &quot;xyz123&quot;)</span><br></pre></td></tr></table></figure>
-<h3 id="Securing-the-server-and-password"><a href="#Securing-the-server-and-password" class="headerlink" title="Securing the server and password"></a>Securing the server and password</h3><p>Here are the commands that I use to manage the database:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">alias mc=&apos;mongoctl&apos;</span><br><span class="line">alias mcs=&apos;mc start --auth MyServer &apos;</span><br><span class="line"># NOTE: don&apos;t bother trying to use the useless built in rest server!!</span><br><span class="line">alias mcq=&apos;mc stop -u frankg -p $MONGO_PASS MyServer&apos;</span><br><span class="line">alias mcst=&apos;mc status -u frankg -p $MONGO_PASS MyServer&apos;</span><br><span class="line">alias mcc=&apos;mc connect -u frankg -p $MONGO_PASS MyServer&apos;</span><br></pre></td></tr></table></figure>
-<h4 id="securing-the-server"><a href="#securing-the-server" class="headerlink" title="securing the server"></a>securing the server</h4><p>The command used to start the server is:</p>
-<p><code>alias mcs=&#39;mc start --auth MyServer&#39;</code></p>
-<p>The key option for security is <code>--auth</code>.  This puts the database in secure mode requiring usernames and passwords.</p>
-<h4 id="securing-the-password"><a href="#securing-the-password" class="headerlink" title="securing the password"></a>securing the password</h4><p>Notice that I do not use the <code>password</code> in this commands script.  Because that’s easy for a hacker to find. For example see this command:</p>
-<p><code>alias mcq=&#39;mc stop -u frankg -p $MONGO_PASS MyServer&#39;</code></p>
-<p>The password is represented by an environment variable <code>$MONGO_PASS</code></p>
-<p>If a user opens a terminal and tries to use the mongo client with the <code>mcc</code> command it will not work.  In order to make it work you need to create the environment variable in your terminal like so:</p>
-<p><code>export MONGO_PASS=xyz123</code></p>
-<p>Now you can use the <code>mcc</code> command and work with the database.</p>
-<p>To prevent others from access, close that terminal window when you’re done.</p>
 
                 
             </div>
