@@ -85,7 +85,7 @@
         </div>
         <div class="post-toc" id="post-toc">
     <strong class="post-toc-title">TOC</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-text">Intro</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Setup-Test-Web-Server"><span class="toc-text">Setup Test Web Server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Setup-Your-Domain"><span class="toc-text">Setup Your Domain</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Setup-Port-Forwarding"><span class="toc-text">Setup Port Forwarding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Setup-Reverse-Poxy"><span class="toc-text">Setup Reverse Poxy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Start-Building-App"><span class="toc-text">Start Building App</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup-App-Skeleton"><span class="toc-text">Setup App Skeleton</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup-App-Structure"><span class="toc-text">Setup App Structure</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup-App-Packages"><span class="toc-text">Setup App Packages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup-OAuth-Auhentication"><span class="toc-text">Setup OAuth Auhentication</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Setup-Continuous-Workflow"><span class="toc-text">Setup Continuous Workflow</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extraa"><span class="toc-text">Extraa</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-text">Intro</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Setup-Test-Web-Server"><span class="toc-text">Setup Test Web Server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Setup-Your-Domain"><span class="toc-text">Setup Your Domain</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Setup-Port-Forwarding"><span class="toc-text">Setup Port Forwarding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Setup-Reverse-Poxy"><span class="toc-text">Setup Reverse Poxy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Setup-App"><span class="toc-text">Setup App</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup-OAuth-Auhentication"><span class="toc-text">Setup OAuth Auhentication</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Setup-Continuous-Workflow"><span class="toc-text">Setup Continuous Workflow</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extraa"><span class="toc-text">Extraa</span></a></li></ol>
     <div class="back-to-top" id="back-to-top">
         <a href="javascript:void(0);">back to top</a>
     </div>
@@ -121,11 +121,8 @@
 <li>Choose: <code>Use the Google Domains name servers</code></li>
 </ul>
 </li>
-<li>Add custom resource record<ul>
+<li>Add custom resource records<ul>
 <li><code>name: @, type: A, TTL: 1H, IP: xxx.xxx.xxx.xxx</code></li>
-</ul>
-</li>
-<li>Add Wildcard resource record<ul>
 <li><code>name: *, type: A, TTL: 1H, IP: xxx.xxx.xxx.xxx</code></li>
 </ul>
 </li>
@@ -133,6 +130,12 @@
 </li>
 <li>test dns – <code>ping dearfrankg.com</code> –&gt; …</li>
 </ul>
+<blockquote>
+<p>Local IP Address<br>Do not use services like <code>myip</code> or <code>myip.com</code> to find your IP address. They’re not always up to date. Instead you can use your WAN IP address from you router.</p>
+</blockquote>
+<blockquote>
+<p>DNS Propagation<br>Make sure you use the same DNS server IPs when configuring your domain and your local network. This insures propagation will not be an issue. Google DNS IPs are <code>8.8.8.8</code> and <code>8.8.4.4</code>.</p>
+</blockquote>
 <h2 id="Setup-Port-Forwarding"><a href="#Setup-Port-Forwarding" class="headerlink" title="Setup Port Forwarding"></a>Setup Port Forwarding</h2><p>When someone is trying to access you web server at your home, the request will be received by your modem then router. How will the router know which PC to forward the request to? That’s what port forwarding is for.</p>
 <ul>
 <li>configure router for port forwarding<ul>
@@ -145,9 +148,6 @@
 </ul>
 </li>
 </ul>
-<blockquote>
-<p>GOTCHA<br>Do not always trust myip type services… They were showing one IP address and my ISP told me it was another. My ISP was correct. DNS will take time to propagate. I configured my <code>domain</code> and <code>my local network</code> to use google-dns. The ISP dns server was not updated yet causing failure.</p>
-</blockquote>
 <h2 id="Setup-Reverse-Poxy"><a href="#Setup-Reverse-Poxy" class="headerlink" title="Setup Reverse Poxy"></a>Setup Reverse Poxy</h2><p>Using port forwarding we would need to open many ports for many apps. That’s undesirable because it’s less secure. As an alternative we can setup a reverse proxy server to route different urls to different apps.</p>
 <ul>
 <li>setup nginx as a reverse proxy<ul>
@@ -156,7 +156,7 @@
 </ul>
 </li>
 <li>configure <code>sub domains</code> to <code>web apps</code><ul>
-<li><code>app1*.dearfrankg.com</code> to port 5000 <code>app1</code></li>
+<li><code>app1.dearfrankg.com</code> to port 5000 <code>app1</code></li>
 <li><code>app2.dearfrankg.com</code> to port 5001 <code>app2</code></li>
 </ul>
 </li>
@@ -170,9 +170,25 @@
 <li>If the proxy and the webservers are hosted by different providers, latency will increase noticeably.</li>
 <li>If the proxy is down, so are all connected subdomains, except if you have multiple load balanced proxies.</li>
 </ul>
-<h2 id="Start-Building-App"><a href="#Start-Building-App" class="headerlink" title="Start Building App"></a>Start Building App</h2><h3 id="Setup-App-Skeleton"><a href="#Setup-App-Skeleton" class="headerlink" title="Setup App Skeleton"></a>Setup App Skeleton</h3><pre><code>npx create-react-app my-great-app
-</code></pre><h3 id="Setup-App-Structure"><a href="#Setup-App-Structure" class="headerlink" title="Setup App Structure"></a>Setup App Structure</h3><figure class="highlight plain"><figcaption><span>src directory</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── assets</span><br><span class="line">├── components</span><br><span class="line">├── services</span><br><span class="line">├── utils</span><br><span class="line">└── index.js</span><br></pre></td></tr></table></figure>
-<h3 id="Setup-App-Packages"><a href="#Setup-App-Packages" class="headerlink" title="Setup App Packages"></a>Setup App Packages</h3><h3 id="Setup-OAuth-Auhentication"><a href="#Setup-OAuth-Auhentication" class="headerlink" title="Setup OAuth Auhentication"></a>Setup OAuth Auhentication</h3><p><strong>Get OAuth Credentials</strong></p>
+<h2 id="Setup-App"><a href="#Setup-App" class="headerlink" title="Setup App"></a>Setup App</h2><ul>
+<li>setup app skeleton<ul>
+<li><code>npx create-react-app my-great-app</code></li>
+</ul>
+</li>
+<li>add <code>sass</code> support<ul>
+<li>npm install –save node-sass</li>
+</ul>
+</li>
+<li>add folders to <code>src</code> directory<ul>
+<li>assets, components, services, utils</li>
+</ul>
+</li>
+<li>reconfigure app to work with new structure<ul>
+<li>create a new Header component</li>
+</ul>
+</li>
+</ul>
+<h3 id="Setup-OAuth-Auhentication"><a href="#Setup-OAuth-Auhentication" class="headerlink" title="Setup OAuth Auhentication"></a>Setup OAuth Auhentication</h3><p><strong>Get OAuth Credentials</strong></p>
 <ul>
 <li>create project at the <a href="https://console.developers.google.com/" target="_blank" rel="noopener">console.developers.google.com</a></li>
 <li>create credentials and choose <code>API key</code><ul>
@@ -200,10 +216,6 @@
 <h2 id="Setup-Continuous-Workflow"><a href="#Setup-Continuous-Workflow" class="headerlink" title="Setup Continuous Workflow"></a>Setup Continuous Workflow</h2><p><strong>Continuous Integration (CI)</strong>: short-lived feature branches, team is merging to master branch multiple times per day, fully automated build and test process which gives feedback within 10 minutes; deployment is manual.</p>
 <p><strong>Continuous Delivery (CD)</strong>: CI + the entire software release process is automated, it may be composed of multiple stages, and deployment to production is manual.</p>
 <p><strong>Continuous Deployment</strong>: CI + CD + fully automated deployment to production.</p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li><a href="https://goo.gl/XLSqgs" target="_blank" rel="noopener">Getting Started with YouTube JavaScript API</a></li>
-<li><a href="https://goo.gl/BK1zWH" target="_blank" rel="noopener">The Difference Between Continuous Integration, Continuous Deployment and Continuous Delivery</a></li>
-</ul>
 <h2 id="Extraa"><a href="#Extraa" class="headerlink" title="Extraa"></a>Extraa</h2><ul>
 <li>create a project directory</li>
 <li>create this <a href="https://goo.gl/KcaXbh" target="_blank" rel="noopener">index.html</a> file<ul>
