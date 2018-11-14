@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">learning lerna</h2>
+            <div class="post-meta">
+                <span class="post-time">2017-04-12</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#About"><span class="toc-text">About</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-use-Lerna"><span class="toc-text">Why use Lerna</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Getting-Started"><span class="toc-text">Getting Started</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-lerna-repo"><span class="toc-text">Create a lerna repo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Commands-and-Options"><span class="toc-text">Commands and Options</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Commands"><span class="toc-text">Commands</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Options"><span class="toc-text">Options</span></a></li></ol></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <p><a href="https://goo.gl/OQnM1G" target="_blank" rel="noopener">Lerna</a>: A tool for managing JavaScript projects with multiple packages.</p>
+<h2 id="About"><a href="#About" class="headerlink" title="About"></a>About</h2><p>Developing many packages in separate repos are messy with disadvantages.  To solve this many projects <code>babel</code>, <code>react</code>, <code>angular</code>, and many more, develop all packages in a single repo called a <code>monorepo</code>.</p>
+<p><strong>Lerna is a tool that optimizes the workflow around managing monorepos.</strong></p>
+<p>It looks like this:</p>
+<pre><code>my-lerna-repo/
+  lerna.json
+  package.json
+  packages/
+    package-1/
+      package.json
+    package-2/
+      package.json
+</code></pre><h2 id="Why-use-Lerna"><a href="#Why-use-Lerna" class="headerlink" title="Why use Lerna"></a>Why use Lerna</h2><ol>
+<li>It optimizes workflow for managing <code>packages</code></li>
+<li>it’s much more organized than having separate repos for each package</li>
+<li>manage separate utility projects tracking version independently (lodash v4.x, ramda v3.x)</li>
+<li>manage a group of related components using only a single version (bootstrap-components v3.x)</li>
+</ol>
+<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><h3 id="Create-a-lerna-repo"><a href="#Create-a-lerna-repo" class="headerlink" title="Create a lerna repo"></a>Create a lerna repo</h3><blockquote>
+<p>We are using lerna v2.x</p>
+</blockquote>
+<pre><code>// INSTALL
+npm install -g lerna
+
+// CREATE LERNA REPO
+git init lerna-repo       // create a new git repo
+cd lerna-repo
+lerna init                // LERNA COMMAND: lerna init: makes 2 files
+                          // lerna.json package.json
+
+// CONFIGURE LERNA
+{                         // configure lerna by editing lerna.json
+  &quot;lerna&quot;: &quot;2.0.0-rc.1&quot;,
+  &quot;packages&quot;: [
+    &quot;packages/*&quot;
+  ],
+  &quot;version&quot;: &quot;0.0.0&quot;,
+  &quot;npmClient&quot;: &quot;yarn&quot;,
+  &quot;commands&quot;: {
+    &quot;bootstrap&quot;: {
+      &quot;hoist&quot;: &quot;**&quot;
+    }
+  }
+}
+
+// CREATE PACKAGES
+mkdir -p packages/project1
+mkdir -p packages/project2
+lerna exec npm init -- -y     // make package.json for each project
+
+// RUN COMMANDS ON SCOPE
+lerna exec cat package.json --scope project1      // review them individually
+
+// SETUP DEPENDENCIES
+yarn add react react-dom
+// copy package.json dependency from root to project
+
+// LOCAL DEPENDENCY
+// one local project may depend on another
+// just add the dependency-project-name to package.json
+// then run
+lerna bootstrap
+</code></pre><h2 id="Commands-and-Options"><a href="#Commands-and-Options" class="headerlink" title="Commands and Options"></a>Commands and Options</h2><h3 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h3><pre><code>- bootstrap  Link together local packages and npm install remaining package dependencies
+- publish    Publish updated packages to npm
+- updated    Check which packages have changed since the last release
+- import     Import a package with git history from an external repository
+- clean      Remove the node_modules directory from all packages
+- diff       Diff all packages or a single package since the last release
+- init       Initialize a lerna repo
+- run        Run npm script in each package
+- exec       Run a command in each package
+- ls         List all public packages
+</code></pre><h3 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h3><p>configure lerna</p>
+<pre><code>--npm-tag [tagname]     Publish packages with the specified npm dist-tag
+--npm-client [client]   Executable used to install dependencies (npm, yarn, pnpm, ...)
+--concurrency           How many threads to use if lerna parallelises the tasks
+                        (defaults to 4)
+--loglevel              What level of logs to report (defaults to &quot;info&quot;).
+                        On failure, all logs are written to lerna-debug.log in the
+                        current working directory.
+--git-remote [remote]   Push git changes to the specified remote instead of &apos;origin&apos;
+--canary, -c            Publish packages after every successful merge using the
+                        sha as part of the tag
+--conventional-commits  Use angular conventional-commit format to determine version
+                        bump and generate CHANGELOG
+--yes                   Skip all confirmation prompts
+</code></pre><p>init</p>
+<pre><code>--independent, -i       Version packages independently
+--exact                 Specify cross-dependency version numbers exactly rather than
+                        with a caret (^) (only affects publish and init)
+</code></pre><p>bootstrap</p>
+<pre><code>--hoist [glob]          Install external dependencies matching [glob] to the repo root.
+                        Use with no glob for all.
+--nohoist [glob]        Don&apos;t hoist external dependencies matching [glob] to the repo root
+--include-filtered-dependencies
+                        Flag to force lerna to include all dependencies and transitive
+                        dependencies when running &apos;bootstrap&apos;, even if they should not
+                        be included by the scope or ignore flags
+</code></pre><p>publish</p>
+<pre><code>--skip-git              Skip commiting, tagging, and pushing git changes
+--skip-npm              Stop before actually publishing change to npm
+--exact                 Specify cross-dependency version numbers exactly rather than
+                        with a caret (^) (only affects publish and init)
+--message, -m [msg]     Use a custom commit message when creating the publish commit
+--repo-version          Specify repo version to publish
+--force-publish         Force publish for the specified packages (comma-separated)
+                        or all packages using *
+                        (skips the git diff check for changed packages)
+</code></pre><p>only affects ‘run’, ‘exec’, ‘clean’, ‘ls’ and ‘bootstrap’ commands</p>
+<pre><code>--scope [glob]          Restricts the scope to package names matching the given glob
+--ignore [glob]         Ignores packages with names matching the given glob
+</code></pre><p>only affects ‘run’ command</p>
+<pre><code>--stream                Stream output with lines prefixed by package (only &apos;run&apos;)
+</code></pre><p>only affects run, exec, publish and bootstrap</p>
+<pre><code>--no-sort               When executing tasks, ignore the dependency ordering of packages
+</code></pre>
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/lerna/" title="lerna">lerna</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2017/04/13/2017/20170412-react-lifecycle/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">react lifecycle</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2017/04/05/2017/20170405-redux-refresher/">
+                <span class="nav-default">redux refresher</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/dearfrankg">Frank Gutierrez</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

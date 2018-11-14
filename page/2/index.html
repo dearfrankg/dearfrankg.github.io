@@ -231,29 +231,59 @@
 <blockquote>
 <p>If you make a typo error messages appear on the browser page.</p>
 </blockquote>
-<h2 id="Navigate-between-pages"><a href="#Navigate-between-pages" class="headerlink" title="Navigate between pages"></a>Navigate between pages</h2><p><strong>Using a link</strong></p>
+<h2 id="Navigate-with-Link"><a href="#Navigate-with-Link" class="headerlink" title="Navigate with Link"></a>Navigate with Link</h2><p><strong>Using a link</strong></p>
 <figure class="highlight js"><figcaption><span>pages/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">"next/link"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Index = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Link href=<span class="string">"/about"</span>&gt;</span><br><span class="line">      &lt;a&gt;About Page&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Link&gt;</span><br><span class="line">    &lt;p&gt;Hello Next.js&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Index;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>Link works with browser history (back button)</li>
 <li>Don’t style a Link, style it’s children</li>
 <li>Link works with <code>a</code> and <code>button</code> tags and any tag with an <code>onClick</code> event.</li>
 </ul>
-<h2 id="Using-shared-components"><a href="#Using-shared-components" class="headerlink" title="Using shared components"></a>Using shared components</h2><p><strong>Create a Header component</strong></p>
+<h2 id="Creating-and-using-a-Header-component"><a href="#Creating-and-using-a-Header-component" class="headerlink" title="Creating and using a Header component"></a>Creating and using a Header component</h2><p><strong>Create a Header component</strong></p>
 <figure class="highlight js"><figcaption><span>components/Header.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">"next/link"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> linkStyle = &#123;</span><br><span class="line">  marginRight: <span class="number">15</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Header = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Link href=<span class="string">"/"</span>&gt;</span><br><span class="line">      &lt;a style=&#123;linkStyle&#125;&gt;Home&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Link&gt;</span><br><span class="line">    &lt;Link href=<span class="string">"/about"</span>&gt;</span><br><span class="line">      &lt;a style=&#123;linkStyle&#125;&gt;About&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Link&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Header;</span></span><br></pre></td></tr></table></figure>
 <p><strong>Using the Header component</strong></p>
 <figure class="highlight js"><figcaption><span>pages/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Header <span class="keyword">from</span> <span class="string">"../components/Header"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Header /&gt;</span><br><span class="line">    &lt;p&gt;Hello Next.js&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p><strong>Create the Layout component</strong></p>
+<h2 id="Creating-and-using-a-Layout-component"><a href="#Creating-and-using-a-Layout-component" class="headerlink" title="Creating and using a Layout component"></a>Creating and using a Layout component</h2><p><strong>Create the Layout component</strong></p>
 <figure class="highlight js"><figcaption><span>components/Layout.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Header <span class="keyword">from</span> <span class="string">"./Header"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> layoutStyle = &#123;</span><br><span class="line">  margin: <span class="number">20</span>,</span><br><span class="line">  padding: <span class="number">20</span>,</span><br><span class="line">  border: <span class="string">"1px solid #DDD"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Layout = <span class="function">(<span class="params">&#123; children &#125;</span>) =&gt;</span> (</span><br><span class="line">  &lt;div style=&#123;layoutStyle&#125;&gt;</span><br><span class="line">    &lt;Header /&gt;</span><br><span class="line">    &#123;children&#125;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Layout;</span></span><br></pre></td></tr></table></figure>
-<p><strong>Use the Layout component</strong></p>
+<p><strong>Use the Layout component on index page</strong></p>
 <figure class="highlight js"><figcaption><span>pages/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">"../components/Layout.js"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; (</span><br><span class="line">  &lt;Layout&gt;</span><br><span class="line">    &lt;p&gt;Hello Next.js&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>Layout&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><strong>Use the Layout component on about page</strong></p>
 <figure class="highlight js"><figcaption><span>pages/about.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">"../components/Layout.js"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; (</span><br><span class="line">  &lt;Layout&gt;</span><br><span class="line">    &lt;p&gt;About page&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>Layout&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2 id="Deploy-your-app"><a href="#Deploy-your-app" class="headerlink" title="Deploy your app"></a>Deploy your app</h2><p><strong>Export the app to static files</strong></p>
+<ul>
+<li>add script to package.json<ul>
+<li>`”export”: “next export”</li>
+</ul>
+</li>
+<li>use export script<ul>
+<li><code>npm run export</code></li>
+<li>notice a new <code>out</code> directory was created</li>
+</ul>
+</li>
+</ul>
+<p><strong>Deploy app</strong></p>
+<ul>
+<li>make sure you have surge installed<ul>
+<li><code>npm -g ls --depth=0</code></li>
+</ul>
+</li>
+<li>install surge if needed<ul>
+<li>`npm install -g surge</li>
+</ul>
+</li>
+<li>deploy exported app<ul>
+<li><code>surge out</code></li>
+</ul>
+</li>
+</ul>
 <h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>In this post we demonstated using the Next.js react framework. We observed the following.</p>
 <ul>
-<li>Next uses pages just like HTML</li>
+<li>Next uses pages: index, about</li>
 <li>Next pages consist of HTML/JS/CSS = JSX/JS/CSS-in-js</li>
+<li>Next pages are React components.</li>
 <li>Next has a Link component for navigating between pages.</li>
-<li>Next produces pages with React components.</li>
 <li>React components can be shared and nested with other React components</li>
+<li>Next can export an app to static files</li>
+<li>Surge can deploy and serve your static files</li>
 </ul>
 <p>We have learned enough to build a website. In the next post I will demonstrate how to build dynamic applications using Next.js.</p>
 

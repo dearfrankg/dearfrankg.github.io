@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">web animation</h2>
+            <div class="post-meta">
+                <span class="post-time">2017-02-09</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-gist-of-it…"><span class="toc-text">The gist of it…</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Checking-the-results-in-the-debugger"><span class="toc-text">Checking the results in the debugger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Animation-techniques"><span class="toc-text">Animation techniques</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#technique-1"><span class="toc-text">technique 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#technique-2"><span class="toc-text">technique 2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#references"><span class="toc-text">references</span></a></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <h2 id="The-gist-of-it…"><a href="#The-gist-of-it…" class="headerlink" title="The gist of it…"></a>The gist of it…</h2><p>Use <code>transform</code> instead of changing CSS properties like <code>width</code> or <code>margin</code></p>
+<p>transform will let you leverage the GPU and takes little effort.</p>
+<p>with transform you can:</p>
+<ul>
+<li><code>position</code>: transform: translateX()</li>
+<li><code>scale</code>: transform: scale()</li>
+<li><code>rotation</code>: transform: rotate()</li>
+<li><code>opacity</code>: opacity: 0…1</li>
+</ul>
+<p>The expensive operation in the browser is <code>layout</code>.  When you change the <code>width</code> or <code>margin</code> of a <code>div</code> you cause the browser to have to calculate <code>layout</code> for all the elements contained in that <code>div</code>.  This is a hugely expensive operation that will cause your animation to be <code>janky</code>.</p>
+<h2 id="Checking-the-results-in-the-debugger"><a href="#Checking-the-results-in-the-debugger" class="headerlink" title="Checking the results in the debugger"></a>Checking the results in the debugger</h2><p>Using the <code>timeline</code> section of the <code>dev tools</code> you can check the load on the <code>cpu</code> and <code>paint</code> operations.  They should be very very low.  If they are high you’re doing it wrong.</p>
+<h2 id="Animation-techniques"><a href="#Animation-techniques" class="headerlink" title="Animation techniques"></a>Animation techniques</h2><h3 id="technique-1"><a href="#technique-1" class="headerlink" title="technique 1"></a>technique 1</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* BAD */</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.sidebar</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100vw</span>;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">0px</span>;</span><br><span class="line">  <span class="attribute">transition</span>: width .<span class="number">35s</span>, margin-left .<span class="number">35s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.mysidebar</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="built_in">calc</span>(100vw - 255px);</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">255px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Here our <code>SideBar</code> component has the <code>sidebar</code> class and starts off with some properties.  When we add the <code>mysidebar</code> class to it, then the properties get overridden by the <code>mysidebar</code> class.  The speed of the transition is controlled with the <code>transition</code> property under the <code>sidebar</code> class.</p>
+<h3 id="technique-2"><a href="#technique-2" class="headerlink" title="technique 2"></a>technique 2</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* GOOD */</span></span><br><span class="line"></span><br><span class="line"><span class="selector-id">#mybox</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">100px</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">animation</span>: move <span class="number">3s</span> ease infinite;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> move &#123;</span><br><span class="line">  50% &#123;</span><br><span class="line">     <span class="attribute">transform</span>: <span class="built_in">translateX</span>(100px);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Here a box identified by the <code>#mybox</code> id, will animate back and forth infinitely.</p>
+<p>animation property:</p>
+<ul>
+<li><code>move</code> is the animation name</li>
+<li><code>3s</code> take 3 seconds to complete the animation</li>
+<li><code>ease</code> the flow of the movement.   others: (ease-in, ease-in-out, linear)</li>
+<li><code>infinite</code> a flag to indicate not to stop</li>
+</ul>
+<h2 id="references"><a href="#references" class="headerlink" title="references"></a>references</h2><ul>
+<li><a href="https://goo.gl/dEKgfL" target="_blank" rel="noopener">Animating with Translate - a Paul Irish codepen</a></li>
+<li><a href="https://goo.gl/OzKCVa" target="_blank" rel="noopener">High Performance Animations</a></li>
+<li><a href="https://goo.gl/cyBAJO" target="_blank" rel="noopener">10 principles for smooth web animations</a></li>
+</ul>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/animation/" title="animation">animation</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2017/02/11/2017/20170211-react-testing/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">react testing with contracts</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2017/02/09/2017/20170210-mongodb/">
+                <span class="nav-default">locking down mongodb</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/dearfrankg">Frank Gutierrez</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

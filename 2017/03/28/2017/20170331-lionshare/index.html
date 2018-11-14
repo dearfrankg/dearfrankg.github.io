@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">lionshare</h2>
+            <div class="post-meta">
+                <span class="post-time">2017-03-28</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lionshare-api"><span class="toc-text">lionshare-api</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#API-Summary"><span class="toc-text">API Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment"><span class="toc-text">Environment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API-Data"><span class="toc-text">API Data</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Prices"><span class="toc-text">Prices</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Markets"><span class="toc-text">Markets</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Updates"><span class="toc-text">Updates</span></a></li></ol></li></ol></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <h1 id="lionshare-api"><a href="#lionshare-api" class="headerlink" title="lionshare-api"></a>lionshare-api</h1><h2 id="API-Summary"><a href="#API-Summary" class="headerlink" title="API Summary"></a>API Summary</h2><p>API that powers <a href="https://lionshare.capital" target="_blank" rel="noopener">Lionshare</a> by providing both historical (REST) and realtime time (websocket) cryptocurrency market data. The data is sourced from <a href="https://gdax.com" target="_blank" rel="noopener">GDAX</a>, <a href="https://poloniex.com/" target="_blank" rel="noopener">Poloniex</a>, and <a href="https://coinmarketcap.com/" target="_blank" rel="noopener">Coinmarketcap</a>.</p>
+<h2 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h2><p>Let’s get a feel for what we’re working with:</p>
+<p>Summary of packages:</p>
+<ul>
+<li>babel - transforming</li>
+<li>koa – server and middleware</li>
+<li>websockets – web socket collection</li>
+<li>autobahn – web application messaging protocol</li>
+<li>redis – redis client</li>
+<li>utilities – bluebird-promises, cross-env, dotenv, http-error, iso-fetch</li>
+<li>utilities – ms, now-logs, pm2, safestart, semver</li>
+</ul>
+<p>Directory Structure</p>
+<pre><code>src
+├── api           // api server
+├── db            // redis
+├── exchange      // exchange server
+├── utils
+├── ws            // web socket server
+├── check.js
+├── index.js
+└── init.js
+</code></pre><h2 id="API-Data"><a href="#API-Data" class="headerlink" title="API Data"></a>API Data</h2><h3 id="Prices"><a href="#Prices" class="headerlink" title="Prices"></a>Prices</h3><figure class="highlight json"><figcaption><span>'GET api.lionshare.capital/api/prices?period</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>: &#123;</span><br><span class="line">    <span class="attr">"BTC"</span>: [<span class="number">924.2</span>, <span class="number">924.63</span>, <span class="number">923.82</span>, <span class="number">923.02</span>, <span class="number">924.82</span>, ...],</span><br><span class="line">    <span class="attr">"ETH"</span>: [<span class="number">10.74</span>, <span class="number">10.8</span>, <span class="number">10.79</span>, <span class="number">10.82</span>, <span class="number">10.82</span>, <span class="number">10.84</span>, <span class="number">10.78</span>, ...],</span><br><span class="line">    <span class="attr">"LTC"</span>: [<span class="number">3.88</span>, <span class="number">3.86</span>, <span class="number">3.85</span>, <span class="number">3.85</span>, <span class="number">3.86</span>, <span class="number">3.86</span>, <span class="number">3.84</span>, ...]</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Markets"><a href="#Markets" class="headerlink" title="Markets"></a>Markets</h3><figure class="highlight"><figcaption><span>'GET api.lionshare.capital/api/markets'</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>: &#123;</span><br><span class="line">    <span class="attr">"BTC"</span>: <span class="number">14718750986</span>,</span><br><span class="line">    <span class="attr">"ETH"</span>: <span class="number">943628626</span>,</span><br><span class="line">    <span class="attr">"LTC"</span>: <span class="number">188560718</span>,</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Updates"><a href="#Updates" class="headerlink" title="Updates"></a>Updates</h3><figure class="highlight"><figcaption><span>'GET api/updates?v</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  url: "https://github.com/lionsharecapital/lionshare-desktop/releases/download/v1.1.0/Lionshare-1.1.0-mac.zip",</span><br><span class="line">  name: "Lionshare 1.1.0",</span><br><span class="line">  notes: "- 💵 New currencies: IOC, SC, SJCX and DCR - ⌨ Keyboard shortcuts for prices and portfolio (Cmd+1/2) - ＄ Fixed formatting for non-US dollar currencies - 🐳 Fixed number formatting for whale users - 🛠 Various bug fixes and improvements ",</span><br><span class="line">  pub_date: "2017-02-06T01:51:06Z"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/framework/" title="framework">framework</a>
+            
+            <a class="tag" href="/tags/example/" title="example">example</a>
+            
+            <a class="tag" href="/tags/electron/" title="electron">electron</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2017/03/28/2017/20170328-facebook-react-perf/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">facebook on react performance</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2017/03/27/2017/20170327-react-performance/">
+                <span class="nav-default">react performance</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/dearfrankg">Frank Gutierrez</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

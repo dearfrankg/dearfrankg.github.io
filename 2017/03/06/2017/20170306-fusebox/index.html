@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">fusebox is babel on steroids</h2>
+            <div class="post-meta">
+                <span class="post-time">2017-03-06</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Building-an-app-with-fusebox"><span class="toc-text">Building an app with fusebox</span></a></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <h2 id="Building-an-app-with-fusebox"><a href="#Building-an-app-with-fusebox" class="headerlink" title="Building an app with fusebox"></a>Building an app with fusebox</h2><p>Create project folder and install dependencies<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span> add project directory</span><br><span class="line">mkdir tic-tac-toe</span><br><span class="line">cd tic-tac-toe</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> add package.json file</span><br><span class="line">npm init -y</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> add packages for fusebox and babel</span><br><span class="line">yarn add --dev \</span><br><span class="line">babel-core \</span><br><span class="line">babel-plugin-transform-react-jsx \</span><br><span class="line">babel-preset-latest \</span><br><span class="line">fuse-box</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>for decorator support add<br>babel-plugin-transform-decorators-legacy<br>babel-preset-stage-1</p>
+</blockquote>
+<p>add packages for react<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># add packages for react app</span><br><span class="line">yarn add \</span><br><span class="line">react \</span><br><span class="line">react-dom</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>for mobx support add<br>mobx<br>mobx-react<br>mobx-react-devtools</p>
+</blockquote>
+<p>configure babel using <code>.babelrc</code> file<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"sourceMaps"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"presets"</span>: [<span class="string">"latest"</span>, <span class="string">"stage-1"</span>],</span><br><span class="line">  <span class="attr">"plugins"</span>: [</span><br><span class="line">    [<span class="string">"transform-react-jsx"</span>],</span><br><span class="line">    [<span class="string">"transform-decorators-legacy"</span>]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>configure fuse using <code>fuse.js</code> file<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;FuseBox, SVGPlugin, CSSPlugin, BabelPlugin&#125; = <span class="built_in">require</span>(<span class="string">"fuse-box"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create FuseBox Instance</span></span><br><span class="line"><span class="keyword">let</span> fuse = <span class="keyword">new</span> FuseBox(&#123;</span><br><span class="line">  homeDir: <span class="string">"src/"</span>,</span><br><span class="line">  sourcemaps: <span class="literal">true</span>,</span><br><span class="line">  outFile: <span class="string">"./build/out.js"</span>,</span><br><span class="line">  plugins: [SVGPlugin(), CSSPlugin(), BabelPlugin()]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">fuse.devServer(<span class="string">"&gt;index.js"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>configure <code>package.json</code> scripts<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;start&quot;: &quot;node fuse.js&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<p>create the build directory<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir build</span><br></pre></td></tr></table></figure></p>
+<p>create a <code>./build/index.html</code> file<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang="en"&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset="UTF-8"&gt;</span><br><span class="line">  &lt;title&gt;my-app&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id="root"&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script src="out.js" charset="utf-8"&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>create the app using the <code>./src/index.js</code> file<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; render &#125; <span class="keyword">from</span> <span class="string">'render'</span></span><br><span class="line"></span><br><span class="line">render(</span><br><span class="line">  &lt;div&gt;hello&lt;<span class="regexp">/div&gt;, document.getElementById('root')</span></span><br><span class="line"><span class="regexp">)</span></span><br></pre></td></tr></table></figure></p>
+<p>start the app<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure></p>
+<p>open in browser<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open http://localhost:4444</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/framework/" title="framework">framework</a>
+            
+            <a class="tag" href="/tags/reactjs/" title="reactjs">reactjs</a>
+            
+            <a class="tag" href="/tags/fusebox/" title="fusebox">fusebox</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2017/03/14/2017/20170314-state-of-development/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">state of development</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2017/03/04/2017/20170304-mobx/">
+                <span class="nav-default">mobx simple, scalable state management</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/dearfrankg">Frank Gutierrez</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

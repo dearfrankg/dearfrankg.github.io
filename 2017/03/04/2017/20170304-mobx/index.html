@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">mobx simple, scalable state management</h2>
+            <div class="post-meta">
+                <span class="post-time">2017-03-04</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-gist-of-mobx"><span class="toc-text">The gist of mobx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Concepts-and-Principles"><span class="toc-text">Concepts and Principles</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Concepts"><span class="toc-text">Concepts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Principles"><span class="toc-text">Principles</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mobx-API"><span class="toc-text">Mobx API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Creating-observables"><span class="toc-text">Creating observables</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Computed-values"><span class="toc-text">Computed values</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Actions"><span class="toc-text">Actions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reactions-and-Derivations"><span class="toc-text">Reactions and Derivations</span></a></li></ol></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <h2 id="The-gist-of-mobx"><a href="#The-gist-of-mobx" class="headerlink" title="The gist of mobx"></a>The gist of mobx</h2><ol>
+<li>define your state</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;observable&#125; <span class="keyword">from</span> <span class="string">'mobx'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> appState = observable(&#123;</span><br><span class="line">  timer: <span class="number">0</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>view responds to state</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;observer&#125; <span class="keyword">from</span> <span class="string">'mobx-react'</span>;</span><br><span class="line"></span><br><span class="line">@observer</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TimerView</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; appState &#125; = <span class="keyword">this</span>.props</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button onClick=&#123;<span class="keyword">this</span>.onReset&#125;&gt;</span><br><span class="line">        Seconds passed: &#123;appState.timer&#125;</span><br><span class="line">      &lt;<span class="regexp">/button&gt;);</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  onReset = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">    this.props.appState.resetTimer();</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">React.render(&lt;TimerView appState=&#123;appState&#125; /</span>&gt;, <span class="built_in">document</span>.body);</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>modify the state</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">appState.resetTimer = action(<span class="function"><span class="keyword">function</span> <span class="title">reset</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  appState.timer = <span class="number">0</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">setInterval(action(<span class="function"><span class="keyword">function</span> <span class="title">tick</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  appState.timer += <span class="number">1</span>;</span><br><span class="line">&#125;), <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="Concepts-and-Principles"><a href="#Concepts-and-Principles" class="headerlink" title="Concepts and Principles"></a>Concepts and Principles</h2><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><ol>
+<li><p><strong>state</strong>: data in spreadsheet cells</p>
+</li>
+<li><p><strong>derivations</strong>: there are two kinds…<br><code>computed values</code>: spreadsheet formulas<br><code>reactions</code>: spreadsheet formulas with side-effects</p>
+</li>
+<li><p><strong>actions</strong>: a change to data in our spreadsheet cells</p>
+</li>
+</ol>
+<h3 id="Principles"><a href="#Principles" class="headerlink" title="Principles"></a>Principles</h3><blockquote>
+<p>ACTION –&gt; STATE –&gt; VIEWS</p>
+</blockquote>
+<p>MobX supports a uni-directional data flow</p>
+<blockquote>
+<p>actions change state, which updates the views.</p>
+</blockquote>
+<p>All Derivations are updated <code>automatically</code> and <code>atomically</code> when the state changes. As a result it is never possible to observe intermediate values.</p>
+<p>All Derivations are updated <code>synchronously</code> by default. This means that for example actions can safely inspect a computed value directly after altering the state.</p>
+<p>Computed values are updated <code>lazily</code>. Any computed value that is not actively in use will not be updated until it is needed for a side effect (I/O). If a view is no longer in use it will be garbage collected automatically.</p>
+<p>All Computed values should be <code>pure</code>. They are not supposed to change state.</p>
+<p>The following listing illustrates the above concepts and principles:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;observable, autorun&#125; <span class="keyword">from</span> <span class="string">'mobx'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> todoStore = observable(&#123;</span><br><span class="line">  todos: [], <span class="comment">// observable state</span></span><br><span class="line"></span><br><span class="line">  get completedCount() &#123;  <span class="comment">// a derived value</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.todos.filter(<span class="function"><span class="params">todo</span> =&gt;</span> todo.completed).length;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">autorun(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  <span class="comment">// observes the state</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Completed %d of %d items"</span>,</span><br><span class="line">    todoStore.completedCount,</span><br><span class="line">    todoStore.todos.length</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">todoStore.todos[<span class="number">0</span>] = &#123;  <span class="comment">// modify the state</span></span><br><span class="line">  title: <span class="string">"Take a walk"</span>,</span><br><span class="line">  completed: <span class="literal">false</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// -&gt; synchronously prints 'Completed 0 of 1 items'</span></span><br><span class="line"></span><br><span class="line">todoStore.todos[<span class="number">0</span>].completed = <span class="literal">true</span>; <span class="comment">// modify the state</span></span><br><span class="line"><span class="comment">// -&gt; synchronously prints 'Completed 1 of 1 items'</span></span><br></pre></td></tr></table></figure>
+<h2 id="Mobx-API"><a href="#Mobx-API" class="headerlink" title="Mobx API"></a>Mobx API</h2><p>The most important MobX api’s. Understanding <code>observable</code>, <code>computed</code>, <code>reactions</code> and <code>actions</code> is enough to master MobX and use it in your applications!</p>
+<h3 id="Creating-observables"><a href="#Creating-observables" class="headerlink" title="Creating observables"></a>Creating observables</h3><p>observable(value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">observable(value)</span><br><span class="line">@observable classProperty = value</span><br></pre></td></tr></table></figure>
+<h3 id="Computed-values"><a href="#Computed-values" class="headerlink" title="Computed values"></a>Computed values</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">computed(() =&gt; expression)</span><br><span class="line">computed(() =&gt; expression, (newValue) =&gt; void)</span><br><span class="line">computed(() =&gt; expression, options)</span><br><span class="line">@computed get classProperty() &#123; return expression; &#125;</span><br><span class="line">@computed.struct get classProperty() &#123; return expression; &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Actions"><a href="#Actions" class="headerlink" title="Actions"></a>Actions</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">action(fn)</span><br><span class="line">action(name, fn)</span><br><span class="line">@action classMethod</span><br><span class="line">@action(name) classMethod</span><br><span class="line">@action boundClassMethod = (args) =&gt; &#123; body &#125;</span><br><span class="line">@action(name) boundClassMethod = (args) =&gt; &#123; body &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Reactions-and-Derivations"><a href="#Reactions-and-Derivations" class="headerlink" title="Reactions and Derivations"></a>Reactions and Derivations</h3><p>oberserver</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">observer(React.createClass(&#123; ... &#125;))</span><br><span class="line">observer((props, context) =&gt; ReactElement)</span><br><span class="line">observer(class MyComponent extends React.Component &#123; ... &#125;)</span><br><span class="line">@observer class MyComponent extends React.Component &#123; ... &#125;)</span><br></pre></td></tr></table></figure>
+<p>autorun</p>
+<p>Usage: <code>autorun(debugname?, () =&gt; { sideEffect })</code>. Autorun runs the provided sideEffect and tracks which observable state is accessed while running the side effect. Whenever one of the used observables is changed in the future, the same sideEffect will be run again. Returns a disposer function to cancel the side effect.</p>
+<p>when</p>
+<p>Usage: <code>when(debugname?, () =&gt; condition, () =&gt; { sideEffect })</code>. The condition expression will react automatically to any observables it uses. As soon as the expression returns true the sideEffect function will be invoked, but only once. when returns a disposer to prematurely cancel the whole thing.</p>
+<p>autorunAsync</p>
+<p>Usage: <code>autorunAsync(debugname?, () =&gt; { sideEffect }, delay)</code>. Similar to autorun, but the sideEffect will be delayed and debounced with the given delay.</p>
+<p>reaction</p>
+<p>Usage: <code>reaction(debugname?, () =&gt; data, data =&gt; { sideEffect }, fireImmediately = false, delay = 0)</code>. A variation on autorun that gives more fine-grained control on which observables that will be tracked. It takes two function, the first one is tracked and returns data that is used as input for the second one, the side effect. Unlike autorun the side effect won’t be run initially, and any observables that are accessed while executing the side effect will not be tracked. The side effect can be debounced, just like autorunAsync.</p>
+<p>expr</p>
+<p>Usage: <code>expr(() =&gt; someExpression)</code>. Just a shorthand for computed(() =&gt; someExpression).get(). expr is useful in some rare cases to optimize another computed function or reaction. In general it is simpler and better to just split the function in multiple smaller computed’s to achieve the same effect.</p>
+<p>onReactionError</p>
+<p>Usage: <code>extras.onReactionError(handler: (error: any, derivation) =&gt; void)</code></p>
+<p>This method attaches a global error listener, which is invoked for every error that is thrown from a reaction. This can be used for monitoring or test purposes.</p>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/reactjs/" title="reactjs">reactjs</a>
+            
+            <a class="tag" href="/tags/mobx/" title="mobx">mobx</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2017/03/06/2017/20170306-fusebox/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">fusebox is babel on steroids</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2017/03/04/2017/20170304-electron/">
+                <span class="nav-default">electron apps with react</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/dearfrankg">Frank Gutierrez</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

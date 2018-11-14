@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">Gitlab Setup</h2>
+            <div class="post-meta">
+                <span class="post-time">2016-11-19</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Getting-Started"><span class="toc-text">Getting Started</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Resources"><span class="toc-text">Resources:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Install-and-Configure-Gitlab"><span class="toc-text">Install and Configure Gitlab</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Setup-web-access"><span class="toc-text">Setup web access</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Setup-ssh-access"><span class="toc-text">Setup ssh access</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#Test-Gitlab"><span class="toc-text">Test Gitlab</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Verify-Gitlab’s-web-app-functionality"><span class="toc-text">Verify Gitlab’s web app functionality</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Verify-Gitlab’s-push-pull-functionality"><span class="toc-text">Verify Gitlab’s push/pull functionality</span></a></li></ol></li>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>There are 2 flavors</p>
+<ul>
+<li>Community Edition</li>
+<li>Enterprise Edition</li>
+</ul>
+<p>Omnibus is a way to package different services and tools required to run GitLab, so that most of developers can install it without laborious configuration</p>
+<h2 id="Resources"><a href="#Resources" class="headerlink" title="Resources:"></a>Resources:</h2><ul>
+<li><a href="https://goo.gl/8KCB00" target="_blank" rel="noopener">Omnibus GitLab documentation</a></li>
+<li><a href="https://goo.gl/tuOdyy" target="_blank" rel="noopener">Community Edition Repo</a></li>
+<li><a href="https://goo.gl/siAOxa" target="_blank" rel="noopener">Getting help with Gitlab</a></li>
+<li><a href="https://docs.gitlab.com/ce/api/README.html" target="_blank" rel="noopener">Gitlab API docs</a></li>
+</ul>
+<h2 id="Install-and-Configure-Gitlab"><a href="#Install-and-Configure-Gitlab" class="headerlink" title="Install and Configure Gitlab"></a>Install and Configure Gitlab</h2><ul>
+<li><a href="https://goo.gl/QcA8iM" target="_blank" rel="noopener">Set up the GitLab in Docker container</a></li>
+</ul>
+<ol>
+<li>create docker host (gitlab)</li>
+<li>switch control to docker host</li>
+<li>run gitlab image (downloads and configures in one step)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run --detach \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --hostname gitlab.debugtime.com \</span><br><span class="line">  --restart always \</span><br><span class="line">  --publish 80:80 --publish 2289:22 \</span><br><span class="line">  --volume /opt/docker/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /opt/docker/gitlab/logs:/var/log/gitlab \</span><br><span class="line">  --volume /opt/docker/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  --env GITLAB_OMNIBUS_CONFIG=&quot;external_url &apos;http://gitlab.debugtime.com/&apos;; gitlab_rails[&apos;gitlab_shell_ssh_port&apos;] = 2289&quot; \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
+<h4 id="Setup-web-access"><a href="#Setup-web-access" class="headerlink" title="Setup web access"></a>Setup web access</h4><ol>
+<li>get the gitlab docker host IP</li>
+<li>configure an nginx reverse proxy: <code>gitlab.debugtime.com</code> –&gt; <code>&lt;gitlab_docker_host_ip&gt;:80</code></li>
+</ol>
+<h4 id="Setup-ssh-access"><a href="#Setup-ssh-access" class="headerlink" title="Setup ssh access"></a>Setup ssh access</h4><p>1) configure gitlab to route ssh traffic from <code>gitlab:2289</code> to <code>container:22</code></p>
+<p>We can map web traffic like so <code>-p 80:80</code> which routes <code>container:80</code> to <code>gitlab:80</code>.  Since <code>gitlab:22</code> is already being used to allow login into the gitlab host, we cannot use that port.  So instead we will map <code>container:22</code> to <code>gitlab:2289</code> with the docker run option <code>--publish 2289:22</code></p>
+<p>2) set Omnibus configuration so gitlab provides commands that account for port 2289.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--env GITLAB_OMNIBUS_CONFIG=&quot;external_url &apos;http://gitlab.debugtime.com/&apos;; gitlab_rails[&apos;gitlab_shell_ssh_port&apos;] = 2289&quot; \</span><br></pre></td></tr></table></figure>
+<p>3) setup ssh tunnel between <code>gitlab.debugtime.com:2289</code> and <code>gitlab:2289</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ssh gitlab -fN -L 0.0.0.0:2289:localhost:2289</span><br></pre></td></tr></table></figure>
+<h2 id="Test-Gitlab"><a href="#Test-Gitlab" class="headerlink" title="Test Gitlab"></a>Test Gitlab</h2><h4 id="Verify-Gitlab’s-web-app-functionality"><a href="#Verify-Gitlab’s-web-app-functionality" class="headerlink" title="Verify Gitlab’s web app functionality"></a>Verify Gitlab’s web app functionality</h4><ul>
+<li><code>open http://gitlab.debugtime.com</code></li>
+</ul>
+<h4 id="Verify-Gitlab’s-push-pull-functionality"><a href="#Verify-Gitlab’s-push-pull-functionality" class="headerlink" title="Verify Gitlab’s push/pull functionality"></a>Verify Gitlab’s push/pull functionality</h4><ol>
+<li><p>test pull functionality:<br><code>git clone ssh://git@gitlab.debugtime.com:2289/dearfrankg/myproject.git</code></p>
+</li>
+<li><p>commit change to master branch</p>
+</li>
+<li><p>test push functionality:<br><code>git push -u origin master</code></p>
+</li>
+</ol>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/github/" title="github">github</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2016/11/19/2016/20161119-docker-retrospective/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">Docker – Retrospective</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2016/11/18/2016/20161118-nginx-proxy/">
+                <span class="nav-default">Docker – nginx-proxy</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/dearfrankg">Frank Gutierrez</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>
