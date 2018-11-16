@@ -97,162 +97,6 @@
     
         <article class="post-abstract">
             <div class="post-title">
-                <h2><a class="post-title-link" href="/2016/12/15/2016/20161215-tdd/">TDD</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2016-12-15</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <p><a href="https://goo.gl/LDzikG" target="_blank" rel="noopener">reference</a></p>
-<h2 id="TDD-Part-1-Getting-Started"><a href="#TDD-Part-1-Getting-Started" class="headerlink" title="TDD Part 1 - Getting Started"></a>TDD Part 1 - Getting Started</h2><ul>
-<li>The mantra: red green, refactor</li>
-</ul>
-<h3 id="App-Structure"><a href="#App-Structure" class="headerlink" title="App Structure"></a>App Structure</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir myapp</span><br><span class="line">cd myapp</span><br><span class="line"></span><br><span class="line">npm init -y</span><br><span class="line">npm i -S mocha chai</span><br></pre></td></tr></table></figure>
-<p>The requirements</p>
-<ol>
-<li>Send a request to the Flickr API, and retrieve a bunch of photograph data;</li>
-<li>Transform the data into a single array of objects, each object containing just the data we need;</li>
-<li>Convert the array of objects into an HTML list; and</li>
-<li>Add the HTML to the page.</li>
-</ol>
-<p>the code</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">├── README.md</span><br><span class="line">├── package.json</span><br><span class="line">└── src</span><br><span class="line">    ├── flickr-spec.js</span><br><span class="line">    ├── flickr.js</span><br><span class="line">    ├── photos-spec.js</span><br><span class="line">    └── photos.js</span><br></pre></td></tr></table></figure>
-<p>package.json scripts</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;test&quot;: &quot;mocha ./src/*-spec.js --reporter=nyan&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<h3 id="Things-to-remember"><a href="#Things-to-remember" class="headerlink" title="Things to remember"></a>Things to remember</h3><ul>
-<li>use <code>.to.eql</code> vs. <code>.to.equal</code> for deep checking</li>
-</ul>
-<h3 id="ROUND-1"><a href="#ROUND-1" class="headerlink" title="ROUND 1"></a>ROUND 1</h3><ul>
-<li>assert: flickr file exists</li>
-<li>assert: photoObjToURL returns correct URL</li>
-<li><code>RED</code>: error: photoObjToURL not found</li>
-<li>code: add fn photoObjToURL</li>
-<li><code>RED</code>: AssertionError: wrong results</li>
-<li>code: return simplest result; hardcode results</li>
-<li><code>GREEN</code>: assertions pass</li>
-<li><code>REFACTOR</code>: assert: photoObjToURL with different params returns correct result</li>
-<li><code>RED</code>: AssertionError: wrong results</li>
-<li>code: make photoObjToURL pass</li>
-<li><code>GREEN</code></li>
-<li><code>REFACTOR</code>: refactor photoObjToURL to use Array.join</li>
-<li><code>GREEN</code></li>
-</ul>
-<h3 id="ROUND-2"><a href="#ROUND-2" class="headerlink" title="ROUND 2"></a>ROUND 2</h3><ul>
-<li>assert: transformPhotoObj transforms photObj to object with title and URL</li>
-<li><code>RED</code>: error: transformPhotoObj not found</li>
-<li>code: add fn transformPhotoObj</li>
-<li><code>RED</code>: AssertionError: wrong results</li>
-<li>code: return simplest result; hardcode results</li>
-<li><code>GREEN</code>: assertions pass</li>
-<li><code>REFACTOR</code>: assert: transformPhotoObj with different params returns correct result</li>
-<li><code>RED</code>: AssertionError: wrong results</li>
-<li>code: make transformPhotoObj pass</li>
-<li><code>GREEN</code></li>
-</ul>
-<h2 id="TDD-Part-2-Working-with-Network-Requests"><a href="#TDD-Part-2-Working-with-Network-Requests" class="headerlink" title="TDD Part 2 - Working with Network Requests"></a>TDD Part 2 - Working with Network Requests</h2><p>Things that make this tricky</p>
-<ul>
-<li>Testing an API call needs access to the network, which I can’t always guarantee;</li>
-<li>Network calls in JavaScript are asynchronous. This means that when we make a network request we interrupt the normal code flow</li>
-<li>The results from the network call change often. This is the whole point of the network call—but it makes it somewhat difficult to test.</li>
-</ul>
-<p>Problems calling the network</p>
-<ul>
-<li>The data coming back from the live Flickr API changes all the time. Unless I’m careful about how I write my tests, they would pass for maybe a minute before new data broke my test.</li>
-<li>Making network calls can be slow, and the slower my tests, the less fun TDD becomes.</li>
-<li>Doing things this way needs an internet connection. I regularly find myself writing code on a bus, or a train, or some other location without (fast) access to the internet.</li>
-</ul>
-<p>Think like a functional programmer. Network calls (fetch()) involve side effects, making my function impure. But, if I can isolate the impure part then I have a pure, testable function. In other words, make fetch() a parameter that I passed into my function.</p>
-<p>In the application code, I would pass fetch() as a parameter. In my test though, I can pass a fake fetch() method that always returns a promise for the same data. Then I can check that my function returns exactly what I expect, without making a network call.</p>
-<h3 id="Dealing-with-asyncrhonous-calls"><a href="#Dealing-with-asyncrhonous-calls" class="headerlink" title="Dealing with asyncrhonous calls"></a>Dealing with asyncrhonous calls</h3><p>Mocha provides a parameter to the <code>it()</code> callback called <code>done</code> that allows us to tell Mocha when the test is complete.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">describe(&apos;#fetchFlickrData()&apos;, function() &#123;</span><br><span class="line">    it(&apos;should return a promise for JSON data.&apos;, (done) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">      var apiKey      = &apos;...&apos;,</span><br><span class="line">          fakeData    = &#123;...&#125;,</span><br><span class="line">          fakeFetcher = function(url) &#123;</span><br><span class="line">              var expectedURL = &apos;https://api.flickr.com/services/rest/?method=flickr.photos.search&amp;api_key=&apos;</span><br><span class="line">                          + apiKey + &apos;&amp;text=pugs&amp;format=json&amp;nojsoncallback=1&apos;</span><br><span class="line">              expect(url).to.equal(expectedURL)</span><br><span class="line">              return Promise.resolve(fakeData);</span><br><span class="line">          &#125;;</span><br><span class="line"></span><br><span class="line">      FlickrFetcher.fetchFlickrData(apiKey, fakeFetcher)</span><br><span class="line">        .then((actual) =&gt; &#123;</span><br><span class="line">          expect(actual).to.eql(fakeData);</span><br><span class="line">          done();</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>RED</code>: error: FlickrFetcher.fetchFlickrData not found</li>
-</ul>
-<h3 id="Stubs"><a href="#Stubs" class="headerlink" title="Stubs"></a>Stubs</h3><p>Now that I have a failing test, let’s take a moment to talk about what this is doing. The fakeFetcher() function I’ve used to replace <code>fetch</code> is known as a stub. A stub is a piece of code that has the same API and behaviour as the ‘real’ code, but with much reduced functionality. Usually this means returning static data instead of interacting with some external resource.</p>
-<p>Stubs can replace many different types of code besides network calls. Most often we use them for things functional programmers call side effects. Typical stubs might replace things like:</p>
-<ul>
-<li>Queries to a relational database</li>
-<li>Interaction with the file system</li>
-<li>Accepting user input</li>
-<li>Complex computations that take a long time to calculate.</li>
-</ul>
-<p>Stubs don’t always have to replace asynchronous or even slow things. It may simply be a piece of code you haven’t written yet. A stub can replace almost anything.</p>
-<p>Stubs are an important tool for TDD. They help us to keep tests running fast so our workflow doesn’t slow down. More importantly, they allow us to have consistent tests for things that are inherently variable (like network calls).</p>
-<p>Stubs do take a little bit of effort to use well though. For instance, using a stub meant adding an extra parameter to the fetchFlickrData() function. However, if you are using a slightly functional-flavoured style of programming, then you will be thinking about things like side effects and pure functions anyway. I would also argue that making your code testable (whether that’s using stubs or not) is usually worth the effort.</p>
-<h3 id="Back-to-the-code…"><a href="#Back-to-the-code…" class="headerlink" title="Back to the code…."></a>Back to the code….</h3><ul>
-<li><code>RED</code>: error: FlickrFetcher.fetchFlickrData not found</li>
-<li>code: simply hardcoding isn’t so simple so, create fetchFlickrData and make it pass</li>
-<li><code>GREEN</code></li>
-<li><code>REFACTOR</code>: fetchFlickrData: remove redundant code</li>
-<li><code>REFACTOR</code>: tests: mocha allow you to return a promise is an alternate way to handle asynchronous code</li>
-<li><code>GREEN</code></li>
-<li>assert: fetchPhotos returns correct results</li>
-<li><code>RED</code>: fetchPhotos not found</li>
-<li>code: it’s simple to code it up</li>
-<li><code>GREEN</code></li>
-<li><code>REFACTOR</code>: nothing to do</li>
-<li><code>GREEN</code></li>
-</ul>
-<h2 id="TDD-Part-3-Working-with-HTML-and-DOM"><a href="#TDD-Part-3-Working-with-HTML-and-DOM" class="headerlink" title="TDD Part 3 - Working with HTML and DOM"></a>TDD Part 3 - Working with HTML and DOM</h2><h3 id="Working-with-HTML-strings"><a href="#Working-with-HTML-strings" class="headerlink" title="Working with HTML strings"></a>Working with HTML strings</h3><p>So, I now have a module that will fetch a list of photos from Flickr and extract just the data that I want. The next step is to take that data and do something with it—in this case, inject it into a web page. So I’ll create a new module to handle the presentation of the data.</p>
-<p>Straight away, I can write a simple test to check that my module exists.</p>
-<ul>
-<li>assert: PhotoLister exists</li>
-<li><code>GREEN</code></li>
-<li>assert: photoToListItem() takes photoObj and returns listString</li>
-<li><code>RED</code>: photoToListItem not found</li>
-<li>code: return simplest result; hardcode results</li>
-<li><code>GREEN</code></li>
-<li>assert: photoToListItem() with different params returns correct results</li>
-<li><code>RED</code>: AssertionError: wrong results</li>
-<li>code: make photoToListItem pass</li>
-<li><code>GREEN</code></li>
-<li><code>REFACTOR</code>: photoToListItem: replace concatenations with Array.join</li>
-<li><code>GREEN</code></li>
-<li>assert: photoListToHTML() converts photoObj array to HTML list</li>
-<li><code>RED</code>: AssertionError: wrong results</li>
-<li>code: make photoListToHTML pass</li>
-<li><code>GREEN</code></li>
-<li><code>REFACTOR</code>: photoListToHTML: replace concatenations with Array.join</li>
-<li><code>GREEN</code></li>
-</ul>
-<h3 id="Working-with-the-DOM"><a href="#Working-with-the-DOM" class="headerlink" title="Working with the DOM"></a>Working with the DOM</h3><p>Now that I’ve got my list ready to go, it would be great if I could check that it gets added to the page. But the catch is, that up ’til now, I’ve been working purely in Node, without a browser. I’ve done this deliberately as:</p>
-<ul>
-<li>Tests run much faster on the command line;</li>
-<li>It encourages me to think about how I can keep my code flexible; and</li>
-<li>Mocha gives me that fun Nyan Cat reporter on the command line.</li>
-</ul>
-<p>Without a browser though, I can’t use jQuery or regular DOM methods to check that everything is working. Fortunately there is a very handy node module called cheerio that will emulate much of the jQuery API for us. This means that I can test my functions that manipulate the DOM without loading up a headless browser or completely changing my testing approach.</p>
-<p>To get started, I need to install cheerio, by running npm:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install cheerio --save-dev</span><br></pre></td></tr></table></figure>
-<ul>
-<li>assert: addPhotosToElement($, selector, list) adds HTML string to element given a selector</li>
-<li><code>RED</code>: addPhotosToElement not found</li>
-<li>code: simple just to code it since it’s a one liner</li>
-<li><code>GREEN</code></li>
-<li><code>REFACTOR</code>: nothing to do</li>
-<li><code>GREEN</code></li>
-</ul>
-<h3 id="Putting-it-onto-a-web-page"><a href="#Putting-it-onto-a-web-page" class="headerlink" title="Putting it onto a web page"></a>Putting it onto a web page</h3><p>So far, we have been (deliberately) doing everything in Node, and not in a browser. This is good, but the whole point of this module is to display photos in a browser, not just to make tests pass. So I need to make a few tweaks to the code so that it will run in both environments.</p>
-<p>This is a form of refactoring. Each time I make a change I will re-run my tests to make sure they still pass.</p>
-<p>The first thing I’ll do is wrap a conditional around the module.exports so that the browser won’t throw an error if I just include the code in a web page. I could, of course, use something like Browserify or Webpack to package these up (and if you can, I highly recommend you do), but it’s nice to make them work either way. If I just want to throw the code in something like CodePen, for example, I’d prefer not to do a full Webpack setup:</p>
-<ul>
-<li>code: wrap module.exports to avoid the necessity of webpack or browserify</li>
-<li><code>GREEN</code></li>
-<li>code: index.css to add some style</li>
-<li>code: index.html to include modules and call to FlickrFetcher.fetchPhotos()</li>
-<li>run: open index.html in the browser and watch it work</li>
-<li>links: <a href="">running demo</a>, <a href="">github repo</a></li>
-</ul>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>This is the tip of the ice-berg but it’s a good intro if I do say so myself :)</p>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
                 <h2><a class="post-title-link" href="/2016/12/15/2016/20161215-tdd-refined/">TDD Refined</a></h2>
             </div>
             <div class="post-meta">
@@ -449,6 +293,162 @@
 </blockquote>
 <h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Open index.html in the browser and watch it work</p>
 <p>This is the tip of the ice-berg but it’s a good intro if I do say so myself :)</p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2016/12/15/2016/20161215-tdd/">TDD</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2016-12-15</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <p><a href="https://goo.gl/LDzikG" target="_blank" rel="noopener">reference</a></p>
+<h2 id="TDD-Part-1-Getting-Started"><a href="#TDD-Part-1-Getting-Started" class="headerlink" title="TDD Part 1 - Getting Started"></a>TDD Part 1 - Getting Started</h2><ul>
+<li>The mantra: red green, refactor</li>
+</ul>
+<h3 id="App-Structure"><a href="#App-Structure" class="headerlink" title="App Structure"></a>App Structure</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir myapp</span><br><span class="line">cd myapp</span><br><span class="line"></span><br><span class="line">npm init -y</span><br><span class="line">npm i -S mocha chai</span><br></pre></td></tr></table></figure>
+<p>The requirements</p>
+<ol>
+<li>Send a request to the Flickr API, and retrieve a bunch of photograph data;</li>
+<li>Transform the data into a single array of objects, each object containing just the data we need;</li>
+<li>Convert the array of objects into an HTML list; and</li>
+<li>Add the HTML to the page.</li>
+</ol>
+<p>the code</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">├── README.md</span><br><span class="line">├── package.json</span><br><span class="line">└── src</span><br><span class="line">    ├── flickr-spec.js</span><br><span class="line">    ├── flickr.js</span><br><span class="line">    ├── photos-spec.js</span><br><span class="line">    └── photos.js</span><br></pre></td></tr></table></figure>
+<p>package.json scripts</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;test&quot;: &quot;mocha ./src/*-spec.js --reporter=nyan&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="Things-to-remember"><a href="#Things-to-remember" class="headerlink" title="Things to remember"></a>Things to remember</h3><ul>
+<li>use <code>.to.eql</code> vs. <code>.to.equal</code> for deep checking</li>
+</ul>
+<h3 id="ROUND-1"><a href="#ROUND-1" class="headerlink" title="ROUND 1"></a>ROUND 1</h3><ul>
+<li>assert: flickr file exists</li>
+<li>assert: photoObjToURL returns correct URL</li>
+<li><code>RED</code>: error: photoObjToURL not found</li>
+<li>code: add fn photoObjToURL</li>
+<li><code>RED</code>: AssertionError: wrong results</li>
+<li>code: return simplest result; hardcode results</li>
+<li><code>GREEN</code>: assertions pass</li>
+<li><code>REFACTOR</code>: assert: photoObjToURL with different params returns correct result</li>
+<li><code>RED</code>: AssertionError: wrong results</li>
+<li>code: make photoObjToURL pass</li>
+<li><code>GREEN</code></li>
+<li><code>REFACTOR</code>: refactor photoObjToURL to use Array.join</li>
+<li><code>GREEN</code></li>
+</ul>
+<h3 id="ROUND-2"><a href="#ROUND-2" class="headerlink" title="ROUND 2"></a>ROUND 2</h3><ul>
+<li>assert: transformPhotoObj transforms photObj to object with title and URL</li>
+<li><code>RED</code>: error: transformPhotoObj not found</li>
+<li>code: add fn transformPhotoObj</li>
+<li><code>RED</code>: AssertionError: wrong results</li>
+<li>code: return simplest result; hardcode results</li>
+<li><code>GREEN</code>: assertions pass</li>
+<li><code>REFACTOR</code>: assert: transformPhotoObj with different params returns correct result</li>
+<li><code>RED</code>: AssertionError: wrong results</li>
+<li>code: make transformPhotoObj pass</li>
+<li><code>GREEN</code></li>
+</ul>
+<h2 id="TDD-Part-2-Working-with-Network-Requests"><a href="#TDD-Part-2-Working-with-Network-Requests" class="headerlink" title="TDD Part 2 - Working with Network Requests"></a>TDD Part 2 - Working with Network Requests</h2><p>Things that make this tricky</p>
+<ul>
+<li>Testing an API call needs access to the network, which I can’t always guarantee;</li>
+<li>Network calls in JavaScript are asynchronous. This means that when we make a network request we interrupt the normal code flow</li>
+<li>The results from the network call change often. This is the whole point of the network call—but it makes it somewhat difficult to test.</li>
+</ul>
+<p>Problems calling the network</p>
+<ul>
+<li>The data coming back from the live Flickr API changes all the time. Unless I’m careful about how I write my tests, they would pass for maybe a minute before new data broke my test.</li>
+<li>Making network calls can be slow, and the slower my tests, the less fun TDD becomes.</li>
+<li>Doing things this way needs an internet connection. I regularly find myself writing code on a bus, or a train, or some other location without (fast) access to the internet.</li>
+</ul>
+<p>Think like a functional programmer. Network calls (fetch()) involve side effects, making my function impure. But, if I can isolate the impure part then I have a pure, testable function. In other words, make fetch() a parameter that I passed into my function.</p>
+<p>In the application code, I would pass fetch() as a parameter. In my test though, I can pass a fake fetch() method that always returns a promise for the same data. Then I can check that my function returns exactly what I expect, without making a network call.</p>
+<h3 id="Dealing-with-asyncrhonous-calls"><a href="#Dealing-with-asyncrhonous-calls" class="headerlink" title="Dealing with asyncrhonous calls"></a>Dealing with asyncrhonous calls</h3><p>Mocha provides a parameter to the <code>it()</code> callback called <code>done</code> that allows us to tell Mocha when the test is complete.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">describe(&apos;#fetchFlickrData()&apos;, function() &#123;</span><br><span class="line">    it(&apos;should return a promise for JSON data.&apos;, (done) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">      var apiKey      = &apos;...&apos;,</span><br><span class="line">          fakeData    = &#123;...&#125;,</span><br><span class="line">          fakeFetcher = function(url) &#123;</span><br><span class="line">              var expectedURL = &apos;https://api.flickr.com/services/rest/?method=flickr.photos.search&amp;api_key=&apos;</span><br><span class="line">                          + apiKey + &apos;&amp;text=pugs&amp;format=json&amp;nojsoncallback=1&apos;</span><br><span class="line">              expect(url).to.equal(expectedURL)</span><br><span class="line">              return Promise.resolve(fakeData);</span><br><span class="line">          &#125;;</span><br><span class="line"></span><br><span class="line">      FlickrFetcher.fetchFlickrData(apiKey, fakeFetcher)</span><br><span class="line">        .then((actual) =&gt; &#123;</span><br><span class="line">          expect(actual).to.eql(fakeData);</span><br><span class="line">          done();</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>RED</code>: error: FlickrFetcher.fetchFlickrData not found</li>
+</ul>
+<h3 id="Stubs"><a href="#Stubs" class="headerlink" title="Stubs"></a>Stubs</h3><p>Now that I have a failing test, let’s take a moment to talk about what this is doing. The fakeFetcher() function I’ve used to replace <code>fetch</code> is known as a stub. A stub is a piece of code that has the same API and behaviour as the ‘real’ code, but with much reduced functionality. Usually this means returning static data instead of interacting with some external resource.</p>
+<p>Stubs can replace many different types of code besides network calls. Most often we use them for things functional programmers call side effects. Typical stubs might replace things like:</p>
+<ul>
+<li>Queries to a relational database</li>
+<li>Interaction with the file system</li>
+<li>Accepting user input</li>
+<li>Complex computations that take a long time to calculate.</li>
+</ul>
+<p>Stubs don’t always have to replace asynchronous or even slow things. It may simply be a piece of code you haven’t written yet. A stub can replace almost anything.</p>
+<p>Stubs are an important tool for TDD. They help us to keep tests running fast so our workflow doesn’t slow down. More importantly, they allow us to have consistent tests for things that are inherently variable (like network calls).</p>
+<p>Stubs do take a little bit of effort to use well though. For instance, using a stub meant adding an extra parameter to the fetchFlickrData() function. However, if you are using a slightly functional-flavoured style of programming, then you will be thinking about things like side effects and pure functions anyway. I would also argue that making your code testable (whether that’s using stubs or not) is usually worth the effort.</p>
+<h3 id="Back-to-the-code…"><a href="#Back-to-the-code…" class="headerlink" title="Back to the code…."></a>Back to the code….</h3><ul>
+<li><code>RED</code>: error: FlickrFetcher.fetchFlickrData not found</li>
+<li>code: simply hardcoding isn’t so simple so, create fetchFlickrData and make it pass</li>
+<li><code>GREEN</code></li>
+<li><code>REFACTOR</code>: fetchFlickrData: remove redundant code</li>
+<li><code>REFACTOR</code>: tests: mocha allow you to return a promise is an alternate way to handle asynchronous code</li>
+<li><code>GREEN</code></li>
+<li>assert: fetchPhotos returns correct results</li>
+<li><code>RED</code>: fetchPhotos not found</li>
+<li>code: it’s simple to code it up</li>
+<li><code>GREEN</code></li>
+<li><code>REFACTOR</code>: nothing to do</li>
+<li><code>GREEN</code></li>
+</ul>
+<h2 id="TDD-Part-3-Working-with-HTML-and-DOM"><a href="#TDD-Part-3-Working-with-HTML-and-DOM" class="headerlink" title="TDD Part 3 - Working with HTML and DOM"></a>TDD Part 3 - Working with HTML and DOM</h2><h3 id="Working-with-HTML-strings"><a href="#Working-with-HTML-strings" class="headerlink" title="Working with HTML strings"></a>Working with HTML strings</h3><p>So, I now have a module that will fetch a list of photos from Flickr and extract just the data that I want. The next step is to take that data and do something with it—in this case, inject it into a web page. So I’ll create a new module to handle the presentation of the data.</p>
+<p>Straight away, I can write a simple test to check that my module exists.</p>
+<ul>
+<li>assert: PhotoLister exists</li>
+<li><code>GREEN</code></li>
+<li>assert: photoToListItem() takes photoObj and returns listString</li>
+<li><code>RED</code>: photoToListItem not found</li>
+<li>code: return simplest result; hardcode results</li>
+<li><code>GREEN</code></li>
+<li>assert: photoToListItem() with different params returns correct results</li>
+<li><code>RED</code>: AssertionError: wrong results</li>
+<li>code: make photoToListItem pass</li>
+<li><code>GREEN</code></li>
+<li><code>REFACTOR</code>: photoToListItem: replace concatenations with Array.join</li>
+<li><code>GREEN</code></li>
+<li>assert: photoListToHTML() converts photoObj array to HTML list</li>
+<li><code>RED</code>: AssertionError: wrong results</li>
+<li>code: make photoListToHTML pass</li>
+<li><code>GREEN</code></li>
+<li><code>REFACTOR</code>: photoListToHTML: replace concatenations with Array.join</li>
+<li><code>GREEN</code></li>
+</ul>
+<h3 id="Working-with-the-DOM"><a href="#Working-with-the-DOM" class="headerlink" title="Working with the DOM"></a>Working with the DOM</h3><p>Now that I’ve got my list ready to go, it would be great if I could check that it gets added to the page. But the catch is, that up ’til now, I’ve been working purely in Node, without a browser. I’ve done this deliberately as:</p>
+<ul>
+<li>Tests run much faster on the command line;</li>
+<li>It encourages me to think about how I can keep my code flexible; and</li>
+<li>Mocha gives me that fun Nyan Cat reporter on the command line.</li>
+</ul>
+<p>Without a browser though, I can’t use jQuery or regular DOM methods to check that everything is working. Fortunately there is a very handy node module called cheerio that will emulate much of the jQuery API for us. This means that I can test my functions that manipulate the DOM without loading up a headless browser or completely changing my testing approach.</p>
+<p>To get started, I need to install cheerio, by running npm:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install cheerio --save-dev</span><br></pre></td></tr></table></figure>
+<ul>
+<li>assert: addPhotosToElement($, selector, list) adds HTML string to element given a selector</li>
+<li><code>RED</code>: addPhotosToElement not found</li>
+<li>code: simple just to code it since it’s a one liner</li>
+<li><code>GREEN</code></li>
+<li><code>REFACTOR</code>: nothing to do</li>
+<li><code>GREEN</code></li>
+</ul>
+<h3 id="Putting-it-onto-a-web-page"><a href="#Putting-it-onto-a-web-page" class="headerlink" title="Putting it onto a web page"></a>Putting it onto a web page</h3><p>So far, we have been (deliberately) doing everything in Node, and not in a browser. This is good, but the whole point of this module is to display photos in a browser, not just to make tests pass. So I need to make a few tweaks to the code so that it will run in both environments.</p>
+<p>This is a form of refactoring. Each time I make a change I will re-run my tests to make sure they still pass.</p>
+<p>The first thing I’ll do is wrap a conditional around the module.exports so that the browser won’t throw an error if I just include the code in a web page. I could, of course, use something like Browserify or Webpack to package these up (and if you can, I highly recommend you do), but it’s nice to make them work either way. If I just want to throw the code in something like CodePen, for example, I’d prefer not to do a full Webpack setup:</p>
+<ul>
+<li>code: wrap module.exports to avoid the necessity of webpack or browserify</li>
+<li><code>GREEN</code></li>
+<li>code: index.css to add some style</li>
+<li>code: index.html to include modules and call to FlickrFetcher.fetchPhotos()</li>
+<li>run: open index.html in the browser and watch it work</li>
+<li>links: <a href="">running demo</a>, <a href="">github repo</a></li>
+</ul>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>This is the tip of the ice-berg but it’s a good intro if I do say so myself :)</p>
 
                 
             </div>
