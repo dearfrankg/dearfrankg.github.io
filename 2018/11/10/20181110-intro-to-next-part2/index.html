@@ -85,14 +85,15 @@
         </div>
         <div class="post-toc" id="post-toc">
     <strong class="post-toc-title">TOC</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Getting-Started"><span class="toc-text">Getting Started</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#the-hard-way"><span class="toc-text">the hard way</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#the-easy-way"><span class="toc-text">the easy way</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Style-and-Design-Support"><span class="toc-text">Style and Design Support</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#evergreen-ui-–-react-design-components"><span class="toc-text">evergreen-ui – react design components</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#styled-components-–-a-popular-css-in-js-solution"><span class="toc-text">styled components – a popular css-in-js solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#style-jsx-sass-–-a-popular-css-in-js-solution"><span class="toc-text">style-jsx-sass – a popular css-in-js solution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Assets"><span class="toc-text">Assets</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fonts"><span class="toc-text">Fonts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Images"><span class="toc-text">Images</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gotchas"><span class="toc-text">Gotchas</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Browser-issue-with-CSS-Grid"><span class="toc-text">Browser issue with CSS-Grid</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-text">Intro</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Getting-Started"><span class="toc-text">Getting Started</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#the-hard-way"><span class="toc-text">the hard way</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#the-easy-way"><span class="toc-text">the easy way</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-App-V1"><span class="toc-text">Create App V1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-App-Version-2"><span class="toc-text">Create App Version 2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using-Mock-Data"><span class="toc-text">Using Mock Data</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Populate-the-following-files-from-here"><span class="toc-text">Populate the following files from here</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-the-mock-server"><span class="toc-text">Try the mock server</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li></ol>
     <div class="back-to-top" id="back-to-top">
         <a href="javascript:void(0);">back to top</a>
     </div>
 </div>
 
         <div class="post-content">
-            <h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><h3 id="the-hard-way"><a href="#the-hard-way" class="headerlink" title="the hard way"></a>the hard way</h3><ul>
+            <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>This is the follow up to [Into to Next - Part1][next-part1]. In Part2 we will cover how to communicate with the Github API.</p>
+<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><h3 id="the-hard-way"><a href="#the-hard-way" class="headerlink" title="the hard way"></a>the hard way</h3><ul>
 <li>manually install the necessary packages</li>
 <li>update scripts in package.json</li>
 <li>add pages directory</li>
@@ -103,60 +104,142 @@
 <li>follow the install instuctions in the readme file.</li>
 <li>start dev server</li>
 </ul>
-<p>typical install process:</p>
-<pre><code>npx create-next-app --example with-apollo-and-redux with-apollo-and-redux-app
-</code></pre><h2 id="Style-and-Design-Support"><a href="#Style-and-Design-Support" class="headerlink" title="Style and Design Support"></a>Style and Design Support</h2><h3 id="evergreen-ui-–-react-design-components"><a href="#evergreen-ui-–-react-design-components" class="headerlink" title="evergreen-ui – react design components"></a>evergreen-ui – react design components</h3><ul>
-<li><a href="https://evergreen.segment.com/" target="_blank" rel="noopener">evergreen-ui</a></li>
-</ul>
-<p>install</p>
-<pre><code>npm i --save evergeen-ui
-</code></pre><p>setup</p>
+<p>our install process:</p>
 <ul>
-<li><a href="https://goo.gl/Kzgwbc" target="_blank" rel="noopener">pages/_document.js</a></li>
+<li>install app skeleton<ul>
+<li><code>npx create-next-app --example with-styled-jsx-scss with-styled-jsx-scss-app</code></li>
 </ul>
-<p>This allows control over the HTML page. In this case we will include the CSS and JS required to make <code>evergreen-ui</code> work with SSR.</p>
-<p>styles</p>
+</li>
+<li>rename app folder<ul>
+<li><code>mv with-styled-jsx-scss-app next-part2</code></li>
+</ul>
+</li>
+<li>rename app<ul>
+<li><code>cd next-part2</code></li>
+<li><code>vi package.json</code> (change name)</li>
+</ul>
+</li>
+<li>start server<ul>
+<li><code>npm run dev</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="Create-App-V1"><a href="#Create-App-V1" class="headerlink" title="Create App V1"></a>Create App V1</h2><p>Our objective with <code>app v1</code> is to pull some data from <code>github</code> and jazz it up a little with <code>bootstrap</code>.</p>
+<p>Add the following files from <a href="https://goo.gl/LQZKyh" target="_blank" rel="noopener">app version 1</a></p>
 <ul>
-<li>Adds a style tag for including the CSS necessary to render evergreen-ui.</li>
-<li>Adds a script tag which will include the CSS cache necessary for hydration.</li>
+<li><strong>index.js</strong></li>
 </ul>
-<p>hydration</p>
-<p>The act of providing state to the client is called <code>hydation</code>. In this case we will be supplying the CSS cache. The <code>CSS cache</code> is a JS object generated from scanning the <code>css-in-js</code> to extract style. The keys are generated hashes like <code>&#39;jdvhd&#39;</code>, and the values are the associated CSS string. Both the client and the server generate hashes but on the client it will leverage the cache if available.</p>
-<h3 id="styled-components-–-a-popular-css-in-js-solution"><a href="#styled-components-–-a-popular-css-in-js-solution" class="headerlink" title="styled components – a popular css-in-js solution"></a>styled components – a popular css-in-js solution</h3><ul>
-<li><a href="https://www.styled-components.com/" target="_blank" rel="noopener">styled components</a></li>
-</ul>
-<p>install</p>
-<pre><code>npm i --save styled-components
-</code></pre><p>setup</p>
+<p>A Index functional component called <code>App</code> that renders <code>meta</code>, <code>heading</code> and <code>github-repos</code></p>
 <ul>
-<li><a href="https://goo.gl/Vnh89f" target="_blank" rel="noopener">pages/_document.js</a></li>
-<li><a href="https://goo.gl/Zrrdyp" target="_blank" rel="noopener">.babelrc</a></li>
+<li><strong>Meta.js</strong></li>
 </ul>
-<blockquote>
-<p><a href="https://goo.gl/aGL5Aa" target="_blank" rel="noopener">nesting rules</a></p>
-</blockquote>
-<h3 id="style-jsx-sass-–-a-popular-css-in-js-solution"><a href="#style-jsx-sass-–-a-popular-css-in-js-solution" class="headerlink" title="style-jsx-sass – a popular css-in-js solution"></a>style-jsx-sass – a popular css-in-js solution</h3><ul>
-<li><a href="https://goo.gl/kKqcy8" target="_blank" rel="noopener">style-jsx-sass</a></li>
-</ul>
-<p>install</p>
-<pre><code>npm i --save style-jsx-sass node-sass
-</code></pre><p>setup</p>
+<p>A Meta functional component that lets you include things in the head of the rendered HTML. In our case we include a bootstrap CSS link.</p>
 <ul>
-<li><a href="https://goo.gl/tN63HX" target="_blank" rel="noopener">.babelrc</a></li>
+<li><strong>GithubRepos</strong></li>
 </ul>
-<h2 id="Assets"><a href="#Assets" class="headerlink" title="Assets"></a>Assets</h2><h3 id="Fonts"><a href="#Fonts" class="headerlink" title="Fonts"></a>Fonts</h3><p>setup</p>
+<p>This file contains two components. This file leverages <code>bootstrap</code>.</p>
 <ul>
-<li><a href="https://goo.gl/m27w7V" target="_blank" rel="noopener">font-awesome</a> font</li>
-<li><a href="https://goo.gl/4Fo67x" target="_blank" rel="noopener">Open Sans</a> font</li>
-<li><a href="https://goo.gl/YFWoZA" target="_blank" rel="noopener">components/meta.js</a></li>
-</ul>
-<p>Edit the <code>meta</code> component file to include fonts.</p>
-<h3 id="Images"><a href="#Images" class="headerlink" title="Images"></a>Images</h3><p>setup</p>
+<li><p>repo functional component</p>
 <ul>
-<li><code>static</code> folder</li>
+<li>for rendering a repo row in the table</li>
 </ul>
-<p>Add the <code>static</code> folder to serve static assets.</p>
-<h2 id="Gotchas"><a href="#Gotchas" class="headerlink" title="Gotchas"></a>Gotchas</h2><h3 id="Browser-issue-with-CSS-Grid"><a href="#Browser-issue-with-CSS-Grid" class="headerlink" title="Browser issue with CSS-Grid"></a>Browser issue with CSS-Grid</h3><p>There is a gotcha using fractional units with grid-rows. To use fractional units <code>1fr</code> with grid-rows, you must specify the size of the container div. You cannot use a percentage for the size or it will not work. See example gist <a href="https://goo.gl/5sE6RU" target="_blank" rel="noopener">here</a></p>
+</li>
+<li><p>GithubRepos class based component</p>
+<ul>
+<li>for rendering the repos table</li>
+<li>methods:<ul>
+<li>constructor - setup state</li>
+<li>componentDidMount - get data from github</li>
+<li>renderLoading - render loading message</li>
+<li>renderError - render error message</li>
+<li>render - render github repos table</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/HJauiBi.png" alt="app version 1"></p>
+<h2 id="Create-App-Version-2"><a href="#Create-App-Version-2" class="headerlink" title="Create App Version 2"></a>Create App Version 2</h2><p>Our objective with <code>app v2</code> is to pull some data from <code>github</code> and jazz it up a little with <code>evergreen-ui</code>. Additionally we will leverage the <code>evergreen-ui table component</code> to provide search capability.</p>
+<p>Add the following files from <a href="https://goo.gl/EAZW19" target="_blank" rel="noopener">app version 2</a></p>
+<ul>
+<li><strong>index.js</strong></li>
+</ul>
+<p>A Index functional component called <code>App</code> that renders <code>heading</code> and <code>github-repos</code>. This file leverages <code>evergreen-ui</code>.</p>
+<ul>
+<li><strong>GithubRepos</strong></li>
+</ul>
+<p>This file contains two components. This file leverages <code>evergreen-ui</code>.</p>
+<ul>
+<li><p>repo functional component</p>
+<ul>
+<li>for rendering a repo row in the table with a filter</li>
+</ul>
+</li>
+<li><p>GithubRepos class based component</p>
+<ul>
+<li>for rendering the repos table</li>
+<li>methods:<ul>
+<li>constructor - setup state</li>
+<li>componentDidMount - get data from github</li>
+<li>renderLoading - render loading message</li>
+<li>renderError - render error message</li>
+<li>render - render github repos table</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/auyvFa9.png" alt="app version 2"></p>
+<h2 id="Using-Mock-Data"><a href="#Using-Mock-Data" class="headerlink" title="Using Mock Data"></a>Using Mock Data</h2><p>Sometimes you run into a situation where the backend is down. When this happens often the developer will turn to a mock data solution. In this case we’ll use a package called <code>json-server</code></p>
+<ul>
+<li>install json-server<ul>
+<li><code>npm i --save-dev json-server</code></li>
+</ul>
+</li>
+<li>create files/folders required by json-server<ul>
+<li><code>mkdir mock</code></li>
+<li><code>touch mock/data.json</code></li>
+<li><code>touch mock/config.json</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="Populate-the-following-files-from-here"><a href="#Populate-the-following-files-from-here" class="headerlink" title="Populate the following files from here"></a>Populate the following files from <a href="https://goo.gl/vPqQ9W" target="_blank" rel="noopener">here</a></h3><ul>
+<li><code>mock/data.json</code> – see image below</li>
+<li><code>mock/config.json</code> – with mock server url</li>
+<li><code>server.js</code> – server code</li>
+<li><code>package.json</code> – add script to start mock server</li>
+<li><code>components/GithubRepos.js</code> - slight mod</li>
+</ul>
+<p>Here we will copy the data that github is feeding us and place it into the <code>mock/data.json</code> file.</p>
+<p><img src="https://i.imgur.com/VMIam5b.png" alt="mock data"></p>
+<p>We’ll have to remove the first two lines of the data.</p>
+<ul>
+<li>total_count</li>
+<li>incomplete_results</li>
+</ul>
+<h3 id="Try-the-mock-server"><a href="#Try-the-mock-server" class="headerlink" title="Try the mock server"></a>Try the mock server</h3><ul>
+<li>start the client in terminal1<ul>
+<li><code>npm run dev</code></li>
+</ul>
+</li>
+<li>start the mock server in terminal2<ul>
+<li><code>npm run mock</code></li>
+</ul>
+</li>
+<li>Success is seeing data being populated</li>
+<li>To disable the mock server<ul>
+<li>Enter an empty MOCK_URL in <code>mock/config.json</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Here’s what we learned:</p>
+<ul>
+<li>How to automatically install a skeleton app from <a href="https://goo.gl/8iZS8D" target="_blank" rel="noopener">Next.js examples</a></li>
+<li>How to add a <code>Meta</code> component to include CSS assets like <code>bootstrap.css</code>.</li>
+<li>How to use <code>axios</code> to access the <code>github API</code></li>
+<li>How to use the <code>evergreen-ui</code> components <code>Pane</code>, <code>Spinner</code> and <code>Table</code></li>
+<li>How to create a <code>mock server</code> so we can continue developing when our API is down.</li>
+</ul>
 
         </div>
         
