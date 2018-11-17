@@ -85,7 +85,7 @@
         </div>
         <div class="post-toc" id="post-toc">
     <strong class="post-toc-title">TOC</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-text">Intro</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Your-Basic-Setup"><span class="toc-text">Your Basic Setup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-Router"><span class="toc-text">React Router</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redux"><span class="toc-text">Redux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fetching-Data"><span class="toc-text">Fetching Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Helmet"><span class="toc-text">Helmet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-text">Intro</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic-SSR"><span class="toc-text">Basic SSR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Routing"><span class="toc-text">Routing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#State-Management"><span class="toc-text">State Management</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fetching-Data"><span class="toc-text">Fetching Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Helmet"><span class="toc-text">Helmet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
     <div class="back-to-top" id="back-to-top">
         <a href="javascript:void(0);">back to top</a>
     </div>
@@ -108,7 +108,7 @@
 <li>Fully indexable HTML pages</li>
 </ul>
 <p><strong>Understanding SSR — one step at a time</strong><br>We’ll take an iterative approach to build our complete SSR example. We start with React’s API for server rendering and we’ll add something to the mix at each step. You can follow along using this <a href="https://goo.gl/bVQDWw" target="_blank" rel="noopener">repository</a> and the tags defined there for each step.</p>
-<h2 id="Your-Basic-Setup"><a href="#Your-Basic-Setup" class="headerlink" title="Your Basic Setup"></a>Your Basic Setup</h2><blockquote>
+<h2 id="Basic-SSR"><a href="#Basic-SSR" class="headerlink" title="Basic SSR"></a>Basic SSR</h2><blockquote>
 <p>Checkout the <a href="https://goo.gl/bVQDWw" target="_blank" rel="noopener">repository</a> <code>basic</code> tag to see the working code.</p>
 </blockquote>
 <ul>
@@ -123,7 +123,7 @@
 <figure class="highlight html"><figcaption><span>source from the browser</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">data-reactroot</span>=<span class="string">""</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome to React SSR!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/"</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/about"</span>&gt;</span>About<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/contact"</span>&gt;</span>Contact<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>This is the contact page<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./app.bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>Here we see the fully rendered HTML for the app. I added line breaks for legibility.</p>
 <p>You just created your first server-rendered React app!</p>
-<h2 id="React-Router"><a href="#React-Router" class="headerlink" title="React Router"></a>React Router</h2><blockquote>
+<h2 id="Routing"><a href="#Routing" class="headerlink" title="Routing"></a>Routing</h2><blockquote>
 <p>Checkout the <a href="https://goo.gl/bVQDWw" target="_blank" rel="noopener">repository</a> <code>router</code> tag to see the working code.</p>
 </blockquote>
 <p>Let’s add a few routes and see how we handle the server part.</p>
@@ -131,7 +131,7 @@
 <p>The Layout component now renders multiple routes on the client.</p>
 <figure class="highlight js"><figcaption><span>src/components/Layout.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">import</span> &#123; StaticRouter &#125; <span class="keyword">from</span> <span class="string">"react-router-dom"</span>;</span><br><span class="line">...</span><br><span class="line">app.get(<span class="string">"/*"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> context = &#123;&#125;;</span><br><span class="line">  <span class="keyword">const</span> jsx = (</span><br><span class="line">    &lt;StaticRouter context=&#123;context&#125; location=&#123;req.url&#125;&gt;</span><br><span class="line">      &lt;Layout /&gt;</span><br><span class="line">    &lt;<span class="regexp">/StaticRouter&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">  const reactDom = renderToString(jsx);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  res.writeHead(200, &#123; "Content-Type": "text/</span>html<span class="string">" &#125;);</span></span><br><span class="line"><span class="string">  res.end(htmlTemplate(reactDom));</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
 <p>On the server, we need to wrap our React application in the <code>StaticRouter</code> component and provide the location. As a side note, the <code>context</code> is used for tracking potential redirects while rendering the React DOM. This needs to be handled with a <code>3XX response</code> from the server.</p>
-<h2 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h2><blockquote>
+<h2 id="State-Management"><a href="#State-Management" class="headerlink" title="State Management"></a>State Management</h2><blockquote>
 <p>Checkout the <a href="https://goo.gl/bVQDWw" target="_blank" rel="noopener">repository</a> <code>redux</code> tag to see the working code.</p>
 </blockquote>
 <p>In the scenario, when using Redux to handle state management on the client. We sometimes render parts of the DOM based on state, so it makes sense to initialize Redux on the server.</p>
@@ -167,11 +167,11 @@
 </blockquote>
 <p>What have we accomplished using SSR:</p>
 <ul>
-<li>We rendered simple HTML</li>
-<li>We added routing</li>
-<li>We added state management</li>
-<li>We added fetching data</li>
-<li>We added making changes to the <code>&lt;head&gt;</code></li>
+<li>We added basic SSR which allows rendering for a faster first render and indexing for the Crawler.</li>
+<li>We added routing which allows the server to render different routes.</li>
+<li>We added state management which allows the server to render conditional markup.</li>
+<li>We added fetching data which allows the server to fetch data preventing the spinner.</li>
+<li>We added Helmet which allows making dynamic changes to the <code>&lt;head&gt;</code>.</li>
 </ul>
 <p>Is it worth adding SSR to your application? As always, it depends. It’s a must if your website is public and accessible to hundreds of thousands of users. But if you’re building a tool/dashboard-like application it might not be worth the effort.</p>
 <p>However, leveraging the power of universal apps is a step forward for the front-end community.</p>

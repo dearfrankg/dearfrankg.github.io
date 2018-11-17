@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://dearfrankg.github.io/2018/10/31/20181031-server-side-rendering-in-React/</loc>
+    <loc>http://dearfrankg.github.io/2018/11/10/20181110-intro-to-next-part2/</loc>
     
-    <lastmod>2018-11-17T14:19:49.615Z</lastmod>
+    <lastmod>2018-11-17T17:30:35.169Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://dearfrankg.github.io/2018/11/10/20181110-intro-to-next-part2/</loc>
+    <loc>http://dearfrankg.github.io/2018/10/31/20181031-server-side-rendering-in-React/</loc>
     
-    <lastmod>2018-11-16T22:47:18.735Z</lastmod>
+    <lastmod>2018-11-17T16:30:22.636Z</lastmod>
     
   </url>
   
@@ -72,6 +72,13 @@
   </url>
   
   <url>
+    <loc>http://dearfrankg.github.io/2017/03/28/2017/20170328-facebook-react-perf/</loc>
+    
+    <lastmod>2018-11-14T14:01:20.388Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://dearfrankg.github.io/2017/05/12/2017/20170511-npm-refresher/</loc>
     
     <lastmod>2018-11-14T14:01:20.388Z</lastmod>
@@ -80,13 +87,6 @@
   
   <url>
     <loc>http://dearfrankg.github.io/2017/04/13/2017/20170412-react-lifecycle/</loc>
-    
-    <lastmod>2018-11-14T14:01:20.388Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://dearfrankg.github.io/2017/03/28/2017/20170328-facebook-react-perf/</loc>
     
     <lastmod>2018-11-14T14:01:20.388Z</lastmod>
     
@@ -107,7 +107,7 @@
   </url>
   
   <url>
-    <loc>http://dearfrankg.github.io/2017/03/06/2017/20170306-fusebox/</loc>
+    <loc>http://dearfrankg.github.io/2017/03/14/2017/20170314-nwb/</loc>
     
     <lastmod>2018-11-14T14:01:20.387Z</lastmod>
     
@@ -121,7 +121,7 @@
   </url>
   
   <url>
-    <loc>http://dearfrankg.github.io/2017/03/24/2017/20170324-testing-todomvc-redux/</loc>
+    <loc>http://dearfrankg.github.io/2017/02/11/2017/20170211-react-testing/</loc>
     
     <lastmod>2018-11-14T14:01:20.387Z</lastmod>
     
@@ -142,6 +142,34 @@
   </url>
   
   <url>
+    <loc>http://dearfrankg.github.io/2017/03/23/2017/20170323-magic-of-mobx/</loc>
+    
+    <lastmod>2018-11-14T14:01:20.387Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://dearfrankg.github.io/2017/03/14/2017/20170314-state-of-development/</loc>
+    
+    <lastmod>2018-11-14T14:01:20.387Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://dearfrankg.github.io/2017/03/24/2017/20170324-testing-todomvc-redux/</loc>
+    
+    <lastmod>2018-11-14T14:01:20.387Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://dearfrankg.github.io/2017/03/06/2017/20170306-fusebox/</loc>
+    
+    <lastmod>2018-11-14T14:01:20.387Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://dearfrankg.github.io/2017/03/04/2017/20170304-electron/</loc>
     
     <lastmod>2018-11-14T14:01:20.387Z</lastmod>
@@ -156,42 +184,7 @@
   </url>
   
   <url>
-    <loc>http://dearfrankg.github.io/2017/02/11/2017/20170211-react-testing/</loc>
-    
-    <lastmod>2018-11-14T14:01:20.387Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://dearfrankg.github.io/2017/03/14/2017/20170314-nwb/</loc>
-    
-    <lastmod>2018-11-14T14:01:20.387Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://dearfrankg.github.io/2017/03/14/2017/20170314-state-of-development/</loc>
-    
-    <lastmod>2018-11-14T14:01:20.387Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://dearfrankg.github.io/2017/03/23/2017/20170323-magic-of-mobx/</loc>
-    
-    <lastmod>2018-11-14T14:01:20.387Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://dearfrankg.github.io/2016/12/15/2016/20161215-tdd-refined/</loc>
-    
-    <lastmod>2018-11-14T14:01:10.849Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://dearfrankg.github.io/2016/12/15/2016/20161215-tidbits/</loc>
     
     <lastmod>2018-11-14T14:01:10.849Z</lastmod>
     
@@ -205,6 +198,13 @@
   </url>
   
   <url>
+    <loc>http://dearfrankg.github.io/2016/12/15/2016/20161215-tidbits/</loc>
+    
+    <lastmod>2018-11-14T14:01:10.849Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://dearfrankg.github.io/2016/12/02/2016/20161202-docker-volumes-and-permissions/</loc>
     
     <lastmod>2018-11-14T14:01:10.595Z</lastmod>
@@ -212,21 +212,7 @@
   </url>
   
   <url>
-    <loc>http://dearfrankg.github.io/2016/12/01/2016/20161201-create-react-app/</loc>
-    
-    <lastmod>2018-11-14T14:01:10.594Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://dearfrankg.github.io/2016/09/07/2016/20160910-loopback/</loc>
-    
-    <lastmod>2018-11-14T14:01:10.594Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://dearfrankg.github.io/2016/11/16/2016/20161116-docker-compose-part1/</loc>
+    <loc>http://dearfrankg.github.io/2016/11/19/2016/20161119-gitlab-setup/</loc>
     
     <lastmod>2018-11-14T14:01:10.594Z</lastmod>
     
@@ -240,7 +226,7 @@
   </url>
   
   <url>
-    <loc>http://dearfrankg.github.io/2016/11/16/2016/20161116-docker-object-labels/</loc>
+    <loc>http://dearfrankg.github.io/2016/11/18/2016/20161118-nginx-proxy/</loc>
     
     <lastmod>2018-11-14T14:01:10.594Z</lastmod>
     
@@ -254,7 +240,7 @@
   </url>
   
   <url>
-    <loc>http://dearfrankg.github.io/2016/11/16/2016/20161116-docker-compose-part2/</loc>
+    <loc>http://dearfrankg.github.io/2016/11/18/2016/20161118-my-docker-farm/</loc>
     
     <lastmod>2018-11-14T14:01:10.594Z</lastmod>
     
@@ -268,49 +254,14 @@
   </url>
   
   <url>
-    <loc>http://dearfrankg.github.io/2016/11/18/2016/20161118-my-docker-farm/</loc>
+    <loc>http://dearfrankg.github.io/2016/11/16/2016/20161116-docker-object-labels/</loc>
     
     <lastmod>2018-11-14T14:01:10.594Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://dearfrankg.github.io/2016/11/18/2016/20161118-nginx-proxy/</loc>
-    
-    <lastmod>2018-11-14T14:01:10.594Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://dearfrankg.github.io/2016/11/19/2016/20161119-gitlab-setup/</loc>
-    
-    <lastmod>2018-11-14T14:01:10.594Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://dearfrankg.github.io/2016/08/02/2016/20160809-guide-to-FP-part1/</loc>
-    
-    <lastmod>2018-11-14T14:01:10.594Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://dearfrankg.github.io/2016/11/19/2016/20161119-docker-retrospective/</loc>
-    
-    <lastmod>2018-11-14T14:01:10.594Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://dearfrankg.github.io/2016/09/06/2016/20160906-lets-encrypt/</loc>
-    
-    <lastmod>2018-11-14T14:01:10.594Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://dearfrankg.github.io/2016/08/10/2016/20160831-guide-to-FP-part2/</loc>
+    <loc>http://dearfrankg.github.io/2016/11/16/2016/20161116-docker-compose-part2/</loc>
     
     <lastmod>2018-11-14T14:01:10.594Z</lastmod>
     
@@ -324,7 +275,42 @@
   </url>
   
   <url>
-    <loc>http://dearfrankg.github.io/2016/11/18/2016/20161118-docker-manage-a-swarm-part2/</loc>
+    <loc>http://dearfrankg.github.io/2016/11/19/2016/20161119-docker-retrospective/</loc>
+    
+    <lastmod>2018-11-14T14:01:10.594Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://dearfrankg.github.io/2016/08/10/2016/20160831-guide-to-FP-part2/</loc>
+    
+    <lastmod>2018-11-14T14:01:10.594Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://dearfrankg.github.io/2016/09/06/2016/20160906-lets-encrypt/</loc>
+    
+    <lastmod>2018-11-14T14:01:10.594Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://dearfrankg.github.io/2016/12/01/2016/20161201-create-react-app/</loc>
+    
+    <lastmod>2018-11-14T14:01:10.594Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://dearfrankg.github.io/2016/08/02/2016/20160809-guide-to-FP-part1/</loc>
+    
+    <lastmod>2018-11-14T14:01:10.594Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://dearfrankg.github.io/2016/09/07/2016/20160910-loopback/</loc>
     
     <lastmod>2018-11-14T14:01:10.594Z</lastmod>
     
@@ -332,6 +318,20 @@
   
   <url>
     <loc>http://dearfrankg.github.io/2016/11/15/2016/20161115-docker-learn-by-example/</loc>
+    
+    <lastmod>2018-11-14T14:01:10.594Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://dearfrankg.github.io/2016/11/18/2016/20161118-docker-manage-a-swarm-part2/</loc>
+    
+    <lastmod>2018-11-14T14:01:10.594Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://dearfrankg.github.io/2016/11/16/2016/20161116-docker-compose-part1/</loc>
     
     <lastmod>2018-11-14T14:01:10.594Z</lastmod>
     
