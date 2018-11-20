@@ -74,18 +74,25 @@
 <div class="main">
     <div class="content-inner">
         <div class="posts">
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2018/11/19/20181119-intro-to-graphql/">intro to graphQL</a></h2>
-            </div>
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">intro to graphQL</h2>
             <div class="post-meta">
                 <span class="post-time">2018-11-19</span>
                 
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
             </div>
-            <div class="post-content">
-                
-                    <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>The plan was to use <a href="https://goo.gl/kKqcy8" target="_blank" rel="noopener">styled-jsx</a> but it was not to be. It is not yet compatible with React 2.x. But <a href="https://goo.gl/pqGvoO" target="_blank" rel="noopener">styled-components</a> is so we’ll use that.</p>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-text">Intro</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-a-SPA"><span class="toc-text">Create a SPA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Query-Github’s-GraphQL-API"><span class="toc-text">Query Github’s GraphQL API</span></a></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>The plan was to use <a href="https://goo.gl/kKqcy8" target="_blank" rel="noopener">styled-jsx</a> but it was not to be. It is not yet compatible with React 2.x. But <a href="https://goo.gl/pqGvoO" target="_blank" rel="noopener">styled-components</a> is so we’ll use that.</p>
 <p>Our goal is to use cra to accomplish:</p>
 <ul>
 <li>Use create-react-app to build a SPA</li>
@@ -129,344 +136,23 @@
 <figure class="highlight js"><figcaption><span>TopRepos</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; graphql &#125; <span class="keyword">from</span> <span class="string">"react-apollo"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; gql &#125; <span class="keyword">from</span> <span class="string">"apollo-boost"</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">"styled-components"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> TOP_REPOS = gql<span class="string">`</span></span><br><span class="line"><span class="string">  &#123;</span></span><br><span class="line"><span class="string">    search(query: "stars:&gt;50000", type: REPOSITORY, first: 10) &#123;</span></span><br><span class="line"><span class="string">      repositoryCount</span></span><br><span class="line"><span class="string">      edges &#123;</span></span><br><span class="line"><span class="string">        node &#123;</span></span><br><span class="line"><span class="string">          ... on Repository &#123;</span></span><br><span class="line"><span class="string">            name</span></span><br><span class="line"><span class="string">            owner &#123;</span></span><br><span class="line"><span class="string">              login</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            stargazers &#123;</span></span><br><span class="line"><span class="string">              totalCount</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">          &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> RepoTable = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">  margin: 50px 20px;</span></span><br><span class="line"><span class="string">  display: flex;</span></span><br><span class="line"><span class="string">  flex-direction: column;</span></span><br><span class="line"><span class="string">  border: 1px solid #efefef;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> RepoRow = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">  display: flex;</span></span><br><span class="line"><span class="string">  border-bottom: 1px solid #efefef;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  &amp;:nth-last-child(1) &#123;</span></span><br><span class="line"><span class="string">    border-bottom: none;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> RepoHead = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">  flex: 6;</span></span><br><span class="line"><span class="string">  padding: 10px 20px;</span></span><br><span class="line"><span class="string">  font-weight: 600;</span></span><br><span class="line"><span class="string">  text-align: left;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  &amp;:nth-last-child(1) &#123;</span></span><br><span class="line"><span class="string">    flex: 4;</span></span><br><span class="line"><span class="string">    text-align: right;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> RepoCell = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">  flex: 6;</span></span><br><span class="line"><span class="string">  padding: 10px 20px;</span></span><br><span class="line"><span class="string">  text-align: left;</span></span><br><span class="line"><span class="string">  white-space: nowrap;</span></span><br><span class="line"><span class="string">  overflow: hidden;</span></span><br><span class="line"><span class="string">  text-overflow: ellipsis;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  &amp;:nth-child(2) &#123;</span></span><br><span class="line"><span class="string">    font-weight: 600;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  &amp;:nth-last-child(1) &#123;</span></span><br><span class="line"><span class="string">    flex: 4;</span></span><br><span class="line"><span class="string">    text-align: right;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Loading = <span class="function"><span class="params">()</span> =&gt;</span> &lt;RepoTable&gt;Loading...&lt;<span class="regexp">/RepoTable&gt;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const Table = props =&gt; (</span></span><br><span class="line"><span class="regexp">  &lt;RepoTable&gt;</span></span><br><span class="line"><span class="regexp">    &lt;RepoRow&gt;</span></span><br><span class="line"><span class="regexp">      &lt;RepoHead&gt;Organization&lt;/</span>RepoHead&gt;</span><br><span class="line">      &lt;RepoHead&gt;Repo&lt;<span class="regexp">/RepoHead&gt;</span></span><br><span class="line"><span class="regexp">      &lt;RepoHead&gt;Stars&lt;/</span>RepoHead&gt;</span><br><span class="line">    &lt;<span class="regexp">/RepoRow&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    &#123;props.data.search.edges.map((row, i) =&gt; (</span></span><br><span class="line"><span class="regexp">      &lt;RepoRow key=&#123;i&#125;&gt;</span></span><br><span class="line"><span class="regexp">        &lt;RepoCell&gt;&#123;row.node.owner.login&#125;&lt;/</span>RepoCell&gt;</span><br><span class="line">        &lt;RepoCell&gt;&#123;row.node.name&#125;&lt;<span class="regexp">/RepoCell&gt;</span></span><br><span class="line"><span class="regexp">        &lt;RepoCell&gt;&#123;row.node.stargazers.totalCount&#125;&lt;/</span>RepoCell&gt;</span><br><span class="line">      &lt;<span class="regexp">/RepoRow&gt;</span></span><br><span class="line"><span class="regexp">    ))&#125;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>RepoTable&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> TopRepos = graphql(TOP_REPOS)(<span class="function"><span class="params">props</span> =&gt;</span></span><br><span class="line">  props.data.loading ? &lt;Loading /&gt; : &lt;Table &#123;...props&#125; /&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">export default TopRepos;</span><br></pre></td></tr></table></figure>
 <p><img src="https://i.imgur.com/YTxgh1U.png" alt="create-react-app with graphql"></p>
 
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2018/11/11/20181111-app-development-review/">app development review</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2018-11-11</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>We will create an app from scratch that will have the following characteristics:</p>
-<ul>
-<li>works with my domain</li>
-<li>works with app hosted on laptop for development</li>
-<li>works with app hosted by vendor for production</li>
-<li>works with OAuth authentication</li>
-<li>works with Google <code>YouTube Data API 3</code> Services</li>
-</ul>
-<h2 id="Setup-Test-Web-Server"><a href="#Setup-Test-Web-Server" class="headerlink" title="Setup Test Web Server"></a>Setup Test Web Server</h2><ul>
-<li>start nginx on port 80<ul>
-<li><code>sudo brew services start nginx</code></li>
-</ul>
-</li>
-<li>test web server<ul>
-<li><code>curl 127.0.0.1</code> –&gt; hello</li>
-</ul>
-</li>
-</ul>
-<h2 id="Setup-Your-Domain"><a href="#Setup-Your-Domain" class="headerlink" title="Setup Your Domain"></a>Setup Your Domain</h2><ul>
-<li>Purchase Domain Name<ul>
-<li><a href="https://domains.google.com/registrar" target="_blank" rel="noopener">https://domains.google.com/registrar</a></li>
-<li>purchased a domain name for \$12</li>
-</ul>
-</li>
-<li>Configue DNS<ul>
-<li>Edit Name Servers<ul>
-<li>Choose: <code>Use the Google Domains name servers</code></li>
-</ul>
-</li>
-<li>Add custom resource records<ul>
-<li><code>name: @, type: A, TTL: 1H, IP: xxx.xxx.xxx.xxx</code></li>
-<li><code>name: *, type: A, TTL: 1H, IP: xxx.xxx.xxx.xxx</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>test dns – <code>ping dearfrankg.com</code> –&gt; …</li>
-</ul>
-<blockquote>
-<p>Local IP Address<br>Do not use services like <code>myip</code> or <code>myip.com</code> to find your IP address. They’re not always up to date. Instead you can use your WAN IP address from you router.</p>
-</blockquote>
-<blockquote>
-<p>DNS Propagation<br>Make sure you use the same DNS server IPs when configuring your domain and your local network. This insures propagation will not be an issue. Google DNS IPs are <code>8.8.8.8</code> and <code>8.8.4.4</code>.</p>
-</blockquote>
-<h2 id="Setup-Port-Forwarding"><a href="#Setup-Port-Forwarding" class="headerlink" title="Setup Port Forwarding"></a>Setup Port Forwarding</h2><p>When someone is trying to access you web server at your home, the request will be received by your modem then router. How will the router know which PC to forward the request to? That’s what port forwarding is for.</p>
-<ul>
-<li>configure router for port forwarding<ul>
-<li><code>macbook-pro: incoming 80 to external 80</code></li>
-</ul>
-</li>
-<li>test port fowarding<ul>
-<li>curl <a href="http://dearfrankg.com" target="_blank" rel="noopener">http://dearfrankg.com</a> –&gt; hello</li>
-<li>open <a href="http://dearfrankg.com" target="_blank" rel="noopener">http://dearfrankg.com</a> –&gt; hello</li>
-</ul>
-</li>
-</ul>
-<h2 id="Setup-Reverse-Poxy"><a href="#Setup-Reverse-Poxy" class="headerlink" title="Setup Reverse Poxy"></a>Setup Reverse Poxy</h2><p>Using port forwarding we would need to open many ports for many apps. That’s undesirable because it’s less secure. As an alternative we can setup a reverse proxy server to route different urls to different apps.</p>
-<ul>
-<li>setup nginx as a reverse proxy<ul>
-<li>configure <code>top level domain</code> to <code>nginx server</code><ul>
-<li><code>dearfrankg.com</code> to port 80 <code>nginx web server</code></li>
-</ul>
-</li>
-<li>configure <code>sub domains</code> to <code>web apps</code><ul>
-<li><code>app1.dearfrankg.com</code> to port 5000 <code>app1</code></li>
-<li><code>app2.dearfrankg.com</code> to port 5001 <code>app2</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>Reverse Proxy drawbacks:</p>
-<ul>
-<li>Bandwidth transfer will be doubled: <code>client &lt;-&gt; proxy &lt;-&gt; app</code></li>
-<li>The traffic of all subdomains will pass through the proxy, so you might need more than one.</li>
-<li>If the proxy and the webservers are hosted by different providers, latency will increase noticeably.</li>
-<li>If the proxy is down, so are all connected subdomains, except if you have multiple load balanced proxies.</li>
-</ul>
-<h2 id="Setup-App"><a href="#Setup-App" class="headerlink" title="Setup App"></a>Setup App</h2><ul>
-<li>setup app skeleton<ul>
-<li><code>npx create-react-app my-great-app</code></li>
-</ul>
-</li>
-<li>add <code>sass</code> support<ul>
-<li>npm install –save node-sass</li>
-</ul>
-</li>
-<li>add folders to <code>src</code> directory<ul>
-<li>assets, components, services, utils</li>
-</ul>
-</li>
-<li>reconfigure app to work with new structure<ul>
-<li>create a new Header component</li>
-</ul>
-</li>
-</ul>
-<h3 id="Setup-OAuth-Auhentication"><a href="#Setup-OAuth-Auhentication" class="headerlink" title="Setup OAuth Auhentication"></a>Setup OAuth Auhentication</h3><p><strong>Get OAuth Credentials</strong></p>
-<ul>
-<li>create project at the <a href="https://console.developers.google.com/" target="_blank" rel="noopener">console.developers.google.com</a></li>
-<li>create credentials and choose <code>API key</code><ul>
-<li>store <code>YOUR_API_KEY</code> for later use.</li>
-</ul>
-</li>
-<li>create credentials and choose <code>OAuth client ID</code><ul>
-<li>choose application type: <code>web application</code></li>
-<li>choose name: <code>proj-name</code></li>
-<li>choose Authorized Javascript Origins: `<a href="http://localhost:5000" target="_blank" rel="noopener">http://localhost:5000</a></li>
-<li>click create</li>
-<li>store <code>CLIENT_ID</code> for later use.</li>
-</ul>
-</li>
-<li>Enable YouTube Data API v3<ul>
-<li>goto <a href="https://console.developers.google.com/apis/library" target="_blank" rel="noopener">API Library</a> and search for YouTube</li>
-<li>Click on the <code>YouTube Data API v3</code>, then click <code>ENABLE</code></li>
-</ul>
-</li>
-<li>Clear the last hour of cache<ul>
-<li><code>cmd shift delete</code> then <code>choose last hour</code> and click delete.</li>
-</ul>
-</li>
-</ul>
-<h3 id="TO-BE-CONTINUED"><a href="#TO-BE-CONTINUED" class="headerlink" title="TO BE CONTINUED"></a>TO BE CONTINUED</h3><p>…<br>…</p>
-<h2 id="Setup-Continuous-Workflow"><a href="#Setup-Continuous-Workflow" class="headerlink" title="Setup Continuous Workflow"></a>Setup Continuous Workflow</h2><p><strong>Continuous Integration (CI)</strong>: short-lived feature branches, team is merging to master branch multiple times per day, fully automated build and test process which gives feedback within 10 minutes; deployment is manual.</p>
-<p><strong>Continuous Delivery (CD)</strong>: CI + the entire software release process is automated, it may be composed of multiple stages, and deployment to production is manual.</p>
-<p><strong>Continuous Deployment</strong>: CI + CD + fully automated deployment to production.</p>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2018/11/10/20181110-intro-to-next-part2/">intro to next.js part2</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2018-11-10</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>This is the follow up to <a href="/2018/10/31/20181031-intro-to-next-part1/">Intro to Next - Part1</a>. In Part2 we will cover how to communicate with the Github API.</p>
-<ul>
-<li><a href="https://goo.gl/WcgEZ6" target="_blank" rel="noopener">github repo</a></li>
-</ul>
-<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><blockquote>
-<p>The code for this section: <a href="https://goo.gl/WcgEZ6" target="_blank" rel="noopener">repository</a> under the tag <code>getting-started</code>.</p>
-</blockquote>
-<h3 id="the-hard-way"><a href="#the-hard-way" class="headerlink" title="the hard way"></a>the hard way</h3><ul>
-<li>manually install the necessary packages</li>
-<li>update scripts in package.json</li>
-<li>add pages directory</li>
-<li>start dev server</li>
-</ul>
-<h3 id="the-easy-way"><a href="#the-easy-way" class="headerlink" title="the easy way"></a>the easy way</h3><ul>
-<li>review choices at <a href="https://goo.gl/8iZS8D" target="_blank" rel="noopener">Next.js examples</a></li>
-<li>follow the install instuctions in the readme file.</li>
-<li>start dev server</li>
-</ul>
-<p>our install process:</p>
-<ul>
-<li>install app skeleton<ul>
-<li><code>npx create-next-app --example with-styled-jsx-scss with-styled-jsx-scss-app next-part2</code></li>
-</ul>
-</li>
-<li>start server<ul>
-<li><code>cd next-part2</code></li>
-<li><code>npm run dev</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="Create-App-V1"><a href="#Create-App-V1" class="headerlink" title="Create App V1"></a>Create App V1</h2><blockquote>
-<p>The code for this section: <a href="https://goo.gl/WcgEZ6" target="_blank" rel="noopener">repository</a> under the tag <code>app-v1</code>.</p>
-</blockquote>
-<p>Our objective with <code>app v1</code> is to pull some data from <code>github</code> and jazz it up a little with <code>bootstrap</code>.</p>
-<p>Add the following packages:</p>
-<ul>
-<li><code>axios</code> - for fetching data<ul>
-<li><code>npm install --save axios</code></li>
-</ul>
-</li>
-</ul>
-<p>Review the code in the repo:</p>
-<ul>
-<li><strong>index.js</strong></li>
-</ul>
-<p>A Index functional component called <code>App</code> that renders <code>meta</code>, <code>heading</code> and <code>github-repos</code></p>
-<ul>
-<li><strong>Meta.js</strong></li>
-</ul>
-<p>A Meta functional component that lets you include things in the head of the rendered HTML. In our case we include a bootstrap CSS link.</p>
-<ul>
-<li><strong>GithubRepos</strong></li>
-</ul>
-<p>This file contains two components. This file leverages <code>bootstrap</code>.</p>
-<ul>
-<li><p>repo functional component</p>
-<ul>
-<li>for rendering a repo row in the table</li>
-</ul>
-</li>
-<li><p>GithubRepos class based component</p>
-<ul>
-<li>for rendering the repos table</li>
-<li>methods:<ul>
-<li>constructor - setup state</li>
-<li>componentDidMount - get data from github</li>
-<li>renderLoading - render loading message</li>
-<li>renderError - render error message</li>
-<li>render - render github repos table</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://i.imgur.com/HJauiBi.png" alt="app version 1"></p>
-<h2 id="Create-App-V2"><a href="#Create-App-V2" class="headerlink" title="Create App V2"></a>Create App V2</h2><blockquote>
-<p>The code for this section: <a href="https://goo.gl/WcgEZ6" target="_blank" rel="noopener">repository</a> under the tag <code>app-v2</code>.</p>
-</blockquote>
-<p>Our objective with <code>app v2</code> is to pull some data from <code>github</code> and jazz it up a little with <code>evergreen-ui</code>. Additionally we will leverage the <code>evergreen-ui table component</code> to provide search capability.</p>
-<p>Add the following packages:</p>
-<ul>
-<li><code>evergreen-ui</code> - react component library<ul>
-<li><code>npm install --save evergreen-ui</code></li>
-</ul>
-</li>
-</ul>
-<p>Review the code in the repo:</p>
-<ul>
-<li><strong>index.js</strong></li>
-</ul>
-<p>A Index functional component called <code>App</code> that renders <code>heading</code> and <code>github-repos</code>. This file leverages <code>evergreen-ui</code>.</p>
-<ul>
-<li><strong>GithubRepos</strong></li>
-</ul>
-<p>This file contains two components. This file leverages <code>evergreen-ui</code>.</p>
-<ul>
-<li><p>repo functional component</p>
-<ul>
-<li>for rendering a repo row in the table with a filter</li>
-</ul>
-</li>
-<li><p>GithubRepos class based component</p>
-<ul>
-<li>for rendering the repos table</li>
-<li>methods:<ul>
-<li>constructor - setup state</li>
-<li>componentDidMount - get data from github</li>
-<li>renderLoading - render loading message</li>
-<li>renderError - render error message</li>
-<li>render - render github repos table</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://i.imgur.com/auyvFa9.png" alt="app version 2"></p>
-<h2 id="Using-Mock-Data"><a href="#Using-Mock-Data" class="headerlink" title="Using Mock Data"></a>Using Mock Data</h2><blockquote>
-<p>The code for this section: <a href="https://goo.gl/WcgEZ6" target="_blank" rel="noopener">repository</a> under the tag <code>mock-server</code>.</p>
-</blockquote>
-<p>Sometimes you run into a situation where the backend is down. When this happens often the developer will turn to a mock data solution. In this case we’ll use a package called <code>json-server</code></p>
-<p>Add the following packages:</p>
-<ul>
-<li><code>json-server</code> - create a mock server<ul>
-<li><code>npm install --save-dev json-server</code></li>
-</ul>
-</li>
-</ul>
-<p>Review the code in the repo:</p>
-<ul>
-<li><code>mock/data.json</code> – see image below</li>
-<li><code>mock/config.json</code> – with mock server url</li>
-<li><code>server.js</code> – server code</li>
-<li><code>package.json</code> – add script to start mock server</li>
-<li><code>components/GithubRepos.js</code> - slight mod</li>
-</ul>
-<p>Here we will copy the data that github is feeding us and place it into the <code>mock/data.json</code> file.</p>
-<p><img src="https://i.imgur.com/VMIam5b.png" alt="mock data"></p>
-<p>We’ll have to remove the first two lines of the data.</p>
-<ul>
-<li>total_count</li>
-<li>incomplete_results</li>
-</ul>
-<p><strong>Try the mock server</strong></p>
-<ul>
-<li>start the client in terminal1<ul>
-<li><code>npm run dev</code></li>
-</ul>
-</li>
-<li>start the mock server in terminal2<ul>
-<li><code>npm run mock</code></li>
-</ul>
-</li>
-<li>Success is seeing data being populated</li>
-<li>To disable the mock server<ul>
-<li>Enter an empty MOCK_URL in <code>mock/config.json</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Here’s what we learned:</p>
-<ul>
-<li>How to automatically install a skeleton app from <a href="https://goo.gl/8iZS8D" target="_blank" rel="noopener">Next.js examples</a></li>
-<li>How to add a <code>Meta</code> component to include CSS assets like <code>bootstrap.css</code>.</li>
-<li>How to use <code>axios</code> to access the <code>github API</code></li>
-<li>How to use the <code>evergreen-ui</code> components <code>Pane</code>, <code>Spinner</code> and <code>Table</code></li>
-<li>How to create a <code>mock server</code> so we can continue developing when our API is down.</li>
-</ul>
-
-                
-            </div>
-        </article>
-    
+        </div>
+        
+    </article>
 </div>
 <div class="paginator">
     
         
         
-        <a class="next" href="/page/2/">
-            Next
-            <i class="iconfont icon-next"></i>
-        </a>
+            <a class="next" href="/2018/11/11/20181111-app-development-review/">
+                <span class="nav-default">app development review</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
         
     
 </div>
-
+<div id="comment-container"></div>
     </div>
 </div>
 <footer class="footer-social">

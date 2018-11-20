@@ -77,6 +77,199 @@
     
         <article class="post-abstract">
             <div class="post-title">
+                <h2><a class="post-title-link" href="/2018/08/22/20180822-css-selectors-you-must-know/">css selectors you must know</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2018-08-22</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="Source"><a href="#Source" class="headerlink" title="Source"></a>Source</h2><ul>
+<li><a href="https://code.tutsplus.com/tutorials/the-30-css-selectors-you-must-memorize--net-16048" target="_blank" rel="noopener">memorize 30 CSS selectors</a></li>
+</ul>
+<h2 id="Basics"><a href="#Basics" class="headerlink" title="Basics"></a>Basics</h2><ul>
+<li><p>id selector</p>
+<ul>
+<li><code>#foo</code></li>
+</ul>
+</li>
+<li><p>class selector</p>
+<ul>
+<li><code>.foo</code></li>
+</ul>
+</li>
+<li><p>descendent selector</p>
+<ul>
+<li><code>ul li</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="Memorize-these-30-Selectors"><a href="#Memorize-these-30-Selectors" class="headerlink" title="Memorize these 30 Selectors"></a>Memorize these 30 Selectors</h2><ul>
+<li><p>universal selector</p>
+<ul>
+<li><code>*</code> all elements</li>
+<li><code>#foo *</code> all child elements</li>
+</ul>
+</li>
+<li><p>id selector</p>
+<ul>
+<li><code>#foo</code></li>
+<li>avoid if possible</li>
+</ul>
+</li>
+<li><p>class selector</p>
+<ul>
+<li><code>.foo</code></li>
+</ul>
+</li>
+<li><p>descendent selector</p>
+<ul>
+<li><code>li a</code></li>
+</ul>
+</li>
+<li><p>type selector</p>
+<ul>
+<li><code>ul</code></li>
+</ul>
+</li>
+<li><p>pseudo classes</p>
+<ul>
+<li><code>a:link</code> - not clicked</li>
+<li><code>a:visited</code> - clicked</li>
+</ul>
+</li>
+<li><p>adjacent selector</p>
+<ul>
+<li><code>ul + p</code> - first p after each ul</li>
+</ul>
+</li>
+<li><p>direct descendent selector</p>
+<ul>
+<li><code>ul &gt; li</code> - avoids nested lists</li>
+</ul>
+</li>
+<li><p>sibling selector</p>
+<ul>
+<li><code>ul ~ p</code> - all p’s that follow a ul</li>
+</ul>
+</li>
+<li><p>attributes selector</p>
+<ul>
+<li><code>a[title]</code> - select ancho with title attribute</li>
+</ul>
+</li>
+<li><p>attribute match selector</p>
+<ul>
+<li><code>a[href=&quot;http://net.tutsplus.com&quot;]</code> - find exact value</li>
+</ul>
+</li>
+<li><p>attribute contains selector</p>
+<ul>
+<li><code>a[href*=&quot;nettuts&quot;]</code> - must contain the value</li>
+</ul>
+</li>
+<li><p>attribute starts with selector</p>
+<ul>
+<li><code>a[href^=&quot;http&quot;]</code> - value starts with</li>
+</ul>
+</li>
+<li><p>attribute ends with selector</p>
+<ul>
+<li><code>a[href$=&quot;.jpg&quot;]</code> - value ends with</li>
+</ul>
+</li>
+<li><p>data attribute match selector</p>
+<ul>
+<li><code>a[data-filetype=&quot;image&quot;]</code> - find exact value</li>
+</ul>
+</li>
+<li><p>data attribute contains selector</p>
+<ul>
+<li><code>a[data-info~=&quot;external&quot;]</code> - must contain the value</li>
+</ul>
+</li>
+<li><p>checked pseudo class</p>
+<ul>
+<li><code>input[type=radio]:checked</code> - find elements that are checked</li>
+</ul>
+</li>
+<li><p>element pseudo class</p>
+<ul>
+<li><code>.title:before</code> - often used to place content</li>
+<li><code>.title:after</code> - officially use :: but best practice :</li>
+</ul>
+</li>
+<li><p>hover pseudo class</p>
+<ul>
+<li><code>a:hover</code> - when hovering</li>
+</ul>
+</li>
+<li><p>negation pseudo class</p>
+<ul>
+<li><code>div:not(#container)</code> - all divs without #container</li>
+</ul>
+</li>
+<li><p>pseudo element selector</p>
+<ul>
+<li><code>p::first-line</code></li>
+<li><code>p::first-letter</code></li>
+</ul>
+</li>
+<li><p>nth-child selector</p>
+<ul>
+<li><code>li:nth-child(3)</code> - select 3rd li</li>
+<li><code>li:nth-child(4n)</code> - select every fourth li</li>
+</ul>
+</li>
+<li><p>nth-last-child selector</p>
+<ul>
+<li><code>li:nth-last-child(2)</code> - select starting from last li</li>
+</ul>
+</li>
+<li><p>nth-of-type selector</p>
+<ul>
+<li><code>ul:nth-of-type(3)</code> - select the third of type ul</li>
+</ul>
+</li>
+<li><p>nth-last-of-type selector</p>
+<ul>
+<li><code>li:nth-last-of-type(2)</code> - select starting from last</li>
+</ul>
+</li>
+<li><p>first-child selector</p>
+<ul>
+<li><code>ul li:first-child</code> - first li in list</li>
+</ul>
+</li>
+<li><p>last-child selector</p>
+<ul>
+<li><code>ul &gt; li:last-child</code> - last child in list ‘&gt;’ = decendant</li>
+</ul>
+</li>
+<li><p>only-child selector</p>
+<ul>
+<li><code>div p:only-child</code> - select p if div has only one p</li>
+</ul>
+</li>
+<li><p>only-of-type selector</p>
+<ul>
+<li><code>ul &gt; li:only-of-type</code> - select li if ul has only one li</li>
+</ul>
+</li>
+<li><p>first-of-type selector</p>
+<ul>
+<li><code>ul:first-of-type</code> - find first element of type ul</li>
+</ul>
+</li>
+</ul>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
                 <h2><a class="post-title-link" href="/2018/08/19/20180819-intro-to-css-grid/">intro to css-grid</a></h2>
             </div>
             <div class="post-meta">
@@ -160,28 +353,6 @@
 <li><a href="https://codesandbox.io/s/1vmx5w5kx7" target="_blank" rel="noopener">fractal tree</a></li>
 <li><a href="https://codesandbox.io/s/30p22krx95" target="_blank" rel="noopener">react bowling</a></li>
 </ul>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2018/08/19/20180819-using-export-with-index-js/">using export with index.js</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2018-08-19</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <p>Consider the app sructure</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">├── config.js</span><br><span class="line">├── containers</span><br><span class="line">├── context.js</span><br><span class="line">├── images</span><br><span class="line">│   └── logo.svg</span><br><span class="line">├── index.js</span><br><span class="line">├── registerServiceWorker.js</span><br><span class="line">├── routes</span><br><span class="line">│   ├── App.css</span><br><span class="line">│   ├── App.js</span><br><span class="line">│   └── App.test.js</span><br><span class="line">├── styles</span><br><span class="line">│   └── index.css</span><br><span class="line">├── utils</span><br><span class="line">└── views</span><br><span class="line">    ├── body.css</span><br><span class="line">    ├── body.js</span><br><span class="line">    ├── flex.css</span><br><span class="line">    ├── flex.js</span><br><span class="line">    ├── header.js</span><br><span class="line">    ├── index.js</span><br><span class="line">    └── info.js</span><br></pre></td></tr></table></figure>
-<p>/src/views/index.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./header"</span>;</span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./body"</span>;</span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./info"</span>;</span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./flex"</span>;</span><br></pre></td></tr></table></figure>
-<p>/src/views/body.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"./body.css"</span>;</span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  FlexDefaults,</span><br><span class="line">  FlexWrap1,</span><br><span class="line">  FlexWrap2,</span><br><span class="line">  Justify1,</span><br><span class="line">  Justify2,</span><br><span class="line">  Justify3,</span><br><span class="line">  Justify4,</span><br><span class="line">  Justify5,</span><br><span class="line">  Align1,</span><br><span class="line">  JustifyAndAlign</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">"../views"</span>;</span><br><span class="line">...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>Utilising the <code>index.js</code> file in this way you can import many views wether they exist in one file or many. This simplifies coding. You do need to remember to populate <code>index.js</code> when adding new files.</p>
 
                 
             </div>
