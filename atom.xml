@@ -363,33 +363,6 @@
   </entry>
   
   <entry>
-    <title>redux training</title>
-    <link href="http://dearfrankg.github.io/2018/04/05/20180405-redux-training/"/>
-    <id>http://dearfrankg.github.io/2018/04/05/20180405-redux-training/</id>
-    <published>2018-04-05T12:30:18.000Z</published>
-    <updated>2018-11-11T14:00:36.908Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="01-hello-world"><a href="#01-hello-world" class="headerlink" title="01 hello world"></a>01 hello world</h2><p>demo creating a simple react app with a single .js file.</p><ul><li><code>react run index.js</code></li></ul><h2 id="02-add-some-sass"><a href="#02-add-some-sass" class="headerlink" title="02 add some sass"></a>02 add some sass</h2><p>demo sass in your simple app.</p><ul><li><code>react run index.js --plugins sass</code></li></ul><h2 id="03-add-professional-file-structure"><a href="#03-add-professional-file-structure" class="headerlink" title="03 add professional file structure"></a>03 add professional file structure</h2><p>demo app with professional file structure.</p><ul><li><code>npm start</code></li></ul><h2 id="04-todomvc-redux"><a href="#04-todomvc-redux" class="headerlink" title="04 todomvc-redux"></a>04 todomvc-redux</h2><p>demo the ubiquitous todomvc app built with redux</p><h3 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h3><ul><li>redux actions</li></ul><p>Actions are payloads of information that send data to your store. The only source of information for the store. You send them to the store using <code>store.dispatch()</code>.</p><ul><li>redux reducers</li></ul><p>Reducers specifies how the application state changes in response to an action.</p><ul><li>redux middleware</li></ul><p>Middleware provides a hook that allows access to the action before and after it reaches the reducer.</p><ul><li>redux store</li></ul><p>The store is an object that:</p><ul><li>holds app state</li><li>allows access to state via <code>getState()</code></li><li>allows updating state via <code>dispatch(action)</code></li><li>allows registering/unregistering listeners <code>(un)subscribe(listener)</code></li></ul><h3 id="jest"><a href="#jest" class="headerlink" title="jest"></a>jest</h3><p>zero config testing platform</p><p>features:</p><ul><li>snapshots</li><li>awesome cli interface</li><li>powerful mocking library</li><li>code coverage</li><li>parallelizes and sandboxes tests</li></ul><ul><li>test actions</li><li>test reducers</li><li>test middleware</li><li>test store</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;01-hello-world&quot;&gt;&lt;a href=&quot;#01-hello-world&quot; class=&quot;headerlink&quot; title=&quot;01 hello world&quot;&gt;&lt;/a&gt;01 hello world&lt;/h2&gt;&lt;p&gt;demo creating a simple
-      
-    
-    </summary>
-    
-    
-      <category term="redux" scheme="http://dearfrankg.github.io/tags/redux/"/>
-    
-      <category term="reactjs" scheme="http://dearfrankg.github.io/tags/reactjs/"/>
-    
-      <category term="example" scheme="http://dearfrankg.github.io/tags/example/"/>
-    
-  </entry>
-  
-  <entry>
     <title>redux testing</title>
     <link href="http://dearfrankg.github.io/2018/04/05/20180405-redux-testing/"/>
     <id>http://dearfrankg.github.io/2018/04/05/20180405-redux-testing/</id>
@@ -411,6 +384,33 @@
       <category term="redux" scheme="http://dearfrankg.github.io/tags/redux/"/>
     
       <category term="testing" scheme="http://dearfrankg.github.io/tags/testing/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redux training</title>
+    <link href="http://dearfrankg.github.io/2018/04/05/20180405-redux-training/"/>
+    <id>http://dearfrankg.github.io/2018/04/05/20180405-redux-training/</id>
+    <published>2018-04-05T12:30:18.000Z</published>
+    <updated>2018-11-11T14:00:36.908Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="01-hello-world"><a href="#01-hello-world" class="headerlink" title="01 hello world"></a>01 hello world</h2><p>demo creating a simple react app with a single .js file.</p><ul><li><code>react run index.js</code></li></ul><h2 id="02-add-some-sass"><a href="#02-add-some-sass" class="headerlink" title="02 add some sass"></a>02 add some sass</h2><p>demo sass in your simple app.</p><ul><li><code>react run index.js --plugins sass</code></li></ul><h2 id="03-add-professional-file-structure"><a href="#03-add-professional-file-structure" class="headerlink" title="03 add professional file structure"></a>03 add professional file structure</h2><p>demo app with professional file structure.</p><ul><li><code>npm start</code></li></ul><h2 id="04-todomvc-redux"><a href="#04-todomvc-redux" class="headerlink" title="04 todomvc-redux"></a>04 todomvc-redux</h2><p>demo the ubiquitous todomvc app built with redux</p><h3 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h3><ul><li>redux actions</li></ul><p>Actions are payloads of information that send data to your store. The only source of information for the store. You send them to the store using <code>store.dispatch()</code>.</p><ul><li>redux reducers</li></ul><p>Reducers specifies how the application state changes in response to an action.</p><ul><li>redux middleware</li></ul><p>Middleware provides a hook that allows access to the action before and after it reaches the reducer.</p><ul><li>redux store</li></ul><p>The store is an object that:</p><ul><li>holds app state</li><li>allows access to state via <code>getState()</code></li><li>allows updating state via <code>dispatch(action)</code></li><li>allows registering/unregistering listeners <code>(un)subscribe(listener)</code></li></ul><h3 id="jest"><a href="#jest" class="headerlink" title="jest"></a>jest</h3><p>zero config testing platform</p><p>features:</p><ul><li>snapshots</li><li>awesome cli interface</li><li>powerful mocking library</li><li>code coverage</li><li>parallelizes and sandboxes tests</li></ul><ul><li>test actions</li><li>test reducers</li><li>test middleware</li><li>test store</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;01-hello-world&quot;&gt;&lt;a href=&quot;#01-hello-world&quot; class=&quot;headerlink&quot; title=&quot;01 hello world&quot;&gt;&lt;/a&gt;01 hello world&lt;/h2&gt;&lt;p&gt;demo creating a simple
+      
+    
+    </summary>
+    
+    
+      <category term="redux" scheme="http://dearfrankg.github.io/tags/redux/"/>
+    
+      <category term="example" scheme="http://dearfrankg.github.io/tags/example/"/>
+    
+      <category term="reactjs" scheme="http://dearfrankg.github.io/tags/reactjs/"/>
     
   </entry>
   

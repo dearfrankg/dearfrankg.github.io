@@ -115,7 +115,7 @@
     
         <article class="post-abstract">
             <div class="post-title">
-                <h2><a class="post-title-link" href="/2018/04/05/20180405-redux-training/">redux training</a></h2>
+                <h2><a class="post-title-link" href="/2018/04/05/20180405-redux-testing/">redux testing</a></h2>
             </div>
             <div class="post-meta">
                 <span class="post-time">2018-04-05</span>
@@ -123,56 +123,30 @@
             </div>
             <div class="post-content">
                 
-                    <h2 id="01-hello-world"><a href="#01-hello-world" class="headerlink" title="01 hello world"></a>01 hello world</h2><p>demo creating a simple react app with a single .js file.</p>
+                    <h2 id="Testing-with-Jest-snapshots"><a href="#Testing-with-Jest-snapshots" class="headerlink" title="Testing with Jest snapshots"></a>Testing with Jest snapshots</h2><h3 id="testing-actions"><a href="#testing-actions" class="headerlink" title="testing actions"></a>testing actions</h3><p>action creator</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should create an action to add a recipe'</span>, () =&gt; &#123;</span><br><span class="line">  expect(actions.addRecipe(<span class="string">'test'</span>)).toMatchSnapshot()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>dynamic action creator</p>
+<p>logic emits different object based on input parameter</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="literal">undefined</span>, <span class="literal">null</span>, <span class="string">''</span>].forEach(<span class="function">(<span class="params">param</span>) =&gt;</span></span><br><span class="line">  it(<span class="string">`should add recipe with default parameter <span class="subst">$&#123;param&#125;</span>`</span>, () =&gt; &#123;</span><br><span class="line">    expect(actions.addRecipe(param)).toMatchSnapshot()</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="testing-asynchronous-actions"><a href="#testing-asynchronous-actions" class="headerlink" title="testing asynchronous actions"></a>testing asynchronous actions</h3><p>they discourage the use of asynchronous action creators</p>
 <ul>
-<li><code>react run index.js</code></li>
+<li>create mock response</li>
+<li>stub fetch success and error</li>
+<li>setup mock fetch</li>
+<li>fetch</li>
 </ul>
-<h2 id="02-add-some-sass"><a href="#02-add-some-sass" class="headerlink" title="02 add some sass"></a>02 add some sass</h2><p>demo sass in your simple app.</p>
-<ul>
-<li><code>react run index.js --plugins sass</code></li>
-</ul>
-<h2 id="03-add-professional-file-structure"><a href="#03-add-professional-file-structure" class="headerlink" title="03 add professional file structure"></a>03 add professional file structure</h2><p>demo app with professional file structure.</p>
-<ul>
-<li><code>npm start</code></li>
-</ul>
-<h2 id="04-todomvc-redux"><a href="#04-todomvc-redux" class="headerlink" title="04 todomvc-redux"></a>04 todomvc-redux</h2><p>demo the ubiquitous todomvc app built with redux</p>
-<h3 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h3><ul>
-<li>redux actions</li>
-</ul>
-<p>Actions are payloads of information that send data to your store. The only source of information for the store. You send them to the store using <code>store.dispatch()</code>.</p>
-<ul>
-<li>redux reducers</li>
-</ul>
-<p>Reducers specifies how the application state changes in response to an action.</p>
-<ul>
-<li>redux middleware</li>
-</ul>
-<p>Middleware provides a hook that allows access to the action before and after it reaches the reducer.</p>
-<ul>
-<li>redux store</li>
-</ul>
-<p>The store is an object that:</p>
-<ul>
-<li>holds app state</li>
-<li>allows access to state via <code>getState()</code></li>
-<li>allows updating state via <code>dispatch(action)</code></li>
-<li>allows registering/unregistering listeners <code>(un)subscribe(listener)</code></li>
-</ul>
-<h3 id="jest"><a href="#jest" class="headerlink" title="jest"></a>jest</h3><p>zero config testing platform</p>
-<p>features:</p>
-<ul>
-<li>snapshots</li>
-<li>awesome cli interface</li>
-<li>powerful mocking library</li>
-<li>code coverage</li>
-<li>parallelizes and sandboxes tests</li>
-</ul>
-<ul>
-<li>test actions</li>
-<li>test reducers</li>
-<li>test middleware</li>
-<li>test store</li>
-</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Async action creator</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> setRecipe = <span class="function">(<span class="params">id, data</span>) =&gt;</span> (&#123;</span><br><span class="line">  type: actions.SET_RECIPE,</span><br><span class="line">  payload: &#123; id, data &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> fetchRecipe = <span class="function"><span class="params">id</span> =&gt;</span> dispatch =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> fetch(<span class="string">'recipe/'</span> + id)</span><br><span class="line">  .then(<span class="function"><span class="params">response</span> =&gt;</span> response.json())</span><br><span class="line">  .then(<span class="function"><span class="params">json</span> =&gt;</span> dispatch(setRecipe(id, json)))</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a fake response object</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> mockResponse = <span class="function">(<span class="params">status, statusText, response</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">window</span>.Response(response, &#123;</span><br><span class="line">    status: status,</span><br><span class="line">    statusText: statusText,</span><br><span class="line">    headers: &#123;</span><br><span class="line">      <span class="string">'Content-type'</span>: <span class="string">'application/json'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> handleResponse = <span class="function">(<span class="params">mockedUrl, response</span>) =&gt;</span></span><br><span class="line">  <span class="built_in">window</span>.fetch = jest.fn().mockImplementation(<span class="function"><span class="params">url</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (url === mockedUrl) &#123;</span><br><span class="line">      <span class="keyword">return</span> response;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span>(<span class="string">'Unknown URL: '</span> + url);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> mockFetch = <span class="function">(<span class="params">mockedUrl, status, data</span>) =&gt;</span></span><br><span class="line">  handleResponse(</span><br><span class="line">  mockedUrl,</span><br><span class="line">  <span class="built_in">Promise</span>.resolve(mockResponse(status, <span class="literal">null</span>, data)));</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> mockFetchError = <span class="function">(<span class="params">mockedUrl, state, error</span>) =&gt;</span></span><br><span class="line">  handleResponse(</span><br><span class="line">  mockedUrl,</span><br><span class="line">  <span class="built_in">Promise</span>.reject(mockResponse(state, error, <span class="string">'&#123;&#125;'</span>)));</span><br><span class="line"></span><br><span class="line"><span class="comment">// The mock fetch() call will return a resolved promise</span></span><br><span class="line"><span class="comment">// that is similar to the real result from a fetch()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Sample mocked fetch code</span></span><br><span class="line">mockFetch(<span class="number">200</span>, <span class="string">'&#123;"key":"value"&#125;'</span>);</span><br><span class="line">fetch(<span class="string">'test.json'</span>)</span><br></pre></td></tr></table></figure>
+<p>Unlike simple action creators, our code now relies on dispatch() being used, which forces us to<br>create a mock instance of a store. To do so, we will use the <code>redux-mock-store</code> library:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Create a mock store</span></span><br><span class="line"><span class="keyword">import</span> configureStore <span class="keyword">from</span> <span class="string">'redux-mock-store'</span>;</span><br><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mockStore = configureStore([ thunk ]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Structure of an async test block</span></span><br><span class="line">describe(<span class="string">'fetch recipe'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> store;</span><br><span class="line">  beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> store = mockStore(&#123;&#125;));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Full async test</span></span><br><span class="line">  it(<span class="string">'should fetch recipe if it exists'</span>, () =&gt; &#123;</span><br><span class="line">    mockFetch(<span class="string">'recipe/100'</span>, <span class="number">200</span>, <span class="string">'&#123;"title":"hello"&#125;'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> store.dispatch(actions.fetchRecipe(<span class="number">100</span>))</span><br><span class="line">      .then(<span class="function"><span class="params">()</span> =&gt;</span> expect(store.getActions()).toMatchSnapshot())</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Integration-Tests"><a href="#Integration-Tests" class="headerlink" title="Integration Tests"></a>Integration Tests</h3><p>The role of the integration tests is to verify that all the parts of the application work correctly together. A comprehensive unit test suite will ensure all the reducers, action creators, middleware, and libraries are correct. With integration tests, we will try to run them together in a single test to check system-wide behavior.</p>
+<p>basic integration test include 4 steps</p>
+<ol>
+<li>verify initial state</li>
+<li>mock external dependencies</li>
+<li>dispatch an action</li>
+<li>verify that the state has changed and any external APIs were called as expected</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'store'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; fetchRecipes &#125; <span class="keyword">from</span> <span class="string">'actions/recipes'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; mockFetch &#125; <span class="keyword">from</span> <span class="string">'test-utils'</span>;</span><br><span class="line"></span><br><span class="line">describe(<span class="string">'integration'</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="string">'should fetch recipes from server'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> data = [&#123; <span class="attr">title</span>: <span class="string">'test'</span> &#125;];</span><br><span class="line"></span><br><span class="line">    expect(store.getState().recipes).toEqual([]);                   <span class="comment">// verify initial state</span></span><br><span class="line">    mockFetch(<span class="string">'recipes.json'</span>, <span class="number">200</span>, <span class="built_in">JSON</span>.stringify(data));           <span class="comment">// mock dependencies</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> store.dispatch(fetchRecipes())                           <span class="comment">// dispatch action</span></span><br><span class="line">      .then(<span class="function"><span class="params">()</span> =&gt;</span> expect(store.getState().recipes).toEqual(data));  <span class="comment">// verify state</span></span><br><span class="line"> &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
                 
             </div>

@@ -535,20 +535,77 @@ compose(map(f), filter(compose(p, f))) === compose(filter(p), map(f))
     
         <article class="post-abstract">
             <div class="post-title">
-                <h2><a class="post-title-link" href="/2015/09/22/2015/20150922-promises-using-es6/">promises using es6</a></h2>
+                <h2><a class="post-title-link" href="/2016/07/19/2016/20160719-python-virtual-environments/">python virtual environments</a></h2>
             </div>
             <div class="post-meta">
-                <span class="post-time">2015-09-22</span>
+                <span class="post-time">2016-07-19</span>
                 
             </div>
             <div class="post-content">
                 
-                    <blockquote>
-<p>Remember the <code>.then</code> section must have a function.</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// BAD</span></span><br><span class="line">getJSON(<span class="string">'story.json'</span>)</span><br><span class="line">    .then(somePromise)</span><br><span class="line"></span><br><span class="line"><span class="comment">// GOOD</span></span><br><span class="line">getJSON(<span class="string">'story.json'</span>)</span><br><span class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> somePromise</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">1. Start a spinner to indicate loading</span></span><br><span class="line"><span class="comment">1. Fetch some JSON for a story, which gives us the title, and urls for each chapter</span></span><br><span class="line"><span class="comment">1. Add title to the page</span></span><br><span class="line"><span class="comment">1. Fetch each chapter</span></span><br><span class="line"><span class="comment">1. Add the story to the page</span></span><br><span class="line"><span class="comment">1. Stop the spinner</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line"></span><br><span class="line">    storyUrl: &#123;</span><br><span class="line">        bookname: <span class="string">'moby dick'</span>,</span><br><span class="line">        chapterUrls: [</span><br><span class="line">            <span class="string">'chapter1Url'</span>,</span><br><span class="line">            <span class="string">'chapter2Url'</span>,</span><br><span class="line">            <span class="string">'chapter3Url'</span>,</span><br><span class="line">            <span class="string">'chapter4Url'</span>,</span><br><span class="line">            <span class="string">'chapter5Url'</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    chapter1Url: &#123;<span class="attr">html</span>: <span class="string">'we be chapter1'</span>&#125;,</span><br><span class="line">    chapter2Url: &#123;<span class="attr">html</span>: <span class="string">'we be chapter2'</span>&#125;,</span><br><span class="line">    chapter3Url: &#123;<span class="attr">html</span>: <span class="string">'we be chapter3'</span>&#125;,</span><br><span class="line">    chapter4Url: &#123;<span class="attr">html</span>: <span class="string">'we be chapter4'</span>&#125;,</span><br><span class="line">    chapter5Url: &#123;<span class="attr">html</span>: <span class="string">'we be chapter5'</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> startSpinner = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'starting spinner...'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> stopSpinner = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'stopping spinner...'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> get = <span class="function">(<span class="params">filename</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> delay = <span class="built_in">Math</span>.random() * <span class="number">2000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> response = <span class="built_in">JSON</span>.stringify(data[filename]);</span><br><span class="line">            resolve(response)</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> getJSON = <span class="function">(<span class="params">filename</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> get(filename)</span><br><span class="line">        .then(<span class="built_in">JSON</span>.parse)</span><br><span class="line">        .catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'error: '</span>, err);</span><br><span class="line">            <span class="keyword">throw</span> err;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> addToPage = <span class="function">(<span class="params">msg</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'adding: '</span>, msg);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> main = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">    startSpinner()</span><br><span class="line"></span><br><span class="line">    getJSON(<span class="string">'storyUrl'</span>)</span><br><span class="line">        .then(<span class="function">(<span class="params">story</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">            addToPage(story.bookname);</span><br><span class="line"></span><br><span class="line">            story.chapterUrls</span><br><span class="line">                .map(getJSON)</span><br><span class="line">                .reduce(<span class="function">(<span class="params">sequence, chapterPromise</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> sequence</span><br><span class="line">                        .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                            <span class="keyword">return</span> chapterPromise</span><br><span class="line">                        &#125;)</span><br><span class="line">                        .then(<span class="function">(<span class="params">chapter</span>) =&gt;</span> &#123;</span><br><span class="line">                            addToPage(chapter.html)</span><br><span class="line">                        &#125;)</span><br><span class="line">                &#125;, <span class="built_in">Promise</span>.resolve())</span><br><span class="line">                .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'Error: '</span>, err);</span><br><span class="line">                &#125;)</span><br><span class="line">                .then(stopSpinner)</span><br><span class="line"></span><br><span class="line">        &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">starting spinner...</span><br><span class="line">adding:  moby dick</span><br><span class="line">adding:  we be chapter1</span><br><span class="line">adding:  we be chapter2</span><br><span class="line">adding:  we be chapter3</span><br><span class="line">adding:  we be chapter4</span><br><span class="line">adding:  we be chapter5</span><br><span class="line">stopping spinner...</span><br><span class="line">[Finished in 3.8s]</span><br></pre></td></tr></table></figure>
+                    <h2 id="Install-pyenv"><a href="#Install-pyenv" class="headerlink" title="Install pyenv"></a>Install pyenv</h2><pre><code>brew update
+brew install pyenv
+
+// add to .bash_profile
+# enable python pyenv
+if which pyenv &gt; /dev/null; then eval &quot;$(pyenv init -)&quot;; fi
+</code></pre><h2 id="Install-python-version"><a href="#Install-python-version" class="headerlink" title="Install python version"></a>Install python version</h2><pre><code>// see versions
+$ pyenv versions
+* system (set by /Users/frankg/.pyenv/version)
+
+// install version 3.5.2
+pyenv install 3.5.2
+
+// see versions
+$ pyenv versions
+* system (set by /Users/frankg/.pyenv/version)
+  3.5.2
+</code></pre><h2 id="globally-configure-a-python-version"><a href="#globally-configure-a-python-version" class="headerlink" title="globally configure a python version"></a>globally configure a python version</h2><pre><code>// see global config
+$ pyenv global
+system
+
+// set global config
+$ pyenv global 3.52
+$ pyenv global
+3.5.2
+
+// set global config
+$ pyenv global system
+$ pyenv global
+system
+
+// there is no unset
+
+// see python path
+pyenv which python
+/Users/frankg/.pyenv/versions/3.5.2/bin/python
+</code></pre><h2 id="configure-directory-to-use-version"><a href="#configure-directory-to-use-version" class="headerlink" title="configure directory to use version"></a>configure directory to use version</h2><pre><code>// see directory config
+$ pyenv local
+pyenv: no local version configured for this directory
+
+// set directory config
+$ pyenv local 3.5.2
+$ pyenv local
+3.5.2
+
+// unset directory config
+$ pyenv local --unset
+$ pyenv local
+pyenv: no local version configured for this directory
+</code></pre><h2 id="configure-shell-to-use-version"><a href="#configure-shell-to-use-version" class="headerlink" title="configure shell to use version"></a>configure shell to use version</h2><pre><code>// see shell config
+$ pyenv shell
+pyenv: no shell-specific version configured
+
+// set shell config
+$ pyenv shell 3.5.2
+$ pyenv shell
+3.5.2
+
+// unset shell config
+$ pyenv shell --unset
+$ pyenv shell
+pyenv: no shell-specific version configured
+</code></pre>
                 
             </div>
         </article>

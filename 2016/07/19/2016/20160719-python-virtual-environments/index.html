@@ -76,50 +76,90 @@
         <div class="posts">
     <article class="post-whole">
         <div class="post-title">
-            <h2 class="title">Docker – My Docker Infrastructure</h2>
+            <h2 class="title">python virtual environments</h2>
             <div class="post-meta">
-                <span class="post-time">2016-11-18</span>
+                <span class="post-time">2016-07-19</span>
                 
                 <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
             </div>
         </div>
         <div class="post-toc" id="post-toc">
     <strong class="post-toc-title">TOC</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Firing-up-the-monster"><span class="toc-text">Firing up the monster</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Tools"><span class="toc-text">Tools</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-firewall"><span class="toc-text">The firewall</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Install-pyenv"><span class="toc-text">Install pyenv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Install-python-version"><span class="toc-text">Install python version</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#globally-configure-a-python-version"><span class="toc-text">globally configure a python version</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#configure-directory-to-use-version"><span class="toc-text">configure directory to use version</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#configure-shell-to-use-version"><span class="toc-text">configure shell to use version</span></a></li></ol>
     <div class="back-to-top" id="back-to-top">
         <a href="javascript:void(0);">back to top</a>
     </div>
 </div>
 
         <div class="post-content">
-            <p>I’m going to tell you how I get my Docker Infrastructure up and running.</p>
-<h2 id="Firing-up-the-monster"><a href="#Firing-up-the-monster" class="headerlink" title="Firing up the monster"></a>Firing up the monster</h2><h4 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h4><ul>
-<li>docker tools (docker, docker-machine, docker-machine-driver-xhyve)</li>
-<li>bash scripts</li>
-<li>rancher</li>
-<li>nginx</li>
-<li>nginx-proxy</li>
-</ul>
-<h4 id="The-firewall"><a href="#The-firewall" class="headerlink" title="The firewall"></a>The firewall</h4><p>Docker does not configure the firewall to accept incoming conections.  As a result we have to use nginx as a reverse-proxy to get past the firewall.</p>
-<p>That means when we call <code>mydomain.com</code> my DNS server and router are configured to go to my laptop.  When they reach my laptop on port 80</p>
-<p>This is the route that you will take to get to my services.</p>
-<ol>
-<li>DNS and router -&gt; laptop</li>
-<li>laptop firewall -&gt; port 80 to nginx</li>
-<li>nginx -&gt; nginx-proxy</li>
-<li>nginx-proxy auto-configures itself by scanning containers to see which domain they are configured for.</li>
-<li>service containers set an env var to identify the domain they handle</li>
-</ol>
-<p>My services are mapped to the following domains:</p>
-<pre><code>debugtime.com         -&gt; nginx -&gt; nginx-proxy -&gt; reactioncommerce
-rancher.debugtime.com -&gt; nginx -&gt; nginx-proxy -&gt; rancher
-blog.debugtime.com    -&gt; nginx -&gt; nginx-proxy -&gt; hexo
+            <h2 id="Install-pyenv"><a href="#Install-pyenv" class="headerlink" title="Install pyenv"></a>Install pyenv</h2><pre><code>brew update
+brew install pyenv
+
+// add to .bash_profile
+# enable python pyenv
+if which pyenv &gt; /dev/null; then eval &quot;$(pyenv init -)&quot;; fi
+</code></pre><h2 id="Install-python-version"><a href="#Install-python-version" class="headerlink" title="Install python version"></a>Install python version</h2><pre><code>// see versions
+$ pyenv versions
+* system (set by /Users/frankg/.pyenv/version)
+
+// install version 3.5.2
+pyenv install 3.5.2
+
+// see versions
+$ pyenv versions
+* system (set by /Users/frankg/.pyenv/version)
+  3.5.2
+</code></pre><h2 id="globally-configure-a-python-version"><a href="#globally-configure-a-python-version" class="headerlink" title="globally configure a python version"></a>globally configure a python version</h2><pre><code>// see global config
+$ pyenv global
+system
+
+// set global config
+$ pyenv global 3.52
+$ pyenv global
+3.5.2
+
+// set global config
+$ pyenv global system
+$ pyenv global
+system
+
+// there is no unset
+
+// see python path
+pyenv which python
+/Users/frankg/.pyenv/versions/3.5.2/bin/python
+</code></pre><h2 id="configure-directory-to-use-version"><a href="#configure-directory-to-use-version" class="headerlink" title="configure directory to use version"></a>configure directory to use version</h2><pre><code>// see directory config
+$ pyenv local
+pyenv: no local version configured for this directory
+
+// set directory config
+$ pyenv local 3.5.2
+$ pyenv local
+3.5.2
+
+// unset directory config
+$ pyenv local --unset
+$ pyenv local
+pyenv: no local version configured for this directory
+</code></pre><h2 id="configure-shell-to-use-version"><a href="#configure-shell-to-use-version" class="headerlink" title="configure shell to use version"></a>configure shell to use version</h2><pre><code>// see shell config
+$ pyenv shell
+pyenv: no shell-specific version configured
+
+// set shell config
+$ pyenv shell 3.5.2
+$ pyenv shell
+3.5.2
+
+// unset shell config
+$ pyenv shell --unset
+$ pyenv shell
+pyenv: no shell-specific version configured
 </code></pre>
         </div>
         
         <div class="post-tag">
             
-            <a class="tag" href="/tags/docker/" title="docker">docker</a>
+            <a class="tag" href="/tags/python/" title="python">python</a>
             
         </div>
         
@@ -128,15 +168,15 @@ blog.debugtime.com    -&gt; nginx -&gt; nginx-proxy -&gt; hexo
 <div class="paginator">
     
         
-            <a class="prev" href="/2016/11/19/2016/20161119-gitlab-setup/">
+            <a class="prev" href="/2016/08/02/2016/20160809-guide-to-FP-part1/">
                 <i class="iconfont icon-prev"></i>
-                <span class="nav-default">Gitlab Setup</span>
+                <span class="nav-default">Frisby&#39;s Mostly Adequate Guide to Functional Programming - Part 1</span>
                 <span class="nav-mobile">Prev</span>
             </a>
         
         
-            <a class="next" href="/2016/11/18/2016/20161118-nginx-proxy/">
-                <span class="nav-default">Docker – nginx-proxy</span>
+            <a class="next" href="/2015/09/22/2015/20150922-promises-using-es6/">
+                <span class="nav-default">promises using es6</span>
                 <span class="nav-mobile">Next</span>
                 <i class="iconfont icon-next"></i>
             </a>
