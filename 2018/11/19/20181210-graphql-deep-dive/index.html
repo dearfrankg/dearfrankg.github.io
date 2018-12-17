@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">graphQL deep dive</h2>
+            <div class="post-meta">
+                <span class="post-time">2018-11-19</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-GraphQL"><span class="toc-text">Introduction to GraphQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Project"><span class="toc-text">The Project</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Making-Queries-frontend-preview"><span class="toc-text">Making Queries (frontend preview)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Express-Setup"><span class="toc-text">Express Setup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Schema"><span class="toc-text">The Schema</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Resolve-Function"><span class="toc-text">The Resolve Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Testing-Using-Graphiql"><span class="toc-text">Testing Using Graphiql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adding-a-Database"><span class="toc-text">Adding a Database</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Type-Relations"><span class="toc-text">Type Relations</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#More-Root-Queries"><span class="toc-text">More Root Queries</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mutations"><span class="toc-text">Mutations</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <h2 id="Introduction-to-GraphQL"><a href="#Introduction-to-GraphQL" class="headerlink" title="Introduction to GraphQL"></a>Introduction to GraphQL</h2><p><strong>Why GraphQL</strong></p>
+<ul>
+<li>allows for more flexible and efficient approach than rest</li>
+<li>all rest endpoints reduced to one</li>
+<li>many requests reduced to one request</li>
+<li>get exactly the data you want</li>
+<li>walking the graph of relationships via one supercharged enpoint</li>
+</ul>
+<p><strong>GraphQL is technology agnostic!</strong></p>
+<ul>
+<li>Angular or Vue</li>
+<li>SQL or NoSQL</li>
+<li>Express or Koa</li>
+</ul>
+<h2 id="The-Project"><a href="#The-Project" class="headerlink" title="The Project"></a>The Project</h2><p><strong>Requirements</strong></p>
+<ul>
+<li>node</li>
+<li>visual-studio-code</li>
+<li>project: <a href="https://github.com/.." target="_blank" rel="noopener">https://github.com/..</a>.</li>
+</ul>
+<p><strong>Project Stack</strong></p>
+<ul>
+<li>Server (node)<ul>
+<li>express app</li>
+<li>graphQL server</li>
+</ul>
+</li>
+<li>Database<ul>
+<li>MongoDB</li>
+<li>mlab</li>
+</ul>
+</li>
+<li>Client<ul>
+<li>React App</li>
+<li>Apollo</li>
+</ul>
+</li>
+<li>Graphiql<ul>
+<li>graphql tool</li>
+</ul>
+</li>
+</ul>
+<h2 id="Making-Queries-frontend-preview"><a href="#Making-Queries-frontend-preview" class="headerlink" title="Making Queries (frontend preview)"></a>Making Queries (frontend preview)</h2><p><strong>Using Graphiql</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    books&#123;</span><br><span class="line">        name</span><br><span class="line">        genre</span><br><span class="line">        author&#123;</span><br><span class="line">            name</span><br><span class="line">            age</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Using JS</strong></p>
+<figure class="highlight js"><figcaption><span>javascript query</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getBooks = gql<span class="string">`</span></span><br><span class="line"><span class="string">  &#123;</span></span><br><span class="line"><span class="string">    books &#123;</span></span><br><span class="line"><span class="string">      name</span></span><br><span class="line"><span class="string">      genre</span></span><br><span class="line"><span class="string">      author &#123;</span></span><br><span class="line"><span class="string">        name</span></span><br><span class="line"><span class="string">        age</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">`</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="Express-Setup"><a href="#Express-Setup" class="headerlink" title="Express Setup"></a>Express Setup</h2><ul>
+<li><code>npm install express graphql express-graphql</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>);</span><br><span class="line"><span class="keyword">const</span> graphqlHTTP = <span class="built_in">require</span>(<span class="string">"express-graphql"</span>);</span><br><span class="line"><span class="keyword">const</span> Schema = <span class="built_in">require</span>(<span class="string">"./schema/schema"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">"/graphql"</span>, graphqlHTTP(&#123; Schema, <span class="attr">graphiql</span>: <span class="literal">true</span> &#125;));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">4000</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"listening on pot 4000"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="The-Schema"><a href="#The-Schema" class="headerlink" title="The Schema"></a>The Schema</h2><p><strong>Schema Definition Language (SDL)</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>);</span><br><span class="line"><span class="keyword">const</span> graphqlHTTP = <span class="built_in">require</span>(<span class="string">"express-graphql"</span>);</span><br><span class="line"><span class="keyword">const</span> Schema = <span class="built_in">require</span>(<span class="string">"./schema/schema"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">"/graphql"</span>, graphqlHTTP(&#123; Schema &#125;));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">4000</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"listening on pot 4000"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="The-Resolve-Function"><a href="#The-Resolve-Function" class="headerlink" title="The Resolve Function"></a>The Resolve Function</h2><figure class="highlight js"><figcaption><span>./schema/schema.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> graphql = <span class="built_in">require</span>(<span class="string">"graphql"</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; GraphQLObjectType, GraphQLStringType, GraphQLSchema &#125; = graphql;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> books = [</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">"book1"</span>, <span class="attr">genre</span>: <span class="string">"self-help"</span>, <span class="attr">id</span>: <span class="string">"1"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">"book2"</span>, <span class="attr">genre</span>: <span class="string">"self-help"</span>, <span class="attr">id</span>: <span class="string">"2"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">"book3"</span>, <span class="attr">genre</span>: <span class="string">"self-help"</span>, <span class="attr">id</span>: <span class="string">"3"</span> &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BookType = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"Book"</span>,</span><br><span class="line">  fields: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    id: &#123; <span class="attr">type</span>: GraphQLStringType &#125;,</span><br><span class="line">    name: &#123; <span class="attr">type</span>: GraphQLStringType &#125;,</span><br><span class="line">    genre: &#123; <span class="attr">type</span>: GraphQLStringType &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> RootQuery = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"RootQueryType"</span>,</span><br><span class="line">  fields: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    book: &#123;</span><br><span class="line">      type: BookType,</span><br><span class="line">      args: &#123; <span class="attr">id</span>: &#123; <span class="attr">type</span>: GraphQLStringType &#125; &#125;,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="comment">// code to get data from db</span></span><br><span class="line">        <span class="keyword">return</span> books.filter(<span class="function"><span class="params">book</span> =&gt;</span> book.id === args.id);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="keyword">new</span> GraphQLSchema(&#123;</span><br><span class="line">  query: RootQuery</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Testing-Using-Graphiql"><a href="#Testing-Using-Graphiql" class="headerlink" title="Testing Using Graphiql"></a>Testing Using Graphiql</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    books(id: &quot;1&quot;)&#123;</span><br><span class="line">        name</span><br><span class="line">        genre</span><br><span class="line">        id</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Adding-a-Database"><a href="#Adding-a-Database" class="headerlink" title="Adding a Database"></a>Adding a Database</h2><p><strong>Connecting to mLab</strong></p>
+<p>setup mlab nosql database</p>
+<ul>
+<li><a href="mlab.com">mlab</a><ul>
+<li>name: gql-ninja</li>
+<li>user: username / test123</li>
+<li>connection string:<ul>
+<li><code>mongodb://&lt;dbuser&gt;:&lt;dbpassword&gt;@ds041327.mlab.com:41327/gql-ninja</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>configure express to talk to the database</p>
+<ul>
+<li><code>npm install mongoose</code></li>
+</ul>
+<figure class="highlight js"><figcaption><span>./app.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>);</span><br><span class="line"><span class="keyword">const</span> graphqlHTTP = <span class="built_in">require</span>(<span class="string">"express-graphql"</span>);</span><br><span class="line"><span class="keyword">const</span> schema = <span class="built_in">require</span>(<span class="string">"./schema/schema"</span>);</span><br><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">"mongoose"</span>);</span><br><span class="line"></span><br><span class="line">mongoose.connect(<span class="string">"mongodb://frankg:test123@ds041327.mlab.com:41327/gql-ninja"</span>);</span><br><span class="line">mongoose.connection.once(<span class="string">"open"</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"connected to database"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">"/graphql"</span>, graphqlHTTP(&#123; schema, <span class="attr">graphiql</span>: <span class="literal">true</span> &#125;));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">4000</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Listening on port 4000"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>Mongoose Models</strong></p>
+<figure class="highlight js"><figcaption><span>./models/author.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">"mongoose"</span>);</span><br><span class="line"><span class="keyword">const</span> Schema = mongoose.Schema;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> authorSchema = <span class="keyword">new</span> Schema(&#123;</span><br><span class="line">  name: <span class="built_in">String</span>,</span><br><span class="line">  age: <span class="built_in">Number</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = mongoose.model(<span class="string">"Author"</span>, authorSchema);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>./models/book.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">"mongoose"</span>);</span><br><span class="line"><span class="keyword">const</span> Schema = mongoose.Schema;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bookSchema = <span class="keyword">new</span> Schema(&#123;</span><br><span class="line">  name: <span class="built_in">String</span>,</span><br><span class="line">  genre: <span class="built_in">String</span>,</span><br><span class="line">  authorId: <span class="built_in">String</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = mongoose.model(<span class="string">"Book"</span>, bookSchema);</span><br></pre></td></tr></table></figure>
+<p><strong>Updating the Resolve Functions</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">const</span> Book = <span class="built_in">require</span>(<span class="string">"../models/book"</span>);</span><br><span class="line"><span class="keyword">const</span> Author = <span class="built_in">require</span>(<span class="string">"../models/author"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> AuthorType = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"Author"</span>,</span><br><span class="line">  fields: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    id: &#123; <span class="attr">type</span>: GraphQLID &#125;,</span><br><span class="line">    name: &#123; <span class="attr">type</span>: GraphQLStringType &#125;,</span><br><span class="line">    age: &#123; <span class="attr">type</span>: GraphQLInt &#125;,</span><br><span class="line">    books: &#123;</span><br><span class="line">      type: <span class="keyword">new</span> GraphQLList(BookType),</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> Book.findById(parent.id);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BookType = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"Book"</span>,</span><br><span class="line">  fields: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    id: &#123; <span class="attr">type</span>: GraphQLID &#125;,</span><br><span class="line">    name: &#123; <span class="attr">type</span>: GraphQLStringType &#125;,</span><br><span class="line">    genre: &#123; <span class="attr">type</span>: GraphQLStringType &#125;,</span><br><span class="line">    author: &#123;</span><br><span class="line">      type: AuthorType,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> Author.findById(parent.authorId);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> RootQuery = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"RootQueryType"</span>,</span><br><span class="line">  fields: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    book: &#123;</span><br><span class="line">      type: BookType,</span><br><span class="line">      args: &#123; <span class="attr">id</span>: &#123; <span class="attr">type</span>: GraphQLID &#125; &#125;,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> Book.findById(args.id);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    author: &#123;</span><br><span class="line">      type: AuthorType,</span><br><span class="line">      args: &#123; <span class="attr">id</span>: &#123; <span class="attr">type</span>: GraphQLID &#125; &#125;,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> Author.findById(args.id);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    books: &#123;</span><br><span class="line">      type: <span class="keyword">new</span> GraphQLList(BookType),</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> Book(&#123;&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    authors: &#123;</span><br><span class="line">      type: <span class="keyword">new</span> GraphQLList(AuthorType),</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> Author(&#123;&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+<h2 id="Type-Relations"><a href="#Type-Relations" class="headerlink" title="Type Relations"></a>Type Relations</h2><figure class="highlight js"><figcaption><span>./schema/schema.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> AuthorType = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"Author"</span>,</span><br><span class="line">  fields: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    id: &#123; <span class="attr">type</span>: GraphQLID &#125;,</span><br><span class="line">    name: &#123; <span class="attr">type</span>: GraphQLStringType &#125;,</span><br><span class="line">    age: &#123; <span class="attr">type</span>: GraphQLInt &#125;,</span><br><span class="line">    books: &#123;</span><br><span class="line">      type: <span class="keyword">new</span> GraphQLList(BookType),</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> books.filter(<span class="function"><span class="params">book</span> =&gt;</span> book.authorId === parent.id);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+<h2 id="More-Root-Queries"><a href="#More-Root-Queries" class="headerlink" title="More Root Queries"></a>More Root Queries</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> RootQuery = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"RootQueryType"</span>,</span><br><span class="line">  fields: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    book: &#123;</span><br><span class="line">      type: BookType,</span><br><span class="line">      args: &#123; <span class="attr">id</span>: &#123; <span class="attr">type</span>: GraphQLID &#125; &#125;,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> books.filter(<span class="function"><span class="params">book</span> =&gt;</span> book.id === args.id);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    author: &#123;</span><br><span class="line">      type: AuthorType,</span><br><span class="line">      args: &#123; <span class="attr">id</span>: &#123; <span class="attr">type</span>: GraphQLID &#125; &#125;,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> authors.filter(<span class="function"><span class="params">author</span> =&gt;</span> author.id === args.id);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    books: &#123;</span><br><span class="line">      type: <span class="keyword">new</span> GraphQLList(BookType),</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> books;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    authors: &#123;</span><br><span class="line">      type: <span class="keyword">new</span> GraphQLList(AuthorType),</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> authors;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="keyword">new</span> GraphQLSchema(&#123;</span><br><span class="line">  query: RootQuery</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Mutations"><a href="#Mutations" class="headerlink" title="Mutations"></a>Mutations</h2><ul>
+<li>mutations allow us to change data</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Mutation = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"Mutation"</span>,</span><br><span class="line">  fields: &#123;</span><br><span class="line">    addAuthor: &#123;</span><br><span class="line">      type: AuthorType,</span><br><span class="line">      args: &#123;</span><br><span class="line">        name: &#123; <span class="attr">type</span>: GraphQLString &#125;,</span><br><span class="line">        age: &#123; <span class="attr">type</span>: GraphQLInt &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">let</span> author = <span class="keyword">new</span> Author(&#123;</span><br><span class="line">          name: args.name,</span><br><span class="line">          age: args.age</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> author.save();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    addBook: &#123;</span><br><span class="line">      type: BookType,</span><br><span class="line">      args: &#123;</span><br><span class="line">        name: &#123; <span class="attr">type</span>: GraphQLString &#125;,</span><br><span class="line">        genre: &#123; <span class="attr">type</span>: GraphQLString &#125;,</span><br><span class="line">        authorId: &#123; <span class="attr">type</span>: GraphQLID &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">let</span> book = <span class="keyword">new</span> Book(&#123;</span><br><span class="line">          name: args.name,</span><br><span class="line">          genre: args.genre,</span><br><span class="line">          authorId: args.authorId</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> book.save();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="keyword">new</span> GraphQLSchema(&#123;</span><br><span class="line">  query: RootQuery,</span><br><span class="line">  mutation: Mutation</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://goo.gl/3mNaKF" target="_blank" rel="noopener">Build a Project with GraphQL, Node, MongoDB</a></li>
+<li><a href="https://goo.gl/wQPPNL" target="_blank" rel="noopener">GraphQL Full Course - Novice to Expert</a></li>
+</ul>
+
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2018/12/15/20181215-example-databases/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">SQL Review</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2018/11/19/20181119-intro-to-graphql/">
+                <span class="nav-default">intro to graphQL</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/dearfrankg">Frank Gutierrez</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

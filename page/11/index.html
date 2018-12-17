@@ -77,6 +77,98 @@
     
         <article class="post-abstract">
             <div class="post-title">
+                <h2><a class="post-title-link" href="/2017/03/14/2017/20170314-state-of-development/">state of development</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2017-03-14</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <p>I’ve covered a lot of ground in the last couple of weeks I wanted to dump it onto this blog to remember.</p>
+<h1 id="Ranking-Dev-Tools"><a href="#Ranking-Dev-Tools" class="headerlink" title="Ranking Dev Tools"></a>Ranking Dev Tools</h1><h2 id="Web-Dev-Tools-by-Preference"><a href="#Web-Dev-Tools-by-Preference" class="headerlink" title="Web Dev Tools by Preference"></a>Web Dev Tools by Preference</h2><h3 id="Web-App-Creation-Frameworks"><a href="#Web-App-Creation-Frameworks" class="headerlink" title="Web App Creation Frameworks"></a>Web App Creation Frameworks</h3><h4 id="1-nwb"><a href="#1-nwb" class="headerlink" title="#1 nwb"></a>#1 nwb</h4><p>nwb (<em>node webpack and babel</em>)</p>
+<ul>
+<li>produces apps, components and libraries.</li>
+<li>supports react/preact/inferno/react-native</li>
+<li>quick-start with a single .js file.</li>
+<li>optional configuration</li>
+<li>automatic dependency installation</li>
+<li>thought out skeleton supports delivery to npm</li>
+<li>includes testing and coverage support</li>
+</ul>
+<h4 id="2-create-react-app"><a href="#2-create-react-app" class="headerlink" title="#2 create-react-app"></a>#2 create-react-app</h4><ul>
+<li>produces react apps</li>
+<li>zero config</li>
+<li>extensible with custom scripts</li>
+<li>includes top notch testing and coverage support</li>
+<li>supported by facebook</li>
+</ul>
+<h4 id="3-fuse-box-create-react-app"><a href="#3-fuse-box-create-react-app" class="headerlink" title="#3 fuse-box-create-react-app"></a>#3 fuse-box-create-react-app</h4><ul>
+<li>a create-react-app clone with fast babel compilation.</li>
+<li>uses fuse-box fast babel compiler under the hood.</li>
+</ul>
+<h3 id="State-Management-By-Preference"><a href="#State-Management-By-Preference" class="headerlink" title="State Management By Preference"></a>State Management By Preference</h3><h4 id="1-Mobx"><a href="#1-Mobx" class="headerlink" title="#1 Mobx"></a>#1 Mobx</h4><ul>
+<li>best of breed</li>
+<li>easy to get started</li>
+<li>medium learning curve</li>
+<li>good support and fan following</li>
+</ul>
+<p>Mobx has taken over the number 1 spot.</p>
+<p>I agree with the philosophy of Mobx that there is one source of truth that everything else can be derived from. That includes being able to derive actions and reducers.</p>
+<p>Mobx is easier to implement and provide 100% of the functionality of Redux.  Make sure you look into the <strong>opinionated</strong> way to do Mobx.  Start with the <code>mobx-state-tree</code>.</p>
+<h4 id="2-Redux"><a href="#2-Redux" class="headerlink" title="#2 Redux"></a>#2 Redux</h4><ul>
+<li>most popular at this time</li>
+<li>medium learning curve</li>
+<li>mega community support and libs</li>
+</ul>
+<h2 id="Desktop-Dev-Tools-by-Preference"><a href="#Desktop-Dev-Tools-by-Preference" class="headerlink" title="Desktop Dev Tools by Preference"></a>Desktop Dev Tools by Preference</h2><h3 id="1-Electron"><a href="#1-Electron" class="headerlink" title="#1 Electron"></a>#1 Electron</h3><p>The electron framework has been gaining steam for a few years and has been used to create the following apps:</p>
+<ul>
+<li>atom</li>
+<li>slack</li>
+<li>MS Dev Studio</li>
+<li>webtorrent</li>
+</ul>
+<blockquote>
+<p>I don’t support any electron app creation  frameworks at this time.<br>That means create with just node, babel and electron.</p>
+</blockquote>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2017/03/06/2017/20170306-fusebox/">fusebox is babel on steroids</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2017-03-06</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="Building-an-app-with-fusebox"><a href="#Building-an-app-with-fusebox" class="headerlink" title="Building an app with fusebox"></a>Building an app with fusebox</h2><p>Create project folder and install dependencies<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> add project directory</span></span><br><span class="line">mkdir tic-tac-toe</span><br><span class="line">cd tic-tac-toe</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> add package.json file</span></span><br><span class="line">npm init -y</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> add packages <span class="keyword">for</span> fusebox and babel</span></span><br><span class="line">yarn add --dev \</span><br><span class="line">babel-core \</span><br><span class="line">babel-plugin-transform-react-jsx \</span><br><span class="line">babel-preset-latest \</span><br><span class="line">fuse-box</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>for decorator support add<br>babel-plugin-transform-decorators-legacy<br>babel-preset-stage-1</p>
+</blockquote>
+<p>add packages for react<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># add packages for react app</span><br><span class="line">yarn add \</span><br><span class="line">react \</span><br><span class="line">react-dom</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>for mobx support add<br>mobx<br>mobx-react<br>mobx-react-devtools</p>
+</blockquote>
+<p>configure babel using <code>.babelrc</code> file<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"sourceMaps"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"presets"</span>: [<span class="string">"latest"</span>, <span class="string">"stage-1"</span>],</span><br><span class="line">  <span class="attr">"plugins"</span>: [</span><br><span class="line">    [<span class="string">"transform-react-jsx"</span>],</span><br><span class="line">    [<span class="string">"transform-decorators-legacy"</span>]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>configure fuse using <code>fuse.js</code> file<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;FuseBox, SVGPlugin, CSSPlugin, BabelPlugin&#125; = <span class="built_in">require</span>(<span class="string">"fuse-box"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create FuseBox Instance</span></span><br><span class="line"><span class="keyword">let</span> fuse = <span class="keyword">new</span> FuseBox(&#123;</span><br><span class="line">  homeDir: <span class="string">"src/"</span>,</span><br><span class="line">  sourcemaps: <span class="literal">true</span>,</span><br><span class="line">  outFile: <span class="string">"./build/out.js"</span>,</span><br><span class="line">  plugins: [SVGPlugin(), CSSPlugin(), BabelPlugin()]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">fuse.devServer(<span class="string">"&gt;index.js"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>configure <code>package.json</code> scripts<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;start&quot;: &quot;node fuse.js&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<p>create the build directory<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir build</span><br></pre></td></tr></table></figure></p>
+<p>create a <code>./build/index.html</code> file<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang="en"&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset="UTF-8"&gt;</span><br><span class="line">  &lt;title&gt;my-app&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id="root"&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script src="out.js" charset="utf-8"&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>create the app using the <code>./src/index.js</code> file<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; render &#125; <span class="keyword">from</span> <span class="string">'render'</span></span><br><span class="line"></span><br><span class="line">render(</span><br><span class="line">  &lt;div&gt;hello&lt;<span class="regexp">/div&gt;, document.getElementById('root')</span></span><br><span class="line"><span class="regexp">)</span></span><br></pre></td></tr></table></figure></p>
+<p>start the app<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure></p>
+<p>open in browser<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open http://localhost:4444</span><br></pre></td></tr></table></figure></p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
                 <h2><a class="post-title-link" href="/2017/03/04/2017/20170304-mobx/">mobx simple, scalable state management</a></h2>
             </div>
             <div class="post-meta">
@@ -138,140 +230,6 @@
 <p>onReactionError</p>
 <p>Usage: <code>extras.onReactionError(handler: (error: any, derivation) =&gt; void)</code></p>
 <p>This method attaches a global error listener, which is invoked for every error that is thrown from a reaction. This can be used for monitoring or test purposes.</p>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2017/03/04/2017/20170304-electron/">electron apps with react</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2017-03-04</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="Electron-Framework"><a href="#Electron-Framework" class="headerlink" title="Electron Framework"></a>Electron Framework</h2><p>The electron framework has been gaining steam for a few years and has been used to create the following apps:</p>
-<ul>
-<li>atom</li>
-<li>slack</li>
-<li>MS Dev Studio</li>
-<li>webtorrent</li>
-</ul>
-<p>There are no app creation frameworks that I support as of MAR-2017.  That means just node, babel and electron.</p>
-<p>I would start with a reference app like:</p>
-<ul>
-<li><a href="https://goo.gl/nVXvLA" target="_blank" rel="noopener">lionshare desktop</a></li>
-</ul>
-<h3 id="libraries"><a href="#libraries" class="headerlink" title="libraries"></a>libraries</h3><p>here are some commonly used libs:</p>
-<ul>
-<li>electron</li>
-<li>node-auto-launch</li>
-<li>electron-is-dev</li>
-<li>electron-machine-id</li>
-<li>universal-analytics</li>
-</ul>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2017/02/22/2017/20170222-react-tdd-done-right/">react TDD done right</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2017-02-22</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="Start-with-an-end-to-end-test"><a href="#Start-with-an-end-to-end-test" class="headerlink" title="Start with an end-to-end test"></a>Start with an end-to-end test</h2><p>First and foremost, start every feature with an end-to-end test. An end-to-end test is basically a test from the user’s perspective (click here, wait, confirm this text is displayed, etc.)</p>
-<p>The go-to library for end-to-end tests is Selenium but since it sucks use <a href="http://webdriver.io/" target="_blank" rel="noopener">webdriverio</a></p>
-<h3 id="The-first-test"><a href="#The-first-test" class="headerlink" title="The first test"></a>The first test</h3><ul>
-<li>opens the app</li>
-<li>opens the login page</li>
-<li>enters a phone number field</li>
-<li>enters a 6 digit code</li>
-<li>confirm that the intro is shown</li>
-</ul>
-<p><strong>Use page objects</strong></p>
-<p>It’s important to note how idiomatically this reads. That’s because I’m using a pattern called PageObjects here, which Fowler talks about <a href="http://martinfowler.com/bliki/PageObject.html" target="_blank" rel="noopener">here</a>.  Essentially you create a PageObject that represents a page in your app, that encapsulates all the nasty Selenium stuff.</p>
-<p><strong>Use <code>async/await</code> everywhere</strong></p>
-<p>nuff said.</p>
-<p><strong>Create a fast way of logging in</strong></p>
-<p>Whether that’s special login credentials or a pre-authed session cookie.</p>
-<p><strong>Decouple your end-to-end tests, so they can run in parallel</strong></p>
-<p>End-to-end tests are really slow, and really flaky, so it’s not really feasible to have a single test that logs in, pokes around, and tests every feature.  If your test clicks into the app 10 levels deep, you would have to wait an ungodly 60 seconds after every change. You need every test to start with a fresh browser and a fresh login.</p>
-<blockquote>
-<p>Decouple your end-to-end tests, so they can run in parallel</p>
-</blockquote>
-<p><strong>Success: a failing end-to-end test</strong></p>
-<p>So you’ve got your end-to-end test, and it’s failing. Sweet. The next thing you want to do is work your way inwards from the point-of-contacts, writing unit tests and implementations until the end-to-end test passes.</p>
-<p>See the <a href="https://goo.gl/NRdMLn" target="_blank" rel="noopener">test</a> and the <a href="https://goo.gl/AkNJeq" target="_blank" rel="noopener">pageObjects</a></p>
-<h2 id="Unit-tests"><a href="#Unit-tests" class="headerlink" title="Unit tests"></a>Unit tests</h2><p>The first thing the user sees is the login page/button, so I’d probably start with a failing test for that. Here’s a <a href="https://goo.gl/uEFMov" target="_blank" rel="noopener">unit test</a> for login taken from that same project:</p>
-<p>Move away from the magic and the multitude of plugins. I recommend:</p>
-<ul>
-<li><a href="">tape</a><br>or</li>
-<li><a href="">jest</a> and <a href="">enzyme</a></li>
-</ul>
-<p><strong>your unit test should answer 5 questions</strong></p>
-<ul>
-<li>what are you testing</li>
-<li>what aspect are you testing</li>
-<li>how is the component tested</li>
-<li>what is the actual result</li>
-<li>what is the expected result</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">describe(<span class="string">'Login'</span>, () =&gt; &#123;                                     <span class="comment">// what you are testing</span></span><br><span class="line">  it(<span class="string">'should test this aspect'</span>, () =&gt; &#123;                       <span class="comment">// what aspect</span></span><br><span class="line">    <span class="keyword">const</span> login = shallow(<span class="xml"><span class="tag">&lt;<span class="name">Login</span> &#123;<span class="attr">...props</span>&#125; <span class="attr">step</span>=<span class="string">&#123;0&#125;</span> /&gt;</span>)      // how is it tested</span></span><br><span class="line"><span class="xml">    login.setProps(&#123; step: 1 &#125;)</span></span><br><span class="line"><span class="xml">    const logInWithPhone = login.find(&#123; testID: 'logInWithPhone' &#125;)</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    const actual = logInWithPhone.length                      // actual</span></span><br><span class="line"><span class="xml">    const expected = 1                                        // expected</span></span><br><span class="line"><span class="xml">    expect(actual).toEqual(expected)</span></span><br><span class="line"><span class="xml">  &#125;)</span></span><br><span class="line"><span class="xml">&#125;)</span></span><br></pre></td></tr></table></figure>
-<h3 id="Testing-the-inputs-and-outputs-of-components"><a href="#Testing-the-inputs-and-outputs-of-components" class="headerlink" title="Testing the inputs and outputs of components"></a>Testing the inputs and outputs of components</h3><p>It’s important, I think, to focus purely on input/output in unit tests.</p>
-<blockquote>
-<p>Test inputs and outputs of components. Don’t “reach in” and test the implementation.</p>
-</blockquote>
-<p>Enzyme lets you “reach in” and grab the actual state of the component, or the instance methods. Using these features is asking for brittle tests, because they lead you to testing the implementation and not the actual functionality or behavior of the component. The component could remain exactly the same from the point-of-view of the application, but if change the state or instance method (the implementation), the test will fail and you’ll have lots of fun maintaining your app.</p>
-<p>The <code>input</code> is generally one of three things:</p>
-<ul>
-<li>Static props</li>
-<li>Events generated by the user</li>
-<li>A child component calling a passed-in function</li>
-</ul>
-<p>The <code>output</code> is generally one of three things:</p>
-<ul>
-<li>The presence of a child component</li>
-<li>A call to function prop, like a redux action creator</li>
-<li>Values passed into child component props</li>
-</ul>
-<blockquote>
-<p>So your test-setup should generally only reference the inputs, and your test-assertions should only check the outputs.</p>
-</blockquote>
-<p>This keeps the component a “black box”, where your only test for effects. This makes your components wayyyy more flexible and lets you change the implementation without breaking a million tests, leading to lower maintenance costs.</p>
-<p><strong>Success: a failing unit test</strong></p>
-<p>Okay so you’ve got a failing unit test. Next you’d write the actual component, getting the unit test to pass. You’d slowly write failing unit tests, testing inputs/outputs, until you get to the edges where you need to send or get data from an outside source. This is where the interesting stuff happens.</p>
-<h2 id="Integration-tests"><a href="#Integration-tests" class="headerlink" title="Integration tests"></a>Integration tests</h2><p>I write integration tests last, at the edges of where my React application meets the outside world, which is generally a REST API. Here’s a <a href="https://goo.gl/tmtQIC" target="_blank" rel="noopener">failing test</a> for an async redux action creator.</p>
-<p>This test assumes you’ve got all of your redux-related files in a single <code>redux</code> folder, and the configureStore configures the store with redux-thunk middleware.</p>
-<p>getUsers returns an async function that fetches from the api, and dispatches an action that gets processed by an entities reducer.</p>
-<p>Sweet! An integration test. You don’t need to get super specific and write a ton of these. You generally want to follow the test pyramid:</p>
-<center><img src="/images/test-pyramid.gif" alt="test pyramid"></center>
-
-<p>This pyramid shows the percentage of tests that you should write for each test group.  I recommend that you create tests in this order: e2e, unit, integration.</p>
-<blockquote>
-<p>Create tests in this order: e2e, unit, integration.</p>
-</blockquote>
-<p>So, you write your end-to-end test, slowly work your way through the unit tests to the edges where you write your integration tests, all the while filling out the implementations. Eventually, your end-to-end test passes and you’ve got yourself a swag new, well-tested feature to deliver to the product team.</p>
-<h2 id="Where-to-put-the-tests"><a href="#Where-to-put-the-tests" class="headerlink" title="Where to put the tests"></a>Where to put the tests</h2><p>Maintaining two parallel structures (one for source and another for tests) is a senseless task. I try to co-locate related concepts as much as possible, and that includes putting tests next to source. I like the Facebook convention of putting tests in a <code>__tests__</code> folder. You can check it out in the React repo.</p>
-<p>Facebook, though, doesn’t seem to differentiate between unit and integration tests, they just suffix each test with <code>-test.js</code>. I’ve been suffixing unit tests with <code>.unit.js</code> and integration tests with <code>.integration.js</code>. This is important because unit tests need to run super fast, and should be run in a pre-commit git hook (or at least on your continuous integration server). Integration tests are much slower because they have to fetch external resources, and should be run less frequently.</p>
-<blockquote>
-<p>suffix your tests with <code>.unit.js</code> and <code>.integration.js</code></p>
-</blockquote>
-<h2 id="Other-Tools"><a href="#Other-Tools" class="headerlink" title="Other Tools"></a>Other Tools</h2><ul>
-<li><a href="">nyc</a> and <a href="">babel-plugin-instanbul</a> – for code coverage</li>
-<li><a href="">atom-lcov</a> – for highlighting coverage in your editor</li>
-</ul>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li><a href="https://goo.gl/26qOuN" target="_blank" rel="noopener">Good Practices for Testing React Apps</a></li>
-</ul>
 
                 
             </div>

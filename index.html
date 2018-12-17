@@ -77,6 +77,175 @@
     
         <article class="post-abstract">
             <div class="post-title">
+                <h2><a class="post-title-link" href="/2018/12/15/20181215-example-databases/">SQL Review</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2018-12-15</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>It was time to practice my SQL to keep it fresh and up to date with the new SQL engines (mysql 8.x)</p>
+<h3 id="Update-to-mysql-8-x"><a href="#Update-to-mysql-8-x" class="headerlink" title="Update to mysql 8.x"></a>Update to mysql 8.x</h3><ul>
+<li><code>mysql services stop mysql</code></li>
+<li><code>brew upgrade mysql</code></li>
+<li><code>brew services start mysql</code></li>
+</ul>
+<h3 id="mysql-8-x-reference-manual"><a href="#mysql-8-x-reference-manual" class="headerlink" title="mysql 8.x reference manual"></a>mysql 8.x reference manual</h3><ul>
+<li><a href="https://goo.gl/rbm7u7" target="_blank" rel="noopener">mysql 8.x reference manual</a></li>
+</ul>
+<h3 id="Get-example-databases"><a href="#Get-example-databases" class="headerlink" title="Get example databases"></a>Get example databases</h3><p>Download from <a href="https://goo.gl/Fu4TVc" target="_blank" rel="noopener">here</a> for most, and <a href="http://www.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip" target="_blank" rel="noopener">here</a> for the classicmodels database.</p>
+<ul>
+<li>employee data</li>
+<li>world database</li>
+<li>world_x database</li>
+<li>sakila database</li>
+<li>menagerie database</li>
+<li>classicmodels</li>
+</ul>
+<p>The classicmodels database is used for the follwing tutorial:</p>
+<ul>
+<li><a href="https://goo.gl/4QuuU" target="_blank" rel="noopener">Tutorial</a></li>
+</ul>
+<h2 id="Kicking-the-tires"><a href="#Kicking-the-tires" class="headerlink" title="Kicking the tires"></a>Kicking the tires</h2><p>I will use the <code>employees</code> database to try some queries. After a while I was able to do simple queries as expected yet there were some queries requiring me to do backflips.</p>
+<h2 id="Show-each-department’s-highest-paid-employee-and-their-salary"><a href="#Show-each-department’s-highest-paid-employee-and-their-salary" class="headerlink" title="Show each department’s highest paid employee and their salary."></a>Show each department’s highest paid employee and their salary.</h2><h3 id="Aggregating-the-data"><a href="#Aggregating-the-data" class="headerlink" title="Aggregating the data"></a>Aggregating the data</h3><p>Most examples online show how to search a table with everything in one table. I do not have a table with everything in one table but I can write a query that will collect all the data I need for that one table.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">  dept_name dept,</span><br><span class="line">  emp_no my_emp_no,</span><br><span class="line">  <span class="keyword">concat</span>(first_name, <span class="string">' '</span>, last_name) <span class="keyword">name</span>,</span><br><span class="line">  <span class="keyword">max</span>(salary) salary</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">  departments</span><br><span class="line">  <span class="keyword">join</span> dept_emp <span class="keyword">using</span> (dept_no)</span><br><span class="line">  <span class="keyword">join</span> employees <span class="keyword">using</span> (emp_no)</span><br><span class="line">  <span class="keyword">join</span> salaries <span class="keyword">using</span> (emp_no)</span><br><span class="line"></span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">  salary &gt; <span class="number">120000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span></span><br><span class="line">  my_emp_no,</span><br><span class="line">  dept</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>To get the employee info I needed to join <code>dept_emp</code> then join <code>employees</code></li>
+<li>To ge the salary info I needed to join <code>salaries</code></li>
+<li>Since I only need only the highest paid employee in each department I can filter to show employees making over 120k allowing for a search of 2k records instead of 300k records.</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">+--------------------+-----------+---------------------------+--------+</span><br><span class="line">| dept               | my_emp_no | name                      | salary |</span><br><span class="line">+--------------------+-----------+---------------------------+--------+</span><br><span class="line">...</span><br><span class="line">| Production         |    456344 | Jessie Thiran             | 120910 |</span><br><span class="line">| Production         |    460878 | Jeanna Ghalwash           | 124663 |</span><br><span class="line">| Production         |    474176 | Shimshon Azuma            | 137563 |</span><br><span class="line">| Quality Management |     73644 | Eberhardt Backhouse       | 122376 |</span><br><span class="line">| Quality Management |    253338 | Yuping Heiserman          | 120459 |</span><br><span class="line">| Quality Management |    280550 | Honglan Petereit          | 122965 |</span><br><span class="line">| Quality Management |    400008 | Mandell Alencar           | 123566 |</span><br><span class="line">| Quality Management |    472905 | Shin Luck                 | 132103 |</span><br><span class="line">| Research           |     34947 | Mario Perfilyeva          | 124181 |</span><br><span class="line">| Research           |     37869 | Jayesh Schrift            | 121363 |</span><br><span class="line">| Research           |     60869 | Utz Menhardt              | 123530 |</span><br><span class="line">| Research           |     76073 | Mitchel Furedi            | 122940 |</span><br><span class="line">...</span><br><span class="line">+--------------------+-----------+---------------------------+--------+</span><br></pre></td></tr></table></figure>
+<h3 id="Derived-Tables"><a href="#Derived-Tables" class="headerlink" title="Derived Tables"></a>Derived Tables</h3><p>I used the <code>emp_no</code> column in the previous query to make sure we got distinct employees (I could not depend on the name). Yet I don’t want that <code>emp_no</code> in my report so I strip it out with the following query. Here’s where the <code>derived tables</code> come in handy. We use the <code>from</code> clause to create a <code>derived table</code> which requires an aliases, <code>a</code> in this case. Note the <code>outer query</code> can use the derived table alias. We’ll use it again in a minute.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">  a.dept,</span><br><span class="line">  a.name,</span><br><span class="line">  a.salary</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line"></span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">      dept_name dept,</span><br><span class="line">      emp_no my_emp_no,</span><br><span class="line">      <span class="keyword">concat</span>(first_name, <span class="string">' '</span>, last_name) <span class="keyword">name</span>,</span><br><span class="line">      <span class="keyword">max</span>(salary) salary</span><br><span class="line"></span><br><span class="line">    <span class="keyword">from</span></span><br><span class="line">      departments</span><br><span class="line">      <span class="keyword">join</span> dept_emp <span class="keyword">using</span> (dept_no)</span><br><span class="line">      <span class="keyword">join</span> employees <span class="keyword">using</span> (emp_no)</span><br><span class="line">      <span class="keyword">join</span> salaries <span class="keyword">using</span> (emp_no)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">where</span></span><br><span class="line">      salary &gt; <span class="number">120000</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span></span><br><span class="line">      my_emp_no,</span><br><span class="line">      dept</span><br><span class="line"></span><br><span class="line">) <span class="keyword">as</span> a</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">+--------------------+---------------------------+--------+</span><br><span class="line">| dept               | name                      | salary |</span><br><span class="line">+--------------------+---------------------------+--------+...</span><br><span class="line">| Production         | Manibrata Eterovic        | 121827 |</span><br><span class="line">| Production         | Adas Warwick              | 123415 |</span><br><span class="line">| Production         | Jessie Thiran             | 120910 |</span><br><span class="line">| Production         | Jeanna Ghalwash           | 124663 |</span><br><span class="line">| Production         | Shimshon Azuma            | 137563 |</span><br><span class="line">| Quality Management | Eberhardt Backhouse       | 122376 |</span><br><span class="line">| Quality Management | Yuping Heiserman          | 120459 |</span><br><span class="line">| Quality Management | Honglan Petereit          | 122965 |</span><br><span class="line">| Quality Management | Mandell Alencar           | 123566 |</span><br><span class="line">| Quality Management | Shin Luck                 | 132103 |</span><br><span class="line">| Research           | Mario Perfilyeva          | 124181 |</span><br><span class="line">| Research           | Jayesh Schrift            | 121363 |</span><br><span class="line">| Research           | Utz Menhardt              | 123530 |</span><br><span class="line">| Research           | Mitchel Furedi            | 122940 |</span><br><span class="line">| Research           | Barry Hofstetter          | 121864 |</span><br><span class="line">...</span><br><span class="line">+--------------------+---------------------------+--------+</span><br></pre></td></tr></table></figure>
+<h3 id="Grouping-without-GROUP-BY"><a href="#Grouping-without-GROUP-BY" class="headerlink" title="Grouping without GROUP BY"></a>Grouping without GROUP BY</h3><p>We want to group the previous table by <code>department name</code> and <code>max(salary)</code>. Normally we would go to the <code>group by</code> command to group but it won’t work in this case because of the <code>employee name</code> preventing us from using <code>group by</code>.</p>
+<p>To group we need the max(salary) for the department. Let’s start with a query that gets that done.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">  dept_name dept,</span><br><span class="line">  <span class="keyword">max</span>(salary) salary</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">  departments</span><br><span class="line">  <span class="keyword">join</span> dept_emp <span class="keyword">using</span> (dept_no)</span><br><span class="line">  <span class="keyword">join</span> employees <span class="keyword">using</span> (emp_no)</span><br><span class="line">  <span class="keyword">join</span> salaries <span class="keyword">using</span> (emp_no)</span><br><span class="line"></span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">  salary &gt; <span class="number">120000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span></span><br><span class="line">  dept</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">+--------------------+--------+</span><br><span class="line">| dept               | salary |</span><br><span class="line">+--------------------+--------+</span><br><span class="line">| Sales              | 158220 |</span><br><span class="line">| Marketing          | 145128 |</span><br><span class="line">| Production         | 138273 |</span><br><span class="line">| Customer Service   | 144866 |</span><br><span class="line">| Finance            | 142395 |</span><br><span class="line">| Development        | 144434 |</span><br><span class="line">| Research           | 130211 |</span><br><span class="line">| Human Resources    | 141953 |</span><br><span class="line">| Quality Management | 132103 |</span><br><span class="line">+--------------------+--------+</span><br></pre></td></tr></table></figure>
+<h3 id="Joining-a-derived-table"><a href="#Joining-a-derived-table" class="headerlink" title="Joining a derived table"></a>Joining a derived table</h3><p>We will make that previous query which provide the max salary for the department and make it into a <code>derived table</code> using the <code>join</code> command like so. Note again we use an alias <code>b</code> for the new <code>derived table</code>. Then using the <code>on</code> section we filter the original table with repeat values to only show the lines that match both the <code>department-name</code> and the <code>max-salary</code>. Let’s add our <code>join</code> to the previous query to see the final query.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">join (</span><br><span class="line"></span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">      dept_name dept,</span><br><span class="line">      <span class="keyword">max</span>(salary) salary</span><br><span class="line"></span><br><span class="line">    <span class="keyword">from</span></span><br><span class="line">      departments</span><br><span class="line">      <span class="keyword">join</span> dept_emp <span class="keyword">using</span> (dept_no)</span><br><span class="line">      <span class="keyword">join</span> employees <span class="keyword">using</span> (emp_no)</span><br><span class="line">      <span class="keyword">join</span> salaries <span class="keyword">using</span> (emp_no)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">where</span></span><br><span class="line">      salary &gt; <span class="number">120000</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span></span><br><span class="line">      dept</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">) <span class="keyword">as</span> b</span><br><span class="line"><span class="keyword">ON</span> a.dept = b.dept <span class="keyword">AND</span> a.salary = b.salary</span><br></pre></td></tr></table></figure>
+<h3 id="The-first-draft"><a href="#The-first-draft" class="headerlink" title="The first draft"></a>The first draft</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">  a.dept,</span><br><span class="line">  a.name,</span><br><span class="line">  a.salary</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line"></span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">      dept_name dept,</span><br><span class="line">      emp_no my_emp_no,</span><br><span class="line">      <span class="keyword">concat</span>(first_name, <span class="string">' '</span>, last_name) <span class="keyword">name</span>,</span><br><span class="line">      <span class="keyword">max</span>(salary) salary</span><br><span class="line"></span><br><span class="line">    <span class="keyword">from</span></span><br><span class="line">      departments</span><br><span class="line">      <span class="keyword">join</span> dept_emp <span class="keyword">using</span> (dept_no)</span><br><span class="line">      <span class="keyword">join</span> employees <span class="keyword">using</span> (emp_no)</span><br><span class="line">      <span class="keyword">join</span> salaries <span class="keyword">using</span> (emp_no)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">where</span></span><br><span class="line">      salary &gt; <span class="number">120000</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span></span><br><span class="line">      my_emp_no,</span><br><span class="line">      dept</span><br><span class="line"></span><br><span class="line">) <span class="keyword">as</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">join</span> (</span><br><span class="line"></span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">      dept_name dept,</span><br><span class="line">      <span class="keyword">max</span>(salary) salary</span><br><span class="line"></span><br><span class="line">    <span class="keyword">from</span></span><br><span class="line">      departments</span><br><span class="line">      <span class="keyword">join</span> dept_emp <span class="keyword">using</span> (dept_no)</span><br><span class="line">      <span class="keyword">join</span> employees <span class="keyword">using</span> (emp_no)</span><br><span class="line">      <span class="keyword">join</span> salaries <span class="keyword">using</span> (emp_no)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">where</span></span><br><span class="line">      salary &gt; <span class="number">120000</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span></span><br><span class="line">      dept</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">) <span class="keyword">as</span> b</span><br><span class="line"><span class="keyword">ON</span> a.dept = b.dept <span class="keyword">AND</span> a.salary = b.salary</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">+--------------------+--------------------+--------+</span><br><span class="line">| dept               | name               | salary |</span><br><span class="line">+--------------------+--------------------+--------+</span><br><span class="line">| Customer Service   | Vidya Hanabata     | 144866 |</span><br><span class="line">| Development        | Khosrow Sgarro     | 144434 |</span><br><span class="line">| Finance            | Lunjin Swick       | 142395 |</span><br><span class="line">| Human Resources    | Yinlin Flowers     | 141953 |</span><br><span class="line">| Marketing          | Akemi Warwick      | 145128 |</span><br><span class="line">| Production         | Youjian Cronau     | 138273 |</span><br><span class="line">| Quality Management | Shin Luck          | 132103 |</span><br><span class="line">| Research           | Ramachenga Soicher | 130211 |</span><br><span class="line">| Sales              | Tokuyasu Pesch     | 158220 |</span><br><span class="line">+--------------------+--------------------+--------+</span><br><span class="line">9 rows in set (4.31 sec)</span><br></pre></td></tr></table></figure>
+<h3 id="Improvements"><a href="#Improvements" class="headerlink" title="Improvements"></a>Improvements</h3><p>I won’t spend to much time here but there are various ways to improve this.</p>
+<ul>
+<li>We should not filter for salaries over 120k as that might change in the futre and is not reliable.</li>
+<li>We could start with the query that returns the <code>department-name</code> and <code>max-salary</code>. That way we will only deal with a very small number of records from that point on.</li>
+<li>This will show duplicate departments if multiple employees with matching max-salaries</li>
+</ul>
+<p>I’ll run this by some <code>SQL</code> gurus and see what they think.</p>
+<p><strong>Cheers</strong></p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2018/11/19/20181210-graphql-deep-dive/">graphQL deep dive</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2018-11-19</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="Introduction-to-GraphQL"><a href="#Introduction-to-GraphQL" class="headerlink" title="Introduction to GraphQL"></a>Introduction to GraphQL</h2><p><strong>Why GraphQL</strong></p>
+<ul>
+<li>allows for more flexible and efficient approach than rest</li>
+<li>all rest endpoints reduced to one</li>
+<li>many requests reduced to one request</li>
+<li>get exactly the data you want</li>
+<li>walking the graph of relationships via one supercharged enpoint</li>
+</ul>
+<p><strong>GraphQL is technology agnostic!</strong></p>
+<ul>
+<li>Angular or Vue</li>
+<li>SQL or NoSQL</li>
+<li>Express or Koa</li>
+</ul>
+<h2 id="The-Project"><a href="#The-Project" class="headerlink" title="The Project"></a>The Project</h2><p><strong>Requirements</strong></p>
+<ul>
+<li>node</li>
+<li>visual-studio-code</li>
+<li>project: <a href="https://github.com/.." target="_blank" rel="noopener">https://github.com/..</a>.</li>
+</ul>
+<p><strong>Project Stack</strong></p>
+<ul>
+<li>Server (node)<ul>
+<li>express app</li>
+<li>graphQL server</li>
+</ul>
+</li>
+<li>Database<ul>
+<li>MongoDB</li>
+<li>mlab</li>
+</ul>
+</li>
+<li>Client<ul>
+<li>React App</li>
+<li>Apollo</li>
+</ul>
+</li>
+<li>Graphiql<ul>
+<li>graphql tool</li>
+</ul>
+</li>
+</ul>
+<h2 id="Making-Queries-frontend-preview"><a href="#Making-Queries-frontend-preview" class="headerlink" title="Making Queries (frontend preview)"></a>Making Queries (frontend preview)</h2><p><strong>Using Graphiql</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    books&#123;</span><br><span class="line">        name</span><br><span class="line">        genre</span><br><span class="line">        author&#123;</span><br><span class="line">            name</span><br><span class="line">            age</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Using JS</strong></p>
+<figure class="highlight js"><figcaption><span>javascript query</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getBooks = gql<span class="string">`</span></span><br><span class="line"><span class="string">  &#123;</span></span><br><span class="line"><span class="string">    books &#123;</span></span><br><span class="line"><span class="string">      name</span></span><br><span class="line"><span class="string">      genre</span></span><br><span class="line"><span class="string">      author &#123;</span></span><br><span class="line"><span class="string">        name</span></span><br><span class="line"><span class="string">        age</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">`</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="Express-Setup"><a href="#Express-Setup" class="headerlink" title="Express Setup"></a>Express Setup</h2><ul>
+<li><code>npm install express graphql express-graphql</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>);</span><br><span class="line"><span class="keyword">const</span> graphqlHTTP = <span class="built_in">require</span>(<span class="string">"express-graphql"</span>);</span><br><span class="line"><span class="keyword">const</span> Schema = <span class="built_in">require</span>(<span class="string">"./schema/schema"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">"/graphql"</span>, graphqlHTTP(&#123; Schema, <span class="attr">graphiql</span>: <span class="literal">true</span> &#125;));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">4000</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"listening on pot 4000"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="The-Schema"><a href="#The-Schema" class="headerlink" title="The Schema"></a>The Schema</h2><p><strong>Schema Definition Language (SDL)</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>);</span><br><span class="line"><span class="keyword">const</span> graphqlHTTP = <span class="built_in">require</span>(<span class="string">"express-graphql"</span>);</span><br><span class="line"><span class="keyword">const</span> Schema = <span class="built_in">require</span>(<span class="string">"./schema/schema"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">"/graphql"</span>, graphqlHTTP(&#123; Schema &#125;));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">4000</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"listening on pot 4000"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="The-Resolve-Function"><a href="#The-Resolve-Function" class="headerlink" title="The Resolve Function"></a>The Resolve Function</h2><figure class="highlight js"><figcaption><span>./schema/schema.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> graphql = <span class="built_in">require</span>(<span class="string">"graphql"</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; GraphQLObjectType, GraphQLStringType, GraphQLSchema &#125; = graphql;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> books = [</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">"book1"</span>, <span class="attr">genre</span>: <span class="string">"self-help"</span>, <span class="attr">id</span>: <span class="string">"1"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">"book2"</span>, <span class="attr">genre</span>: <span class="string">"self-help"</span>, <span class="attr">id</span>: <span class="string">"2"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">"book3"</span>, <span class="attr">genre</span>: <span class="string">"self-help"</span>, <span class="attr">id</span>: <span class="string">"3"</span> &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BookType = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"Book"</span>,</span><br><span class="line">  fields: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    id: &#123; <span class="attr">type</span>: GraphQLStringType &#125;,</span><br><span class="line">    name: &#123; <span class="attr">type</span>: GraphQLStringType &#125;,</span><br><span class="line">    genre: &#123; <span class="attr">type</span>: GraphQLStringType &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> RootQuery = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"RootQueryType"</span>,</span><br><span class="line">  fields: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    book: &#123;</span><br><span class="line">      type: BookType,</span><br><span class="line">      args: &#123; <span class="attr">id</span>: &#123; <span class="attr">type</span>: GraphQLStringType &#125; &#125;,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="comment">// code to get data from db</span></span><br><span class="line">        <span class="keyword">return</span> books.filter(<span class="function"><span class="params">book</span> =&gt;</span> book.id === args.id);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="keyword">new</span> GraphQLSchema(&#123;</span><br><span class="line">  query: RootQuery</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Testing-Using-Graphiql"><a href="#Testing-Using-Graphiql" class="headerlink" title="Testing Using Graphiql"></a>Testing Using Graphiql</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    books(id: &quot;1&quot;)&#123;</span><br><span class="line">        name</span><br><span class="line">        genre</span><br><span class="line">        id</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Adding-a-Database"><a href="#Adding-a-Database" class="headerlink" title="Adding a Database"></a>Adding a Database</h2><p><strong>Connecting to mLab</strong></p>
+<p>setup mlab nosql database</p>
+<ul>
+<li><a href="mlab.com">mlab</a><ul>
+<li>name: gql-ninja</li>
+<li>user: username / test123</li>
+<li>connection string:<ul>
+<li><code>mongodb://&lt;dbuser&gt;:&lt;dbpassword&gt;@ds041327.mlab.com:41327/gql-ninja</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>configure express to talk to the database</p>
+<ul>
+<li><code>npm install mongoose</code></li>
+</ul>
+<figure class="highlight js"><figcaption><span>./app.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>);</span><br><span class="line"><span class="keyword">const</span> graphqlHTTP = <span class="built_in">require</span>(<span class="string">"express-graphql"</span>);</span><br><span class="line"><span class="keyword">const</span> schema = <span class="built_in">require</span>(<span class="string">"./schema/schema"</span>);</span><br><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">"mongoose"</span>);</span><br><span class="line"></span><br><span class="line">mongoose.connect(<span class="string">"mongodb://frankg:test123@ds041327.mlab.com:41327/gql-ninja"</span>);</span><br><span class="line">mongoose.connection.once(<span class="string">"open"</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"connected to database"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">"/graphql"</span>, graphqlHTTP(&#123; schema, <span class="attr">graphiql</span>: <span class="literal">true</span> &#125;));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">4000</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Listening on port 4000"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>Mongoose Models</strong></p>
+<figure class="highlight js"><figcaption><span>./models/author.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">"mongoose"</span>);</span><br><span class="line"><span class="keyword">const</span> Schema = mongoose.Schema;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> authorSchema = <span class="keyword">new</span> Schema(&#123;</span><br><span class="line">  name: <span class="built_in">String</span>,</span><br><span class="line">  age: <span class="built_in">Number</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = mongoose.model(<span class="string">"Author"</span>, authorSchema);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>./models/book.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">"mongoose"</span>);</span><br><span class="line"><span class="keyword">const</span> Schema = mongoose.Schema;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bookSchema = <span class="keyword">new</span> Schema(&#123;</span><br><span class="line">  name: <span class="built_in">String</span>,</span><br><span class="line">  genre: <span class="built_in">String</span>,</span><br><span class="line">  authorId: <span class="built_in">String</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = mongoose.model(<span class="string">"Book"</span>, bookSchema);</span><br></pre></td></tr></table></figure>
+<p><strong>Updating the Resolve Functions</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">const</span> Book = <span class="built_in">require</span>(<span class="string">"../models/book"</span>);</span><br><span class="line"><span class="keyword">const</span> Author = <span class="built_in">require</span>(<span class="string">"../models/author"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> AuthorType = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"Author"</span>,</span><br><span class="line">  fields: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    id: &#123; <span class="attr">type</span>: GraphQLID &#125;,</span><br><span class="line">    name: &#123; <span class="attr">type</span>: GraphQLStringType &#125;,</span><br><span class="line">    age: &#123; <span class="attr">type</span>: GraphQLInt &#125;,</span><br><span class="line">    books: &#123;</span><br><span class="line">      type: <span class="keyword">new</span> GraphQLList(BookType),</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> Book.findById(parent.id);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BookType = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"Book"</span>,</span><br><span class="line">  fields: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    id: &#123; <span class="attr">type</span>: GraphQLID &#125;,</span><br><span class="line">    name: &#123; <span class="attr">type</span>: GraphQLStringType &#125;,</span><br><span class="line">    genre: &#123; <span class="attr">type</span>: GraphQLStringType &#125;,</span><br><span class="line">    author: &#123;</span><br><span class="line">      type: AuthorType,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> Author.findById(parent.authorId);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> RootQuery = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"RootQueryType"</span>,</span><br><span class="line">  fields: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    book: &#123;</span><br><span class="line">      type: BookType,</span><br><span class="line">      args: &#123; <span class="attr">id</span>: &#123; <span class="attr">type</span>: GraphQLID &#125; &#125;,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> Book.findById(args.id);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    author: &#123;</span><br><span class="line">      type: AuthorType,</span><br><span class="line">      args: &#123; <span class="attr">id</span>: &#123; <span class="attr">type</span>: GraphQLID &#125; &#125;,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> Author.findById(args.id);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    books: &#123;</span><br><span class="line">      type: <span class="keyword">new</span> GraphQLList(BookType),</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> Book(&#123;&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    authors: &#123;</span><br><span class="line">      type: <span class="keyword">new</span> GraphQLList(AuthorType),</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> Author(&#123;&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+<h2 id="Type-Relations"><a href="#Type-Relations" class="headerlink" title="Type Relations"></a>Type Relations</h2><figure class="highlight js"><figcaption><span>./schema/schema.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> AuthorType = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"Author"</span>,</span><br><span class="line">  fields: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    id: &#123; <span class="attr">type</span>: GraphQLID &#125;,</span><br><span class="line">    name: &#123; <span class="attr">type</span>: GraphQLStringType &#125;,</span><br><span class="line">    age: &#123; <span class="attr">type</span>: GraphQLInt &#125;,</span><br><span class="line">    books: &#123;</span><br><span class="line">      type: <span class="keyword">new</span> GraphQLList(BookType),</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> books.filter(<span class="function"><span class="params">book</span> =&gt;</span> book.authorId === parent.id);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+<h2 id="More-Root-Queries"><a href="#More-Root-Queries" class="headerlink" title="More Root Queries"></a>More Root Queries</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> RootQuery = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"RootQueryType"</span>,</span><br><span class="line">  fields: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    book: &#123;</span><br><span class="line">      type: BookType,</span><br><span class="line">      args: &#123; <span class="attr">id</span>: &#123; <span class="attr">type</span>: GraphQLID &#125; &#125;,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> books.filter(<span class="function"><span class="params">book</span> =&gt;</span> book.id === args.id);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    author: &#123;</span><br><span class="line">      type: AuthorType,</span><br><span class="line">      args: &#123; <span class="attr">id</span>: &#123; <span class="attr">type</span>: GraphQLID &#125; &#125;,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> authors.filter(<span class="function"><span class="params">author</span> =&gt;</span> author.id === args.id);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    books: &#123;</span><br><span class="line">      type: <span class="keyword">new</span> GraphQLList(BookType),</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> books;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    authors: &#123;</span><br><span class="line">      type: <span class="keyword">new</span> GraphQLList(AuthorType),</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">return</span> authors;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="keyword">new</span> GraphQLSchema(&#123;</span><br><span class="line">  query: RootQuery</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Mutations"><a href="#Mutations" class="headerlink" title="Mutations"></a>Mutations</h2><ul>
+<li>mutations allow us to change data</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Mutation = <span class="keyword">new</span> GraphQLObjectType(&#123;</span><br><span class="line">  name: <span class="string">"Mutation"</span>,</span><br><span class="line">  fields: &#123;</span><br><span class="line">    addAuthor: &#123;</span><br><span class="line">      type: AuthorType,</span><br><span class="line">      args: &#123;</span><br><span class="line">        name: &#123; <span class="attr">type</span>: GraphQLString &#125;,</span><br><span class="line">        age: &#123; <span class="attr">type</span>: GraphQLInt &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">let</span> author = <span class="keyword">new</span> Author(&#123;</span><br><span class="line">          name: args.name,</span><br><span class="line">          age: args.age</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> author.save();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    addBook: &#123;</span><br><span class="line">      type: BookType,</span><br><span class="line">      args: &#123;</span><br><span class="line">        name: &#123; <span class="attr">type</span>: GraphQLString &#125;,</span><br><span class="line">        genre: &#123; <span class="attr">type</span>: GraphQLString &#125;,</span><br><span class="line">        authorId: &#123; <span class="attr">type</span>: GraphQLID &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      resolve(parent, args) &#123;</span><br><span class="line">        <span class="keyword">let</span> book = <span class="keyword">new</span> Book(&#123;</span><br><span class="line">          name: args.name,</span><br><span class="line">          genre: args.genre,</span><br><span class="line">          authorId: args.authorId</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> book.save();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="keyword">new</span> GraphQLSchema(&#123;</span><br><span class="line">  query: RootQuery,</span><br><span class="line">  mutation: Mutation</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://goo.gl/3mNaKF" target="_blank" rel="noopener">Build a Project with GraphQL, Node, MongoDB</a></li>
+<li><a href="https://goo.gl/wQPPNL" target="_blank" rel="noopener">GraphQL Full Course - Novice to Expert</a></li>
+</ul>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
                 <h2><a class="post-title-link" href="/2018/11/19/20181119-intro-to-graphql/">intro to graphQL</a></h2>
             </div>
             <div class="post-meta">
@@ -159,327 +328,6 @@
 <li><code>create-react-app</code> has <code>dotenv</code> built in. you must prefix your env vars with <code>REACT_APP</code></li>
 <li><code>visual-studio-code</code> has extensions for graphql.</li>
 <li><code>launchpad</code> allows you to quickly prototype graphql servers.</li>
-</ul>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2018/11/11/20181111-app-development-review/">app development review</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2018-11-11</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>We will create an app from scratch that will have the following characteristics:</p>
-<ul>
-<li>works with my domain</li>
-<li>works with app hosted on laptop for development</li>
-<li>works with app hosted by vendor for production</li>
-<li>works with OAuth authentication</li>
-<li>works with Google <code>YouTube Data API 3</code> Services</li>
-</ul>
-<h2 id="Setup-Test-Web-Server"><a href="#Setup-Test-Web-Server" class="headerlink" title="Setup Test Web Server"></a>Setup Test Web Server</h2><ul>
-<li>start nginx on port 80<ul>
-<li><code>sudo brew services start nginx</code></li>
-</ul>
-</li>
-<li>test web server<ul>
-<li><code>curl 127.0.0.1</code> –&gt; hello</li>
-</ul>
-</li>
-</ul>
-<h2 id="Setup-Your-Domain"><a href="#Setup-Your-Domain" class="headerlink" title="Setup Your Domain"></a>Setup Your Domain</h2><ul>
-<li>Purchase Domain Name<ul>
-<li><a href="https://domains.google.com/registrar" target="_blank" rel="noopener">https://domains.google.com/registrar</a></li>
-<li>purchased a domain name for \$12</li>
-</ul>
-</li>
-<li>Configue DNS<ul>
-<li>Edit Name Servers<ul>
-<li>Choose: <code>Use the Google Domains name servers</code></li>
-</ul>
-</li>
-<li>Add custom resource records<ul>
-<li><code>name: @, type: A, TTL: 1H, IP: xxx.xxx.xxx.xxx</code></li>
-<li><code>name: *, type: A, TTL: 1H, IP: xxx.xxx.xxx.xxx</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>test dns – <code>ping dearfrankg.com</code> –&gt; …</li>
-</ul>
-<blockquote>
-<p>Local IP Address<br>Do not use services like <code>myip</code> or <code>myip.com</code> to find your IP address. They’re not always up to date. Instead you can use your WAN IP address from you router.</p>
-</blockquote>
-<blockquote>
-<p>DNS Propagation<br>Make sure you use the same DNS server IPs when configuring your domain and your local network. This insures propagation will not be an issue. Google DNS IPs are <code>8.8.8.8</code> and <code>8.8.4.4</code>.</p>
-</blockquote>
-<h2 id="Setup-Port-Forwarding"><a href="#Setup-Port-Forwarding" class="headerlink" title="Setup Port Forwarding"></a>Setup Port Forwarding</h2><p>When someone is trying to access you web server at your home, the request will be received by your modem then router. How will the router know which PC to forward the request to? That’s what port forwarding is for.</p>
-<ul>
-<li>configure router for port forwarding<ul>
-<li><code>macbook-pro: incoming 80 to external 80</code></li>
-</ul>
-</li>
-<li>test port fowarding<ul>
-<li>curl <a href="http://dearfrankg.com" target="_blank" rel="noopener">http://dearfrankg.com</a> –&gt; hello</li>
-<li>open <a href="http://dearfrankg.com" target="_blank" rel="noopener">http://dearfrankg.com</a> –&gt; hello</li>
-</ul>
-</li>
-</ul>
-<h2 id="Setup-Reverse-Poxy"><a href="#Setup-Reverse-Poxy" class="headerlink" title="Setup Reverse Poxy"></a>Setup Reverse Poxy</h2><p>Using port forwarding we would need to open many ports for many apps. That’s undesirable because it’s less secure. As an alternative we can setup a reverse proxy server to route different urls to different apps.</p>
-<ul>
-<li>setup nginx as a reverse proxy<ul>
-<li>configure <code>top level domain</code> to <code>nginx server</code><ul>
-<li><code>dearfrankg.com</code> to port 80 <code>nginx web server</code></li>
-</ul>
-</li>
-<li>configure <code>sub domains</code> to <code>web apps</code><ul>
-<li><code>app1.dearfrankg.com</code> to port 5000 <code>app1</code></li>
-<li><code>app2.dearfrankg.com</code> to port 5001 <code>app2</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>Reverse Proxy drawbacks:</p>
-<ul>
-<li>Bandwidth transfer will be doubled: <code>client &lt;-&gt; proxy &lt;-&gt; app</code></li>
-<li>The traffic of all subdomains will pass through the proxy, so you might need more than one.</li>
-<li>If the proxy and the webservers are hosted by different providers, latency will increase noticeably.</li>
-<li>If the proxy is down, so are all connected subdomains, except if you have multiple load balanced proxies.</li>
-</ul>
-<h2 id="Setup-App"><a href="#Setup-App" class="headerlink" title="Setup App"></a>Setup App</h2><ul>
-<li>setup app skeleton<ul>
-<li><code>npx create-react-app my-great-app</code></li>
-</ul>
-</li>
-<li>add <code>sass</code> support<ul>
-<li>npm install –save node-sass</li>
-</ul>
-</li>
-<li>add folders to <code>src</code> directory<ul>
-<li>assets, components, services, utils</li>
-</ul>
-</li>
-<li>reconfigure app to work with new structure<ul>
-<li>create a new Header component</li>
-</ul>
-</li>
-</ul>
-<h3 id="Setup-OAuth-Auhentication"><a href="#Setup-OAuth-Auhentication" class="headerlink" title="Setup OAuth Auhentication"></a>Setup OAuth Auhentication</h3><p><strong>Get OAuth Credentials</strong></p>
-<ul>
-<li>create project at the <a href="https://console.developers.google.com/" target="_blank" rel="noopener">console.developers.google.com</a></li>
-<li>create credentials and choose <code>API key</code><ul>
-<li>store <code>YOUR_API_KEY</code> for later use.</li>
-</ul>
-</li>
-<li>create credentials and choose <code>OAuth client ID</code><ul>
-<li>choose application type: <code>web application</code></li>
-<li>choose name: <code>proj-name</code></li>
-<li>choose Authorized Javascript Origins: `<a href="http://localhost:5000" target="_blank" rel="noopener">http://localhost:5000</a></li>
-<li>click create</li>
-<li>store <code>CLIENT_ID</code> for later use.</li>
-</ul>
-</li>
-<li>Enable YouTube Data API v3<ul>
-<li>goto <a href="https://console.developers.google.com/apis/library" target="_blank" rel="noopener">API Library</a> and search for YouTube</li>
-<li>Click on the <code>YouTube Data API v3</code>, then click <code>ENABLE</code></li>
-</ul>
-</li>
-<li>Clear the last hour of cache<ul>
-<li><code>cmd shift delete</code> then <code>choose last hour</code> and click delete.</li>
-</ul>
-</li>
-</ul>
-<h3 id="TO-BE-CONTINUED"><a href="#TO-BE-CONTINUED" class="headerlink" title="TO BE CONTINUED"></a>TO BE CONTINUED</h3><p>…<br>…</p>
-<h2 id="Setup-Continuous-Workflow"><a href="#Setup-Continuous-Workflow" class="headerlink" title="Setup Continuous Workflow"></a>Setup Continuous Workflow</h2><p><strong>Continuous Integration (CI)</strong>: short-lived feature branches, team is merging to master branch multiple times per day, fully automated build and test process which gives feedback within 10 minutes; deployment is manual.</p>
-<p><strong>Continuous Delivery (CD)</strong>: CI + the entire software release process is automated, it may be composed of multiple stages, and deployment to production is manual.</p>
-<p><strong>Continuous Deployment</strong>: CI + CD + fully automated deployment to production.</p>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2018/11/10/20181110-intro-to-next-part2/">intro to next.js part2</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2018-11-10</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>This is the follow up to <a href="/2018/10/31/20181031-intro-to-next-part1/">Intro to Next - Part1</a>. In Part2 we will cover how to communicate with the Github API.</p>
-<ul>
-<li><a href="https://goo.gl/WcgEZ6" target="_blank" rel="noopener">github repo</a></li>
-</ul>
-<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><blockquote>
-<p>The code for this section: <a href="https://goo.gl/WcgEZ6" target="_blank" rel="noopener">repository</a> under the tag <code>getting-started</code>.</p>
-</blockquote>
-<h3 id="the-hard-way"><a href="#the-hard-way" class="headerlink" title="the hard way"></a>the hard way</h3><ul>
-<li>manually install the necessary packages</li>
-<li>update scripts in package.json</li>
-<li>add pages directory</li>
-<li>start dev server</li>
-</ul>
-<h3 id="the-easy-way"><a href="#the-easy-way" class="headerlink" title="the easy way"></a>the easy way</h3><ul>
-<li>review choices at <a href="https://goo.gl/8iZS8D" target="_blank" rel="noopener">Next.js examples</a></li>
-<li>follow the install instuctions in the readme file.</li>
-<li>start dev server</li>
-</ul>
-<p>our install process:</p>
-<ul>
-<li>install app skeleton<ul>
-<li><code>npx create-next-app --example with-styled-jsx-scss with-styled-jsx-scss-app next-part2</code></li>
-</ul>
-</li>
-<li>start server<ul>
-<li><code>cd next-part2</code></li>
-<li><code>npm run dev</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="Create-App-V1"><a href="#Create-App-V1" class="headerlink" title="Create App V1"></a>Create App V1</h2><blockquote>
-<p>The code for this section: <a href="https://goo.gl/WcgEZ6" target="_blank" rel="noopener">repository</a> under the tag <code>app-v1</code>.</p>
-</blockquote>
-<p>Our objective with <code>app v1</code> is to pull some data from <code>github</code> and jazz it up a little with <code>bootstrap</code>.</p>
-<p>Add the following packages:</p>
-<ul>
-<li><code>axios</code> - for fetching data<ul>
-<li><code>npm install --save axios</code></li>
-</ul>
-</li>
-</ul>
-<p>Review the code in the repo:</p>
-<ul>
-<li><strong>index.js</strong></li>
-</ul>
-<p>A Index functional component called <code>App</code> that renders <code>meta</code>, <code>heading</code> and <code>github-repos</code></p>
-<ul>
-<li><strong>Meta.js</strong></li>
-</ul>
-<p>A Meta functional component that lets you include things in the head of the rendered HTML. In our case we include a bootstrap CSS link.</p>
-<ul>
-<li><strong>GithubRepos</strong></li>
-</ul>
-<p>This file contains two components. This file leverages <code>bootstrap</code>.</p>
-<ul>
-<li><p>repo functional component</p>
-<ul>
-<li>for rendering a repo row in the table</li>
-</ul>
-</li>
-<li><p>GithubRepos class based component</p>
-<ul>
-<li>for rendering the repos table</li>
-<li>methods:<ul>
-<li>constructor - setup state</li>
-<li>componentDidMount - get data from github</li>
-<li>renderLoading - render loading message</li>
-<li>renderError - render error message</li>
-<li>render - render github repos table</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://i.imgur.com/HJauiBi.png" alt="app version 1"></p>
-<h2 id="Create-App-V2"><a href="#Create-App-V2" class="headerlink" title="Create App V2"></a>Create App V2</h2><blockquote>
-<p>The code for this section: <a href="https://goo.gl/WcgEZ6" target="_blank" rel="noopener">repository</a> under the tag <code>app-v2</code>.</p>
-</blockquote>
-<p>Our objective with <code>app v2</code> is to pull some data from <code>github</code> and jazz it up a little with <code>evergreen-ui</code>. Additionally we will leverage the <code>evergreen-ui table component</code> to provide search capability.</p>
-<p>Add the following packages:</p>
-<ul>
-<li><code>evergreen-ui</code> - react component library<ul>
-<li><code>npm install --save evergreen-ui</code></li>
-</ul>
-</li>
-</ul>
-<p>Review the code in the repo:</p>
-<ul>
-<li><strong>index.js</strong></li>
-</ul>
-<p>A Index functional component called <code>App</code> that renders <code>heading</code> and <code>github-repos</code>. This file leverages <code>evergreen-ui</code>.</p>
-<ul>
-<li><strong>GithubRepos</strong></li>
-</ul>
-<p>This file contains two components. This file leverages <code>evergreen-ui</code>.</p>
-<ul>
-<li><p>repo functional component</p>
-<ul>
-<li>for rendering a repo row in the table with a filter</li>
-</ul>
-</li>
-<li><p>GithubRepos class based component</p>
-<ul>
-<li>for rendering the repos table</li>
-<li>methods:<ul>
-<li>constructor - setup state</li>
-<li>componentDidMount - get data from github</li>
-<li>renderLoading - render loading message</li>
-<li>renderError - render error message</li>
-<li>render - render github repos table</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://i.imgur.com/auyvFa9.png" alt="app version 2"></p>
-<h2 id="Using-Mock-Data"><a href="#Using-Mock-Data" class="headerlink" title="Using Mock Data"></a>Using Mock Data</h2><blockquote>
-<p>The code for this section: <a href="https://goo.gl/WcgEZ6" target="_blank" rel="noopener">repository</a> under the tag <code>mock-server</code>.</p>
-</blockquote>
-<p>Sometimes you run into a situation where the backend is down. When this happens often the developer will turn to a mock data solution. In this case we’ll use a package called <code>json-server</code></p>
-<p>Add the following packages:</p>
-<ul>
-<li><code>json-server</code> - create a mock server<ul>
-<li><code>npm install --save-dev json-server</code></li>
-</ul>
-</li>
-</ul>
-<p>Review the code in the repo:</p>
-<ul>
-<li><code>mock/data.json</code> – see image below</li>
-<li><code>mock/config.json</code> – with mock server url</li>
-<li><code>server.js</code> – server code</li>
-<li><code>package.json</code> – add script to start mock server</li>
-<li><code>components/GithubRepos.js</code> - slight mod</li>
-</ul>
-<p>Here we will copy the data that github is feeding us and place it into the <code>mock/data.json</code> file.</p>
-<p><img src="https://i.imgur.com/VMIam5b.png" alt="mock data"></p>
-<p>We’ll have to remove the first two lines of the data.</p>
-<ul>
-<li>total_count</li>
-<li>incomplete_results</li>
-</ul>
-<p><strong>Try the mock server</strong></p>
-<ul>
-<li>start the client in terminal1<ul>
-<li><code>npm run dev</code></li>
-</ul>
-</li>
-<li>start the mock server in terminal2<ul>
-<li><code>npm run mock</code></li>
-</ul>
-</li>
-<li>Success is seeing data being populated</li>
-<li>To disable the mock server<ul>
-<li>Enter an empty MOCK_URL in <code>mock/config.json</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Here’s what we learned:</p>
-<ul>
-<li>How to automatically install a skeleton app from <a href="https://goo.gl/8iZS8D" target="_blank" rel="noopener">Next.js examples</a></li>
-<li>How to add a <code>Meta</code> component to include CSS assets like <code>bootstrap.css</code>.</li>
-<li>How to use <code>axios</code> to access the <code>github API</code></li>
-<li>How to use the <code>evergreen-ui</code> components <code>Pane</code>, <code>Spinner</code> and <code>Table</code></li>
-<li>How to create a <code>mock server</code> so we can continue developing when our API is down.</li>
 </ul>
 
                 

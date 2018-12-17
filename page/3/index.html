@@ -77,6 +77,142 @@
     
         <article class="post-abstract">
             <div class="post-title">
+                <h2><a class="post-title-link" href="/2018/11/03/20181101-securing-your-web-app/">securing your web app</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2018-11-03</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>We’re going to explore ways that rogue agents can attack your web app, then we’ll a implement a plan that will protect against these attacks and keep your app secure.</p>
+<h2 id="Attack-Vectors"><a href="#Attack-Vectors" class="headerlink" title="Attack Vectors"></a>Attack Vectors</h2><h3 id="MIM-Man-In-The-Middle"><a href="#MIM-Man-In-The-Middle" class="headerlink" title="MIM - Man In The Middle"></a>MIM - Man In The Middle</h3><p>MIM is an attack where an attacker sits in a public coffee shop sniffing internet traffic. When they are able to sniff your JWT token they can maliciously access your app.</p>
+<p>Danger: When passing credentials such as passwords or JWT over the intenet insecurely then an attacker can maliciously access your app.</p>
+<p>Solution: Use <code>HTTPS</code> to protect app internet traffic and use <code>VPN</code> to protect all internet tracffic.</p>
+<h3 id="XSS-Cross-Site-Scripting"><a href="#XSS-Cross-Site-Scripting" class="headerlink" title="XSS - Cross Site Scripting"></a>XSS - Cross Site Scripting</h3><p>XSS is an attack technique where an atacker can run javascript in your app because they have control over a 3rd party script used in your app, allowing them to maliciously access your app</p>
+<p>Danger: An attacker with the ability to run javascript in your app could gain access to an insecurely stored JWT and use that to maliciously access your app.</p>
+<p>Solution: It’s not reasonable to control all 3rd party scripts, so the next best thing is to secure sensitive data from javascript. Store your JWT in a secure cookie with no javascript access and only https access. Do not store your JWT in web-storage, local-storage, or unprotected-cookie.</p>
+<h3 id="CSRF-Cross-Site-Request-Forgery"><a href="#CSRF-Cross-Site-Request-Forgery" class="headerlink" title="CSRF - Cross Site Request Forgery"></a>CSRF - Cross Site Request Forgery</h3><p>CSRF is an attack technique where an attacker can call your app from their domain and your incorrectly configured app gives them authorization by passing an authorization cookie to the server.</p>
+<p>Danger: When your cookie is incorrectly configured to be passed from any domain to your server on every request then a rogue agent can gain authorization to your app.</p>
+<p>Solution: configure as follows:</p>
+<ul>
+<li>use cookie option <code>httpOnly</code> to prevents javascript from reading the cookie.</li>
+<li>use cookie option <code>secure</code> which forces https use and prevents sniffing on the wire.</li>
+<li>store JWT in a secure cookie to prevent access via XSS and MIM.</li>
+<li>pass a x-csrf-token in both your cookie and html as a way to confirm app access from same domain.</li>
+</ul>
+<h3 id="CORS-Cross-Origin-Resource-Sharing"><a href="#CORS-Cross-Origin-Resource-Sharing" class="headerlink" title="CORS - Cross Origin Resource Sharing"></a>CORS - Cross Origin Resource Sharing</h3><p>CORS is a utility that allows your app to access HTTP resources from other domains. By default it can only access them from the same domain with the exceptions of images and styles. Specifically accessing AJAX, fonts, ES-Modules from other domains requires CORS.</p>
+<p>Danger: When CORS is configured incorectly can allow any domain to access your server this enables a rogue agent to attack from their domain. By configuring which domains can and cannot access we make our app much more secure.</p>
+<p>Solution: Configure CORS correctly utilizing white-lists and black-lists to secure your site.</p>
+<h2 id="Protection-Plan"><a href="#Protection-Plan" class="headerlink" title="Protection Plan"></a>Protection Plan</h2><p>TBD</p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2018/10/31/20181031-server-side-rendering-in-React/">server side rendering in react</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2018-10-31</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>Let’s discuss how to build universal applications with React. First some definitions:</p>
+<p><strong>Server-Side Rendering (SSR)</strong><br>The ability of a front-end framework to render markup while running on a back-end system.</p>
+<p><strong>Single Page Application (SPA)</strong><br>SPA’s have advantages in speed but the initial server request is generally returning an empty HTML file with CSS and JavaScript (JS) links. Then the external files need to be fetched in order for the markup to render. This requires a longer wait for the initial render, and crawlers may interpret your page as empty.</p>
+<p><strong>Universal Application</strong><br>Universal Applications have the ability to render both on the server and client. Rendering on the server initially, then leverage SPAs on the client. The user gets fully rendered HTML with the initial request without waiting for JS to load.</p>
+<blockquote>
+<p>SSR + SPA = Universal App</p>
+</blockquote>
+<p>Imagine the huge improvement for users navigating on slow 3G networks. Rather than waiting for over 20s for the website to load, you get content on their screen almost instantly.</p>
+<p><img src="https://goo.gl/Wd7Bm9" alt=""></p>
+<p>The SEO department is happy because the SEO data always rendered, and the Crawlers are happy because they see your site as any other static site and can index the content.</p>
+<p>So to recap, the two main benefits we get from SSR are:</p>
+<ul>
+<li>Faster times for the initial page render</li>
+<li>Fully indexable HTML pages</li>
+</ul>
+<p><strong>Understanding SSR — one step at a time</strong><br>We’ll take an iterative approach to build our complete SSR example. We start with React’s API for server rendering and we’ll add something to the mix at each step. You can follow along using this <a href="https://goo.gl/bVQDWw" target="_blank" rel="noopener">repository</a> and the tags defined there for each step.</p>
+<h2 id="Basic-SSR"><a href="#Basic-SSR" class="headerlink" title="Basic SSR"></a>Basic SSR</h2><blockquote>
+<p>Checkout the <a href="https://goo.gl/bVQDWw" target="_blank" rel="noopener">repository</a> <code>basic</code> tag to see the working code.</p>
+</blockquote>
+<ul>
+<li>our server serves static files from the output folder</li>
+<li>our server has one route that handles all non-static requests and responds with HTML.</li>
+<li>our client executes <code>ReactDOM.hydrate</code> will attach event handlers to the server-rendered React app.</li>
+</ul>
+<figure class="highlight js"><figcaption><span>src/server.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">app.get(<span class="string">"/*"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> jsx = <span class="xml"><span class="tag">&lt;<span class="name">Layout</span> /&gt;</span>;</span></span><br><span class="line"><span class="xml">  const reactDom = renderToString(jsx);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">  res.writeHead(200, &#123; "Content-Type": "text/html" &#125;);</span></span><br><span class="line"><span class="xml">  res.end(htmlTemplate(reactDom));</span></span><br><span class="line"><span class="xml">&#125;);</span></span><br><span class="line"><span class="xml">...</span></span><br></pre></td></tr></table></figure>
+<p>On the server we render a string to an HTML template.</p>
+<figure class="highlight js"><figcaption><span>src/client.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">ReactDOM.hydrate(<span class="xml"><span class="tag">&lt;<span class="name">Layout</span> /&gt;</span>, app);</span></span><br><span class="line"><span class="xml">...</span></span><br></pre></td></tr></table></figure>
+<p>If you call <code>ReactDOM.hydrate()</code> on a node that already has this server-rendered markup, <strong>React will preserve it and only attach event handlers</strong>, allowing you to have a very performant first-load experience.</p>
+<figure class="highlight html"><figcaption><span>source from the browser</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">data-reactroot</span>=<span class="string">""</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome to React SSR!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/"</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/about"</span>&gt;</span>About<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/contact"</span>&gt;</span>Contact<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>This is the contact page<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./app.bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>Here we see the fully rendered HTML for the app. I added line breaks for legibility.</p>
+<p>You just created your first server-rendered React app!</p>
+<h2 id="Routing"><a href="#Routing" class="headerlink" title="Routing"></a>Routing</h2><blockquote>
+<p>Checkout the <a href="https://goo.gl/bVQDWw" target="_blank" rel="noopener">repository</a> <code>router</code> tag to see the working code.</p>
+</blockquote>
+<p>Let’s add a few routes and see how we handle the server part.</p>
+<figure class="highlight js"><figcaption><span>src/components/Layout.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Layout</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">...</span><br><span class="line">  &lt;Switch&gt;</span><br><span class="line">    &lt;Route path=<span class="string">"/"</span> exact component=&#123;Home&#125; /&gt;</span><br><span class="line">    &lt;Route path=<span class="string">"/about"</span> exact component=&#123;About&#125; /&gt;</span><br><span class="line">    &lt;Route path=<span class="string">"/contact"</span> exact component=&#123;Contact&#125; /&gt;</span><br><span class="line">  &lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp">...</span></span><br></pre></td></tr></table></figure>
+<p>The Layout component now renders multiple routes on the client.</p>
+<figure class="highlight js"><figcaption><span>src/components/Layout.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">import</span> &#123; StaticRouter &#125; <span class="keyword">from</span> <span class="string">"react-router-dom"</span>;</span><br><span class="line">...</span><br><span class="line">app.get(<span class="string">"/*"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> context = &#123;&#125;;</span><br><span class="line">  <span class="keyword">const</span> jsx = (</span><br><span class="line">    &lt;StaticRouter context=&#123;context&#125; location=&#123;req.url&#125;&gt;</span><br><span class="line">      &lt;Layout /&gt;</span><br><span class="line">    &lt;<span class="regexp">/StaticRouter&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">  const reactDom = renderToString(jsx);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  res.writeHead(200, &#123; "Content-Type": "text/</span>html<span class="string">" &#125;);</span></span><br><span class="line"><span class="string">  res.end(htmlTemplate(reactDom));</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
+<p>On the server, we need to wrap our React application in the <code>StaticRouter</code> component and provide the location. As a side note, the <code>context</code> is used for tracking potential redirects while rendering the React DOM. This needs to be handled with a <code>3XX response</code> from the server.</p>
+<h2 id="State-Management"><a href="#State-Management" class="headerlink" title="State Management"></a>State Management</h2><blockquote>
+<p>Checkout the <a href="https://goo.gl/bVQDWw" target="_blank" rel="noopener">repository</a> <code>redux</code> tag to see the working code.</p>
+</blockquote>
+<p>In the scenario, when using Redux to handle state management on the client. We sometimes render parts of the DOM based on state, so it makes sense to initialize Redux on the server.</p>
+<p>If your app is dispatching actions on the server, it needs to capture the state and send it over the wire together with the HTML. On the client, we feed that initial state into Redux.</p>
+<figure class="highlight js"><figcaption><span>src/server.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">import</span> &#123; Provider <span class="keyword">as</span> ReduxProvider &#125; <span class="keyword">from</span> <span class="string">"react-redux"</span>;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">"/*"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> context = &#123;&#125;;</span><br><span class="line">  <span class="keyword">const</span> store = createStore();</span><br><span class="line"></span><br><span class="line">  store.dispatch(initializeSession());</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> jsx = (</span><br><span class="line">    &lt;ReduxProvider store=&#123;store&#125;&gt;</span><br><span class="line">      &lt;StaticRouter context=&#123;context&#125; location=&#123;req.url&#125;&gt;</span><br><span class="line">        &lt;Layout /&gt;</span><br><span class="line">      &lt;<span class="regexp">/StaticRouter&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>ReduxProvider&gt;</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">const</span> reactDom = renderToString(jsx);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> reduxState = store.getState();</span><br><span class="line"></span><br><span class="line">  res.writeHead(<span class="number">200</span>, &#123; <span class="string">"Content-Type"</span>: <span class="string">"text/html"</span> &#125;);</span><br><span class="line">  res.end(htmlTemplate(reactDom, reduxState));</span><br><span class="line">&#125;);</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>The HTML template will store the stringified <code>reduxState</code> in <code>window.REDUX_DATA</code></p>
+<figure class="highlight js"><figcaption><span>src/client.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">"react-dom"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; BrowserRouter <span class="keyword">as</span> Router &#125; <span class="keyword">from</span> <span class="string">"react-router-dom"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Provider <span class="keyword">as</span> ReduxProvider &#125; <span class="keyword">from</span> <span class="string">"react-redux"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">"./components/Layout"</span>;</span><br><span class="line"><span class="keyword">import</span> createStore <span class="keyword">from</span> <span class="string">"./store"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(<span class="built_in">window</span>.REDUX_DATA);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> jsx = (</span><br><span class="line">  &lt;ReduxProvider store=&#123;store&#125;&gt;</span><br><span class="line">    &lt;Router&gt;</span><br><span class="line">      &lt;Layout /&gt;</span><br><span class="line">    &lt;<span class="regexp">/Router&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>ReduxProvider&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="built_in">document</span>.getElementById(<span class="string">"app"</span>);</span><br><span class="line">ReactDOM.hydrate(jsx, app);</span><br></pre></td></tr></table></figure>
+<p>On the client, we initialize the state with state from the server. This process is similar to the DOM hydration.</p>
+<h2 id="Fetching-Data"><a href="#Fetching-Data" class="headerlink" title="Fetching Data"></a>Fetching Data</h2><blockquote>
+<p>Checkout the <a href="https://goo.gl/bVQDWw" target="_blank" rel="noopener">repository</a> <code>fetch</code> tag to see the working code.</p>
+</blockquote>
+<p>It a typical SPA the client will fetch data to render and you may see a spinner while the fetch is in progress. This is not a good UX. We don’t need no stinking spinner! To avoid that we will fetch the data from the server.</p>
+<p>We will make our API calls from the server and store the data in Redux, then render the HTML with all the relevant data. We need a way to define what data is required for each route so we’ll create a routes config file.</p>
+<figure class="highlight js"><figcaption><span>src/routes.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> [</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">"/"</span>,</span><br><span class="line">    component: Home,</span><br><span class="line">    exact: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">"/about"</span>,</span><br><span class="line">    component: About,</span><br><span class="line">    exact: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">"/contact"</span>,</span><br><span class="line">    component: Contact,</span><br><span class="line">    exact: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">"/secret"</span>,</span><br><span class="line">    component: Secret,</span><br><span class="line">    exact: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>The main thing the <code>routes.js</code> file does is map the route to the component.</p>
+<figure class="highlight js"><figcaption><span>home.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">import</span> &#123; fetchData &#125; <span class="keyword">from</span> <span class="string">"../store"</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Home</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line">Home.serverFetch = fetchData; <span class="comment">// static declaration of data requirements</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>In <code>home.js</code> above we create a <code>serverFetch</code> class property that will be mapped to a Redux thunk action responsible for fetching all the data required for the component. For each route there should be a matching component that might need data. If it does it should have a <code>serverFetch</code> property that fetches all the data required for the component. Remember that Redux thunk actions return a promise when dispatched.</p>
+<figure class="highlight js"><figcaption><span>src/server.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">import</span> &#123; StaticRouter, matchPath &#125; <span class="keyword">from</span> <span class="string">"react-router-dom"</span>;</span><br><span class="line"><span class="keyword">import</span> routes <span class="keyword">from</span> <span class="string">"./routes"</span>;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">"/*"</span>, (req, res) =&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> dataRequirements = routes</span><br><span class="line">    .filter(<span class="function"><span class="params">route</span> =&gt;</span> matchPath(req.url, route)) <span class="comment">// filter matching paths</span></span><br><span class="line">    .map(<span class="function"><span class="params">route</span> =&gt;</span> route.component) <span class="comment">// map to components</span></span><br><span class="line">    .filter(<span class="function"><span class="params">comp</span> =&gt;</span> comp.serverFetch) <span class="comment">// check if components have data requirement</span></span><br><span class="line">    .map(<span class="function"><span class="params">comp</span> =&gt;</span> store.dispatch(comp.serverFetch())); <span class="comment">// dispatch data requirement</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">Promise</span>.all(dataRequirements).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> jsx = (</span><br><span class="line">      &lt;ReduxProvider store=&#123;store&#125;&gt;</span><br><span class="line">        &lt;StaticRouter context=&#123;context&#125; location=&#123;req.url&#125;&gt;</span><br><span class="line">          &lt;Layout /&gt;</span><br><span class="line">        &lt;<span class="regexp">/StaticRouter&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>ReduxProvider&gt;</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">const</span> reactDom = renderToString(jsx);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> reduxState = store.getState();</span><br><span class="line"></span><br><span class="line">    res.writeHead(<span class="number">200</span>, &#123; <span class="string">"Content-Type"</span>: <span class="string">"text/html"</span> &#125;);</span><br><span class="line">    res.end(htmlTemplate(reactDom, reduxState));</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>The <code>routes.js</code> includes a list of components that will be rendered for the current URL. We fetch any required data in parallel and wait for them to complete. Finally we resume the server render with all the data in Redux.</p>
+<p>You probably notice that this comes with a performance penalty, because we’re delaying the render until the data is fetched. This is where you start comparing metrics and do your best to understand which calls are essential and which aren’t. For example, fetching products for an e-commerce app might be crucial, but prices and sidebar filters can be lazy loaded.</p>
+<h2 id="Helmet"><a href="#Helmet" class="headerlink" title="Helmet"></a>Helmet</h2><blockquote>
+<p>Checkout the <a href="https://goo.gl/bVQDWw" target="_blank" rel="noopener">repository</a> <code>helmet</code> tag to see the working code.</p>
+</blockquote>
+<p><a href="https://github.com/nfl/react-helmet" target="_blank" rel="noopener">react-helmet</a> has great support for SSR and allows us to set values in our <code>&lt;head&gt;</code> tag. For example, you may want to set the <em>SEO data</em>, <em>title, meta tags, keywords</em>, and so on.</p>
+<p>Keep in mind that the <code>&lt;head&gt;</code> tag is normally not part of your React app!</p>
+<figure class="highlight js"><figcaption><span>contact.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> Helmet <span class="keyword">from</span> <span class="string">"react-helmet"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Contact = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h2&gt;This is the contact page&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">    &lt;Helmet&gt;</span></span><br><span class="line"><span class="regexp">      &lt;title&gt;Contact Page&lt;/</span>title&gt;</span><br><span class="line">      &lt;meta name=<span class="string">"description"</span> content=<span class="string">"This is a proof of concept for React SSR"</span> /&gt;</span><br><span class="line">    &lt;<span class="regexp">/Helmet&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Contact;</span><br></pre></td></tr></table></figure>
+<p>Just add your <code>head</code> data as children inside your <code>&lt;Helmet&gt;</code> tags. This gives you support for changing values outside the mounted React app on the client.</p>
+<figure class="highlight js"><figcaption><span>src/server.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">import</span> Helmet <span class="keyword">from</span> <span class="string">"react-helmet"</span>;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">app.get( <span class="string">"/*"</span>, ( req, res ) =&gt; &#123;</span><br><span class="line">    ...</span><br><span class="line">        <span class="keyword">const</span> jsx = (</span><br><span class="line">            &lt;ReduxProvider store=&#123; store &#125;&gt;</span><br><span class="line">                &lt;StaticRouter context=&#123; context &#125; location=&#123; req.url &#125;&gt;</span><br><span class="line">                    &lt;Layout /&gt;</span><br><span class="line">                &lt;<span class="regexp">/StaticRouter&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>ReduxProvider&gt;</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">const</span> reactDom = renderToString( jsx );</span><br><span class="line">        <span class="keyword">const</span> reduxState = store.getState( );</span><br><span class="line">        <span class="keyword">const</span> helmetData = Helmet.renderStatic( );</span><br><span class="line"></span><br><span class="line">        res.writeHead( <span class="number">200</span>, &#123; <span class="string">"Content-Type"</span>: <span class="string">"text/html"</span> &#125; );</span><br><span class="line">        res.end( htmlTemplate( reactDom, reduxState, helmetData ) );</span><br><span class="line">    &#125; );</span><br><span class="line">&#125; );</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">htmlTemplate</span>(<span class="params"> reactDom, reduxState, helmetData </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`</span></span><br><span class="line"><span class="string">        &lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="string">        &lt;html&gt;</span></span><br><span class="line"><span class="string">        &lt;head&gt;</span></span><br><span class="line"><span class="string">            &lt;meta charset="utf-8"&gt;</span></span><br><span class="line"><span class="string">            <span class="subst">$&#123; helmetData.title.toString( ) &#125;</span></span></span><br><span class="line"><span class="string">            <span class="subst">$&#123; helmetData.meta.toString( ) &#125;</span></span></span><br><span class="line"><span class="string">            &lt;title&gt;React SSR&lt;/title&gt;</span></span><br><span class="line"><span class="string">        &lt;/head&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        ...</span></span><br><span class="line"><span class="string">            `</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Here is Helmet extracting the head data and rendering it inside the HTML template.</p>
+<p>And now we have a fully functional React SSR example!</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><blockquote>
+<p>Checkout the <a href="https://goo.gl/bVQDWw" target="_blank" rel="noopener">repository</a> <code>master</code> branch for the final version.</p>
+</blockquote>
+<p>What have we accomplished using SSR:</p>
+<ul>
+<li>We added basic SSR which allows rendering for a faster first render and indexing for the Crawler.</li>
+<li>We added routing which allows the server to render different routes.</li>
+<li>We added state management which allows the server to render conditional markup.</li>
+<li>We added fetching data which allows the server to fetch data preventing the spinner.</li>
+<li>We added Helmet which allows making dynamic changes to the <code>&lt;head&gt;</code>.</li>
+</ul>
+<p>Is it worth adding SSR to your application? As always, it depends. It’s a must if your website is public and accessible to hundreds of thousands of users. But if you’re building a tool/dashboard-like application it might not be worth the effort.</p>
+<p>However, leveraging the power of universal apps is a step forward for the front-end community.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://goo.gl/VGKPcK" target="_blank" rel="noopener">Demystifying server-side rendering in React</a></li>
+</ul>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
                 <h2><a class="post-title-link" href="/2018/10/31/20181031-intro-to-next-part1/">intro to next.js part1</a></h2>
             </div>
             <div class="post-meta">
@@ -163,128 +299,6 @@
 <li>Surge can deploy and serve your static files</li>
 </ul>
 <p>We have learned enough to build a website. In the next post I will demonstrate how to build dynamic applications using Next.js.</p>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2018/10/31/20181031-oss-vs-redhat/">oss 0 vs redhat 34 billion</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2018-10-31</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <p>Donald Fischer, who served as a product manager for Red Hat Enterprise Linux during its creation and early years of growth, writes:</p>
-<blockquote>
-<p>Red Hat saw, earlier than most, that the ascendance of open source made the need to pay for code go away, but the need for support and maintenance grew larger than ever. Thus Red Hat was never in the business of selling software, rather it was in the business of addressing the practical challenges that have always come along for the ride with software. […] As an open source developer, you created that software. You can keep your package secure, legally documented, and maintained; who could possibly do it better? So why does Red Hat make the fat profits, and not you? Unfortunately, doing business with large companies requires a lot of bureaucratic toil. That’s doubly true for organizations that require security, legal, and operational standards for every product they bring in the door. Working with these organizations requires a sales and marketing team, a customer support organization, a finance back-office, and lots of other “business stuff” in addition to technology. Red Hat has had that stuff, but you haven’t.<br><br><br>And just like you don’t have time to sell to large companies, they don’t have time to buy from you alongside a thousand other open source creators, one at a time. Sure, big companies know how to install and use your software. (And good news! They already do.) But they can’t afford to put each of 1100 npm packages through a procurement process that costs $20k per iteration. Red Hat solved this problem for one corner of open source by collecting 2,000+ open source projects together, adding assurances on top, and selling it as one subscription product. That worked for them, to the tune of billions. But did you get paid for your contributions?</p>
-</blockquote>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2018/10/31/20181031-understanding-react-performance/">understanding react performance</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2018-10-31</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><p>We’re going to dive into some typical react performance problems and how to solve them. We will be using and example Profile app which displays a profile card consisting of an image and four fields rendered from state, and one button that changes the state of the description field.</p>
-<p><strong>References</strong></p>
-<ul>
-<li><a href="https://goo.gl/aPJM5t" target="_blank" rel="noopener">a checklist for eliminating common React performance issues</a></li>
-</ul>
-<h2 id="Identify-wasted-renders"><a href="#Identify-wasted-renders" class="headerlink" title="Identify wasted renders"></a>Identify wasted renders</h2><p>In order to identify wateful renders we can utilize these two tools:</p>
-<ul>
-<li>react-dev-tools – highlights when a component renders by flashing a green outline on the component.</li>
-<li>console.log – from your components render method you can console.log to see when it’s rendering.</li>
-</ul>
-<p>Utilizing the react-dev-tools on our app show that when the description field is updated the whole profile component renders as identified by the green flashing border.</p>
-<p>Below are some ways to optimize the situation.</p>
-<h2 id="Extract-frequently-updated-regions-into-isolated-components"><a href="#Extract-frequently-updated-regions-into-isolated-components" class="headerlink" title="Extract frequently updated regions into isolated components"></a>Extract frequently updated regions into isolated components</h2><p>The Profile app is connected to 4 redux fields. So when the <code>description</code> field changes it causes the card to re-render. Remember whenever the <code>props</code> or <code>state</code> changes that causes a re-render. Let’s localize the elements being updated to a specific react component. We will create a <code>Profession</code> componenent connected to only the description</p>
-<pre><code>const Profession = ({ description }) =&gt; {
-  return (
-    &lt;p&gt;
-     &lt;span className=&quot;faint&quot;&gt;I am&lt;/span&gt; a {description}
-    &lt;/p&gt;
-  );
-}
-</code></pre><p>Now only the <code>profession</code> component will update when the <code>description</code> changes.</p>
-<h2 id="Use-pure-components-when-appropriate"><a href="#Use-pure-components-when-appropriate" class="headerlink" title="Use pure components when appropriate"></a>Use pure components when appropriate</h2><p>The Profession component consists of four words ‘I’, “am”, “a”, “description”. For example purposes if we create a new component for each of those four items maybe we can isolate the description field.</p>
-<p>Pure components only render when their props change. By making our new components Pure we can avoid re-rendering when not necessary. An easy way to implement a <code>pure component</code> is to use <code>React.PureComponents</code> with class components (functional components can be pure also using react connect). Here is our new description component. We don’t show it but each of the child components is a pure component to avoid re-renders.</p>
-<pre><code>const Description = ({ description }) =&gt; {
-  return (
-    &lt;p&gt;
-      &lt;I /&gt;an isolate
-      &lt;Am /&gt;
-      &lt;A /&gt;
-      &lt;Profession profession={description} /&gt;
-    &lt;/p&gt;
-  );
-};
-</code></pre><h2 id="Avoid-passing-new-objects-as-props"><a href="#Avoid-passing-new-objects-as-props" class="headerlink" title="Avoid passing new objects as props"></a>Avoid passing new objects as props</h2><p><strong>Watch out for new objects</strong></p>
-<p>When you create an object variable in a render method, it creates a new object for every render. In the example below we create the <code>i</code> variable and assign it a new object. This causes the Calendar component to re-render repeatedly.</p>
-<pre><code>class Description extends Component {
-  render() {
-    const i = { value: &quot;i&quot; };
-    return (
-      &lt;p&gt;
-        &lt;Title /&gt;
-        &lt;Calender i={i} /&gt;
-        &lt;Footer  /&gt;
-      &lt;/p&gt;
-    );
-  }
-}
-</code></pre><p>The solution is to use a class variable outside the render method. This prevents a new object from being created on each render. This way the Calendar component only renders once.</p>
-<pre><code>class Description extends Component {
-  i = { day: 22 }
-
-  render() {
-    return (
-      &lt;p&gt;
-        &lt;Title /&gt;
-        &lt;Calender i={i} /&gt;
-        &lt;Footer  /&gt;
-      &lt;/p&gt;
-    );
-  }
-}
-</code></pre><p><strong>Watch out for explicit event handlers</strong></p>
-<p>Here we have an event handler that creates a new function on every render.</p>
-<pre><code>...
-render() {
-  &lt;div onClick={() =&gt; {//do something here}}
-}
-...
-</code></pre><p>The solution is to use a class method to avoid creating a new function on every render.</p>
-<pre><code>...
-handleClick:() ={...}
-
-render() {
-  &lt;div onClick={this.handleClick}
-}
-...
-</code></pre><h2 id="Use-the-production-build"><a href="#Use-the-production-build" class="headerlink" title="Use the production build"></a>Use the production build</h2><p>For create-react-app</p>
-<pre><code>npm run build
-npm run start
-</code></pre><p>This will yield bundle optimized files for production.</p>
-<h2 id="Employ-code-splitting"><a href="#Employ-code-splitting" class="headerlink" title="Employ code splitting"></a>Employ code splitting</h2><p>You can implement this in a couple of ways:</p>
-<ul>
-<li><p>split by page – only code necessary for the page.</p>
-</li>
-<li><p>split by component – only code necessary for the component.</p>
-</li>
-</ul>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Now you’ve got a decent checklist for tracking and fixing common performance issues in react apps. Go build some fast apps!</p>
 
                 
             </div>

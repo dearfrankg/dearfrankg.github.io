@@ -77,6 +77,202 @@
     
         <article class="post-abstract">
             <div class="post-title">
+                <h2><a class="post-title-link" href="/2017/03/23/2017/20170323-magic-of-mobx/">magic of mobx</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2017-03-23</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <ul>
+<li>source: <a href="https://goo.gl/A2e2FN" target="_blank" rel="noopener">Making React reactive: the pursuit of high performing, easily maintainable React apps</a></li>
+</ul>
+<h2 id="How-to-build-blazing-fast-react-apps"><a href="#How-to-build-blazing-fast-react-apps" class="headerlink" title="How to build blazing fast react apps?"></a>How to build blazing fast react apps?</h2><ul>
+<li>draw thousands of inter-related objects with updates and repaints happening in less than 40ms.</li>
+<li>react alone will not do the trick.</li>
+<li>the search for an elegant solution led to Observables</li>
+<li>with the model being Observable and the React components being Observers, <code>only relevant parts of the UI get updated</code>.</li>
+</ul>
+<h2 id="I-want-proof"><a href="#I-want-proof" class="headerlink" title="I want proof!!"></a>I want proof!!</h2><ul>
+<li><a href="https://goo.gl/cVihvw" target="_blank" rel="noopener">Cart with Observables</a></li>
+<li><a href="https://goo.gl/MlZdQN" target="_blank" rel="noopener">Cart without Observables</a></li>
+</ul>
+<p><img src="http://i.imgur.com/cpZx1Lu.png" alt=""></p>
+<p>Let’s define our data model:</p>
+<blockquote>
+<p>Open bullets represent the derived data that should be updated if some other data changes and so should its representation in the UI.</p>
+</blockquote>
+<p><img src="http://i.imgur.com/hFMjgoG.png" alt=""></p>
+<p>So even in this simple model a lot of data is flowing around, and a lot of UI updates are required when stuff changes.</p>
+<p>Let’s compile a list of relations</p>
+<ul>
+<li>article.price changes entry prices</li>
+<li>article.price changes cart total</li>
+<li>cart.articles changes cart.total</li>
+<li>article.name changes article view</li>
+<li>article.name changes entry.name</li>
+<li>etc, etc, etc</li>
+</ul>
+<p>The gist of our problem</p>
+<ul>
+<li>As a developer we don’t want to track this information.</li>
+<li>rendering will become slow if we re-render on every data change.</li>
+</ul>
+<h2 id="It’s-more-fun-if-we-make-it"><a href="#It’s-more-fun-if-we-make-it" class="headerlink" title="It’s more fun if we make it ;)"></a>It’s more fun if we make it ;)</h2><p><strong>Write our <a href="">data model</a> and our <a href="">user interface</a></strong></p>
+<ul>
+<li>CartView renders cart.total and cart.entries using CartEntryView</li>
+<li>An id is provided for each entry</li>
+<li>The remove button drops the entry.amount by one and removes the entry when it hits zero</li>
+</ul>
+<p><strong>Add an observer to each component to settle all the requirements</strong></p>
+<p>The observer function did two things:</p>
+<ul>
+<li>changes the render function into a <code>computed</code> function</li>
+<li>the component was registered as an observer of that function which forces a re-render when it becomes stale.</li>
+</ul>
+<p><strong>When observable data changes only the relevant parts of the UI are updated</strong></p>
+<p>These tests confirm that a minimal amount of re-rendering occurs:</p>
+<blockquote>
+<p>The highlighted area shows the components that re-rendered.<br>The number on the end is an id.</p>
+</blockquote>
+<ul>
+<li><p>rename an article not in the shopping cart</p>
+<pre><code>Rendering ArticleView 2
+</code></pre></li>
+<li><p>add an article to the cart then rename it</p>
+<pre><code>Rendering ArticleView 1
+Rendering CartEntryView 4
+</code></pre></li>
+<li><p>add an article to the cart the update its price</p>
+<pre><code>Rendering ArticleView 2
+Rendering CartTotalView
+</code></pre></li>
+<li><p>remove it from the cart and update the price again</p>
+<pre><code>Rendering ArticleView 1
+</code></pre></li>
+</ul>
+<p><strong>no need to explicitly re-render the children of a component</strong></p>
+<p>Each component tracks its own dependencies.</p>
+<p>The cart.total can change without re-rendering the cart.entries</p>
+<ul>
+<li><p>add an article to the cart the update its price</p>
+<pre><code>Rendering ArticleView 2
+Rendering CartTotalView
+</code></pre></li>
+</ul>
+<h2 id="The-Numbers"><a href="#The-Numbers" class="headerlink" title="The Numbers"></a>The Numbers</h2><p><img src="http://i.imgur.com/o0O4VvY.png" alt=""></p>
+<p><img src="http://i.imgur.com/5ekmdcS.png" alt=""></p>
+<ul>
+<li>Creating: behaves very similar.</li>
+<li>Updating: Instead of re-rendering 20,006 components, only 31 components are re-rendered</li>
+</ul>
+<p><strong>How to Optimize even more</strong></p>
+<p>Separating the CartView into CartView and CartTotalView saves us from checking if we need to re-rendering the 10k cart-view items. This drops rendering updates to 60ms!</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><ul>
+<li>Order of magnitude faster without compromising the maintainability of the code</li>
+<li>Optimizing using ImmutableJS would render very fast but much more work on the data model</li>
+</ul>
+<p>Also immutable data does not help you to keep your calculated values up to date. So with immutable data, changing the name of an article would really fast re-render the ArticleView, but still not invalidate any existing CartEntryViews that refers to the same article.</p>
+<p>I strongly advise using controllers or action dispatchers as an abstraction around updating your model data to keep the separation of concerns clear in your project.</p>
+<p>Leave the <strong>hard work</strong> of figuring out when and how to update the UI as fast as possible to React and Observables, and focus on the interesting parts of coding :).</p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2017/03/21/2017/20170314-testing-review/">testing review</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2017-03-21</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <p>This is a succint version of <a href="https://goo.gl/cl4b1P" target="_blank" rel="noopener">Eventbrite React Testing Best Practices</a></p>
+<h1 id="Eventbrite-React-Testing-Best-Practices"><a href="#Eventbrite-React-Testing-Best-Practices" class="headerlink" title="Eventbrite React Testing Best Practices"></a>Eventbrite React Testing Best Practices</h1><h2 id="Testing-environment"><a href="#Testing-environment" class="headerlink" title="Testing environment"></a>Testing environment</h2><ul>
+<li>jest, enzyme, jest-enzyme</li>
+</ul>
+<h2 id="Testing-philosophy"><a href="#Testing-philosophy" class="headerlink" title="Testing philosophy"></a>Testing philosophy</h2><p>Test the public interface.</p>
+<ul>
+<li>public input: props</li>
+<li>public output: elements rendered, callbacks invoked.</li>
+</ul>
+<p>render with various prop configs, assert what is rendered and called back.</p>
+<h2 id="Writing-a-test-case"><a href="#Writing-a-test-case" class="headerlink" title="Writing a test case"></a>Writing a test case</h2><ul>
+<li>use arrow functions</li>
+<li>no beforeEach afterEach</li>
+</ul>
+<h2 id="Finding-nodes"><a href="#Finding-nodes" class="headerlink" title="Finding nodes"></a>Finding nodes</h2><ul>
+<li>sprinkle: data-spec=”reset-button”</li>
+<li>use <code>getSpecWrapper</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// utils/unitTest.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> DATA_SPEC_ATTRIBUTE_NAME = <span class="string">'data-spec'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Finds all instances of components in the rendered `componentWrapper` that are DOM components</span></span><br><span class="line"><span class="comment">* with the `data-spec` attribute matching `name`.</span></span><br><span class="line"><span class="comment">* @param &#123;ReactWrapper&#125; componentWrapper - Rendered componentWrapper (result of mount, shallow, or render)</span></span><br><span class="line"><span class="comment">* @param &#123;string&#125; specName - Name of `data-spec` attribute value to find</span></span><br><span class="line"><span class="comment">* @param &#123;string|Function&#125; typeFilter - (Optional) Expected type of the wrappers (defaults to all HTML tags)</span></span><br><span class="line"><span class="comment">* @returns &#123;ReactComponent[]&#125; All matching DOM components</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getSpecWrapper = <span class="function">(<span class="params">componentWrapper, specName, typeFilter</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> specWrappers;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!typeFilter) &#123;</span><br><span class="line">        specWrappers = componentWrapper.find(<span class="string">`[<span class="subst">$&#123;DATA_SPEC_ATTRIBUTE_NAME&#125;</span>="<span class="subst">$&#123;specName&#125;</span>"]`</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        specWrappers = componentWrapper.findWhere(<span class="function">(<span class="params">wrapper</span>) =&gt;</span> (</span><br><span class="line">            wrapper.prop(DATA_SPEC_ATTRIBUTE_NAME) === specName &amp;&amp; wrapper.type() === typeFilter</span><br><span class="line">        ));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> specWrappers;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Finding-components"><a href="#Finding-components" class="headerlink" title="Finding components"></a>Finding components</h2><ul>
+<li>use <code>getSpecWrapper</code></li>
+</ul>
+<p>The key in the “good” example is the third parameter passed to getSpecWrapper. By default getSpecWrapper will try to find a node with the specified data-spec. But if you specify the component class (Checkbox in this case), it’ll return a reference to the component wrapper.</p>
+<h2 id="Testing-existence"><a href="#Testing-existence" class="headerlink" title="Testing existence"></a>Testing existence</h2><p><strong>testing node existence</strong></p>
+<p>To find nodes you use the <code>getSpecWrapper</code> helper and use the <code>jest-enzyme</code> <code>.toBePresent</code> and <code>.toBeEmpty</code> assertion matchers:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> wrapper = mount(<span class="xml"><span class="tag">&lt;<span class="name">Spinner</span> /&gt;</span>);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">// assert that node exists (doesn't throw an Error)</span></span><br><span class="line"><span class="xml">expect(wrapper).toBePresent();</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">// assert that node doesn't exist (throws an Error)</span></span><br><span class="line"><span class="xml">expect(wrapper).toBeEmpty();</span></span><br></pre></td></tr></table></figure>
+<p><strong>testing component existence</strong></p>
+<p>Typically, you’ll find components by using Enzyme’s <code>find</code> method which returns an an Enzyme ReactWrapper and the <code>jest-enzyme</code> <code>.toBePresent</code> and <code>.toBeEmpty</code> assertion matchers:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> wrapper = mount(<span class="xml"><span class="tag">&lt;<span class="name">Select</span> <span class="attr">values</span>=<span class="string">&#123;dummyValues&#125;</span> /&gt;</span>);</span></span><br><span class="line"><span class="xml">let selectOptionWrappers = wrapper.find(SelectOption);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">// assert that there are no found nodes</span></span><br><span class="line"><span class="xml">expect(selectOptionWrappers).toBeEmpty();</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">// assert that there are more than zero found nodes</span></span><br><span class="line"><span class="xml">expect(selectOptionWrappers).toBePresent();</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">// assert there to be a specific number of found nodes</span></span><br><span class="line"><span class="xml">expect(selectOptionWrappers).toHaveLength(dummyValues.length);</span></span><br></pre></td></tr></table></figure>
+<h2 id="Assertion-helpers"><a href="#Assertion-helpers" class="headerlink" title="Assertion helpers"></a>Assertion helpers</h2><p>Whenever possible, use jest-enzyme assertion helpers in favor of the normal assertion helpers that just come with jest:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// good (leverages `.prop` from `jest-enzyme`)</span><br><span class="line">it(&apos;should render a checked checkbox if it is selected&apos;, () =&gt; &#123;</span><br><span class="line">    let wrapper = mount(&lt;Component isSelected=&#123;true&#125; /&gt;);</span><br><span class="line">    let checkboxWrapper = wrapper.find(Checkbox);</span><br><span class="line"></span><br><span class="line">    expect(checkboxWrapper).toHaveProp(&apos;isChecked&apos;, true);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Using good assertions improves error messages!!</p>
+</blockquote>
+<h2 id="Types-of-renderers"><a href="#Types-of-renderers" class="headerlink" title="Types of renderers"></a>Types of renderers</h2><blockquote>
+<p>Eventbrite uses <code>mount</code> for rendering all components when testing.</p>
+</blockquote>
+<ul>
+<li>The win is consistency</li>
+<li>The lose is performance</li>
+</ul>
+<p>Eventbrite understands the performance impact.</p>
+<h2 id="Testing-render"><a href="#Testing-render" class="headerlink" title="Testing render"></a>Testing render</h2><ul>
+<li>Do not test the child components (they already have tests)</li>
+</ul>
+<p>The easiest way to test HTML elements and their attributes, is to use Jest snapshots:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// good</span></span><br><span class="line">it(<span class="string">'includes the disabled CSS class when `isDisabled` is `true`'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> wrapper = mount(<span class="xml"><span class="tag">&lt;<span class="name">Spinner</span> <span class="attr">isDisabled</span>=<span class="string">&#123;true&#125;</span> /&gt;</span>);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    // assert that the current render matches the saved snapshot</span></span><br><span class="line"><span class="xml">    expect(wrapper).toMatchSnapshot();</span></span><br><span class="line"><span class="xml">&#125;);</span></span><br></pre></td></tr></table></figure>
+<p>While snapshot testing is very simple, that simplicity comes at a cost. The initial snapshot file is generated the first time the test is run, so you need to visually inspect that the generated snapshot is correct, otherwise you could be saving a bad test case. Furthermore, the snapshot does not convey the intent of the test so you need to have a very verbose/descriptive test case title (the it()).</p>
+<p>Also because we use <code>mount</code> for rendering, the entire component tree is in the snapshot, including any helper components, higher-order components, etc. The larger the component, the larger a snapshot will be.  As such, you should use snapshot testing sparingly and instead test that child components are rendered and get the appropriate props.</p>
+<p>Lastly, since snapshot files are saved to disk, running the tests are slower than traditional means of unit testing.</p>
+<h2 id="Testing-events"><a href="#Testing-events" class="headerlink" title="Testing events"></a>Testing events</h2><p>As mentioned in our <code>Testing philosophy</code>, part of the output of your component are the callback handlers it invokes. These event callbacks are functions passed as props to your component and need to be tested.</p>
+<ul>
+<li>trigger the events that in turn will invoke the callback handler</li>
+</ul>
+<p><strong>test events triggered by the DOM</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'properly fires `onChange` when input changes'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> onChange = jest.fn();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// pass mock function to component as `onChange` prop</span></span><br><span class="line">    <span class="keyword">let</span> wrapper = mount(<span class="xml"><span class="tag">&lt;<span class="name">TextInput</span> <span class="attr">onChange</span>=<span class="string">&#123;onChange&#125;</span> /&gt;</span>);</span></span><br><span class="line"><span class="xml">    let inputWrapper = getSpecWrapper(wrapper, 'text-input');</span></span><br><span class="line"><span class="xml">    let inputValue = 'Here is a value';</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    // Create a fake event with the properties needed by the component</span></span><br><span class="line"><span class="xml">    let mockEvent = &#123;</span></span><br><span class="line"><span class="xml">        target: &#123;</span></span><br><span class="line"><span class="xml">            value: inputValue</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml">    &#125;;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    // simulate onChange event on input DOM</span></span><br><span class="line"><span class="xml">    inputWrapper.simulate('change', mockEvent);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    // assert that the stubbed function was called with the</span></span><br><span class="line"><span class="xml">    // expected value</span></span><br><span class="line"><span class="xml">    expect(onChange).toHaveBeenCalledWith(inputValue);</span></span><br><span class="line"><span class="xml">&#125;);</span></span><br></pre></td></tr></table></figure>
+<p><strong>Testing events triggered by child components</strong></p>
+<p>More than likely instead of your component adding event handlers directly to DOM nodes, it will be adding handlers to child components. Therefore instead of simulating a DOM event, simulate the child component’s event handler being invoked.</p>
+<p>Let’s say you have an <code>AutocompleteField</code> component that has a child <code>TextInput</code>. The <code>AutocompleteField</code> has an <code>onChange</code> prop that is invoked whenever its child <code>TextInput</code>‘s <code>onChange</code> event is invoked. The <code>AutocompleteField</code>‘s <code>onChange</code> prop also passes the current input value. The test case would be set up like:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'properly fires `onChange` when input changes'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> onChange = jest.fn();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// pass stubbed function to component as `onChange` prop</span></span><br><span class="line">    <span class="keyword">let</span> wrapper = mount(<span class="xml"><span class="tag">&lt;<span class="name">AutocompleteField</span> <span class="attr">suggestions</span>=<span class="string">&#123;[]&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;onChange&#125;</span> /&gt;</span>);</span></span><br><span class="line"><span class="xml">    let textInputWrapper = wrapper.find(TextInput);</span></span><br><span class="line"><span class="xml">    let inputValue = 'Here is a value';</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    // We don't want to make any assumptions about the markup of `TextInput`. The</span></span><br><span class="line"><span class="xml">    // `AutocompleteField` component handles `onChange` of `TextInput`, so all we need to</span></span><br><span class="line"><span class="xml">    // do is call the prop directly like `TextInput` would and ensure we get the appropriate</span></span><br><span class="line"><span class="xml">    // value</span></span><br><span class="line"><span class="xml">    textInputWrapper.prop('onChange')(inputValue);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    // assert that the stubbed function was called with the</span></span><br><span class="line"><span class="xml">    // expected value</span></span><br><span class="line"><span class="xml">    expect(onChange).toHaveBeenCalledWith(inputValue);</span></span><br><span class="line"><span class="xml">&#125;);</span></span><br></pre></td></tr></table></figure>
+<p>The test case above uses <code>jest.fn()</code> to create a mock function. The mock is passed as the AutocompleteField component’s <code>onChange</code> prop so that we can make assertions on it at the end. After finding a reference to the TextInput, we simulate how TextInput would invoke its <code>onChange</code> callback prop. We get a reference to the prop using Enzyme’s .prop helper and call the function with the <code>inputValue</code>. This exactly how <code>TextInput</code> would call it when its DOM input field changes. However, because we don’t want to make any assumptions about the markup of <code>TextInput</code> we simulate its <code>onChange</code> prop instead of digging into it in order to simulate its DOM.</p>
+<p>Invoking the <code>onChange</code> prop will ultimately call our <code>onChange</code> with the value. Therefore, our assertion is that <code>onChange</code> was not only called, but also called with the expected input value. This assertion leverages the <code>.toHaveBeenCalledWith</code> assertion helper from <code>jest-enzyme</code>.</p>
+<h2 id="Testing-state"><a href="#Testing-state" class="headerlink" title="Testing state"></a>Testing state</h2><ul>
+<li>do not test the state of a component, only the public interface.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// good (tests internal state *indirectly* via re-rendered markup)</span></span><br><span class="line">it(<span class="string">'toggles active state when checkbox is toggled'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> wrapper = mount(<span class="xml"><span class="tag">&lt;<span class="name">Component</span> /&gt;</span>);</span></span><br><span class="line"><span class="xml">    let checkboxWrapper = wrapper.find(Checkbox);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    // first assert that by default the active class is *not* present</span></span><br><span class="line"><span class="xml">    expect(wrapper).toMatchSnapshot();</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    // simulate toggling the checkbox on by calling its</span></span><br><span class="line"><span class="xml">    // onChange callback handler passing `true` for</span></span><br><span class="line"><span class="xml">    // checked state</span></span><br><span class="line"><span class="xml">    checkboxWrapper.prop('onChange')(true);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    // now assert that the active class *is* present</span></span><br><span class="line"><span class="xml">    expect(wrapper).toMatchSnapshot();</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    // simulate toggling the checkbox back off</span></span><br><span class="line"><span class="xml">    checkboxWrapper.prop('onChange')(false);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    // finally assert once again that active class is *not*</span></span><br><span class="line"><span class="xml">    // present</span></span><br><span class="line"><span class="xml">    expect(wrapper).toMatchSnapshot();</span></span><br><span class="line"><span class="xml">&#125;);</span></span><br></pre></td></tr></table></figure>
+<h2 id="Testing-updated-props"><a href="#Testing-updated-props" class="headerlink" title="Testing updated props"></a>Testing updated props</h2><p>Typically components are stateless, meaning that what is rendered by the component is 100% based upon the props that are based in. In these cases creating a component with initial props when <code>testing render</code> and <code>testing events</code> as explained above should suffice. There shouldn’t be a need to test the re-render of a component receiving new props.</p>
+<p>However, when a component leverages internal state and its props are changed, what will be rendered will be based on a combination of those updated props and the existing state. In this case, test that the new markup is as it should be, indirectly verifying that the updated prop(s) either have or have not overridden the existing state.</p>
+<p>To test the initialValue prop behavior:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">it(&apos;does NOT allow `initialValue` to override existing &lt;input&gt; value&apos;, () =&gt; &#123;</span><br><span class="line">    let initialValue = &apos;react&apos;;</span><br><span class="line">    let newValue = &apos;enzyme&apos;;</span><br><span class="line">    let wrapper = mount(&lt;TextInput initialValue=&#123;initialValue&#125; /&gt;);</span><br><span class="line"></span><br><span class="line">    // ensure that the `initialValue` is properly reflected</span><br><span class="line">    // by checking the &lt;input&gt; node</span><br><span class="line">    expect(wrapper).toMatchSnapshot();</span><br><span class="line"></span><br><span class="line">    // update the TextInput&apos;s props</span><br><span class="line">    wrapper.setProps(&#123;value: newValue&#125;);</span><br><span class="line"></span><br><span class="line">    // ensure that the &lt;input&gt; node&apos;s value hasn&apos;t changed</span><br><span class="line">    expect(wrapper).toMatchSnapshot();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>To test the value prop behavior:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">it(&apos;DOES allow `value` to override existing &lt;input&gt; value&apos;, () =&gt; &#123;</span><br><span class="line">    let initialValue = &apos;react&apos;;</span><br><span class="line">    let newValue = &apos;enzyme&apos;;</span><br><span class="line">    let wrapper = mount(&lt;TextInput initialValue=&#123;initialValue&#125; /&gt;);</span><br><span class="line"></span><br><span class="line">    // ensure that the `initialValue` is properly reflected</span><br><span class="line">    // by checking the &lt;input&gt; node</span><br><span class="line">    expect(wrapper).toMatchSnapshot();</span><br><span class="line"></span><br><span class="line">    // update the TextInput&apos;s props</span><br><span class="line">    wrapper.setProps(&#123;value: newValue&#125;);</span><br><span class="line"></span><br><span class="line">    // ensure that the &lt;input&gt; node&apos;s value has changed</span><br><span class="line">    expect(wrapper).toMatchSnapshot();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>The key to passing new props to the existing TextInput component is the <code>setProps</code> helper method. It will cause a re-render, which will allow us to assert that the new markup is as it should be.</p>
+</blockquote>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
                 <h2><a class="post-title-link" href="/2017/03/14/2017/20170314-nwb/">nwb</a></h2>
             </div>
             <div class="post-meta">
@@ -174,98 +370,6 @@
 <p>add packages<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add babel-jest jest enzyme react-addons-test-utils</span><br></pre></td></tr></table></figure></p>
 <p>./jest.transform.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">module.exports = require(&apos;babel-jest&apos;).createTransformer(&#123;</span><br><span class="line">  presets: [&apos;es2015&apos;, &apos;react&apos;, &apos;stage-1&apos;], // or whatever you need</span><br><span class="line">  plugins: [&apos;transform-decorators-legacy&apos;] // if you need decorator support</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>package.json<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&quot;jest&quot;: &#123;</span><br><span class="line">  &quot;transform&quot;: &#123;</span><br><span class="line">    &quot;^.+\\.js$&quot;: &quot;./jest.transform.js&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;test&quot;: &quot;jest &quot;,</span><br><span class="line">  &quot;test:watch&quot;: &quot;jest --watch&quot;,</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure></p>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2017/03/14/2017/20170314-state-of-development/">state of development</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2017-03-14</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <p>I’ve covered a lot of ground in the last couple of weeks I wanted to dump it onto this blog to remember.</p>
-<h1 id="Ranking-Dev-Tools"><a href="#Ranking-Dev-Tools" class="headerlink" title="Ranking Dev Tools"></a>Ranking Dev Tools</h1><h2 id="Web-Dev-Tools-by-Preference"><a href="#Web-Dev-Tools-by-Preference" class="headerlink" title="Web Dev Tools by Preference"></a>Web Dev Tools by Preference</h2><h3 id="Web-App-Creation-Frameworks"><a href="#Web-App-Creation-Frameworks" class="headerlink" title="Web App Creation Frameworks"></a>Web App Creation Frameworks</h3><h4 id="1-nwb"><a href="#1-nwb" class="headerlink" title="#1 nwb"></a>#1 nwb</h4><p>nwb (<em>node webpack and babel</em>)</p>
-<ul>
-<li>produces apps, components and libraries.</li>
-<li>supports react/preact/inferno/react-native</li>
-<li>quick-start with a single .js file.</li>
-<li>optional configuration</li>
-<li>automatic dependency installation</li>
-<li>thought out skeleton supports delivery to npm</li>
-<li>includes testing and coverage support</li>
-</ul>
-<h4 id="2-create-react-app"><a href="#2-create-react-app" class="headerlink" title="#2 create-react-app"></a>#2 create-react-app</h4><ul>
-<li>produces react apps</li>
-<li>zero config</li>
-<li>extensible with custom scripts</li>
-<li>includes top notch testing and coverage support</li>
-<li>supported by facebook</li>
-</ul>
-<h4 id="3-fuse-box-create-react-app"><a href="#3-fuse-box-create-react-app" class="headerlink" title="#3 fuse-box-create-react-app"></a>#3 fuse-box-create-react-app</h4><ul>
-<li>a create-react-app clone with fast babel compilation.</li>
-<li>uses fuse-box fast babel compiler under the hood.</li>
-</ul>
-<h3 id="State-Management-By-Preference"><a href="#State-Management-By-Preference" class="headerlink" title="State Management By Preference"></a>State Management By Preference</h3><h4 id="1-Mobx"><a href="#1-Mobx" class="headerlink" title="#1 Mobx"></a>#1 Mobx</h4><ul>
-<li>best of breed</li>
-<li>easy to get started</li>
-<li>medium learning curve</li>
-<li>good support and fan following</li>
-</ul>
-<p>Mobx has taken over the number 1 spot.</p>
-<p>I agree with the philosophy of Mobx that there is one source of truth that everything else can be derived from. That includes being able to derive actions and reducers.</p>
-<p>Mobx is easier to implement and provide 100% of the functionality of Redux.  Make sure you look into the <strong>opinionated</strong> way to do Mobx.  Start with the <code>mobx-state-tree</code>.</p>
-<h4 id="2-Redux"><a href="#2-Redux" class="headerlink" title="#2 Redux"></a>#2 Redux</h4><ul>
-<li>most popular at this time</li>
-<li>medium learning curve</li>
-<li>mega community support and libs</li>
-</ul>
-<h2 id="Desktop-Dev-Tools-by-Preference"><a href="#Desktop-Dev-Tools-by-Preference" class="headerlink" title="Desktop Dev Tools by Preference"></a>Desktop Dev Tools by Preference</h2><h3 id="1-Electron"><a href="#1-Electron" class="headerlink" title="#1 Electron"></a>#1 Electron</h3><p>The electron framework has been gaining steam for a few years and has been used to create the following apps:</p>
-<ul>
-<li>atom</li>
-<li>slack</li>
-<li>MS Dev Studio</li>
-<li>webtorrent</li>
-</ul>
-<blockquote>
-<p>I don’t support any electron app creation  frameworks at this time.<br>That means create with just node, babel and electron.</p>
-</blockquote>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2017/03/06/2017/20170306-fusebox/">fusebox is babel on steroids</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2017-03-06</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="Building-an-app-with-fusebox"><a href="#Building-an-app-with-fusebox" class="headerlink" title="Building an app with fusebox"></a>Building an app with fusebox</h2><p>Create project folder and install dependencies<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> add project directory</span></span><br><span class="line">mkdir tic-tac-toe</span><br><span class="line">cd tic-tac-toe</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> add package.json file</span></span><br><span class="line">npm init -y</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> add packages <span class="keyword">for</span> fusebox and babel</span></span><br><span class="line">yarn add --dev \</span><br><span class="line">babel-core \</span><br><span class="line">babel-plugin-transform-react-jsx \</span><br><span class="line">babel-preset-latest \</span><br><span class="line">fuse-box</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>for decorator support add<br>babel-plugin-transform-decorators-legacy<br>babel-preset-stage-1</p>
-</blockquote>
-<p>add packages for react<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># add packages for react app</span><br><span class="line">yarn add \</span><br><span class="line">react \</span><br><span class="line">react-dom</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>for mobx support add<br>mobx<br>mobx-react<br>mobx-react-devtools</p>
-</blockquote>
-<p>configure babel using <code>.babelrc</code> file<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"sourceMaps"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"presets"</span>: [<span class="string">"latest"</span>, <span class="string">"stage-1"</span>],</span><br><span class="line">  <span class="attr">"plugins"</span>: [</span><br><span class="line">    [<span class="string">"transform-react-jsx"</span>],</span><br><span class="line">    [<span class="string">"transform-decorators-legacy"</span>]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>configure fuse using <code>fuse.js</code> file<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;FuseBox, SVGPlugin, CSSPlugin, BabelPlugin&#125; = <span class="built_in">require</span>(<span class="string">"fuse-box"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create FuseBox Instance</span></span><br><span class="line"><span class="keyword">let</span> fuse = <span class="keyword">new</span> FuseBox(&#123;</span><br><span class="line">  homeDir: <span class="string">"src/"</span>,</span><br><span class="line">  sourcemaps: <span class="literal">true</span>,</span><br><span class="line">  outFile: <span class="string">"./build/out.js"</span>,</span><br><span class="line">  plugins: [SVGPlugin(), CSSPlugin(), BabelPlugin()]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">fuse.devServer(<span class="string">"&gt;index.js"</span>);</span><br></pre></td></tr></table></figure></p>
-<p>configure <code>package.json</code> scripts<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;start&quot;: &quot;node fuse.js&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
-<p>create the build directory<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir build</span><br></pre></td></tr></table></figure></p>
-<p>create a <code>./build/index.html</code> file<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang="en"&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset="UTF-8"&gt;</span><br><span class="line">  &lt;title&gt;my-app&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id="root"&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script src="out.js" charset="utf-8"&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
-<p>create the app using the <code>./src/index.js</code> file<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; render &#125; <span class="keyword">from</span> <span class="string">'render'</span></span><br><span class="line"></span><br><span class="line">render(</span><br><span class="line">  &lt;div&gt;hello&lt;<span class="regexp">/div&gt;, document.getElementById('root')</span></span><br><span class="line"><span class="regexp">)</span></span><br></pre></td></tr></table></figure></p>
-<p>start the app<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure></p>
-<p>open in browser<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open http://localhost:4444</span><br></pre></td></tr></table></figure></p>
 
                 
             </div>

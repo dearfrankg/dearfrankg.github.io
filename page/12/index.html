@@ -77,6 +77,140 @@
     
         <article class="post-abstract">
             <div class="post-title">
+                <h2><a class="post-title-link" href="/2017/03/04/2017/20170304-electron/">electron apps with react</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2017-03-04</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="Electron-Framework"><a href="#Electron-Framework" class="headerlink" title="Electron Framework"></a>Electron Framework</h2><p>The electron framework has been gaining steam for a few years and has been used to create the following apps:</p>
+<ul>
+<li>atom</li>
+<li>slack</li>
+<li>MS Dev Studio</li>
+<li>webtorrent</li>
+</ul>
+<p>There are no app creation frameworks that I support as of MAR-2017.  That means just node, babel and electron.</p>
+<p>I would start with a reference app like:</p>
+<ul>
+<li><a href="https://goo.gl/nVXvLA" target="_blank" rel="noopener">lionshare desktop</a></li>
+</ul>
+<h3 id="libraries"><a href="#libraries" class="headerlink" title="libraries"></a>libraries</h3><p>here are some commonly used libs:</p>
+<ul>
+<li>electron</li>
+<li>node-auto-launch</li>
+<li>electron-is-dev</li>
+<li>electron-machine-id</li>
+<li>universal-analytics</li>
+</ul>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2017/02/22/2017/20170222-react-tdd-done-right/">react TDD done right</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2017-02-22</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="Start-with-an-end-to-end-test"><a href="#Start-with-an-end-to-end-test" class="headerlink" title="Start with an end-to-end test"></a>Start with an end-to-end test</h2><p>First and foremost, start every feature with an end-to-end test. An end-to-end test is basically a test from the user’s perspective (click here, wait, confirm this text is displayed, etc.)</p>
+<p>The go-to library for end-to-end tests is Selenium but since it sucks use <a href="http://webdriver.io/" target="_blank" rel="noopener">webdriverio</a></p>
+<h3 id="The-first-test"><a href="#The-first-test" class="headerlink" title="The first test"></a>The first test</h3><ul>
+<li>opens the app</li>
+<li>opens the login page</li>
+<li>enters a phone number field</li>
+<li>enters a 6 digit code</li>
+<li>confirm that the intro is shown</li>
+</ul>
+<p><strong>Use page objects</strong></p>
+<p>It’s important to note how idiomatically this reads. That’s because I’m using a pattern called PageObjects here, which Fowler talks about <a href="http://martinfowler.com/bliki/PageObject.html" target="_blank" rel="noopener">here</a>.  Essentially you create a PageObject that represents a page in your app, that encapsulates all the nasty Selenium stuff.</p>
+<p><strong>Use <code>async/await</code> everywhere</strong></p>
+<p>nuff said.</p>
+<p><strong>Create a fast way of logging in</strong></p>
+<p>Whether that’s special login credentials or a pre-authed session cookie.</p>
+<p><strong>Decouple your end-to-end tests, so they can run in parallel</strong></p>
+<p>End-to-end tests are really slow, and really flaky, so it’s not really feasible to have a single test that logs in, pokes around, and tests every feature.  If your test clicks into the app 10 levels deep, you would have to wait an ungodly 60 seconds after every change. You need every test to start with a fresh browser and a fresh login.</p>
+<blockquote>
+<p>Decouple your end-to-end tests, so they can run in parallel</p>
+</blockquote>
+<p><strong>Success: a failing end-to-end test</strong></p>
+<p>So you’ve got your end-to-end test, and it’s failing. Sweet. The next thing you want to do is work your way inwards from the point-of-contacts, writing unit tests and implementations until the end-to-end test passes.</p>
+<p>See the <a href="https://goo.gl/NRdMLn" target="_blank" rel="noopener">test</a> and the <a href="https://goo.gl/AkNJeq" target="_blank" rel="noopener">pageObjects</a></p>
+<h2 id="Unit-tests"><a href="#Unit-tests" class="headerlink" title="Unit tests"></a>Unit tests</h2><p>The first thing the user sees is the login page/button, so I’d probably start with a failing test for that. Here’s a <a href="https://goo.gl/uEFMov" target="_blank" rel="noopener">unit test</a> for login taken from that same project:</p>
+<p>Move away from the magic and the multitude of plugins. I recommend:</p>
+<ul>
+<li><a href="">tape</a><br>or</li>
+<li><a href="">jest</a> and <a href="">enzyme</a></li>
+</ul>
+<p><strong>your unit test should answer 5 questions</strong></p>
+<ul>
+<li>what are you testing</li>
+<li>what aspect are you testing</li>
+<li>how is the component tested</li>
+<li>what is the actual result</li>
+<li>what is the expected result</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">describe(<span class="string">'Login'</span>, () =&gt; &#123;                                     <span class="comment">// what you are testing</span></span><br><span class="line">  it(<span class="string">'should test this aspect'</span>, () =&gt; &#123;                       <span class="comment">// what aspect</span></span><br><span class="line">    <span class="keyword">const</span> login = shallow(<span class="xml"><span class="tag">&lt;<span class="name">Login</span> &#123;<span class="attr">...props</span>&#125; <span class="attr">step</span>=<span class="string">&#123;0&#125;</span> /&gt;</span>)      // how is it tested</span></span><br><span class="line"><span class="xml">    login.setProps(&#123; step: 1 &#125;)</span></span><br><span class="line"><span class="xml">    const logInWithPhone = login.find(&#123; testID: 'logInWithPhone' &#125;)</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    const actual = logInWithPhone.length                      // actual</span></span><br><span class="line"><span class="xml">    const expected = 1                                        // expected</span></span><br><span class="line"><span class="xml">    expect(actual).toEqual(expected)</span></span><br><span class="line"><span class="xml">  &#125;)</span></span><br><span class="line"><span class="xml">&#125;)</span></span><br></pre></td></tr></table></figure>
+<h3 id="Testing-the-inputs-and-outputs-of-components"><a href="#Testing-the-inputs-and-outputs-of-components" class="headerlink" title="Testing the inputs and outputs of components"></a>Testing the inputs and outputs of components</h3><p>It’s important, I think, to focus purely on input/output in unit tests.</p>
+<blockquote>
+<p>Test inputs and outputs of components. Don’t “reach in” and test the implementation.</p>
+</blockquote>
+<p>Enzyme lets you “reach in” and grab the actual state of the component, or the instance methods. Using these features is asking for brittle tests, because they lead you to testing the implementation and not the actual functionality or behavior of the component. The component could remain exactly the same from the point-of-view of the application, but if change the state or instance method (the implementation), the test will fail and you’ll have lots of fun maintaining your app.</p>
+<p>The <code>input</code> is generally one of three things:</p>
+<ul>
+<li>Static props</li>
+<li>Events generated by the user</li>
+<li>A child component calling a passed-in function</li>
+</ul>
+<p>The <code>output</code> is generally one of three things:</p>
+<ul>
+<li>The presence of a child component</li>
+<li>A call to function prop, like a redux action creator</li>
+<li>Values passed into child component props</li>
+</ul>
+<blockquote>
+<p>So your test-setup should generally only reference the inputs, and your test-assertions should only check the outputs.</p>
+</blockquote>
+<p>This keeps the component a “black box”, where your only test for effects. This makes your components wayyyy more flexible and lets you change the implementation without breaking a million tests, leading to lower maintenance costs.</p>
+<p><strong>Success: a failing unit test</strong></p>
+<p>Okay so you’ve got a failing unit test. Next you’d write the actual component, getting the unit test to pass. You’d slowly write failing unit tests, testing inputs/outputs, until you get to the edges where you need to send or get data from an outside source. This is where the interesting stuff happens.</p>
+<h2 id="Integration-tests"><a href="#Integration-tests" class="headerlink" title="Integration tests"></a>Integration tests</h2><p>I write integration tests last, at the edges of where my React application meets the outside world, which is generally a REST API. Here’s a <a href="https://goo.gl/tmtQIC" target="_blank" rel="noopener">failing test</a> for an async redux action creator.</p>
+<p>This test assumes you’ve got all of your redux-related files in a single <code>redux</code> folder, and the configureStore configures the store with redux-thunk middleware.</p>
+<p>getUsers returns an async function that fetches from the api, and dispatches an action that gets processed by an entities reducer.</p>
+<p>Sweet! An integration test. You don’t need to get super specific and write a ton of these. You generally want to follow the test pyramid:</p>
+<center><img src="/images/test-pyramid.gif" alt="test pyramid"></center>
+
+<p>This pyramid shows the percentage of tests that you should write for each test group.  I recommend that you create tests in this order: e2e, unit, integration.</p>
+<blockquote>
+<p>Create tests in this order: e2e, unit, integration.</p>
+</blockquote>
+<p>So, you write your end-to-end test, slowly work your way through the unit tests to the edges where you write your integration tests, all the while filling out the implementations. Eventually, your end-to-end test passes and you’ve got yourself a swag new, well-tested feature to deliver to the product team.</p>
+<h2 id="Where-to-put-the-tests"><a href="#Where-to-put-the-tests" class="headerlink" title="Where to put the tests"></a>Where to put the tests</h2><p>Maintaining two parallel structures (one for source and another for tests) is a senseless task. I try to co-locate related concepts as much as possible, and that includes putting tests next to source. I like the Facebook convention of putting tests in a <code>__tests__</code> folder. You can check it out in the React repo.</p>
+<p>Facebook, though, doesn’t seem to differentiate between unit and integration tests, they just suffix each test with <code>-test.js</code>. I’ve been suffixing unit tests with <code>.unit.js</code> and integration tests with <code>.integration.js</code>. This is important because unit tests need to run super fast, and should be run in a pre-commit git hook (or at least on your continuous integration server). Integration tests are much slower because they have to fetch external resources, and should be run less frequently.</p>
+<blockquote>
+<p>suffix your tests with <code>.unit.js</code> and <code>.integration.js</code></p>
+</blockquote>
+<h2 id="Other-Tools"><a href="#Other-Tools" class="headerlink" title="Other Tools"></a>Other Tools</h2><ul>
+<li><a href="">nyc</a> and <a href="">babel-plugin-instanbul</a> – for code coverage</li>
+<li><a href="">atom-lcov</a> – for highlighting coverage in your editor</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://goo.gl/26qOuN" target="_blank" rel="noopener">Good Practices for Testing React Apps</a></li>
+</ul>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
                 <h2><a class="post-title-link" href="/2017/02/11/2017/20170211-react-testing/">react testing with contracts</a></h2>
             </div>
             <div class="post-meta">
@@ -218,95 +352,6 @@
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
 <li><a href="https://goo.gl/B5mXvu" target="_blank" rel="noopener">The Right Way to Test React Components</a></li>
 </ul>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2017/02/09/2017/20170209-web-animation/">web animation</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2017-02-09</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="The-gist-of-it…"><a href="#The-gist-of-it…" class="headerlink" title="The gist of it…"></a>The gist of it…</h2><p>Use <code>transform</code> instead of changing CSS properties like <code>width</code> or <code>margin</code></p>
-<p>transform will let you leverage the GPU and takes little effort.</p>
-<p>with transform you can:</p>
-<ul>
-<li><code>position</code>: transform: translateX()</li>
-<li><code>scale</code>: transform: scale()</li>
-<li><code>rotation</code>: transform: rotate()</li>
-<li><code>opacity</code>: opacity: 0…1</li>
-</ul>
-<p>The expensive operation in the browser is <code>layout</code>.  When you change the <code>width</code> or <code>margin</code> of a <code>div</code> you cause the browser to have to calculate <code>layout</code> for all the elements contained in that <code>div</code>.  This is a hugely expensive operation that will cause your animation to be <code>janky</code>.</p>
-<h2 id="Checking-the-results-in-the-debugger"><a href="#Checking-the-results-in-the-debugger" class="headerlink" title="Checking the results in the debugger"></a>Checking the results in the debugger</h2><p>Using the <code>timeline</code> section of the <code>dev tools</code> you can check the load on the <code>cpu</code> and <code>paint</code> operations.  They should be very very low.  If they are high you’re doing it wrong.</p>
-<h2 id="Animation-techniques"><a href="#Animation-techniques" class="headerlink" title="Animation techniques"></a>Animation techniques</h2><h3 id="technique-1"><a href="#technique-1" class="headerlink" title="technique 1"></a>technique 1</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* BAD */</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.sidebar</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100vw</span>;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">0px</span>;</span><br><span class="line">  <span class="attribute">transition</span>: width .<span class="number">35s</span>, margin-left .<span class="number">35s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.mysidebar</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="built_in">calc</span>(100vw - 255px);</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">255px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Here our <code>SideBar</code> component has the <code>sidebar</code> class and starts off with some properties.  When we add the <code>mysidebar</code> class to it, then the properties get overridden by the <code>mysidebar</code> class.  The speed of the transition is controlled with the <code>transition</code> property under the <code>sidebar</code> class.</p>
-<h3 id="technique-2"><a href="#technique-2" class="headerlink" title="technique 2"></a>technique 2</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* GOOD */</span></span><br><span class="line"></span><br><span class="line"><span class="selector-id">#mybox</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">100px</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">animation</span>: move <span class="number">3s</span> ease infinite;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> move &#123;</span><br><span class="line">  50% &#123;</span><br><span class="line">     <span class="attribute">transform</span>: <span class="built_in">translateX</span>(100px);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Here a box identified by the <code>#mybox</code> id, will animate back and forth infinitely.</p>
-<p>animation property:</p>
-<ul>
-<li><code>move</code> is the animation name</li>
-<li><code>3s</code> take 3 seconds to complete the animation</li>
-<li><code>ease</code> the flow of the movement.   others: (ease-in, ease-in-out, linear)</li>
-<li><code>infinite</code> a flag to indicate not to stop</li>
-</ul>
-<h2 id="references"><a href="#references" class="headerlink" title="references"></a>references</h2><ul>
-<li><a href="https://goo.gl/dEKgfL" target="_blank" rel="noopener">Animating with Translate - a Paul Irish codepen</a></li>
-<li><a href="https://goo.gl/OzKCVa" target="_blank" rel="noopener">High Performance Animations</a></li>
-<li><a href="https://goo.gl/cyBAJO" target="_blank" rel="noopener">10 principles for smooth web animations</a></li>
-</ul>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2017/02/09/2017/20170210-mongodb/">locking down mongodb</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2017-02-09</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <blockquote>
-<p>Update May 3 2017</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// start db in auth mode</span><br><span class="line">mcs</span><br><span class="line"></span><br><span class="line">// login (recommended)</span><br><span class="line">export MONGO_PASS=abc123</span><br><span class="line">mc connect -u username -p $MONGO_PASS MyServer/myapp</span><br><span class="line"></span><br><span class="line">// other ways to login</span><br><span class="line">// mc connect mongodb://user:pass@localhost:27017/myapp</span><br><span class="line">// mc connect -u user -p pass MyServer/myapp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// exit CLI</span><br><span class="line">&gt; exit</span><br><span class="line"></span><br><span class="line">// shutdown db</span><br><span class="line">mcq -y</span><br></pre></td></tr></table></figure>
-<p>I gots hacked!!!<br>So… I have to learn to secure the old db.</p>
-<h2 id="Securing-the-DB"><a href="#Securing-the-DB" class="headerlink" title="Securing the DB"></a>Securing the DB</h2><p>Keep in mind I use <code>mongoctl</code> for <code>mongodb</code> management</p>
-<h3 id="Get-security-fixes"><a href="#Get-security-fixes" class="headerlink" title="Get security fixes"></a>Get security fixes</h3><p>upgrade to the latest version for the latest security fixes</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ mc list-versions</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">VERSION              EDITION              LOCATION</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">3.0.12               community            /Users/frankg/mongodb/mongodb-osx-x86_64-community-3.0.12</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ mc install-mongodb 3.4.2</span><br><span class="line">[...]</span><br><span class="line"></span><br><span class="line">$ mc list-versions</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">VERSION              EDITION              LOCATION</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">3.0.12               community            /Users/frankg/mongodb/mongodb-osx-x86_64-community-3.0.12</span><br><span class="line">3.4.2                community            /Users/frankg/mongodb/mongodb-osx-x86_64-community-3.4.2</span><br></pre></td></tr></table></figure>
-<h3 id="Create-and-Manage-users"><a href="#Create-and-Manage-users" class="headerlink" title="Create and Manage users"></a>Create and Manage users</h3><h4 id="The-admin-user"><a href="#The-admin-user" class="headerlink" title="The admin user"></a>The admin user</h4><p>An admin user can do almost anything.  The key word there is almost.</p>
-<blockquote>
-<p>admin users cannot login to all databases.<br>you should create the users that need to login to each database<br>I think the reason they did this is to prevent admin passwords from being used on the internet</p>
-</blockquote>
-<p>admin users can login to the admin database or login without specifying a database.</p>
-<p>create an admin user</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mcc</span><br><span class="line"></span><br><span class="line">MongoDB server version: 3.4.2</span><br><span class="line">&gt; use admin</span><br><span class="line"></span><br><span class="line">&gt; db.createUser(</span><br><span class="line">  &#123;</span><br><span class="line">    user: &quot;frankg&quot;,</span><br><span class="line">    pwd: &quot;xyz123&quot;,</span><br><span class="line">    roles: [ &apos;root&apos; ]</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>view a user’s roles</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">mcc</span><br><span class="line"></span><br><span class="line">MongoDB server version: 3.4.2</span><br><span class="line">&gt; use admin</span><br><span class="line"></span><br><span class="line">&gt; db.getUser(&quot;frankg&quot;)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;_id&quot; : &quot;admin.frankg&quot;,</span><br><span class="line">  &quot;user&quot; : &quot;frankg&quot;,</span><br><span class="line">  &quot;db&quot; : &quot;admin&quot;,</span><br><span class="line">  &quot;roles&quot; : [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;role&quot; : &quot;root&quot;,</span><br><span class="line">      &quot;db&quot; : &quot;admin&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="The-non-admin-user"><a href="#The-non-admin-user" class="headerlink" title="The non admin user"></a>The non admin user</h4><p>You will need to create users for each database if you want to login to that database.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mcc</span><br><span class="line"></span><br><span class="line">MongoDB server version: 3.4.2</span><br><span class="line">&gt; use myAppDb</span><br><span class="line"></span><br><span class="line">&gt; db.createUser(</span><br><span class="line">  &#123;</span><br><span class="line">   user: &quot;appUser&quot;,</span><br><span class="line">   pwd: &quot;appPass&quot;,</span><br><span class="line">   roles: [ &quot;readWrite&quot;]</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="change-a-user’s-pasword"><a href="#change-a-user’s-pasword" class="headerlink" title="change a user’s pasword"></a>change a user’s pasword</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mcc</span><br><span class="line"></span><br><span class="line">MongoDB server version: 3.4.2</span><br><span class="line">&gt; use admin</span><br><span class="line"></span><br><span class="line">&gt; db.changeUserPassword(&quot;frankg&quot;, &quot;xyz123&quot;)</span><br></pre></td></tr></table></figure>
-<h3 id="Securing-the-server-and-password"><a href="#Securing-the-server-and-password" class="headerlink" title="Securing the server and password"></a>Securing the server and password</h3><p>Here are the commands that I use to manage the database:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">alias mc=&apos;mongoctl&apos;</span><br><span class="line">alias mcs=&apos;mc start --auth MyServer &apos;</span><br><span class="line"># NOTE: don&apos;t bother trying to use the useless built in rest server!!</span><br><span class="line">alias mcq=&apos;mc stop -u frankg -p $MONGO_PASS MyServer&apos;</span><br><span class="line">alias mcst=&apos;mc status -u frankg -p $MONGO_PASS MyServer&apos;</span><br><span class="line">alias mcc=&apos;mc connect -u frankg -p $MONGO_PASS MyServer&apos;</span><br></pre></td></tr></table></figure>
-<h4 id="securing-the-server"><a href="#securing-the-server" class="headerlink" title="securing the server"></a>securing the server</h4><p>The command used to start the server is:</p>
-<p><code>alias mcs=&#39;mc start --auth MyServer&#39;</code></p>
-<p>The key option for security is <code>--auth</code>.  This puts the database in secure mode requiring usernames and passwords.</p>
-<h4 id="securing-the-password"><a href="#securing-the-password" class="headerlink" title="securing the password"></a>securing the password</h4><p>Notice that I do not use the <code>password</code> in this commands script.  Because that’s easy for a hacker to find. For example see this command:</p>
-<p><code>alias mcq=&#39;mc stop -u frankg -p $MONGO_PASS MyServer&#39;</code></p>
-<p>The password is represented by an environment variable <code>$MONGO_PASS</code></p>
-<p>If a user opens a terminal and tries to use the mongo client with the <code>mcc</code> command it will not work.  In order to make it work you need to create the environment variable in your terminal like so:</p>
-<p><code>export MONGO_PASS=xyz123</code></p>
-<p>Now you can use the <code>mcc</code> command and work with the database.</p>
-<p>To prevent others from access, close that terminal window when you’re done.</p>
 
                 
             </div>
