@@ -77,7 +77,7 @@
     
         <article class="post-abstract">
             <div class="post-title">
-                <h2><a class="post-title-link" href="/2016/11/18/2016/20161118-my-docker-farm/">Docker – My Docker Infrastructure</a></h2>
+                <h2><a class="post-title-link" href="/2016/11/18/2016/20161118-nginx-proxy/">Docker – nginx-proxy</a></h2>
             </div>
             <div class="post-meta">
                 <span class="post-time">2016-11-18</span>
@@ -85,28 +85,84 @@
             </div>
             <div class="post-content">
                 
-                    <p>I’m going to tell you how I get my Docker Infrastructure up and running.</p>
-<h2 id="Firing-up-the-monster"><a href="#Firing-up-the-monster" class="headerlink" title="Firing up the monster"></a>Firing up the monster</h2><h4 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h4><ul>
-<li>docker tools (docker, docker-machine, docker-machine-driver-xhyve)</li>
-<li>bash scripts</li>
-<li>rancher</li>
-<li>nginx</li>
-<li>nginx-proxy</li>
+                    <h2 id="Automatic-nginx-config-for-containers-using-an-env-var"><a href="#Automatic-nginx-config-for-containers-using-an-env-var" class="headerlink" title="Automatic nginx config for containers using an env var"></a>Automatic nginx config for containers using an env var</h2><ul>
+<li><a href="https://hub.docker.com/r/jwilder/nginx-proxy/" target="_blank" rel="noopener">nginx-proxy</a></li>
 </ul>
-<h4 id="The-firewall"><a href="#The-firewall" class="headerlink" title="The firewall"></a>The firewall</h4><p>Docker does not configure the firewall to accept incoming conections.  As a result we have to use nginx as a reverse-proxy to get past the firewall.</p>
-<p>That means when we call <code>mydomain.com</code> my DNS server and router are configured to go to my laptop.  When they reach my laptop on port 80</p>
-<p>This is the route that you will take to get to my services.</p>
-<ol>
-<li>DNS and router -&gt; laptop</li>
-<li>laptop firewall -&gt; port 80 to nginx</li>
-<li>nginx -&gt; nginx-proxy</li>
-<li>nginx-proxy auto-configures itself by scanning containers to see which domain they are configured for.</li>
-<li>service containers set an env var to identify the domain they handle</li>
-</ol>
-<p>My services are mapped to the following domains:</p>
-<pre><code>debugtime.com         -&gt; nginx -&gt; nginx-proxy -&gt; reactioncommerce
-rancher.debugtime.com -&gt; nginx -&gt; nginx-proxy -&gt; rancher
-blog.debugtime.com    -&gt; nginx -&gt; nginx-proxy -&gt; hexo
+<h3 id="Configure-Domain-and-Subdomains"><a href="#Configure-Domain-and-Subdomains" class="headerlink" title="Configure Domain and Subdomains"></a>Configure Domain and Subdomains</h3><blockquote>
+<p>You will require a registered domain name to do this</p>
+</blockquote>
+<ul>
+<li>Configure DNS to point domain and subdomains to home router</li>
+<li>Configure router to setup virtual server pointing to my laptop</li>
+</ul>
+<h3 id="Enable-docker-through-the-firewall"><a href="#Enable-docker-through-the-firewall" class="headerlink" title="Enable docker through the firewall"></a>Enable docker through the firewall</h3><blockquote>
+<p>NOTE<br>I cannot get docker to popup <code>allow incoming connections</code></p>
+</blockquote>
+<p>Because of the firewall problem we have to use nginx to proxy to nginx-proxy</p>
+<h4 id="usr-local-etc-nginx-servers-nginx-proxy-conf"><a href="#usr-local-etc-nginx-servers-nginx-proxy-conf" class="headerlink" title="/usr/local/etc/nginx/servers/nginx-proxy.conf"></a>/usr/local/etc/nginx/servers/nginx-proxy.conf</h4><pre><code>server {
+
+  # server_name localhost *.debugtime.com debugtime.com;
+  listen 80;
+  listen [::]:80;
+
+  set $upstream 127.0.0.1:8080;
+
+  location / {
+    proxy_pass_header Authorization;
+    proxy_pass http://$upstream;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_http_version 1.1;
+    proxy_set_header Connection &quot;&quot;;
+    proxy_buffering off;
+    client_max_body_size 0;
+    proxy_read_timeout 36000s;
+    proxy_redirect off;
+  }
+
+}
+</code></pre><h4 id="Start-nginx"><a href="#Start-nginx" class="headerlink" title="Start nginx"></a>Start nginx</h4><pre><code>sudo brew services start nginx
+</code></pre><h3 id="Start-nginx-proxy"><a href="#Start-nginx-proxy" class="headerlink" title="Start nginx-proxy"></a>Start nginx-proxy</h3><pre><code>docker run -d -p 8080:80 --name nginx-proxy \
+  -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
+</code></pre><h3 id="Test-your-domain-when-the-service-is-down"><a href="#Test-your-domain-when-the-service-is-down" class="headerlink" title="Test your domain when the service is down"></a>Test your domain when the service is down</h3><pre><code>curl -I debugtime.com
+
+    HTTP/1.1 503 Service Temporarily Unavailable
+    [...]
+</code></pre><h3 id="Start-your-services"><a href="#Start-your-services" class="headerlink" title="Start your services"></a>Start your services</h3><p>The containers being proxied must expose the port to be proxied, either by using the EXPOSE directive in their Dockerfile or by using the –expose flag to docker run or docker create.</p>
+<p>You will need:</p>
+<ul>
+<li>set the env var: <code>-e VIRTUAL_HOST=www.mydomain.com,mydomain.com</code></li>
+<li>expose the port: <code>--expose &lt;service port&gt;</code></li>
+</ul>
+<blockquote>
+<p>NOTE<br>You might be wondering what’s the difference between using <code>-p</code> and <code>--expose</code><br><code>--expose &lt;service_port&gt;</code> is for inter-container communications<br><code>-p &lt;host_port&gt;:&lt;container_port&gt;</code> is for opening access to the world</p>
+</blockquote>
+<h4 id="start-service-and-assign-to-www-debugtime-com-and-debugtime-com"><a href="#start-service-and-assign-to-www-debugtime-com-and-debugtime-com" class="headerlink" title="start service and assign to www.debugtime.com and debugtime.com"></a>start service and assign to <a href="http://www.debugtime.com" target="_blank" rel="noopener">www.debugtime.com</a> and debugtime.com</h4><pre><code>docker run -d \
+  -e VIRTUAL_HOST=www.debugtime.com,debugtime.com \
+  --name debugtime.com \
+  nginx
+</code></pre><blockquote>
+<p>nginx exposes port 80 and 443<br>you can see that with <code>docker inspect nginx</code></p>
+</blockquote>
+<h4 id="start-service-and-assign-to-foo-debugtime-com"><a href="#start-service-and-assign-to-foo-debugtime-com" class="headerlink" title="start service and assign to foo.debugtime.com"></a>start service and assign to foo.debugtime.com</h4><pre><code>docker run -d \
+  -e VIRTUAL_HOST=foo.debugtime.com \
+  --name foo.debugtime.com \
+  nginx
+</code></pre><h3 id="Test-nginx-proxy-with-services-to-proxy-to"><a href="#Test-nginx-proxy-with-services-to-proxy-to" class="headerlink" title="Test nginx-proxy with services to proxy to"></a>Test nginx-proxy with services to proxy to</h3><pre><code>curl -I debugtime.com
+
+    HTTP/1.1 200 OK
+    [...]
+
+curl -I www.debugtime.com
+
+    HTTP/1.1 200 OK
+    [...]
+
+curl -I foo.debugtime.com
+
+    HTTP/1.1 200 OK
+    [...]
 </code></pre>
                 
             </div>
