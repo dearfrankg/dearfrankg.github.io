@@ -77,6 +77,136 @@
     
         <article class="post-abstract">
             <div class="post-title">
+                <h2><a class="post-title-link" href="/2017/04/12/2017/20170412-learning-lerna/">learning lerna</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2017-04-12</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <p><a href="https://goo.gl/OQnM1G" target="_blank" rel="noopener">Lerna</a>: A tool for managing JavaScript projects with multiple packages.</p>
+<h2 id="About"><a href="#About" class="headerlink" title="About"></a>About</h2><p>Developing many packages in separate repos are messy with disadvantages.  To solve this many projects <code>babel</code>, <code>react</code>, <code>angular</code>, and many more, develop all packages in a single repo called a <code>monorepo</code>.</p>
+<p><strong>Lerna is a tool that optimizes the workflow around managing monorepos.</strong></p>
+<p>It looks like this:</p>
+<pre><code>my-lerna-repo/
+  lerna.json
+  package.json
+  packages/
+    package-1/
+      package.json
+    package-2/
+      package.json
+</code></pre><h2 id="Why-use-Lerna"><a href="#Why-use-Lerna" class="headerlink" title="Why use Lerna"></a>Why use Lerna</h2><ol>
+<li>It optimizes workflow for managing <code>packages</code></li>
+<li>it’s much more organized than having separate repos for each package</li>
+<li>manage separate utility projects tracking version independently (lodash v4.x, ramda v3.x)</li>
+<li>manage a group of related components using only a single version (bootstrap-components v3.x)</li>
+</ol>
+<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><h3 id="Create-a-lerna-repo"><a href="#Create-a-lerna-repo" class="headerlink" title="Create a lerna repo"></a>Create a lerna repo</h3><blockquote>
+<p>We are using lerna v2.x</p>
+</blockquote>
+<pre><code>// INSTALL
+npm install -g lerna
+
+// CREATE LERNA REPO
+git init lerna-repo       // create a new git repo
+cd lerna-repo
+lerna init                // LERNA COMMAND: lerna init: makes 2 files
+                          // lerna.json package.json
+
+// CONFIGURE LERNA
+{                         // configure lerna by editing lerna.json
+  &quot;lerna&quot;: &quot;2.0.0-rc.1&quot;,
+  &quot;packages&quot;: [
+    &quot;packages/*&quot;
+  ],
+  &quot;version&quot;: &quot;0.0.0&quot;,
+  &quot;npmClient&quot;: &quot;yarn&quot;,
+  &quot;commands&quot;: {
+    &quot;bootstrap&quot;: {
+      &quot;hoist&quot;: &quot;**&quot;
+    }
+  }
+}
+
+// CREATE PACKAGES
+mkdir -p packages/project1
+mkdir -p packages/project2
+lerna exec npm init -- -y     // make package.json for each project
+
+// RUN COMMANDS ON SCOPE
+lerna exec cat package.json --scope project1      // review them individually
+
+// SETUP DEPENDENCIES
+yarn add react react-dom
+// copy package.json dependency from root to project
+
+// LOCAL DEPENDENCY
+// one local project may depend on another
+// just add the dependency-project-name to package.json
+// then run
+lerna bootstrap
+</code></pre><h2 id="Commands-and-Options"><a href="#Commands-and-Options" class="headerlink" title="Commands and Options"></a>Commands and Options</h2><h3 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h3><pre><code>- bootstrap  Link together local packages and npm install remaining package dependencies
+- publish    Publish updated packages to npm
+- updated    Check which packages have changed since the last release
+- import     Import a package with git history from an external repository
+- clean      Remove the node_modules directory from all packages
+- diff       Diff all packages or a single package since the last release
+- init       Initialize a lerna repo
+- run        Run npm script in each package
+- exec       Run a command in each package
+- ls         List all public packages
+</code></pre><h3 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h3><p>configure lerna</p>
+<pre><code>--npm-tag [tagname]     Publish packages with the specified npm dist-tag
+--npm-client [client]   Executable used to install dependencies (npm, yarn, pnpm, ...)
+--concurrency           How many threads to use if lerna parallelises the tasks
+                        (defaults to 4)
+--loglevel              What level of logs to report (defaults to &quot;info&quot;).
+                        On failure, all logs are written to lerna-debug.log in the
+                        current working directory.
+--git-remote [remote]   Push git changes to the specified remote instead of &apos;origin&apos;
+--canary, -c            Publish packages after every successful merge using the
+                        sha as part of the tag
+--conventional-commits  Use angular conventional-commit format to determine version
+                        bump and generate CHANGELOG
+--yes                   Skip all confirmation prompts
+</code></pre><p>init</p>
+<pre><code>--independent, -i       Version packages independently
+--exact                 Specify cross-dependency version numbers exactly rather than
+                        with a caret (^) (only affects publish and init)
+</code></pre><p>bootstrap</p>
+<pre><code>--hoist [glob]          Install external dependencies matching [glob] to the repo root.
+                        Use with no glob for all.
+--nohoist [glob]        Don&apos;t hoist external dependencies matching [glob] to the repo root
+--include-filtered-dependencies
+                        Flag to force lerna to include all dependencies and transitive
+                        dependencies when running &apos;bootstrap&apos;, even if they should not
+                        be included by the scope or ignore flags
+</code></pre><p>publish</p>
+<pre><code>--skip-git              Skip commiting, tagging, and pushing git changes
+--skip-npm              Stop before actually publishing change to npm
+--exact                 Specify cross-dependency version numbers exactly rather than
+                        with a caret (^) (only affects publish and init)
+--message, -m [msg]     Use a custom commit message when creating the publish commit
+--repo-version          Specify repo version to publish
+--force-publish         Force publish for the specified packages (comma-separated)
+                        or all packages using *
+                        (skips the git diff check for changed packages)
+</code></pre><p>only affects ‘run’, ‘exec’, ‘clean’, ‘ls’ and ‘bootstrap’ commands</p>
+<pre><code>--scope [glob]          Restricts the scope to package names matching the given glob
+--ignore [glob]         Ignores packages with names matching the given glob
+</code></pre><p>only affects ‘run’ command</p>
+<pre><code>--stream                Stream output with lines prefixed by package (only &apos;run&apos;)
+</code></pre><p>only affects run, exec, publish and bootstrap</p>
+<pre><code>--no-sort               When executing tasks, ignore the dependency ordering of packages
+</code></pre>
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
                 <h2><a class="post-title-link" href="/2017/04/05/2017/20170405-redux-refresher/">redux refresher</a></h2>
             </div>
             <div class="post-meta">
@@ -112,46 +242,6 @@
 <li><a href="https://goo.gl/cdNhzV" target="_blank" rel="noopener">reselect for computing derived data in an efficent composable way</a></li>
 <li><a href="https://goo.gl/qAFHy3" target="_blank" rel="noopener">How to write redux tests</a></li>
 </ul>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2017/03/28/2017/20170331-lionshare/">lionshare</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2017-03-28</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h1 id="lionshare-api"><a href="#lionshare-api" class="headerlink" title="lionshare-api"></a>lionshare-api</h1><h2 id="API-Summary"><a href="#API-Summary" class="headerlink" title="API Summary"></a>API Summary</h2><p>API that powers <a href="https://lionshare.capital" target="_blank" rel="noopener">Lionshare</a> by providing both historical (REST) and realtime time (websocket) cryptocurrency market data. The data is sourced from <a href="https://gdax.com" target="_blank" rel="noopener">GDAX</a>, <a href="https://poloniex.com/" target="_blank" rel="noopener">Poloniex</a>, and <a href="https://coinmarketcap.com/" target="_blank" rel="noopener">Coinmarketcap</a>.</p>
-<h2 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h2><p>Let’s get a feel for what we’re working with:</p>
-<p>Summary of packages:</p>
-<ul>
-<li>babel - transforming</li>
-<li>koa – server and middleware</li>
-<li>websockets – web socket collection</li>
-<li>autobahn – web application messaging protocol</li>
-<li>redis – redis client</li>
-<li>utilities – bluebird-promises, cross-env, dotenv, http-error, iso-fetch</li>
-<li>utilities – ms, now-logs, pm2, safestart, semver</li>
-</ul>
-<p>Directory Structure</p>
-<pre><code>src
-├── api           // api server
-├── db            // redis
-├── exchange      // exchange server
-├── utils
-├── ws            // web socket server
-├── check.js
-├── index.js
-└── init.js
-</code></pre><h2 id="API-Data"><a href="#API-Data" class="headerlink" title="API Data"></a>API Data</h2><h3 id="Prices"><a href="#Prices" class="headerlink" title="Prices"></a>Prices</h3><figure class="highlight json"><figcaption><span>'GET api.lionshare.capital/api/prices?period</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>: &#123;</span><br><span class="line">    <span class="attr">"BTC"</span>: [<span class="number">924.2</span>, <span class="number">924.63</span>, <span class="number">923.82</span>, <span class="number">923.02</span>, <span class="number">924.82</span>, ...],</span><br><span class="line">    <span class="attr">"ETH"</span>: [<span class="number">10.74</span>, <span class="number">10.8</span>, <span class="number">10.79</span>, <span class="number">10.82</span>, <span class="number">10.82</span>, <span class="number">10.84</span>, <span class="number">10.78</span>, ...],</span><br><span class="line">    <span class="attr">"LTC"</span>: [<span class="number">3.88</span>, <span class="number">3.86</span>, <span class="number">3.85</span>, <span class="number">3.85</span>, <span class="number">3.86</span>, <span class="number">3.86</span>, <span class="number">3.84</span>, ...]</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Markets"><a href="#Markets" class="headerlink" title="Markets"></a>Markets</h3><figure class="highlight"><figcaption><span>'GET api.lionshare.capital/api/markets'</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>: &#123;</span><br><span class="line">    <span class="attr">"BTC"</span>: <span class="number">14718750986</span>,</span><br><span class="line">    <span class="attr">"ETH"</span>: <span class="number">943628626</span>,</span><br><span class="line">    <span class="attr">"LTC"</span>: <span class="number">188560718</span>,</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Updates"><a href="#Updates" class="headerlink" title="Updates"></a>Updates</h3><figure class="highlight"><figcaption><span>'GET api/updates?v</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  url: "https://github.com/lionsharecapital/lionshare-desktop/releases/download/v1.1.0/Lionshare-1.1.0-mac.zip",</span><br><span class="line">  name: "Lionshare 1.1.0",</span><br><span class="line">  notes: "- 💵 New currencies: IOC, SC, SJCX and DCR - ⌨ Keyboard shortcuts for prices and portfolio (Cmd+1/2) - ＄ Fixed formatting for non-US dollar currencies - 🐳 Fixed number formatting for whale users - 🛠 Various bug fixes and improvements ",</span><br><span class="line">  pub_date: "2017-02-06T01:51:06Z"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
                 
             </div>

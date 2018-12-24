@@ -77,6 +77,37 @@
     
         <article class="post-abstract">
             <div class="post-title">
+                <h2><a class="post-title-link" href="/2018/11/06/20181105-react-storybook/">react storybook</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2018-11-06</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>Storybook is the most popular UI component development tool for React. It helps you develop and design UI components outside your app in an isolated environment.</p>
+<p><a href="https://www.learnstorybook.com/" target="_blank" rel="noopener">Learn Storybook</a> aims to teach tried-and-true patterns for component development using Storybook. You’ll walk through essential UI component techniques while building a UI from scratch in React.</p>
+<h2 id="Steps-Covered"><a href="#Steps-Covered" class="headerlink" title="Steps Covered"></a>Steps Covered</h2><ul>
+<li>setup</li>
+<li>simple component</li>
+<li>composite component</li>
+<li>data</li>
+<li>screens</li>
+<li>testing</li>
+<li>addons</li>
+<li>deploy</li>
+<li>conclusions</li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://www.learnstorybook.com/" target="_blank" rel="noopener">Storybook Tutorial</a></li>
+</ul>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
                 <h2><a class="post-title-link" href="/2018/11/03/20181101-securing-your-web-app/">securing your web app</a></h2>
             </div>
             <div class="post-meta">
@@ -206,99 +237,6 @@
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
 <li><a href="https://goo.gl/VGKPcK" target="_blank" rel="noopener">Demystifying server-side rendering in React</a></li>
 </ul>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2018/10/31/20181031-intro-to-next-part1/">intro to next.js part1</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2018-10-31</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>Next.js is a react framework for building any kind of react app from mobile to desktop to from SPA to static pages. This article will dive into how to get started quickly.</p>
-<ul>
-<li><a href="https://goo.gl/XL1hfs" target="_blank" rel="noopener">github repo</a></li>
-</ul>
-<h3 id="Why-use-Next-js"><a href="#Why-use-Next-js" class="headerlink" title="Why use Next.js"></a>Why use Next.js</h3><p><strong>Zero Setup</strong><br>Automatic code splitting, filesystem based routing, hot code reloading and universal rendering.</p>
-<p><strong>Fully Extensible</strong><br>Complete control over Babel and Webpack. Customizable server, routing and next-plugins.</p>
-<p><strong>Ready for Production</strong><br>Optimized for a smaller build size, faster dev compilation and dozens of other improvements.</p>
-<h2 id="Create-a-Next-js-project"><a href="#Create-a-Next-js-project" class="headerlink" title="Create a Next.js project"></a>Create a Next.js project</h2><h3 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h3><ul>
-<li>install <code>node</code> using <code>nvm</code></li>
-</ul>
-<figure class="highlight plain"><figcaption><span>on the command line</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir hello-next</span><br><span class="line">cd hello-next</span><br><span class="line">npm init -y</span><br><span class="line">npm install --save react react-dom next</span><br><span class="line">mkdir pages</span><br></pre></td></tr></table></figure>
-<figure class="highlight json"><figcaption><span>edit package.json</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"dev"</span>: <span class="string">"next"</span>,</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"next build"</span>,</span><br><span class="line">    <span class="attr">"start"</span>: <span class="string">"next start"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>Run the server</strong></p>
-<figure class="highlight plain"><figcaption><span>on the command line</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
-<p><strong>Open the app</strong></p>
-<p>open <a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a> from your favorite browser</p>
-<blockquote>
-<p>You’ll see a page with a <code>404 error</code> indicating the page cannot be found.</p>
-</blockquote>
-<h2 id="Creating-your-first-page"><a href="#Creating-your-first-page" class="headerlink" title="Creating your first page"></a>Creating your first page</h2><figure class="highlight js"><figcaption><span>pages/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Index = <span class="function"><span class="params">()</span> =&gt;</span> &lt;p&gt;Hello Next.js&lt;<span class="regexp">/p&gt;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Index;</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>If you make a typo error messages appear on the browser page.</p>
-</blockquote>
-<h2 id="Navigate-with-Link"><a href="#Navigate-with-Link" class="headerlink" title="Navigate with Link"></a>Navigate with Link</h2><p><strong>Using a link</strong></p>
-<figure class="highlight js"><figcaption><span>pages/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">"next/link"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Index = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Link href=<span class="string">"/about"</span>&gt;</span><br><span class="line">      &lt;a&gt;About Page&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Link&gt;</span><br><span class="line">    &lt;p&gt;Hello Next.js&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Index;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Link works with browser history (back button)</li>
-<li>Don’t style a Link, style it’s children</li>
-<li>Link works with <code>a</code> and <code>button</code> tags and any tag with an <code>onClick</code> event.</li>
-</ul>
-<h2 id="Creating-and-using-a-Header-component"><a href="#Creating-and-using-a-Header-component" class="headerlink" title="Creating and using a Header component"></a>Creating and using a Header component</h2><p><strong>Create a Header component</strong></p>
-<figure class="highlight js"><figcaption><span>components/Header.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">"next/link"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> linkStyle = &#123;</span><br><span class="line">  marginRight: <span class="number">15</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Header = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Link href=<span class="string">"/"</span>&gt;</span><br><span class="line">      &lt;a style=&#123;linkStyle&#125;&gt;Home&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Link&gt;</span><br><span class="line">    &lt;Link href=<span class="string">"/about"</span>&gt;</span><br><span class="line">      &lt;a style=&#123;linkStyle&#125;&gt;About&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Link&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Header;</span></span><br></pre></td></tr></table></figure>
-<p><strong>Using the Header component</strong></p>
-<figure class="highlight js"><figcaption><span>pages/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Header <span class="keyword">from</span> <span class="string">"../components/Header"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Header /&gt;</span><br><span class="line">    &lt;p&gt;Hello Next.js&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<h2 id="Creating-and-using-a-Layout-component"><a href="#Creating-and-using-a-Layout-component" class="headerlink" title="Creating and using a Layout component"></a>Creating and using a Layout component</h2><p><strong>Create the Layout component</strong></p>
-<figure class="highlight js"><figcaption><span>components/Layout.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Header <span class="keyword">from</span> <span class="string">"./Header"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> layoutStyle = &#123;</span><br><span class="line">  margin: <span class="number">20</span>,</span><br><span class="line">  padding: <span class="number">20</span>,</span><br><span class="line">  border: <span class="string">"1px solid #DDD"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Layout = <span class="function">(<span class="params">&#123; children &#125;</span>) =&gt;</span> (</span><br><span class="line">  &lt;div style=&#123;layoutStyle&#125;&gt;</span><br><span class="line">    &lt;Header /&gt;</span><br><span class="line">    &#123;children&#125;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Layout;</span></span><br></pre></td></tr></table></figure>
-<p><strong>Use the Layout component on index page</strong></p>
-<figure class="highlight js"><figcaption><span>pages/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">"../components/Layout.js"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; (</span><br><span class="line">  &lt;Layout&gt;</span><br><span class="line">    &lt;p&gt;Hello Next.js&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>Layout&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p><strong>Use the Layout component on about page</strong></p>
-<figure class="highlight js"><figcaption><span>pages/about.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">"../components/Layout.js"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; (</span><br><span class="line">  &lt;Layout&gt;</span><br><span class="line">    &lt;p&gt;About page&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>Layout&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<h2 id="Deploy-your-app"><a href="#Deploy-your-app" class="headerlink" title="Deploy your app"></a>Deploy your app</h2><p><strong>Export the app to static files</strong></p>
-<ul>
-<li>add script to package.json<ul>
-<li>`”export”: “next export”</li>
-</ul>
-</li>
-<li>use export script<ul>
-<li><code>npm run export</code></li>
-<li>notice a new <code>out</code> directory was created</li>
-</ul>
-</li>
-</ul>
-<p><strong>Deploy app</strong></p>
-<ul>
-<li>make sure you have surge installed<ul>
-<li><code>npm -g ls --depth=0</code></li>
-</ul>
-</li>
-<li>install surge if needed<ul>
-<li><code>npm install -g surge</code></li>
-</ul>
-</li>
-<li>deploy exported app<ul>
-<li><code>surge out</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>In this post we demonstated using the Next.js react framework. We observed the following.</p>
-<ul>
-<li>Next uses pages: index, about</li>
-<li>Next pages consist of HTML/JS/CSS = JSX/JS/CSS-in-js</li>
-<li>Next pages are React components.</li>
-<li>Next has a Link component for navigating between pages.</li>
-<li>React components can be shared and nested with other React components</li>
-<li>Next can export an app to static files</li>
-<li>Surge can deploy and serve your static files</li>
-</ul>
-<p>We have learned enough to build a website. In the next post I will demonstrate how to build dynamic applications using Next.js.</p>
 
                 
             </div>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>dev notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" href="/css/font_859455_eaq7v6w8ktj.css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Frank Gutierrez's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">front-end review</h2>
+            <div class="post-meta">
+                <span class="post-time">2018-12-21</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">TOC</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-text">Intro</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#General-Front-end-Questions"><span class="toc-text">General Front-end Questions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-Questions"><span class="toc-text">React Questions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript-Questions"><span class="toc-text">JavaScript Questions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Data-Structures-and-Algorithms"><span class="toc-text">Data Structures and Algorithms</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-prototype"><span class="toc-text">Object prototype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extending-with-prototype"><span class="toc-text">Extending with prototype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using-callbacks"><span class="toc-text">Using callbacks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6-7-8-9-AKA-ES2015-16-17-18"><span class="toc-text">ES6, 7 8 9 AKA ES2015, 16, 17, 18</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS"><span class="toc-text">CSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MAIN-INTERVIEW-QUESTIONS"><span class="toc-text">MAIN INTERVIEW QUESTIONS</span></a></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">back to top</a>
+    </div>
+</div>
+
+        <div class="post-content">
+            <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>Front-end developer quesions</p>
+<h2 id="General-Front-end-Questions"><a href="#General-Front-end-Questions" class="headerlink" title="General Front-end Questions"></a>General Front-end Questions</h2><ul>
+<li>Submit a form without JS using a REST API</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">”/api/..”</span> <span class="attr">method</span>=<span class="string">”post”</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">”text”</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">”submit”</span>&gt;</span>submit<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Use a promise to submit a form (use resolve and reject)</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> submitForm = <span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    fetch(<span class="string">"url..."</span>)</span><br><span class="line">      .headers(&#123; <span class="attr">method</span>: <span class="string">"post"</span> &#125;)</span><br><span class="line">      .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">        resolve(response.data);</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">        reject(err);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Tooltip Question</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Create a tooltip that dynamically renders in different locations</span><br><span class="line">depending on its position.</span><br><span class="line"></span><br><span class="line">- prefered order: right, bottom, left and top</span><br><span class="line"></span><br><span class="line">given mobile device:</span><br><span class="line"></span><br><span class="line">480 x 768</span><br><span class="line">  |---------|</span><br><span class="line">  |b1--     |</span><br><span class="line">  |     --b2|</span><br><span class="line">  |   b3    |</span><br><span class="line">  |    |    |</span><br><span class="line">  |---------|</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Explain REST API and GET/POST/PUT/DELETE?</li>
+</ul>
+<blockquote>
+<p>They are used for CRUD methods: CREATE, READ, UPDATE, DELETE<br>post is used to create<br>get is used to read<br>put is used to update<br>delete is used to delete</p>
+</blockquote>
+<ul>
+<li>Explain the difference between XML and JSON</li>
+</ul>
+<blockquote>
+<p>XML is a markup language that uses tags<br>JSON is an object format</p>
+</blockquote>
+<ul>
+<li>implement a function that will execute after window resize and n milliseconds</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">func, wait, immediate = false, after = !immediate</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timeout;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">executedFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> context = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">var</span> args = <span class="built_in">arguments</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> later = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      timeout = <span class="literal">null</span>;</span><br><span class="line">      <span class="keyword">if</span> (!immediate || after) func.apply(context, args);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> callNow = immediate &amp;&amp; !timeout;</span><br><span class="line"></span><br><span class="line">    clearTimeout(timeout);</span><br><span class="line">    timeout = setTimeout(later, wait);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (callNow) func.apply(context, args);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setRandomBodyColor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> digitsString = <span class="string">"0123456789abcdef"</span>;</span><br><span class="line">  <span class="keyword">const</span> range = <span class="function"><span class="params">num</span> =&gt;</span> [...Array(num).keys()];</span><br><span class="line">  <span class="keyword">const</span> getRandomHexDigit = <span class="function"><span class="params">digits</span> =&gt;</span></span><br><span class="line">    range(digits)</span><br><span class="line">      .map(<span class="function"><span class="params">()</span> =&gt;</span> digitsString[<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">16</span>)])</span><br><span class="line">      .join(<span class="string">""</span>);</span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">"body"</span>).style.background = <span class="string">`#<span class="subst">$&#123;getRandomHexDigit(<span class="number">3</span>)&#125;</span>`</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> debouncedColorChange = debounce(setRandomBodyColor, <span class="number">500</span>);</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"resize"</span>, debouncedColorChange);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>trigger your fn at window-resize-start and window-resize-finish + time</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> debouncedColorChange = debounce(setRandomBodyColor, <span class="number">500</span>, <span class="literal">true</span>, <span class="literal">true</span>);</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"resize"</span>, debouncedColorChange);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Explain Event Bubbling and Event Delegation.</li>
+</ul>
+<blockquote>
+<p><code>Event Bubbling</code> Part of the event propagation model in which listeners are fired from the target of the event, up.<br><code>Event Delegation</code> The process of using event propagation to handle events at a higher level in the DOM than the element on which the event originated.</p>
+</blockquote>
+<h2 id="React-Questions"><a href="#React-Questions" class="headerlink" title="React Questions"></a>React Questions</h2><ul>
+<li>What are the main differences between angular and react?</li>
+</ul>
+<blockquote>
+<p>Angular is more opinionated about how you should do certain things where React is focused on rendering only and leaves it up to the developer how to implement functions.</p>
+</blockquote>
+<ul>
+<li>What is the main reason companies are moving towards React?</li>
+</ul>
+<blockquote>
+<p>Learning Angular requires you to learn the Angular way vs React emphasizes using JS to get things done strengthening the developers core programming skills.</p>
+</blockquote>
+<ul>
+<li>What is the difference between presentational and container components?</li>
+</ul>
+<blockquote>
+<p>Presenational components are only concerned with rendering while container components deal with the additional function of gathering state. They usually don’t render DOM elements; they delegate rendering to presentational components.</p>
+</blockquote>
+<ul>
+<li>What is the virtual DOM and why is this important?</li>
+</ul>
+<blockquote>
+<p>Browser DOM is slow to perform operations, so they invented virtual DOM to speed up operations, then when operations are completed, the result can merge back into Browser DOM.</p>
+</blockquote>
+<ul>
+<li>What is Redux?</li>
+</ul>
+<blockquote>
+<p>Redux is a state management library for the client and server. It is framework agnostic.</p>
+</blockquote>
+<ul>
+<li>What is Isomoprhic or Universal Javascript?</li>
+</ul>
+<blockquote>
+<p>This is an app that can leverage the same code for both client and server.</p>
+</blockquote>
+<ul>
+<li>what is good about React</li>
+</ul>
+<blockquote>
+<ul>
+<li>fast learning curve</li>
+<li>reusable components</li>
+<li>fast render</li>
+<li>huge ecosystem</li>
+</ul>
+</blockquote>
+<ul>
+<li>can you update props dynamically?</li>
+</ul>
+<blockquote>
+<p>no</p>
+</blockquote>
+<ul>
+<li>what is state and prop in react?</li>
+</ul>
+<blockquote>
+<p>state is react’s way to manage mutable state at the component level.<br>prop is immutable data passed to a component.<br>Both can be used to render the component.</p>
+</blockquote>
+<ul>
+<li>what are the lifecycle methods in react?</li>
+</ul>
+<blockquote>
+<p>MOUNTING</p>
+<ul>
+<li>constructor</li>
+<li>getDerivedStateFromProps</li>
+<li>componentDidMount</li>
+<li>render</li>
+</ul>
+<p>UPDATING</p>
+<ul>
+<li>getDerivedStateFromProps</li>
+<li>shouldComponentUpdate</li>
+<li>render</li>
+<li>componentDidUpdate</li>
+</ul>
+<p>UNMOUNTING</p>
+<ul>
+<li>componentDidUnmount</li>
+</ul>
+</blockquote>
+<ul>
+<li>what is redux?</li>
+</ul>
+<blockquote>
+<p>redux is a state management library</p>
+</blockquote>
+<ul>
+<li>write an autocomplete react component on the whiteboard</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// autocomplete function...</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>debug this react code</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fix the state, method names, prop types so that it renders correctly</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>what is the difference of container component and connected component</li>
+</ul>
+<blockquote>
+<p>A container component is a component that collects state. A connected component uses redux’s connect HOF that returns a pure component with state. You can have a component that is both.</p>
+</blockquote>
+<ul>
+<li>how to handle different action inside reducer</li>
+</ul>
+<blockquote>
+<p>Use the action.type to determine which action is triggered the return a new state with your changes</p>
+</blockquote>
+<ul>
+<li>how to handle async request in react</li>
+</ul>
+<blockquote>
+<p>You can use <code>redux thunk</code> or <code>redux saga</code></p>
+</blockquote>
+<ul>
+<li>stateful and stateless component</li>
+</ul>
+<blockquote>
+<p>A stateful component deals with managing state<br>A stateless component just deals with rendering</p>
+</blockquote>
+<ul>
+<li>Why is immutability important?</li>
+</ul>
+<blockquote>
+<p>Working with immutable data structures can have a positive impact on performance, if done right. In the case of React performance often is about avoiding unnecessary re-rendering of your app, if the data did not change. To achieve that, you need to compare the next state of your app with the current state. If the states differ: re-render. Otherwise don’t. To compare states, you need to compare the objects in the state for equality. In plain old JavaScript objects, you would need to deep compare in order to see if any property inside the objects changed.</p>
+<p>With immutable objects, you don’t need that. <code>immutableObject1 === immutableObject2</code></p>
+</blockquote>
+<ul>
+<li>What’s the diffeence between elements and components?</li>
+</ul>
+<blockquote>
+<p><code>react elements</code> An element is a plain object describing what you want to appear on the screen in terms of the DOM nodes or other components. Elements can contain other elements in their props (they can be nested creating an element tree).<br><code>react components</code> refer to an instance of a React component class.<br><code>react component backing instance</code> The actual DOM node.</p>
+</blockquote>
+<p>When React sees an element with a function or class type, it will know to ask that component what element it renders to with the given props.</p>
+<p>When it sees</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  type: Button,</span><br><span class="line">  props: &#123;</span><br><span class="line">    color: <span class="string">'blue'</span>,</span><br><span class="line">    children: <span class="string">'OK!'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>React will ask Button what it renders to, and it will get</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  type: <span class="string">'button'</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    className: <span class="string">'button button-blue'</span>,</span><br><span class="line">    children: &#123;</span><br><span class="line">      type: <span class="string">'b'</span>,</span><br><span class="line">      children: <span class="string">'OK!'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>React will repeat this process until it knows the underlying DOM tag elements for every component on the page.</p>
+<h2 id="JavaScript-Questions"><a href="#JavaScript-Questions" class="headerlink" title="JavaScript Questions"></a>JavaScript Questions</h2><ul>
+<li>Search array problem</li>
+</ul>
+<p>Given an array of large unique strings. You will need to search through it many times. How would you do it?</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr1 = [];</span><br><span class="line"><span class="keyword">const</span> queryStrings = [];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>You could use a binay search algorithm to speed the search<br>You could use memoize function to speed subsequent seaches</p>
+</blockquote>
+<ul>
+<li>given “hello” return “h.e.l.l.o”</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"hello"</span>.split(<span class="string">""</span>).join(<span class="string">"."</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>What’s the difference between <code>==</code> and <code>===</code>?</li>
+</ul>
+<blockquote>
+<p><code>==</code> coerces and <code>===</code> does not</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> == <span class="string">"1"</span>; <span class="comment">// true</span></span><br><span class="line"><span class="number">1</span> === <span class="string">"1"</span>; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Given [1, [2,3], [4,5]] flatten the array</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result = [<span class="number">1</span>, [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>]].reduce(</span><br><span class="line">  (a, x) =&gt; (<span class="built_in">Array</span>.isArray(x) ? a.concat(x) : [...a, x]),</span><br><span class="line">  []</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>sort a huge array of 0 and 1. Solution should be O(n)</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> count = arr.reduce(<span class="function">(<span class="params">a, n</span>) =&gt;</span> a + n, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">return</span> [...Array(arr.length - count).fill(<span class="number">0</span>), ...Array(count).fill(<span class="number">1</span>)];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>What is “closure” in Javascript?</li>
+</ul>
+<blockquote>
+<p>A closure is a feature in JavaScript where an inner function has access to the outer (enclosing) function’s variables.</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> makeClosure = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> ++count;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> increment = makeClosure();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(increment());</span><br><span class="line"><span class="built_in">console</span>.log(increment());</span><br><span class="line"><span class="built_in">console</span>.log(increment());</span><br><span class="line"><span class="comment">// output</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>What is a promise?</li>
+</ul>
+<blockquote>
+<p>A promise represents the eventual result of an asynchronous operation. It is a placeholder into which the successful result value or reason for failure will materialize.</p>
+</blockquote>
+<ul>
+<li>What is the drawback of creating true private methods in JavaScript?</li>
+</ul>
+<blockquote>
+<p>One of the drawbacks of creating true private methods in JavaScript is that they are very memory-inefficient, as each instance gets a copy.</p>
+</blockquote>
+<ul>
+<li>What is a Javascript task runner you have used? Why are these important?</li>
+</ul>
+<blockquote>
+<p>I’ve used <code>grunt</code> and <code>gulp</code> and <code>npm</code>. The help automate common tasks.</p>
+</blockquote>
+<ul>
+<li>What are your strong points as a developer?</li>
+</ul>
+<blockquote>
+<p>Experience and persistence</p>
+</blockquote>
+<ul>
+<li>What’s the difference between .for Each and .map methods</li>
+</ul>
+<blockquote>
+<p><code>forEach</code> iterates over an array without returning a result<br><code>map</code> iterates over an array and returns an array.</p>
+</blockquote>
+<ul>
+<li>How would you implement a reverse method on the String type in Javascript</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reverse = <span class="function"><span class="params">s</span> =&gt;</span> (s.length === <span class="number">1</span> ? s : s.slice(<span class="number">-1</span>) + reverse(s.slice(<span class="number">0</span>, <span class="number">-1</span>)));</span><br><span class="line"></span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reverse = <span class="function"><span class="params">s</span> =&gt;</span></span><br><span class="line">  s</span><br><span class="line">    .split(<span class="string">""</span>)</span><br><span class="line">    .reverse()</span><br><span class="line">    .join(<span class="string">""</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Write a function that removes duplicates from an array of names</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dedup = <span class="function"><span class="params">arr</span> =&gt;</span> <span class="built_in">Array</span>.from(<span class="keyword">new</span> <span class="built_in">Set</span>(arr).values());</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> names = [<span class="string">"bob"</span>, <span class="string">"bob"</span>, <span class="string">"sam"</span>, <span class="string">"jen"</span>];</span><br><span class="line"><span class="built_in">console</span>.log(dedup(names));</span><br><span class="line"><span class="comment">// output</span></span><br><span class="line"><span class="comment">// [ 'bob', 'sam', 'jen' ]</span></span><br></pre></td></tr></table></figure>
+<h2 id="Data-Structures-and-Algorithms"><a href="#Data-Structures-and-Algorithms" class="headerlink" title="Data Structures and Algorithms"></a>Data Structures and Algorithms</h2><ul>
+<li>In you own words tell me what Big O Notation is and why it is important?</li>
+</ul>
+<blockquote>
+<p>Big-O notation is really just a communication tool. It’s designed so that we can all shortcut the tedious and wordy explanations of how expensive an algorithm is and say, it’s like this or that equation. It describes the worst-case scenario, and is used to describe the approximate execution time or the space required by an algorithm.</p>
+</blockquote>
+<ul>
+<li>Group the food items to get the result below</li>
+</ul>
+<figure class="highlight js"><figcaption><span>problem</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foodItems = [</span><br><span class="line">  &#123; <span class="attr">type</span>: <span class="string">"chinese"</span>, <span class="attr">name</span>: <span class="string">"chow mein"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">type</span>: <span class="string">"american"</span>, <span class="attr">name</span>: <span class="string">"burgers"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">type</span>: <span class="string">"chinese"</span>, <span class="attr">name</span>: <span class="string">"wontons"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">type</span>: <span class="string">"indian"</span>, <span class="attr">name</span>: <span class="string">"chicken"</span> &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> result = foodItems.reduce(<span class="function">(<span class="params">a, item</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [found] = a.filter(<span class="function"><span class="params">o</span> =&gt;</span> o.type === item.type);</span><br><span class="line">  <span class="keyword">if</span> (found) &#123;</span><br><span class="line">    <span class="keyword">return</span> [</span><br><span class="line">      ...a.filter(<span class="function"><span class="params">o</span> =&gt;</span> o.type !== item.type),</span><br><span class="line">      &#123; <span class="attr">type</span>: found.type, <span class="attr">name</span>: [...found.name, item.name], <span class="attr">count</span>: ++found.count &#125;</span><br><span class="line">    ];</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> [...a, &#123; <span class="attr">type</span>: item.type, <span class="attr">name</span>: [item.name], <span class="attr">count</span>: <span class="number">1</span> &#125;];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;, []);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"result: "</span>, result);</span><br><span class="line"></span><br><span class="line"><span class="comment">// output</span></span><br><span class="line"><span class="comment">// result = [</span></span><br><span class="line"><span class="comment">//   &#123; type: "chinese", name: ["chow mein", "wontons"], count: 2 &#125;,</span></span><br><span class="line"><span class="comment">//   &#123; type: "america", name: ["burgers"], count: 1 &#125;,</span></span><br><span class="line"><span class="comment">//   &#123; type: "indian", name: "chicken", count: 1 &#125;</span></span><br><span class="line"><span class="comment">// ];</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>What would be the output of the following lines of code, please explain your answer</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>);</span><br><span class="line">  &#125;, <span class="number">100</span>);</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">4</span>);</span><br><span class="line">  &#125;, <span class="number">100</span>);</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">5</span>);</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>The output would be 1, 2, 5, 3 4.<br>This is because item 3 and 4 have to wait 100ms.</p>
+</blockquote>
+<h2 id="Object-prototype"><a href="#Object-prototype" class="headerlink" title="Object prototype"></a>Object prototype</h2><ul>
+<li>explain the code</li>
+</ul>
+<blockquote>
+<p>line 8: P is assigned a method Person.getName<br>line 10: P() calls the method without context returning undefined<br>line 12: Person.getName() calls the method with context returning “Jon Snow”<br>line 14: P is assigned the method with the context Person bound to it.<br>line 16: P() calls the method with context returning “Jon Snow”<br>line 18: P is assigned the return value of a call to Person.getName where <code>call</code> overrides context with Person. The return value is “Jon Snow”<br>line 20: P holds the value “Jon Snow”</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Person = &#123;</span><br><span class="line">  name: <span class="string">"Jon Snow"</span>,</span><br><span class="line">  getName: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> P = Person.getName;</span><br><span class="line"></span><br><span class="line">P();</span><br><span class="line"></span><br><span class="line">Person.getName();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> P = Person.getName.bind(Person);</span><br><span class="line"></span><br><span class="line">P();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> P = Person.getName.call(Person);</span><br><span class="line"></span><br><span class="line">P;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Modifiy so <code>Person.getName();</code> prints the name.</li>
+</ul>
+<figure class="highlight js"><figcaption><span>change person object</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Person = &#123;</span><br><span class="line">  name: <span class="string">"Jon Snow"</span>,</span><br><span class="line">  getName: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Invoke getName without using bind</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person.getName();</span><br></pre></td></tr></table></figure>
+<h2 id="Extending-with-prototype"><a href="#Extending-with-prototype" class="headerlink" title="Extending with prototype"></a>Extending with prototype</h2><ul>
+<li>extend String prototype</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.prototype.caps = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.toUpperCase();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>extend Array prototype</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.range = <span class="function"><span class="params">num</span> =&gt;</span> [...Array(num).keys()];</span><br></pre></td></tr></table></figure>
+<h2 id="Using-callbacks"><a href="#Using-callbacks" class="headerlink" title="Using callbacks"></a>Using callbacks</h2><ul>
+<li>Implement a forEach method with a callback</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> forEach = <span class="function">(<span class="params">arr, callback</span>) =&gt;</span> &#123;</span><br><span class="line">  arr.forEach(callback);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>];</span><br><span class="line"><span class="keyword">const</span> printItem = <span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">console</span>.log(item);</span><br><span class="line">forEach(arr, printItem);</span><br></pre></td></tr></table></figure>
+<h2 id="ES6-7-8-9-AKA-ES2015-16-17-18"><a href="#ES6-7-8-9-AKA-ES2015-16-17-18" class="headerlink" title="ES6, 7 8 9 AKA ES2015, 16, 17, 18"></a>ES6, 7 8 9 AKA ES2015, 16, 17, 18</h2><ul>
+<li><p>What new ecmascript features have you used?</p>
+</li>
+<li><p><code>...</code> spread operator</p>
+</li>
+<li><code>...</code> rest operator</li>
+<li><code>**</code> exponent infix operator</li>
+<li>import/export</li>
+<li>dynamic import</li>
+<li>destructuring</li>
+<li>let/const</li>
+<li>arrow functions</li>
+<li>default params</li>
+<li>string interpolation</li>
+<li>object shorthand</li>
+<li>Set</li>
+</ul>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><ul>
+<li>Explain the diffence between fixed, relative and absolute on the white board.</li>
+</ul>
+<h2 id="MAIN-INTERVIEW-QUESTIONS"><a href="#MAIN-INTERVIEW-QUESTIONS" class="headerlink" title="MAIN INTERVIEW QUESTIONS"></a>MAIN INTERVIEW QUESTIONS</h2><ul>
+<li><p>some react questions</p>
+</li>
+<li><p>Fire an event when the user stops scrolling.</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> debounce = <span class="function">(<span class="params">func, wait, immediate = <span class="literal">true</span>, after = !immediate</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> timeout = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">executedFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> context = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">const</span> args = <span class="built_in">arguments</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> later = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      timeout = <span class="literal">null</span>;</span><br><span class="line">      <span class="keyword">if</span> (!immediate || after) func.call(context, args);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> callNow = immediate &amp;&amp; !timeout;</span><br><span class="line">    <span class="keyword">if</span> (callNow) func.apply(context, args);</span><br><span class="line"></span><br><span class="line">    clearTimeout(timeout);</span><br><span class="line">    timeout = setTimeout(later, wait);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> doSomething = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">window</span>.scrollY);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"scroll"</span>, debounce(doSomething, <span class="number">100</span>, <span class="literal">false</span>));</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Should the setup be placed in the react constuctor or lifecycle hook</li>
+</ul>
+<ul>
+<li><p>Create a limiter closure that takes a number and fn and allows the fn to be executed n times.</p>
+</li>
+<li><p>Explain hoisting</p>
+</li>
+</ul>
+<ul>
+<li><p>What’s the purpose of <code>this</code>?</p>
+</li>
+<li><p>What’s the difference between <code>call</code> and <code>apply</code>?</p>
+</li>
+<li><p>When you instantiate a class without the new keyword what is returned?</p>
+</li>
+<li><p>Create an isPalidrome function.</p>
+</li>
+<li><p>Create a private variable using let and closure.</p>
+</li>
+<li><p>What’s the difference between <code>var foo = 1</code> and <code>foo = 1</code></p>
+</li>
+<li><p>What is a closure.</p>
+</li>
+<li><p>Create an array method duplicate</p>
+</li>
+<li><p>Build a todo react app using jsFiddle</p>
+</li>
+<li><p>Find a hackerrank problem with 80% success rate</p>
+<ul>
+<li>bigger is greater</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> biggerIsGreater = <span class="function"><span class="params">str</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> array = str.split(<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// find non-increasing suffix</span></span><br><span class="line">  <span class="keyword">let</span> i = array.length - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (i &gt; <span class="number">0</span> &amp;&amp; array[i - <span class="number">1</span>] &gt;= array[i]) i--;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (i &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="string">"no answer"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// find successor</span></span><br><span class="line">  <span class="keyword">let</span> s = array.length - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (array[s] &lt;= array[i - <span class="number">1</span>]) s--;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// swap successor and pivot</span></span><br><span class="line">  <span class="keyword">const</span> tmp = array[i - <span class="number">1</span>];</span><br><span class="line">  array[i - <span class="number">1</span>] = array[s];</span><br><span class="line">  array[s] = tmp;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// reverse suffix</span></span><br><span class="line">  <span class="keyword">let</span> j = array.length - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">    <span class="keyword">const</span> tmp = array[i];</span><br><span class="line">    array[i] = array[j];</span><br><span class="line">    array[j] = tmp;</span><br><span class="line">    i++;</span><br><span class="line">    j--;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> array.join(<span class="string">""</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> problems = [</span><br><span class="line">  &#123; <span class="attr">ab</span>: <span class="string">"ba"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">bb</span>: <span class="string">"no answer"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">hefg</span>: <span class="string">"hegf"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">dhck</span>: <span class="string">"dhkc"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">dkhc</span>: <span class="string">"hcdk"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">lmno</span>: <span class="string">"lmon"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">dcba</span>: <span class="string">"no answer"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">dcbb</span>: <span class="string">"no answer"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">abdc</span>: <span class="string">"acbd"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">abcd</span>: <span class="string">"abdc"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">fedcbabcd</span>: <span class="string">"fedcbabdc"</span> &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pass = problems.every(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [input] = <span class="built_in">Object</span>.keys(item);</span><br><span class="line">  <span class="keyword">const</span> answer = item[input];</span><br><span class="line">  <span class="keyword">const</span> output = biggerIsGreater(input);</span><br><span class="line">  <span class="keyword">const</span> result = output === answer;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`input: <span class="subst">$&#123;input&#125;</span>, answer: <span class="subst">$&#123;answer&#125;</span>, output: <span class="subst">$&#123;output&#125;</span> --&gt; pass: <span class="subst">$&#123;result&#125;</span>`</span>);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"pass: "</span>, pass);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">output</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">input: hefg, answer: hegf, output: hegf --&gt; pass: true</span></span><br><span class="line"><span class="comment">input: dhck, answer: dhkc, output: dhkc --&gt; pass: true</span></span><br><span class="line"><span class="comment">input: dkhc, answer: hcdk, output: hcdk --&gt; pass: true</span></span><br><span class="line"><span class="comment">input: lmno, answer: lmon, output: lmon --&gt; pass: true</span></span><br><span class="line"><span class="comment">input: dcba, answer: no answer, output: no answer --&gt; pass: true</span></span><br><span class="line"><span class="comment">input: dcbb, answer: no answer, output: no answer --&gt; pass: true</span></span><br><span class="line"><span class="comment">input: abdc, answer: acbd, output: acbd --&gt; pass: true</span></span><br><span class="line"><span class="comment">input: abcd, answer: abdc, output: abdc --&gt; pass: true</span></span><br><span class="line"><span class="comment">input: fedcbabcd, answer: fedcbabdc, output: fedcbabdc --&gt; pass: true</span></span><br><span class="line"><span class="comment">pass:  true</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>flatten an array with the iterative process, the recursive process, and using the ‘apply’ method.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//todo</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>given a deck of cards, write a function that will shuffle the deck.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cards = [<span class="string">"A"</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="string">"J"</span>, <span class="string">"Q"</span>, <span class="string">"K"</span>];</span><br><span class="line"><span class="keyword">const</span> suites = [<span class="string">"hearts"</span>, <span class="string">"spades"</span>, <span class="string">"clubs"</span>, <span class="string">"diamonds"</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getDeck = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> suites.reduce(<span class="function">(<span class="params">acc, suit</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> set = cards.map(<span class="function"><span class="params">card</span> =&gt;</span> card + <span class="string">"-"</span> + suit);</span><br><span class="line">    <span class="keyword">return</span> acc.concat(set);</span><br><span class="line">  &#125;, []);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> shuffle = <span class="function"><span class="params">a</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = a.length - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">    <span class="keyword">const</span> j = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (i + <span class="number">1</span>));</span><br><span class="line">    [a[i], a[j]] = [a[j], a[i]];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> a;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> deck = getDeck();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"result: "</span>, shuffle(deck));</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">output</span></span><br><span class="line"><span class="comment">[</span></span><br><span class="line"><span class="comment">  ...</span></span><br><span class="line"><span class="comment">  '10-diamonds',</span></span><br><span class="line"><span class="comment">  'A-hearts',</span></span><br><span class="line"><span class="comment">  '10-clubs',</span></span><br><span class="line"><span class="comment">  '8-diamonds',</span></span><br><span class="line"><span class="comment">  '4-diamonds',</span></span><br><span class="line"><span class="comment">  'A-spades',</span></span><br><span class="line"><span class="comment">  '8-clubs',</span></span><br><span class="line"><span class="comment">  ...</span></span><br><span class="line"><span class="comment">]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Write a String function repeatify: <code>&quot;foo&quot;.repeatify(3) // &quot;foofoofoo&quot;</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.prototype.repeatify = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="string">""</span>;</span><br><span class="line">  <span class="keyword">while</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    result += <span class="keyword">this</span>.valueOf();</span><br><span class="line">    num--;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"foo"</span>.repeatify(<span class="number">3</span>)); <span class="comment">// foofoofoo```</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Return the top three keys for the top 3 values for <code>{ e: 5, a: 7, c: 3, d: 10, b: 8 }</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> list = &#123; <span class="attr">e</span>: <span class="number">5</span>, <span class="attr">a</span>: <span class="number">7</span>, <span class="attr">c</span>: <span class="number">3</span>, <span class="attr">d</span>: <span class="number">10</span>, <span class="attr">b</span>: <span class="number">8</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> top3 = <span class="built_in">Object</span>.keys(list)</span><br><span class="line">  .sort(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> list[b] - list[a];</span><br><span class="line">  &#125;)</span><br><span class="line">  .slice(<span class="number">0</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"top3: "</span>, top3);<span class="string">``</span><span class="string">`</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>flatten the object</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">convert object          to produce this</span><br><span class="line">var o = &#123;               &#123;</span><br><span class="line">  a: &#123;                    a.m.x: 1</span><br><span class="line">    m: &#123;                  a.m.y: 2</span><br><span class="line">      x: &quot;1&quot;,             b: 3</span><br><span class="line">      y: &quot;2&quot;              c.m: 4</span><br><span class="line">    &#125;                   &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  b: &quot;3&quot;,</span><br><span class="line">  c: &#123;</span><br><span class="line">    m: &quot;4&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> flattenObject = <span class="function"><span class="keyword">function</span>(<span class="params">ob</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = &#123;&#125;;</span><br><span class="line">  <span class="built_in">Object</span>.keys(ob).forEach(<span class="function"><span class="params">i</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> ob[i] == <span class="string">"object"</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> flatObject = flattenObject(ob[i]);</span><br><span class="line">      <span class="built_in">Object</span>.keys(flatObject).forEach(<span class="function"><span class="params">x</span> =&gt;</span> &#123;</span><br><span class="line">        result[i + <span class="string">"."</span> + x] = flatObject[x];</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      result[i] = ob[i];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> nested = &#123;</span><br><span class="line">  a: &#123;</span><br><span class="line">    m: &#123;</span><br><span class="line">      x: <span class="string">"1"</span>,</span><br><span class="line">      y: <span class="string">"2"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  b: <span class="string">"3"</span>,</span><br><span class="line">  c: &#123;</span><br><span class="line">    m: <span class="string">"4"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> flat = flattenObject(nested);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(flat, <span class="literal">null</span>, <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">  "a.m.x": "1",</span></span><br><span class="line"><span class="comment">  "a.m.y": "2",</span></span><br><span class="line"><span class="comment">  "b": "3",</span></span><br><span class="line"><span class="comment">  "c.m": "4"</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>create this layout: <a href="https://goo.gl/QGLcT4" target="_blank" rel="noopener">https://goo.gl/QGLcT4</a></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//todo</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>create an array method convertToString() that outputs: <code>&quot;[6,7,[8,9]]&quot;</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.convertToSting = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> arr = <span class="keyword">this</span>.valueOf();</span><br><span class="line">  <span class="keyword">let</span> result = <span class="string">""</span>;</span><br><span class="line">  arr.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    result += <span class="built_in">Array</span>.isArray(item) ? item.convertToSting() + <span class="string">", "</span> : item + <span class="string">", "</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">if</span> (<span class="regexp">/,\s$/</span>.test(result)) result = result.slice(<span class="number">0</span>, <span class="number">-2</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`[<span class="subst">$&#123;result&#125;</span>]`</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> data = [<span class="number">0</span>, <span class="number">7</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">30</span>, [<span class="number">15</span>, <span class="number">22</span>, <span class="number">33</span>], <span class="number">22</span>], <span class="number">77</span>];</span><br><span class="line"><span class="built_in">console</span>.log(data.convertToSting()); <span class="comment">// [0, 7, [1, 2, 3, 30, [15, 22, 33], 22], 77]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>what is requestAnimationFrame used for? code an example.</li>
+</ul>
+<blockquote>
+<p>It’s used to stop animating when you navigate to another tab.</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> globalID;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">repeatOften</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  $(<span class="string">"&lt;div /&gt;"</span>).appendTo(<span class="string">"body"</span>);</span><br><span class="line">  globalID = requestAnimationFrame(repeatOften);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$(<span class="string">"#start"</span>).on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  globalID = requestAnimationFrame(repeatOften);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="string">"#stop"</span>).on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  cancelAnimationFrame(globalID);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/JS/" title="JS">JS</a>
+            
+            <a class="tag" href="/tags/redux/" title="redux">redux</a>
+            
+            <a class="tag" href="/tags/react/" title="react">react</a>
+            
+            <a class="tag" href="/tags/dom/" title="dom">dom</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+        
+            <a class="next" href="/2018/12/15/20181215-example-databases/">
+                <span class="nav-default">MySQL Refresher</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/dearfrankg">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2018
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/dearfrankg">Frank Gutierrez</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

@@ -77,6 +77,154 @@
     
         <article class="post-abstract">
             <div class="post-title">
+                <h2><a class="post-title-link" href="/2017/02/11/2017/20170211-react-testing/">react testing with contracts</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2017-02-11</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h3 id="TO-BE-DEPRECATED-AFTER-I-PULL-OUT-THE-GEMS"><a href="#TO-BE-DEPRECATED-AFTER-I-PULL-OUT-THE-GEMS" class="headerlink" title="TO BE DEPRECATED AFTER I PULL OUT THE GEMS"></a>TO BE DEPRECATED AFTER I PULL OUT THE GEMS</h3><h3 id="TO-BE-DEPRECATED-AFTER-I-PULL-OUT-THE-GEMS-1"><a href="#TO-BE-DEPRECATED-AFTER-I-PULL-OUT-THE-GEMS-1" class="headerlink" title="TO BE DEPRECATED AFTER I PULL OUT THE GEMS"></a>TO BE DEPRECATED AFTER I PULL OUT THE GEMS</h3><h3 id="TO-BE-DEPRECATED-AFTER-I-PULL-OUT-THE-GEMS-2"><a href="#TO-BE-DEPRECATED-AFTER-I-PULL-OUT-THE-GEMS-2" class="headerlink" title="TO BE DEPRECATED AFTER I PULL OUT THE GEMS"></a>TO BE DEPRECATED AFTER I PULL OUT THE GEMS</h3><h3 id="TO-BE-DEPRECATED-AFTER-I-PULL-OUT-THE-GEMS-3"><a href="#TO-BE-DEPRECATED-AFTER-I-PULL-OUT-THE-GEMS-3" class="headerlink" title="TO BE DEPRECATED AFTER I PULL OUT THE GEMS"></a>TO BE DEPRECATED AFTER I PULL OUT THE GEMS</h3><h2 id="React-Testing-Explained"><a href="#React-Testing-Explained" class="headerlink" title="React Testing Explained"></a>React Testing Explained</h2><p>Here are the <code>App</code> and <code>LockScreen</code> components.</p>
+<figure class="highlight js"><figcaption><span>App</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> LockScreen <span class="keyword">from</span> <span class="string">'./LockScreen'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;LockScreen</span><br><span class="line">        wallpaperPath=<span class="string">'react_wallpaper.png'</span></span><br><span class="line">        userInfoMessage=<span class="string">'This is Tim'</span>s phone. If found, please give it back to him. He will be sad without it<span class="string">'</span></span><br><span class="line"><span class="string">        onUnlocked=&#123;() =&gt; alert('</span>unlocked!<span class="string">')&#125;</span></span><br><span class="line"><span class="string">      /&gt;</span></span><br><span class="line"><span class="string">    )</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>LockScreen</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; PropTypes &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> ClockDisplay <span class="keyword">from</span> <span class="string">'./ClockDisplay'</span></span><br><span class="line"><span class="keyword">import</span> TopOverlay <span class="keyword">from</span> <span class="string">'./TopOverlay'</span></span><br><span class="line"><span class="keyword">import</span> SlideToUnlock <span class="keyword">from</span> <span class="string">'./SlideToUnlock'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">LockScreen</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> propTypes = &#123;</span><br><span class="line">    wallpaperPath: PropTypes.string,</span><br><span class="line">    userInfoMessage: PropTypes.string,</span><br><span class="line">    onUnlocked: PropTypes.func,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;</span><br><span class="line">      wallpaperPath,</span><br><span class="line">      userInfoMessage,</span><br><span class="line">      onUnlocked,</span><br><span class="line">    &#125; = <span class="keyword">this</span>.props</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div</span><br><span class="line">        style=&#123;&#123;</span><br><span class="line">          height: <span class="string">'100%'</span>,</span><br><span class="line">          display: <span class="string">'flex'</span>,</span><br><span class="line">          justifyContent: <span class="string">'space-between'</span>,</span><br><span class="line">          flexDirection: <span class="string">'column'</span>,</span><br><span class="line">          backgroundImage: wallpaperPath ? <span class="string">`url(<span class="subst">$&#123;wallpaperPath&#125;</span>)`</span> : <span class="string">',</span></span><br><span class="line"><span class="string">          backgroundColor: '</span>black<span class="string">',</span></span><br><span class="line"><span class="string">          backgroundPosition: '</span>center<span class="string">',</span></span><br><span class="line"><span class="string">          backgroundSize: '</span>cover<span class="string">',</span></span><br><span class="line"><span class="string">        &#125;&#125;</span></span><br><span class="line"><span class="string">      &gt;</span></span><br><span class="line"><span class="string">        &lt;ClockDisplay /&gt;</span></span><br><span class="line"><span class="string">        &#123;userInfoMessage ? (</span></span><br><span class="line"><span class="string">          &lt;TopOverlay</span></span><br><span class="line"><span class="string">            style=&#123;&#123;</span></span><br><span class="line"><span class="string">              padding: '</span><span class="number">2</span>em<span class="string">',</span></span><br><span class="line"><span class="string">              marginBottom: '</span>auto<span class="string">',</span></span><br><span class="line"><span class="string">            &#125;&#125;</span></span><br><span class="line"><span class="string">          &gt;</span></span><br><span class="line"><span class="string">            &#123;userInfoMessage&#125;</span></span><br><span class="line"><span class="string">          &lt;/TopOverlay&gt;</span></span><br><span class="line"><span class="string">        ) : null&#125;</span></span><br><span class="line"><span class="string">        &lt;SlideToUnlock onSlide=&#123;onUnlocked&#125; /&gt;</span></span><br><span class="line"><span class="string">      &lt;/div&gt;</span></span><br><span class="line"><span class="string">    )</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Contracts"><a href="#Contracts" class="headerlink" title="Contracts"></a>Contracts</h2><p> A contract defines the expected behavior of your component and what assumptions are reasonable to have about its usage. Without a clear contract, your component may be hard to understand. Writing tests is a great way to formally define your component’s contract.</p>
+<p> Things that are commonly part of a contract:</p>
+<ul>
+<li>what it renders</li>
+<li>props</li>
+<li>state</li>
+<li>UI interaction</li>
+</ul>
+<p>Things that are uncommonly part of a contract:</p>
+<ul>
+<li>the context the component is rendered in</li>
+<li>how instance methods affect the component</li>
+<li>side effects of the component lifecycle</li>
+</ul>
+<h3 id="Discovering-your-components-contract"><a href="#Discovering-your-components-contract" class="headerlink" title="Discovering your components contract"></a>Discovering your components contract</h3><p>To find your component’s contract, ask yourself questions like:</p>
+<ul>
+<li>What does my component render?</li>
+<li>Does my component render different things under different circumstances?</li>
+<li>When I pass a function as a prop, what does my component use it for? Does it call it, or just give it to another component? If it calls it, what does it call it with?</li>
+<li>When the user interacts with my component, what happens?</li>
+</ul>
+<h3 id="Finding-the-LockScreen’s-contract"><a href="#Finding-the-LockScreen’s-contract" class="headerlink" title="Finding the LockScreen’s contract"></a>Finding the LockScreen’s contract</h3><p>By examining our constraints and putting them to scrutiny, we broke many of them down into multiple, smaller constraints. This is great! This will make it easier to write our test code.</p>
+<ul>
+<li>should render the container div</li>
+<li>should contain everything else when rendering the container div</li>
+<li>should render the container div with certain styles</li>
+<li>should assign wallpaperPath to container-div background-image when wallpaperPath prop is defined</li>
+<li>should render Clock</li>
+<li>should not pass props to Clock when rendering Clock</li>
+<li>should render TopOverlay when the userInfoMessage prop is defined</li>
+<li>should pass userInfoMessage as children to TopOverlay when the userInfoMessage prop is defined</li>
+<li>should render TopOverlay with certain styles when the userInfoMessage prop is defined</li>
+<li>should not render TopOverlay when userInfoMessage prop is undefined</li>
+<li>should render SlideToUnlock</li>
+<li>should assign onUnlocked to SlideToUnlock onSlide prop when onUnlocked prop is defined</li>
+<li>should assign onUnlocked to SlideToUnlock onSlide prop when onUnlocked prop is undefined</li>
+<li>should optionally receive a wallpaperPath as a string</li>
+<li>should optionally receive a userInfoMessage as a string</li>
+<li>should optionally receive a onUnlocked as a function</li>
+</ul>
+<p>This is a good starting point for our component contract. There may be more constraints within this component’s contract, and in production code you will want to find as many as you can, but for the purposes of this example, let’s just work with these. You can always add tests later if you discover additional constraints.</p>
+<h3 id="What’s-Worth-Testing"><a href="#What’s-Worth-Testing" class="headerlink" title="What’s Worth Testing?"></a>What’s Worth Testing?</h3><p>Some of these constraints are worth testing, and others are not.</p>
+<h4 id="Rules-of-Thumb-that-determine-if-something-is-not-worth-testing"><a href="#Rules-of-Thumb-that-determine-if-something-is-not-worth-testing" class="headerlink" title="Rules of Thumb that determine if something is not_worth_testing:"></a>Rules of Thumb that determine if something is not_worth_testing:</h4><ul>
+<li>duplicates app code? This makes it brittle.</li>
+<li>duplicates library code?</li>
+<li>is this an internal concern?  Can it be affected by only the public api?</li>
+</ul>
+<p>These are only rules of thumb, so be careful not to use them to justify not testing something just because it’s hard. <strong>Often, things that seem hard to test are the most important to test</strong>, because the code under test is making many assumptions about the rest of the application.</p>
+<p>Let’s find out which tests we can eliminate with our rules:</p>
+<ul>
+<li>Eliminate <code>prop tests</code> because it duplicates app code<br>it is already covered in React’s PropTypes system.</li>
+<li>Eliminate <code>certain styles test</code> because it duplicates app code making it brittle<br>changing styles in the app would require same changes in tests</li>
+</ul>
+<p>Here’s what we’re left with:</p>
+<ul>
+<li>should render the container div</li>
+<li>should contain everything else when rendering the container div</li>
+<li>should assign wallpaperPath to container-div background-image when wallpaperPath prop is defined</li>
+<li>should render Clock</li>
+<li>should not pass props to Clock when rendering Clock</li>
+<li>should render TopOverlay when the userInfoMessage prop is defined</li>
+<li>should pass userInfoMessage as children to TopOverlay when the userInfoMessage prop is defined</li>
+<li>should not render TopOverlay when userInfoMessage prop is undefined</li>
+<li>should render SlideToUnlock</li>
+<li>should assign onUnlocked to SlideToUnlock onSlide prop when onUnlocked prop is defined</li>
+<li>should assign onUnlocked to SlideToUnlock onSlide prop when onUnlocked prop is undefined</li>
+</ul>
+<h2 id="Setting-Up-Some-Test-Boilerplate"><a href="#Setting-Up-Some-Test-Boilerplate" class="headerlink" title="Setting Up Some Test Boilerplate"></a>Setting Up Some Test Boilerplate</h2><p>Let’s start scaffolding out a test for this component. I will be using <code>Jest</code> with <code>enzyme</code> in my tests. Jest works great with React and is also the test runner included in apps created with <code>create-react-app</code>, so you may already be set up to use it. Enzyme is a mature React testing library that works in both node and the browser.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; mount &#125; <span class="keyword">from</span> <span class="string">'enzyme'</span></span><br><span class="line"><span class="keyword">import</span> LockScreen <span class="keyword">from</span> <span class="string">'./LockScreen'</span></span><br><span class="line"></span><br><span class="line">describe(<span class="string">'LockScreen'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> props</span><br><span class="line">  <span class="keyword">let</span> mountedLockScreen</span><br><span class="line">  <span class="keyword">const</span> lockScreen = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!mountedLockScreen) &#123;</span><br><span class="line">      mountedLockScreen = mount(</span><br><span class="line">        &lt;LockScreen &#123;...props&#125; /&gt;</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> mountedLockScreen</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    props = &#123;</span><br><span class="line">      wallpaperPath: <span class="literal">undefined</span>,</span><br><span class="line">      userInfoMessage: <span class="literal">undefined</span>,</span><br><span class="line">      onUnlocked: <span class="literal">undefined</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    mountedLockScreen = <span class="literal">undefined</span></span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// All tests will go here</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Writing-the-Tests"><a href="#Writing-the-Tests" class="headerlink" title="Writing the Tests!"></a>Writing the Tests!</h3><h4 id="conditional-tests"><a href="#conditional-tests" class="headerlink" title="conditional tests"></a>conditional tests</h4><p>When the test has words in it like <code>if</code> or <code>when</code> that is an indicator of a conditional test. When we need to describe behavior that only occurs within a certain condition, we can describe that condition, and then use beforeEach within that describe to set that condition up.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">"when userInfoMessage prop exists"</span>, () =&gt; &#123;</span><br><span class="line">  beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    props.userInfoMessage = <span class="string">"This is my favorite phone!"</span></span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  it(<span class="string">"should render TopOverlay"</span>, () =&gt; &#123;</span><br><span class="line">    expect(lockScreen().find(TopOverlay).length).toBe(<span class="number">1</span>)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  it(<span class="string">"should pass userInfoMessage as children to TopOverlay"</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> topOverlay = lockScreen().find(TopOverlay)</span><br><span class="line">    expect(topOverlay.props().children).toBe(props.userInfoMessage)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>This will leave our test outline looking like this:</p>
+<ul>
+<li>should render the container div</li>
+<li>when rendering the container div<ul>
+<li>should contain everything else</li>
+</ul>
+</li>
+<li>when wallpaperPath prop is defined<ul>
+<li>should assign wallpaperPath to container-div background-image</li>
+</ul>
+</li>
+<li>should render Clock</li>
+<li>when rendering Clock<ul>
+<li>should not pass props to Clock</li>
+</ul>
+</li>
+<li>when the userInfoMessage prop is defined<ul>
+<li>should render TopOverlay</li>
+<li>should pass userInfoMessage as children to TopOverlay</li>
+</ul>
+</li>
+<li>when userInfoMessage prop is undefined<ul>
+<li>should not render TopOverlay</li>
+</ul>
+</li>
+<li>should render SlideToUnlock</li>
+<li>when onUnlocked prop is defined<ul>
+<li>should assign onUnlocked to SlideToUnlock onSlide prop</li>
+</ul>
+</li>
+<li>when onUnlocked prop is undefined<ul>
+<li>should assign onUnlocked to SlideToUnlock onSlide prop</li>
+</ul>
+</li>
+</ul>
+<h4 id="final-test-file"><a href="#final-test-file" class="headerlink" title="final test file"></a>final test file</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should render the container div'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> divs = lockScreen().find(<span class="string">'div'</span>)</span><br><span class="line">  expect(divs.length).toBeGreaterThan(<span class="number">0</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">describe(<span class="string">"when rendering the container div"</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="string">"contains everything else that gets rendered"</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> divs = lockScreen().find(<span class="string">"div"</span>)</span><br><span class="line">    <span class="comment">// When using .find, enzyme arranges the nodes in order such</span></span><br><span class="line">    <span class="comment">// that the outermost node is first in the list. So we can</span></span><br><span class="line">    <span class="comment">// use .first() to get the outermost div.</span></span><br><span class="line">    <span class="keyword">const</span> wrappingDiv = divs.first()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Enzyme omits the outermost node when using the .children()</span></span><br><span class="line">    <span class="comment">// method on lockScreen(). This is annoying, but we can use it</span></span><br><span class="line">    <span class="comment">// to verify that wrappingDiv contains everything else this</span></span><br><span class="line">    <span class="comment">// component renders.</span></span><br><span class="line">    expect(wrappingDiv.children()).toEqual(lockScreen().children())</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">describe(<span class="string">"when wallpaperPath prop is defined"</span>, () =&gt; &#123;</span><br><span class="line">  beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    props.wallpaperPath = <span class="string">"some/image.png"</span></span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  it(<span class="string">"should assign wallpaperPath to container-div background-image"</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrappingDiv = lockScreen().find(<span class="string">"div"</span>).first()</span><br><span class="line">    expect(wrappingDiv.props().style.backgroundImage).toBe(<span class="string">`url(<span class="subst">$&#123;props.wallpaperPath&#125;</span>)`</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">it(<span class="string">"should render Clock"</span>, () =&gt; &#123;</span><br><span class="line">  expect(lockScreen().find(ClockDisplay).length).toBe(<span class="number">1</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">describe(<span class="string">"when rendering Clock"</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="string">"should not pass props to Clock"</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> clockDisplay = lockScreen().find(ClockDisplay)</span><br><span class="line">    expect(<span class="built_in">Object</span>.keys(clockDisplay.props()).length).toBe(<span class="number">0</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">describe(<span class="string">"when the userInfoMessage prop is defined"</span>, () =&gt; &#123;</span><br><span class="line">  beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    props.userInfoMessage = <span class="string">"This is my favorite phone!"</span></span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  it(<span class="string">"should render TopOverlay"</span>, () =&gt; &#123;</span><br><span class="line">    expect(lockScreen().find(TopOverlay).length).toBe(<span class="number">1</span>)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  it(<span class="string">"should pass userInfoMessage as children to TopOverlay"</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> topOverlay = lockScreen().find(TopOverlay)</span><br><span class="line">    expect(topOverlay.props().children).toBe(props.userInfoMessage)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">describe(<span class="string">"when userInfoMessage prop is undefined"</span>, () =&gt; &#123;</span><br><span class="line">  beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    props.userInfoMessage = <span class="literal">undefined</span></span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  it(<span class="string">"should not render TopOverlay"</span>, () =&gt; &#123;</span><br><span class="line">    expect(lockScreen().find(TopOverlay).length).toBe(<span class="number">0</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">it(<span class="string">"should render SlideToUnlock"</span>, () =&gt; &#123;</span><br><span class="line">  expect(lockScreen().find(SlideToUnlock).length).toBe(<span class="number">1</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">describe(<span class="string">"when onUnlocked prop is defined"</span>, () =&gt; &#123;</span><br><span class="line">  beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    props.onUnlocked = jest.fn()</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  it(<span class="string">"should assign onUnlocked to SlideToUnlock onSlide prop"</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> slideToUnlock = lockScreen().find(SlideToUnlock)</span><br><span class="line">    expect(slideToUnlock.props().onSlide).toBe(props.onUnlocked)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">describe(<span class="string">"when onUnlocked prop is undefined"</span>, () =&gt; &#123;</span><br><span class="line">  beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    props.onUnlocked = <span class="literal">undefined</span></span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  it(<span class="string">"should assign onUnlocked to SlideToUnlock onSlide prop"</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> slideToUnlock = lockScreen().find(SlideToUnlock)</span><br><span class="line">    expect(slideToUnlock.props().onSlide).not.toBeDefined()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="Maybe-not-what-you-expected"><a href="#Maybe-not-what-you-expected" class="headerlink" title="Maybe not what you expected"></a>Maybe not what you expected</h2><p>You may have expected our test cases to end up as something like:</p>
+<ul>
+<li>When dragging the slide-to-unlock handle all the way to the right<br>then the unlock callback is called</li>
+<li>When dragging the slide-to-unlock handle partway to the right<br>then releases it, the handle is animated back to its original position</li>
+<li>The clock at the top of the screen should always show the current time</li>
+</ul>
+<p>This intuition is natural. From an application perspective, these are some of the most noticeable features. However, we didn’t end up writing tests for any of that functionality. Why? They were not the concern of LockScreen.</p>
+<p>The features described above are the concerns of SlideToUnlock and ClockDisplay, so tests around those features would go in the tests for those components, not here.</p>
+<p>Because React components are reusable units, unit tests are a natural fit for them. And when unit testing, you should only test what your actual unit cares about. It is better to see the trees than the forest when writing React component tests.</p>
+<h4 id="cheat-sheet-concerns-of-most-React-components"><a href="#cheat-sheet-concerns-of-most-React-components" class="headerlink" title="cheat sheet: concerns of most React components:"></a>cheat sheet: concerns of most React components:</h4><ul>
+<li>What do I do with the props I receive?</li>
+<li>What components do I render?</li>
+<li>What do I pass to rendered components?</li>
+<li>Do I ever keep anything in state?</li>
+<li>Do I invalidate state when receiving new props?</li>
+<li>When do I update state?</li>
+<li>If a user interacts with me, what do I do?</li>
+<li>If a child component calls a callback I passed to it, what do I do?</li>
+<li>Does anything happen when I’m mounted? When I’m unmounted?</li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://goo.gl/B5mXvu" target="_blank" rel="noopener">The Right Way to Test React Components</a></li>
+</ul>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
                 <h2><a class="post-title-link" href="/2017/02/09/2017/20170210-mongodb/">locking down mongodb</a></h2>
             </div>
             <div class="post-meta">
@@ -158,194 +306,6 @@
 <li><a href="https://goo.gl/dEKgfL" target="_blank" rel="noopener">Animating with Translate - a Paul Irish codepen</a></li>
 <li><a href="https://goo.gl/OzKCVa" target="_blank" rel="noopener">High Performance Animations</a></li>
 <li><a href="https://goo.gl/cyBAJO" target="_blank" rel="noopener">10 principles for smooth web animations</a></li>
-</ul>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2017/01/25/2017/20170125-todomvc/">todomvc deep understanding</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2017-01-25</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">├── actions</span><br><span class="line">│   └── index.js</span><br><span class="line">├── components</span><br><span class="line">│   ├── Footer.js</span><br><span class="line">│   ├── Header.js</span><br><span class="line">│   ├── MainSection.js</span><br><span class="line">│   ├── TextInput.js</span><br><span class="line">│   └── TodoItem.js</span><br><span class="line">├── constants</span><br><span class="line">│   ├── ActionTypes.js</span><br><span class="line">│   └── TodoFilters.js</span><br><span class="line">├── containers</span><br><span class="line">│   └── App.js</span><br><span class="line">├── index.js</span><br><span class="line">└── reducers</span><br><span class="line">    ├── index.js</span><br><span class="line">    └── todos.js</span><br></pre></td></tr></table></figure>
-<h2 id="Bootstrap"><a href="#Bootstrap" class="headerlink" title="Bootstrap"></a>Bootstrap</h2><p>index.js</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const store = createStore(reducers)</span><br><span class="line"></span><br><span class="line">render(</span><br><span class="line">  &lt;Provider store=&#123;store&#125; &gt;</span><br><span class="line">    &lt;App /&gt;</span><br><span class="line">  &lt;/Provider&gt;,</span><br><span class="line">  document.getElementById(&apos;root&apos;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>containers/App.js</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">const App = (&#123;todos, actions&#125;) =&gt; &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Header addTodo=&#123;actions.addTodo&#125; /&gt;</span><br><span class="line">      &lt;MainSection todos=&#123;todos&#125; actions=&#123;actions&#125; /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">App.propTypes = &#123;</span><br><span class="line">  todos: PropTypes.array.isRequired,</span><br><span class="line">  actions: PropTypes.object.isRequired</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const mapStateToProps = (state) =&gt; (&#123;</span><br><span class="line">  todos: state.todos</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">const mapDispatchToProps = (dispatch) =&gt; (&#123;</span><br><span class="line">  actions: bindActionCreators(todoActions, dispatch)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">export default connect(</span><br><span class="line">  mapStateToProps,</span><br><span class="line">  mapDispatchToProps</span><br><span class="line">)(App)</span><br></pre></td></tr></table></figure>
-<h2 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h2><p>constants</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line">export const ADD_TODO = &apos;ADD_TODO&apos;</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
-<p>actions</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line">export const addTodo = (text) =&gt; (&#123;type: ADD_TODO, text&#125;)</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
-<p>reducers/index</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line">const rootReducer = combineReducers(&#123;</span><br><span class="line">  todos</span><br><span class="line">&#125;)</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
-<p>reducers/todos</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line">const initialState = [&#123;...&#125;]</span><br><span class="line"></span><br><span class="line">const todos = (state = initialState, action) =&gt; &#123;</span><br><span class="line">  switch(action.type) &#123;</span><br><span class="line">    [...]</span><br><span class="line">    case DELETE_TODO:</span><br><span class="line">      return state.filter(todo =&gt; todo.id !== action.id)</span><br><span class="line">    [...]</span><br></pre></td></tr></table></figure>
-<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><h3 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h3><ul>
-<li>Header imports:<ul>
-<li>TextInput</li>
-</ul>
-</li>
-<li>Header props needed:<ul>
-<li>addTodo: add todo to list</li>
-</ul>
-</li>
-<li>Header methods:<ul>
-<li>handleSave: wraps addTodo to prevent empty todos</li>
-</ul>
-</li>
-<li>Header renders: a header containing a title and TextInput<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">  &lt;header className=&quot;header&quot;&gt;</span><br><span class="line">    &lt;h1&gt;todos&lt;/h1&gt;</span><br><span class="line">    &lt;TextInput newTodo</span><br><span class="line">      onSave=&#123;this.handleSave&#125;</span><br><span class="line">      placeholder=&quot;What needs to be done?&quot; /&gt;</span><br><span class="line">  &lt;/header&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="TextInput"><a href="#TextInput" class="headerlink" title="TextInput"></a>TextInput</h3><ul>
-<li>TextInput imports:<ul>
-<li>classnames</li>
-</ul>
-</li>
-<li>TextInput props needed:<ul>
-<li>onSave: func.isRequired</li>
-<li>text: string</li>
-<li>placeholder: string</li>
-<li>editing: bool</li>
-<li>newTodo: bool</li>
-</ul>
-</li>
-<li>TextInput local state:<ul>
-<li>text: this.props.text || ‘’</li>
-</ul>
-</li>
-<li>TextInput methods:<ul>
-<li>handleSubmit: save on enter-key, clear local state when new-todo</li>
-<li>handleChange: update local state</li>
-<li>handleBlur: save when not new-todo</li>
-</ul>
-</li>
-<li>TextInput conditional classes:<ul>
-<li>edit: this.props.editing,</li>
-<li>‘new-todo’: this.props.newTodo</li>
-</ul>
-</li>
-<li>TextInput render: an input tag<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">  &lt;input className=&#123;</span><br><span class="line">    classnames(&#123;</span><br><span class="line">      edit: this.props.editing,</span><br><span class="line">      &apos;new-todo&apos;: this.props.newTodo</span><br><span class="line">    &#125;)&#125;</span><br><span class="line">    type=&quot;text&quot;</span><br><span class="line">    placeholder=&#123;this.props.placeholder&#125;</span><br><span class="line">    autoFocus=&quot;true&quot;</span><br><span class="line">    value=&#123;this.state.text&#125;</span><br><span class="line">    onBlur=&#123;this.handleBlur&#125;</span><br><span class="line">    onChange=&#123;this.handleChange&#125;</span><br><span class="line">    onKeyDown=&#123;this.handleSubmit&#125; /&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="MainSection"><a href="#MainSection" class="headerlink" title="MainSection"></a>MainSection</h3><ul>
-<li>MainSection imports:<ul>
-<li>TodoItem</li>
-<li>Footer</li>
-<li>TodoFilters</li>
-</ul>
-</li>
-<li>MainSection props needed:<ul>
-<li>todos: array</li>
-<li>actions: object</li>
-</ul>
-</li>
-<li>MainSection local state:<ul>
-<li>filter: SHOW_ALL</li>
-</ul>
-</li>
-<li><p>MainSection methods:</p>
-<ul>
-<li>handleClearCompleted: wraps clearCompleted (not necessary)</li>
-<li>handleSetFilter: reset filter on local state</li>
-<li><p>renderToggleAll: render toggleAll checkbox in header area via css</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if (todos.length) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;input className=&quot;toggle-all&quot;</span><br><span class="line">           type=&quot;checkbox&quot;</span><br><span class="line">           checked=&#123;completedCount === todos.length&#125;</span><br><span class="line">           onChange=&#123;actions.completeAll&#125; /&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>renderFooter: prepare props and render Footer</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">if (todos.length) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;Footer</span><br><span class="line">      completedCount=&#123;completedCount&#125;</span><br><span class="line">      activeCount=&#123;activeCount&#125;</span><br><span class="line">      filter=&#123;filter&#125;</span><br><span class="line">      onClearCompleted=&#123;clearCompleted&#125;</span><br><span class="line">      onSetFilter=&#123;this.handleSetFilter&#125; /&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>MainSection conditional classes:</p>
-<ul>
-<li>none</li>
-</ul>
-</li>
-<li>MainSection render: a section containing toggle-all, todo-list, footer<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">  &lt;section className=&quot;main&quot;&gt;</span><br><span class="line">    &#123;this.renderToggleAll(completedCount)&#125;</span><br><span class="line">    &lt;ul className=&quot;todo-list&quot;&gt;</span><br><span class="line">      &#123;filteredTodos.map(todo =&gt;</span><br><span class="line">        &lt;TodoItem key=&#123;todo.id&#125; todo=&#123;todo&#125; &#123;...actions&#125; /&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">    &#123;this.renderFooter(completedCount)&#125;</span><br><span class="line">  &lt;/section&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="TodoItem"><a href="#TodoItem" class="headerlink" title="TodoItem"></a>TodoItem</h3><ul>
-<li>TodoItem imports:<ul>
-<li>classnames</li>
-<li>TextInput</li>
-</ul>
-</li>
-<li>TodoItem props needed:<ul>
-<li>todo: object</li>
-<li>completeTodo: func</li>
-<li>editTodo: func</li>
-<li>deleteTodo: func</li>
-</ul>
-</li>
-<li>TodoItem local state:<ul>
-<li>editing: false</li>
-</ul>
-</li>
-<li><p>TodoItem methods:</p>
-<ul>
-<li>handleDoubleClick: set editing to true on local state</li>
-<li>handleSave: when text editTodo else deleteTodo then set editing to false on local state</li>
-<li>getTodoElement: when editing render todo in edit-mode else non-edit-mode<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">if (this.state.editing) &#123;</span><br><span class="line">  element = (</span><br><span class="line">    &lt;TodoTextInput text=&#123;todo.text&#125;</span><br><span class="line">                   editing=&#123;this.state.editing&#125;</span><br><span class="line">                   onSave=&#123;(text) =&gt; this.handleSave(todo.id, text)&#125; /&gt;</span><br><span class="line">  )</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  element = (</span><br><span class="line">    &lt;div className=&quot;view&quot;&gt;</span><br><span class="line">      &lt;input className=&quot;toggle&quot;</span><br><span class="line">             type=&quot;checkbox&quot;</span><br><span class="line">             checked=&#123;todo.completed&#125;</span><br><span class="line">             onChange=&#123;() =&gt; completeTodo(todo.id)&#125; /&gt;</span><br><span class="line">      &lt;label onDoubleClick=&#123;this.handleDoubleClick&#125;&gt;</span><br><span class="line">        &#123;todo.text&#125;</span><br><span class="line">      &lt;/label&gt;</span><br><span class="line">      &lt;button className=&quot;destroy&quot;</span><br><span class="line">              onClick=&#123;() =&gt; deleteTodo(todo.id)&#125; /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>TodoItem conditional classes:</p>
-<ul>
-<li>completed: todo.completed,</li>
-<li>editing: this.state.editing</li>
-</ul>
-</li>
-<li>TodoItem render:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">  &lt;li className=&#123;classnames(&#123;</span><br><span class="line">    completed: todo.completed,</span><br><span class="line">    editing: this.state.editing</span><br><span class="line">  &#125;)&#125;&gt;</span><br><span class="line">    &#123;element&#125;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="Footer"><a href="#Footer" class="headerlink" title="Footer"></a>Footer</h3><ul>
-<li>Footer imports:<ul>
-<li>classnames</li>
-<li>TodoFilters</li>
-</ul>
-</li>
-<li>Footer variables:<ul>
-<li>FILTER_TITLES: object with labels for filter buttons</li>
-</ul>
-</li>
-<li>Footer props needed:<ul>
-<li>completedCount: number</li>
-<li>activeCount: number</li>
-<li>filter: string</li>
-<li>onClearCompleted: func</li>
-<li>onSetFilter: func</li>
-</ul>
-</li>
-<li>Footer local state:<ul>
-<li>none</li>
-</ul>
-</li>
-<li><p>Footer methods:</p>
-<ul>
-<li><p>renderTodoCount: display filter count for 0/1/&gt;1</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">  &lt;span className=&quot;todo-count&quot;&gt;</span><br><span class="line">    &lt;strong&gt;&#123;activeCount || &apos;No&apos;&#125;&lt;/strong&gt; &#123;itemWord&#125; left</span><br><span class="line">  &lt;/span&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>renderFilterLink: setup filter buttons</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">  &lt;a className=&#123;classnames(&#123; selected: filter === selectedFilter &#125;)&#125;</span><br><span class="line">     style=&#123;&#123; cursor: &apos;pointer&apos; &#125;&#125;</span><br><span class="line">     onClick=&#123;() =&gt; onSetFilter(filter)&#125;&gt;</span><br><span class="line">    &#123;title&#125;</span><br><span class="line">  &lt;/a&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>renderClearButton: render clear button when completed todos exist</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if (completedCount &gt; 0) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;button className=&quot;clear-completed&quot;</span><br><span class="line">            onClick=&#123;onClearCompleted&#125; &gt;</span><br><span class="line">      Clear completed</span><br><span class="line">    &lt;/button&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>Footer conditional classes:</p>
-<ul>
-<li>selected: filter === selectedFilter –––&gt; renderFilterLink</li>
-</ul>
-</li>
-<li>Footer render:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">  &lt;footer className=&quot;footer&quot;&gt;</span><br><span class="line">    &#123;this.renderTodoCount()&#125;</span><br><span class="line">    &lt;ul className=&quot;filters&quot;&gt;</span><br><span class="line">      &#123;[ SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED ].map(filter =&gt;</span><br><span class="line">        &lt;li key=&#123;filter&#125;&gt;</span><br><span class="line">          &#123;this.renderFilterLink(filter)&#125;</span><br><span class="line">        &lt;/li&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">    &#123;this.renderClearButton()&#125;</span><br><span class="line">  &lt;/footer&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
 </ul>
 
                 

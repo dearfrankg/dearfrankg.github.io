@@ -77,41 +77,52 @@
     
         <article class="post-abstract">
             <div class="post-title">
-                <h2><a class="post-title-link" href="/2016/11/16/2016/20161116-docker-compose-part1/">Docker – Docker Compose Part 1</a></h2>
+                <h2><a class="post-title-link" href="/2016/11/17/2016/20161117-docker-manage-a-swarm-part1/">Docker – Manage a Swarm Part 1</a></h2>
             </div>
             <div class="post-meta">
-                <span class="post-time">2016-11-16</span>
+                <span class="post-time">2016-11-17</span>
                 
             </div>
             <div class="post-content">
                 
-                    <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a Compose file to configure your application’s services. Then, using a single command, you create and start all the services from your configuration.</p>
-<p>Using Compose is basically a three-step process.</p>
-<ol>
-<li>Define your app’s environment with a Dockerfile so it can be reproduced anywhere.</li>
-<li>Define the services that make up your app in docker-compose.yml so they can be run together in an isolated environment.</li>
-<li>Lastly, run docker-compose up and Compose will start and run your entire app.</li>
-</ol>
-<p>A docker-compose.yml looks like this:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;2&apos;</span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    build: .</span><br><span class="line">    ports:</span><br><span class="line">    - &quot;5000:5000&quot;</span><br><span class="line">    volumes:</span><br><span class="line">    - .:/code</span><br><span class="line">    - logvolume01:/var/log</span><br><span class="line">    links:</span><br><span class="line">    - redis</span><br><span class="line">  redis:</span><br><span class="line">    image: redis</span><br><span class="line">volumes:</span><br><span class="line">  logvolume01: &#123;&#125;</span><br></pre></td></tr></table></figure>
-<p>Compose has commands for managing the whole lifecycle of your application:</p>
-<ul>
-<li>Start, stop and rebuild services</li>
-<li>View the status of running services</li>
-<li>Stream the log output of running services</li>
-<li>Run a one-off command on a service</li>
+                    <h2 id="Swarm-Mode-Overview"><a href="#Swarm-Mode-Overview" class="headerlink" title="Swarm Mode Overview"></a>Swarm Mode Overview</h2><ul>
+<li><p><code>Cluster management integrated with Docker Engine</code>: Use the Docker Engine CLI to create a swarm of Docker Engines where you can deploy application services. You don’t need additional orchestration software to create or manage a swarm.</p>
+</li>
+<li><p><code>Decentralized design</code>: Instead of handling differentiation between node roles at deployment time, the Docker Engine handles any specialization at runtime. You can deploy both kinds of nodes, managers and workers, using the Docker Engine. This means you can build an entire swarm from a single disk image.</p>
+</li>
+<li><p><code>Declarative service model</code>: Docker Engine uses a declarative approach to let you define the desired state of the various services in your application stack. For example, you might describe an application comprised of a web front end service with message queueing services and a database backend.</p>
+</li>
+<li><p><code>Scaling</code>: For each service, you can declare the number of tasks you want to run. When you scale up or down, the swarm manager automatically adapts by adding or removing tasks to maintain the desired state.</p>
+</li>
+<li><p><code>Desired state reconciliation</code>: The swarm manager node constantly monitors the cluster state and reconciles any differences between the actual state your expressed desired state. For example, if you set up a service to run 10 replicas of a container, and a worker machine hosting two of those replicas crashes, the manager will create two new replicas to replace the replicas that crashed. The swarm manager assigns the new replicas to workers that are running and available.</p>
+</li>
+<li><p><code>Multi-host networking</code>: You can specify an overlay network for your services. The swarm manager automatically assigns addresses to the containers on the overlay network when it initializes or updates the application.</p>
+</li>
+<li><p><code>Service discovery</code>: Swarm manager nodes assign each service in the swarm a unique DNS name and load balances running containers. You can query every container running in the swarm through a DNS server embedded in the swarm.</p>
+</li>
+<li><p><code>Load balancing</code>: You can expose the ports for services to an external load balancer. Internally, the swarm lets you specify how to distribute service containers between nodes.</p>
+</li>
+<li><p><code>Secure by default</code>: Each node in the swarm enforces TLS mutual authentication and encryption to secure communications between itself and all other nodes. You have the option to use self-signed root certificates or certificates from a custom root CA.</p>
+</li>
+<li><p><code>Rolling updates</code>: At rollout time you can apply service updates to nodes incrementally. The swarm manager lets you control the delay between service deployment to different sets of nodes. If anything goes wrong, you can roll-back a task to a previous version of the service.</p>
+</li>
 </ul>
-<h3 id="The-features-of-Compose-that-make-it-effective-are"><a href="#The-features-of-Compose-that-make-it-effective-are" class="headerlink" title="The features of Compose that make it effective are:"></a>The features of Compose that make it effective are:</h3><h4 id="Multiple-isolated-environments-on-a-single-host"><a href="#Multiple-isolated-environments-on-a-single-host" class="headerlink" title="Multiple isolated environments on a single host"></a>Multiple isolated environments on a single host</h4><p>Compose uses a project name to isolate environments from each other. The default project name is the basename of the project directory. You can set a custom project name by using the -p command line option or the COMPOSE_PROJECT_NAME environment variable.</p>
-<h4 id="Preserve-volume-data-when-containers-are-created"><a href="#Preserve-volume-data-when-containers-are-created" class="headerlink" title="Preserve volume data when containers are created"></a>Preserve volume data when containers are created</h4><p>Compose preserves all volumes used by your services. When docker-compose up runs, if it finds any containers from previous runs, it copies the volumes from the old container to the new container. This process ensures that any data you’ve created in volumes isn’t lost.</p>
-<h4 id="Only-recreate-containers-that-have-changed"><a href="#Only-recreate-containers-that-have-changed" class="headerlink" title="Only recreate containers that have changed"></a>Only recreate containers that have changed</h4><p>Compose caches the configuration used to create a container. When you restart a service that has not changed, Compose re-uses the existing containers. Re-using containers means that you can make changes to your environment very quickly.</p>
-<h4 id="Variables-and-moving-a-composition-between-environments"><a href="#Variables-and-moving-a-composition-between-environments" class="headerlink" title="Variables and moving a composition between environments"></a>Variables and moving a composition between environments</h4><p>Compose supports variables in the Compose file. You can use these variables to customize your composition for different environments, or different users. See Variable substitution for more details.</p>
-<p>You can extend a Compose file using the extends field or by creating multiple Compose files. See extends for more details.</p>
-<h3 id="Common-Use-Cases"><a href="#Common-Use-Cases" class="headerlink" title="Common Use Cases"></a>Common Use Cases</h3><ul>
-<li><code>Developer environments</code>: simplify getting started</li>
-<li><code>Automated testing environments</code>: create and destroy environments with a single command</li>
-<li><code>Single host deployments</code>: You can use Compose to deploy to a remote Docker Engine or Docker Swarm Cluster.</li>
-</ul>
-<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p>It comes with Docker For Mac</p>
+<h2 id="Swarm-Mode-Key-Concepts"><a href="#Swarm-Mode-Key-Concepts" class="headerlink" title="Swarm Mode Key Concepts"></a>Swarm Mode Key Concepts</h2><p>This topic introduces some of the concepts unique to the cluster management and orchestration features of Docker Engine 1.12.</p>
+<h3 id="Swarm"><a href="#Swarm" class="headerlink" title="Swarm"></a>Swarm</h3><p>The cluster management and orchestration features embedded in the Docker Engine are built using <code>SwarmKit</code>. Engines participating in a cluster are running in <code>swarm mode</code>. You enable swarm mode for the Engine by either initializing a swarm or joining an existing swarm.</p>
+<p>A <code>swarm</code> is a cluster of Docker Engines where you deploy services. The Docker Engine CLI includes the commands for swarm management, such as adding and removing nodes. The CLI also includes the commands you need to deploy services to the swarm and manage service orchestration.</p>
+<p>When you run Docker Engine outside of swarm mode, you execute container commands. When you run the Engine in swarm mode, you orchestrate services.</p>
+<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>A <code>node</code> is an instance of the Docker Engine participating in the swarm.</p>
+<p>To deploy your application to a swarm, you submit a service definition to a <code>manager node</code>. The manager node dispatches units of work called <code>tasks</code> to worker nodes.</p>
+<p>Manager nodes also perform the orchestration and cluster management functions required to maintain the desired state of the swarm. Manager nodes elect a single leader to conduct orchestration tasks.</p>
+<p><code>Worker nodes</code> receive and execute tasks dispatched from manager nodes. By default manager nodes are also worker nodes, but you can configure managers to be manager-only nodes. The agent notifies the manager node of the current state of its assigned tasks so the manager can maintain the desired state.</p>
+<h3 id="Services-and-tasks"><a href="#Services-and-tasks" class="headerlink" title="Services and tasks"></a>Services and tasks</h3><p>A <code>service</code> is the definition of the tasks to execute on the worker nodes. It is the central structure of the swarm system and the primary root of user interaction with the swarm.</p>
+<p>When you create a service, you specify which container image to use and which commands to execute inside running containers.</p>
+<p>In the <code>replicated services</code> model, the swarm manager distributes a specific number of replica tasks among the nodes based upon the scale you set in the desired state.</p>
+<p>For <code>global services</code>, the swarm runs one task for the service on every available node in the cluster.</p>
+<p>A <code>task</code> carries a Docker container and the commands to run inside the container. It is the atomic scheduling unit of swarm. Manager nodes assign tasks to worker nodes according to the number of replicas set in the service scale. Once a task is assigned to a node, it cannot move to another node. It can only run on the assigned node or fail.</p>
+<h3 id="Load-Balancing"><a href="#Load-Balancing" class="headerlink" title="Load Balancing"></a>Load Balancing</h3><p>The swarm manager uses <code>ingress load balancing</code> to expose the services you want to make available externally to the swarm. The swarm manager can automatically assign the service a <code>PublishedPort</code> or you can configure a PublishedPort for the service. You can specify any unused port. If you do not specify a port, the swarm manager assigns the service a port in the 30000-32767 range.</p>
+<p>External components, such as cloud load balancers, can access the service on the PublishedPort of any node in the cluster whether or not the node is currently running the task for the service. All nodes in the swarm route ingress connections to a running task instance.</p>
+<p>Swarm mode has an internal DNS component that automatically assigns each service in the swarm a DNS entry. The swarm manager uses <code>internal load balancing</code> to distribute requests among services within the cluster based upon the DNS name of the service.</p>
 
                 
             </div>
@@ -158,7 +169,7 @@
     
         <article class="post-abstract">
             <div class="post-title">
-                <h2><a class="post-title-link" href="/2016/11/16/2016/20161116-docker-object-labels/">Docker – Object Labels</a></h2>
+                <h2><a class="post-title-link" href="/2016/11/16/2016/20161116-docker-compose-part1/">Docker – Docker Compose Part 1</a></h2>
             </div>
             <div class="post-meta">
                 <span class="post-time">2016-11-16</span>
@@ -166,52 +177,33 @@
             </div>
             <div class="post-content">
                 
-                    <h1 id="Docker-Object-Labels"><a href="#Docker-Object-Labels" class="headerlink" title="Docker Object Labels"></a>Docker Object Labels</h1><!-- TOC depthFrom:1 depthTo:2 withLinks:0 updateOnSave:1 orderedList:0 -->
+                    <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a Compose file to configure your application’s services. Then, using a single command, you create and start all the services from your configuration.</p>
+<p>Using Compose is basically a three-step process.</p>
+<ol>
+<li>Define your app’s environment with a Dockerfile so it can be reproduced anywhere.</li>
+<li>Define the services that make up your app in docker-compose.yml so they can be run together in an isolated environment.</li>
+<li>Lastly, run docker-compose up and Compose will start and run your entire app.</li>
+</ol>
+<p>A docker-compose.yml looks like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;2&apos;</span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    build: .</span><br><span class="line">    ports:</span><br><span class="line">    - &quot;5000:5000&quot;</span><br><span class="line">    volumes:</span><br><span class="line">    - .:/code</span><br><span class="line">    - logvolume01:/var/log</span><br><span class="line">    links:</span><br><span class="line">    - redis</span><br><span class="line">  redis:</span><br><span class="line">    image: redis</span><br><span class="line">volumes:</span><br><span class="line">  logvolume01: &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>Compose has commands for managing the whole lifecycle of your application:</p>
 <ul>
-<li>Docker Object Labels<ul>
-<li>Images and containers</li>
-<li>Local Docker daemons</li>
-<li>Volumes</li>
-<li>Networks</li>
-<li>Swarm nodes</li>
-<li>Swarm services</li>
+<li>Start, stop and rebuild services</li>
+<li>View the status of running services</li>
+<li>Stream the log output of running services</li>
+<li>Run a one-off command on a service</li>
 </ul>
-</li>
+<h3 id="The-features-of-Compose-that-make-it-effective-are"><a href="#The-features-of-Compose-that-make-it-effective-are" class="headerlink" title="The features of Compose that make it effective are:"></a>The features of Compose that make it effective are:</h3><h4 id="Multiple-isolated-environments-on-a-single-host"><a href="#Multiple-isolated-environments-on-a-single-host" class="headerlink" title="Multiple isolated environments on a single host"></a>Multiple isolated environments on a single host</h4><p>Compose uses a project name to isolate environments from each other. The default project name is the basename of the project directory. You can set a custom project name by using the -p command line option or the COMPOSE_PROJECT_NAME environment variable.</p>
+<h4 id="Preserve-volume-data-when-containers-are-created"><a href="#Preserve-volume-data-when-containers-are-created" class="headerlink" title="Preserve volume data when containers are created"></a>Preserve volume data when containers are created</h4><p>Compose preserves all volumes used by your services. When docker-compose up runs, if it finds any containers from previous runs, it copies the volumes from the old container to the new container. This process ensures that any data you’ve created in volumes isn’t lost.</p>
+<h4 id="Only-recreate-containers-that-have-changed"><a href="#Only-recreate-containers-that-have-changed" class="headerlink" title="Only recreate containers that have changed"></a>Only recreate containers that have changed</h4><p>Compose caches the configuration used to create a container. When you restart a service that has not changed, Compose re-uses the existing containers. Re-using containers means that you can make changes to your environment very quickly.</p>
+<h4 id="Variables-and-moving-a-composition-between-environments"><a href="#Variables-and-moving-a-composition-between-environments" class="headerlink" title="Variables and moving a composition between environments"></a>Variables and moving a composition between environments</h4><p>Compose supports variables in the Compose file. You can use these variables to customize your composition for different environments, or different users. See Variable substitution for more details.</p>
+<p>You can extend a Compose file using the extends field or by creating multiple Compose files. See extends for more details.</p>
+<h3 id="Common-Use-Cases"><a href="#Common-Use-Cases" class="headerlink" title="Common Use Cases"></a>Common Use Cases</h3><ul>
+<li><code>Developer environments</code>: simplify getting started</li>
+<li><code>Automated testing environments</code>: create and destroy environments with a single command</li>
+<li><code>Single host deployments</code>: You can use Compose to deploy to a remote Docker Engine or Docker Swarm Cluster.</li>
 </ul>
-<!-- /TOC -->
-<h2 id="Images-and-containers"><a href="#Images-and-containers" class="headerlink" title="Images and containers"></a>Images and containers</h2><ul>
-<li>Adding labels to images</li>
-<li>Overriding a container’s labels at runtime</li>
-<li>Inspecting labels on images or containers</li>
-<li>Filtering images by label</li>
-<li>Filtering containers by label</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">//  Adding labels to images</span><br><span class="line"></span><br><span class="line">  dockerfile:</span><br><span class="line"></span><br><span class="line">    LABEL &quot;com.example.vendor&quot;=&quot;ACME Incorporated&quot;</span><br><span class="line">    LABEL com.example.label-with-value=&quot;foo&quot;</span><br><span class="line">    LABEL version=&quot;1.0&quot;</span><br><span class="line">    LABEL description=&quot;This text illustrates \</span><br><span class="line">    that label-values can span multiple lines.&quot;</span><br><span class="line"></span><br><span class="line">//  Overriding a container’s labels at runtime</span><br><span class="line"></span><br><span class="line">  docker run --label value</span><br><span class="line">  docker run -l value</span><br><span class="line"></span><br><span class="line">//  Inspecting labels on images or containers</span><br><span class="line"></span><br><span class="line">  docker inspect container|image</span><br><span class="line"></span><br><span class="line">//  Filtering images by label</span><br><span class="line"></span><br><span class="line">  docker inspect --format=&apos;&#123;&#123;json .Config.Labels&#125;&#125;&apos; image</span><br><span class="line">  docker inspect --format=&apos;&#123;&#123;json .Config.Labels&#125;&#125;&apos; centos | grep &apos;&quot;license&quot;:&quot;GPLv2&quot;&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//  Filtering containers by label</span><br><span class="line"></span><br><span class="line">  docker ps --filter label=value</span><br><span class="line">  docker ps -f label=value</span><br></pre></td></tr></table></figure>
-<h2 id="Local-Docker-daemons"><a href="#Local-Docker-daemons" class="headerlink" title="Local Docker daemons"></a>Local Docker daemons</h2><ul>
-<li>Adding labels to a Docker daemon at runtime</li>
-<li>Inspecting a Docker daemon’s labels</li>
-</ul>
-<h2 id="Volumes"><a href="#Volumes" class="headerlink" title="Volumes"></a>Volumes</h2><ul>
-<li>Adding labels to volumes</li>
-<li>Inspecting a volume’s labels</li>
-<li>Filtering volumes by label</li>
-</ul>
-<h2 id="Networks"><a href="#Networks" class="headerlink" title="Networks"></a>Networks</h2><ul>
-<li>Adding labels to a network</li>
-<li>Inspecting a network’s labels</li>
-<li>Filtering networks by label</li>
-</ul>
-<h2 id="Swarm-nodes"><a href="#Swarm-nodes" class="headerlink" title="Swarm nodes"></a>Swarm nodes</h2><ul>
-<li>Adding or updating a swarm node’s labels</li>
-<li>Inspecting a swarm node’s labels</li>
-<li>Filtering swarm nodes by label</li>
-</ul>
-<h2 id="Swarm-services"><a href="#Swarm-services" class="headerlink" title="Swarm services"></a>Swarm services</h2><ul>
-<li>Adding labels when creating a swarm service</li>
-<li>Updating a swarm service’s labels</li>
-<li>Inspecting a swarm service’s labels</li>
-<li>Filtering swarm services by label</li>
-</ul>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p>It comes with Docker For Mac</p>
 
                 
             </div>

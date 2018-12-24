@@ -77,6 +77,71 @@
     
         <article class="post-abstract">
             <div class="post-title">
+                <h2><a class="post-title-link" href="/2018/04/05/20180405-redux-training/">redux training</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2018-04-05</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="01-hello-world"><a href="#01-hello-world" class="headerlink" title="01 hello world"></a>01 hello world</h2><p>demo creating a simple react app with a single .js file.</p>
+<ul>
+<li><code>react run index.js</code></li>
+</ul>
+<h2 id="02-add-some-sass"><a href="#02-add-some-sass" class="headerlink" title="02 add some sass"></a>02 add some sass</h2><p>demo sass in your simple app.</p>
+<ul>
+<li><code>react run index.js --plugins sass</code></li>
+</ul>
+<h2 id="03-add-professional-file-structure"><a href="#03-add-professional-file-structure" class="headerlink" title="03 add professional file structure"></a>03 add professional file structure</h2><p>demo app with professional file structure.</p>
+<ul>
+<li><code>npm start</code></li>
+</ul>
+<h2 id="04-todomvc-redux"><a href="#04-todomvc-redux" class="headerlink" title="04 todomvc-redux"></a>04 todomvc-redux</h2><p>demo the ubiquitous todomvc app built with redux</p>
+<h3 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h3><ul>
+<li>redux actions</li>
+</ul>
+<p>Actions are payloads of information that send data to your store. The only source of information for the store. You send them to the store using <code>store.dispatch()</code>.</p>
+<ul>
+<li>redux reducers</li>
+</ul>
+<p>Reducers specifies how the application state changes in response to an action.</p>
+<ul>
+<li>redux middleware</li>
+</ul>
+<p>Middleware provides a hook that allows access to the action before and after it reaches the reducer.</p>
+<ul>
+<li>redux store</li>
+</ul>
+<p>The store is an object that:</p>
+<ul>
+<li>holds app state</li>
+<li>allows access to state via <code>getState()</code></li>
+<li>allows updating state via <code>dispatch(action)</code></li>
+<li>allows registering/unregistering listeners <code>(un)subscribe(listener)</code></li>
+</ul>
+<h3 id="jest"><a href="#jest" class="headerlink" title="jest"></a>jest</h3><p>zero config testing platform</p>
+<p>features:</p>
+<ul>
+<li>snapshots</li>
+<li>awesome cli interface</li>
+<li>powerful mocking library</li>
+<li>code coverage</li>
+<li>parallelizes and sandboxes tests</li>
+</ul>
+<ul>
+<li>test actions</li>
+<li>test reducers</li>
+<li>test middleware</li>
+<li>test store</li>
+</ul>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
                 <h2><a class="post-title-link" href="/2017/05/12/2017/20170511-npm-refresher/">npm refresher</a></h2>
             </div>
             <div class="post-meta">
@@ -295,136 +360,6 @@ test
 </ul>
 <h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><iframe src="http://embed.plnkr.co/8KLnfn8S29y1cFw59FYY/?show=preview" frameborder="0" width="100%" height="1500"></iframe>
 
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2017/04/12/2017/20170412-learning-lerna/">learning lerna</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2017-04-12</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <p><a href="https://goo.gl/OQnM1G" target="_blank" rel="noopener">Lerna</a>: A tool for managing JavaScript projects with multiple packages.</p>
-<h2 id="About"><a href="#About" class="headerlink" title="About"></a>About</h2><p>Developing many packages in separate repos are messy with disadvantages.  To solve this many projects <code>babel</code>, <code>react</code>, <code>angular</code>, and many more, develop all packages in a single repo called a <code>monorepo</code>.</p>
-<p><strong>Lerna is a tool that optimizes the workflow around managing monorepos.</strong></p>
-<p>It looks like this:</p>
-<pre><code>my-lerna-repo/
-  lerna.json
-  package.json
-  packages/
-    package-1/
-      package.json
-    package-2/
-      package.json
-</code></pre><h2 id="Why-use-Lerna"><a href="#Why-use-Lerna" class="headerlink" title="Why use Lerna"></a>Why use Lerna</h2><ol>
-<li>It optimizes workflow for managing <code>packages</code></li>
-<li>it’s much more organized than having separate repos for each package</li>
-<li>manage separate utility projects tracking version independently (lodash v4.x, ramda v3.x)</li>
-<li>manage a group of related components using only a single version (bootstrap-components v3.x)</li>
-</ol>
-<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><h3 id="Create-a-lerna-repo"><a href="#Create-a-lerna-repo" class="headerlink" title="Create a lerna repo"></a>Create a lerna repo</h3><blockquote>
-<p>We are using lerna v2.x</p>
-</blockquote>
-<pre><code>// INSTALL
-npm install -g lerna
-
-// CREATE LERNA REPO
-git init lerna-repo       // create a new git repo
-cd lerna-repo
-lerna init                // LERNA COMMAND: lerna init: makes 2 files
-                          // lerna.json package.json
-
-// CONFIGURE LERNA
-{                         // configure lerna by editing lerna.json
-  &quot;lerna&quot;: &quot;2.0.0-rc.1&quot;,
-  &quot;packages&quot;: [
-    &quot;packages/*&quot;
-  ],
-  &quot;version&quot;: &quot;0.0.0&quot;,
-  &quot;npmClient&quot;: &quot;yarn&quot;,
-  &quot;commands&quot;: {
-    &quot;bootstrap&quot;: {
-      &quot;hoist&quot;: &quot;**&quot;
-    }
-  }
-}
-
-// CREATE PACKAGES
-mkdir -p packages/project1
-mkdir -p packages/project2
-lerna exec npm init -- -y     // make package.json for each project
-
-// RUN COMMANDS ON SCOPE
-lerna exec cat package.json --scope project1      // review them individually
-
-// SETUP DEPENDENCIES
-yarn add react react-dom
-// copy package.json dependency from root to project
-
-// LOCAL DEPENDENCY
-// one local project may depend on another
-// just add the dependency-project-name to package.json
-// then run
-lerna bootstrap
-</code></pre><h2 id="Commands-and-Options"><a href="#Commands-and-Options" class="headerlink" title="Commands and Options"></a>Commands and Options</h2><h3 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h3><pre><code>- bootstrap  Link together local packages and npm install remaining package dependencies
-- publish    Publish updated packages to npm
-- updated    Check which packages have changed since the last release
-- import     Import a package with git history from an external repository
-- clean      Remove the node_modules directory from all packages
-- diff       Diff all packages or a single package since the last release
-- init       Initialize a lerna repo
-- run        Run npm script in each package
-- exec       Run a command in each package
-- ls         List all public packages
-</code></pre><h3 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h3><p>configure lerna</p>
-<pre><code>--npm-tag [tagname]     Publish packages with the specified npm dist-tag
---npm-client [client]   Executable used to install dependencies (npm, yarn, pnpm, ...)
---concurrency           How many threads to use if lerna parallelises the tasks
-                        (defaults to 4)
---loglevel              What level of logs to report (defaults to &quot;info&quot;).
-                        On failure, all logs are written to lerna-debug.log in the
-                        current working directory.
---git-remote [remote]   Push git changes to the specified remote instead of &apos;origin&apos;
---canary, -c            Publish packages after every successful merge using the
-                        sha as part of the tag
---conventional-commits  Use angular conventional-commit format to determine version
-                        bump and generate CHANGELOG
---yes                   Skip all confirmation prompts
-</code></pre><p>init</p>
-<pre><code>--independent, -i       Version packages independently
---exact                 Specify cross-dependency version numbers exactly rather than
-                        with a caret (^) (only affects publish and init)
-</code></pre><p>bootstrap</p>
-<pre><code>--hoist [glob]          Install external dependencies matching [glob] to the repo root.
-                        Use with no glob for all.
---nohoist [glob]        Don&apos;t hoist external dependencies matching [glob] to the repo root
---include-filtered-dependencies
-                        Flag to force lerna to include all dependencies and transitive
-                        dependencies when running &apos;bootstrap&apos;, even if they should not
-                        be included by the scope or ignore flags
-</code></pre><p>publish</p>
-<pre><code>--skip-git              Skip commiting, tagging, and pushing git changes
---skip-npm              Stop before actually publishing change to npm
---exact                 Specify cross-dependency version numbers exactly rather than
-                        with a caret (^) (only affects publish and init)
---message, -m [msg]     Use a custom commit message when creating the publish commit
---repo-version          Specify repo version to publish
---force-publish         Force publish for the specified packages (comma-separated)
-                        or all packages using *
-                        (skips the git diff check for changed packages)
-</code></pre><p>only affects ‘run’, ‘exec’, ‘clean’, ‘ls’ and ‘bootstrap’ commands</p>
-<pre><code>--scope [glob]          Restricts the scope to package names matching the given glob
---ignore [glob]         Ignores packages with names matching the given glob
-</code></pre><p>only affects ‘run’ command</p>
-<pre><code>--stream                Stream output with lines prefixed by package (only &apos;run&apos;)
-</code></pre><p>only affects run, exec, publish and bootstrap</p>
-<pre><code>--no-sort               When executing tasks, ignore the dependency ordering of packages
-</code></pre>
                 
             </div>
         </article>

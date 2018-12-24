@@ -77,6 +77,28 @@
     
         <article class="post-abstract">
             <div class="post-title">
+                <h2><a class="post-title-link" href="/2018/08/19/20180819-using-export-with-index-js/">using export with index.js</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2018-08-19</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <p>Consider the app sructure</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">├── config.js</span><br><span class="line">├── containers</span><br><span class="line">├── context.js</span><br><span class="line">├── images</span><br><span class="line">│   └── logo.svg</span><br><span class="line">├── index.js</span><br><span class="line">├── registerServiceWorker.js</span><br><span class="line">├── routes</span><br><span class="line">│   ├── App.css</span><br><span class="line">│   ├── App.js</span><br><span class="line">│   └── App.test.js</span><br><span class="line">├── styles</span><br><span class="line">│   └── index.css</span><br><span class="line">├── utils</span><br><span class="line">└── views</span><br><span class="line">    ├── body.css</span><br><span class="line">    ├── body.js</span><br><span class="line">    ├── flex.css</span><br><span class="line">    ├── flex.js</span><br><span class="line">    ├── header.js</span><br><span class="line">    ├── index.js</span><br><span class="line">    └── info.js</span><br></pre></td></tr></table></figure>
+<p>/src/views/index.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./header"</span>;</span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./body"</span>;</span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./info"</span>;</span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./flex"</span>;</span><br></pre></td></tr></table></figure>
+<p>/src/views/body.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"./body.css"</span>;</span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  FlexDefaults,</span><br><span class="line">  FlexWrap1,</span><br><span class="line">  FlexWrap2,</span><br><span class="line">  Justify1,</span><br><span class="line">  Justify2,</span><br><span class="line">  Justify3,</span><br><span class="line">  Justify4,</span><br><span class="line">  Justify5,</span><br><span class="line">  Align1,</span><br><span class="line">  JustifyAndAlign</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">"../views"</span>;</span><br><span class="line">...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>Utilising the <code>index.js</code> file in this way you can import many views wether they exist in one file or many. This simplifies coding. You do need to remember to populate <code>index.js</code> when adding new files.</p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
                 <h2><a class="post-title-link" href="/2018/08/19/20180819-recursion/">recursion review</a></h2>
             </div>
             <div class="post-meta">
@@ -125,71 +147,6 @@
 <li>verify that the state has changed and any external APIs were called as expected</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'store'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; fetchRecipes &#125; <span class="keyword">from</span> <span class="string">'actions/recipes'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; mockFetch &#125; <span class="keyword">from</span> <span class="string">'test-utils'</span>;</span><br><span class="line"></span><br><span class="line">describe(<span class="string">'integration'</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="string">'should fetch recipes from server'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> data = [&#123; <span class="attr">title</span>: <span class="string">'test'</span> &#125;];</span><br><span class="line"></span><br><span class="line">    expect(store.getState().recipes).toEqual([]);                   <span class="comment">// verify initial state</span></span><br><span class="line">    mockFetch(<span class="string">'recipes.json'</span>, <span class="number">200</span>, <span class="built_in">JSON</span>.stringify(data));           <span class="comment">// mock dependencies</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> store.dispatch(fetchRecipes())                           <span class="comment">// dispatch action</span></span><br><span class="line">      .then(<span class="function"><span class="params">()</span> =&gt;</span> expect(store.getState().recipes).toEqual(data));  <span class="comment">// verify state</span></span><br><span class="line"> &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2018/04/05/20180405-redux-training/">redux training</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2018-04-05</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="01-hello-world"><a href="#01-hello-world" class="headerlink" title="01 hello world"></a>01 hello world</h2><p>demo creating a simple react app with a single .js file.</p>
-<ul>
-<li><code>react run index.js</code></li>
-</ul>
-<h2 id="02-add-some-sass"><a href="#02-add-some-sass" class="headerlink" title="02 add some sass"></a>02 add some sass</h2><p>demo sass in your simple app.</p>
-<ul>
-<li><code>react run index.js --plugins sass</code></li>
-</ul>
-<h2 id="03-add-professional-file-structure"><a href="#03-add-professional-file-structure" class="headerlink" title="03 add professional file structure"></a>03 add professional file structure</h2><p>demo app with professional file structure.</p>
-<ul>
-<li><code>npm start</code></li>
-</ul>
-<h2 id="04-todomvc-redux"><a href="#04-todomvc-redux" class="headerlink" title="04 todomvc-redux"></a>04 todomvc-redux</h2><p>demo the ubiquitous todomvc app built with redux</p>
-<h3 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h3><ul>
-<li>redux actions</li>
-</ul>
-<p>Actions are payloads of information that send data to your store. The only source of information for the store. You send them to the store using <code>store.dispatch()</code>.</p>
-<ul>
-<li>redux reducers</li>
-</ul>
-<p>Reducers specifies how the application state changes in response to an action.</p>
-<ul>
-<li>redux middleware</li>
-</ul>
-<p>Middleware provides a hook that allows access to the action before and after it reaches the reducer.</p>
-<ul>
-<li>redux store</li>
-</ul>
-<p>The store is an object that:</p>
-<ul>
-<li>holds app state</li>
-<li>allows access to state via <code>getState()</code></li>
-<li>allows updating state via <code>dispatch(action)</code></li>
-<li>allows registering/unregistering listeners <code>(un)subscribe(listener)</code></li>
-</ul>
-<h3 id="jest"><a href="#jest" class="headerlink" title="jest"></a>jest</h3><p>zero config testing platform</p>
-<p>features:</p>
-<ul>
-<li>snapshots</li>
-<li>awesome cli interface</li>
-<li>powerful mocking library</li>
-<li>code coverage</li>
-<li>parallelizes and sandboxes tests</li>
-</ul>
-<ul>
-<li>test actions</li>
-<li>test reducers</li>
-<li>test middleware</li>
-<li>test store</li>
-</ul>
 
                 
             </div>
